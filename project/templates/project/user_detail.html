@@ -1,11 +1,8 @@
-{% extends 'myapp/base.html' %}
+{% extends 'project/base.html' %}
 
+{% block header %}{{ usuario.username | title}}{% endblock %}
 {% block content %}
-    <h1>{{ user.username | title}}</h1>
-    <h2>My Projects</h2>
-    <ul>
-    {% for p in projects %}
-        <li><a href="{% url 'myapp:project_detail' p.id%}">{{ p.name }}</a></li>
-    {% endfor %}
-    </ul>
+<h2>My Projects</h2>
+<ul>
+</ul>
 {% endblock %}

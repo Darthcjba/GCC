@@ -1,9 +1,10 @@
-{% extends 'myapp/base.html' %}
+{% extends 'project/base.html' %}
 
+{% block header %}Proyectos{% endblock %}
 {% block content %}
     <ul>
-    {% for p in project_list %}
-        <h2><li><a href="{% url 'myapp:project_detail' p.id %}">{{ p.name }} - {{ p.progress }}</a></li></h2>
+    {% for p in projects %}
+        <li><a href="{% url 'project:project_detail' p.id %}">{{ p.nombre_corto }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}
