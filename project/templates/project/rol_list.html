@@ -1,0 +1,13 @@
+{% extends 'project/base.html' %}
+
+{% block header %}Roles{% endblock %}
+{% block content %}
+    <ul>
+    {% for r in roles %}
+        <li><a href="{% url 'project:rol_detail' r.id %}">{{ r.name }}</a></li>
+    {% endfor %}
+    </ul>
+    <div class="row">
+    <p><a href="{% url 'project:rol_add' %}" class="fa fa-plus-circle">Agregar</a></p>
+    </div>
+{% endblock %}

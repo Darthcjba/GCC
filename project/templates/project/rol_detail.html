@@ -1,0 +1,17 @@
+{% extends 'project/base.html' %}
+
+{% block title %}{{ rol.name }}{% endblock %}
+
+{% block header %}{{ rol.name }}{% endblock %}
+{% block content %}
+    <h3>Permisos: </h3>
+    <ul>
+    {% for p in rol.permissions.all %}
+        <li>{{ p.name }}</li>
+    {% endfor %}
+    </ul>
+    <div class="row">
+    <p><a href="{% url 'project:rol_update' rol.id %}" class="fa fa-pencil">Editar</a></p>
+    <p><a href="{% url 'project:rol_delete' rol.id %}" class="fa fa-eraser">Eliminar</a></p>
+    </div>
+{% endblock %}

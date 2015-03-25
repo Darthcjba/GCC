@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from django.forms import forms
+from django import forms
 from guardian.shortcuts import get_perms_for_model
 from project.models import Proyecto, Flujo, Sprint, Actividad
 from project.models import UserStory

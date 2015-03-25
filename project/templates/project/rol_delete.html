@@ -1,0 +1,15 @@
+{% extends 'project/base.html' %}
+
+{% block title %}{{ rol.name }}{% endblock %}
+
+{% block header %}{{ rol.name }}{% endblock %}
+{% block content %}
+<form action="" method="post" role="form">
+    {% csrf_token %}
+    <div class="form-group">
+        <p>Seguro de que desea eliminar el rol <strong>{{ group }}</strong>?</p>
+    </div>
+
+    <input type="submit" value="Confirmar" class="btn btn-default"/>
+</form>
+{% endblock %}

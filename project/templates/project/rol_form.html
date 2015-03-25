@@ -1,0 +1,46 @@
+{% extends "project/base.html" %}
+{% block header %}Rol{% endblock %}
+{% block content %}
+
+    <form action="" method="post" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <h5>{{ form.perms_proyecto.label_tag }}</h5>
+                    {{ form.perms_proyecto }}
+                </div>
+                <div class="col-lg-4">
+                    <h5>{{ form.perms_flujo.label_tag }}</h5>
+                    {{ form.perms_flujo }}
+                </div>
+                <div class="col-lg-4">
+                    <h5>{{ form.perms_actividad.label_tag }}</h5>
+                    {{ form.perms_actividad }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <h5>{{ form.perms_userstory.label_tag }}</h5>
+                    {{ form.perms_userstory }}
+                </div>
+                <div class="col-lg-4">
+                    <h5>{{ form.perms_sprint.label_tag }}</h5>
+                    {{ form.perms_sprint }}
+                </div>
+                <div class="col-lg-4">
+                    <h5>{{ form.perms_rolproyecto.label_tag }}</h5>
+                    {{ form.perms_rolproyecto }}
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="Guardar" class="btn btn-default"/>
+    </form>
+
+{% endblock %}
