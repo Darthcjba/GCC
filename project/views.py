@@ -11,7 +11,6 @@ class LoginRequiredMixin(object):
         return login_required(view)
 
 
-# Home simple para probar bootstrap
 @login_required()
 def home(request):
     context = {}
