@@ -1,8 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
+from django.core.exceptions import ValidationError
+
+
+def validate_dates(start, end):
+    if start > end:
+        raise ValidationError('La fecha de inicio no puede ser mayor que la de fin')
+
 
 class Proyecto(models.Model):
-    estado_choices = (('EP', 'En Produccion'), ('CO', 'Completado'), ('AP', 'Aprobado'), ('CA', 'Cancelado'), ('IN', 'Inactivo'))
+    estado_choices = (
+        ('EP', 'En Produccion'), ('CO', 'Completado'), ('AP', 'Aprobado'), ('CA', 'Cancelado'), ('IN', 'Inactivo'))
     nombre_corto = models.CharField(max_length=20)
     nombre_largo = models.CharField(max_length=40)
     estado = models.CharField(choices=estado_choices, max_length=2, default='IN')
@@ -12,15 +20,27 @@ class Proyecto(models.Model):
     duracion_sprint = models.IntegerField(default=0)
     descripcion = models.TextField()
 
-class MiembroProyecto(models.Model):
+    def __unicode__(self):
+        return self.nombre_corto
+
+
+class MiembroEquipo(models.Model):
     usuario = models.ForeignKey(User)
     proyecto = models.ForeignKey(Proyecto)
     rol = models.ForeignKey(Group)
+
+    def __unicode__(self):
+        return "{} - {}:{}".format(self.proyecto, self.usuario, self.rol)
+
+    class Meta:
+        verbose_name_plural = 'miembros equipo'
+
 
 class Sprint(models.Model):
     inicio = models.DateTimeField()
     fin = models.DateTimeField()
     proyecto = models.ForeignKey(Proyecto)
+
 
 class Flujo(models.Model):
     nombre = models.CharField(max_length=20)
@@ -32,6 +52,7 @@ class Flujo(models.Model):
     class Meta:
         verbose_name_plural = 'flujos'
 
+
 class Actividad(models.Model):
     name = models.CharField(max_length=20)
     flujo = models.ForeignKey(Flujo)
@@ -42,6 +63,7 @@ class Actividad(models.Model):
     class Meta:
         order_with_respect_to = 'flujo'
         verbose_name_plural = 'actividades'
+
 
 class UserStory(models.Model):
     estado_choices = ((0, 'ToDo'), (1, 'Doing'), (2, 'Done'), (3, 'Pendiente Aprobacion'), (4, 'Aprobado'))
@@ -59,6 +81,10 @@ class UserStory(models.Model):
     sprint = models.ForeignKey(Sprint, null=True)
     actividad = models.ForeignKey(Actividad, null=True)
 
+    class Meta:
+        verbose_name_plural = 'user stories'
+
+
 class Version(models.Model):
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
@@ -68,15 +94,17 @@ class Version(models.Model):
     modificacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
 
+
 class Nota(models.Model):
     descripcion = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
-    #usuario = models.ForeignKey(User)
+    # usuario = models.ForeignKey(User)
     user_story = models.ForeignKey(UserStory)
+
 
 class Adjunto(models.Model):
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
-    #path = models.FilePathField()
+    # path = models.FilePathField()
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)

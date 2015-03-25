@@ -1,0 +1,19 @@
+{% extends 'project/base.html' %}
+{% block content %}
+    <h1>Home</h1>
+    <hr />
+    <h2>Users</h2>
+    <ul>
+        {% for u in users %}
+            <li>{{ u.username }}</li>
+        {% endfor %}
+    </ul>
+    <hr />
+    <h2>Proyects</h2>
+    <ul>
+        {% for p in proyects %}
+            <li>{{ p.nombre_corto }}</li>
+        {% endfor %}
+    </ul>
+    <hr />
+{% endblock %}

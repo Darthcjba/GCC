@@ -2,10 +2,20 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Permission, Group
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from project.models import MiembroEquipo, Proyecto
 from django.utils.decorators import method_decorator
 from django.views import generic
 from project.forms import RolForm
 
+#Home simple para probar bootstrap
+def home(request):
+    context = {}
+    context['users'] = User.objects.all()
+    context['proyects'] = Proyecto.objects.all()
+    context['team_members'] = MiembroEquipo.objects.all()
+
+    return render(request, 'project/home.html', context)
 
 class LoginRequiredMixin(object):
     @classmethod

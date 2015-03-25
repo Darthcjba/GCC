@@ -1,0 +1,22 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ project.name }}</h1>
+    <h2>Product Owner: {{ project.user }}</h2>
+    <h3>Status: {{ project.status }}</h3>
+    <h3>Progress: {{ project.progress }}</h3>
+    <hr />
+    <h2>Flujos</h2>
+    <ul>
+    {% for f in project.flujo_set.all %}
+        <li>{{ f.name }}</li>
+        <ol>
+        {% for a in f.actividad_set.all %}
+            <li>{{ a.name }}(id: {{ a.id }})</li>
+        {% endfor %}
+        </ol>
+    {% endfor %}
+    </ul>
+{% endblock %}
