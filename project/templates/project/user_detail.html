@@ -1,11 +1,18 @@
-{% extends 'myapp/base.html' %}
+{% extends 'project/base.html' %}
 
 {% block content %}
-    <h1>{{ user.username | title}}</h1>
-    <h2>My Projects</h2>
-    <ul>
-    {% for p in projects %}
-        <li><a href="{% url 'myapp:project_detail' p.id%}">{{ p.name }}</a></li>
-    {% endfor %}
-    </ul>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+        <h1>{{ usuario.username | title}}</h1>
+        <h2>My Projects</h2>
+        <ul>
+        </ul>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container-fluid -->
+
 {% endblock %}

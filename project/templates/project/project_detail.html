@@ -1,10 +1,10 @@
-{% extends 'myapp/base.html' %}
+{% extends 'project/base.html' %}
 
 {% block title %}{{ project.name }}{% endblock %}
 
 {% block content %}
     <h1>{{ project.name }}</h1>
-    <h2>Product Owner: {{ project.user }}</h2>
+
     <h3>Status: {{ project.status }}</h3>
     <h3>Progress: {{ project.progress }}</h3>
     <hr />
