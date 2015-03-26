@@ -108,6 +108,13 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
     context_object_name = 'project'
     template_name = 'project/project_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDetail, self).get_context_data(**kwargs)
+        #team = self.object.miembroequipo_set
+        #context['product_owner'] = team.filter(rol='Product Owner')
+        #context['scrum_master'] = team.filter(rol='Scrum Master')
+        return context
+
 
 class AddRolView(LoginRequiredMixin, generic.CreateView):
     model = Group
