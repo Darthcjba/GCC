@@ -11,7 +11,8 @@
     {% endfor %}
     </ul>
     <div class="row">
-    <p><a href="{% url 'project:rol_update' rol.id %}" class="fa fa-pencil">Editar</a></p>
-    <p><a href="{% url 'project:rol_delete' rol.id %}" class="fa fa-eraser">Eliminar</a></p>
+
+    {% if perms.auth.change_group %}<p><a href="{% url 'project:rol_update' rol.id %}" class="fa fa-pencil">Edit</a></p>{% endif %}
+    {% if perms.auth.delete_group %}<p><a href="{% url 'project:rol_delete' rol.id %}" class="fa fa-eraser">Delete</a></p>{% endif %}
     </div>
 {% endblock %}

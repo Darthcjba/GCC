@@ -1,2 +1,31 @@
+from django.contrib.auth.models import User, Permission, Group
 from django.test import TestCase
 
+class RolesTest(TestCase):
+    def setUp(self):
+        u = User.objects.create_user('temp','temp@email.com', 'temp')
+        p = Permission.objects.get(codename='add_group')
+        u.user_permissions.add(p)
+
+    def test_create_role(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/roles/add/');
+        self.assertEquals(response.status_code, 200)
+        #intentamos crear un rol developer que pueda crear, editar y borrar proyectos, y crear y borrar US
+        response = c.post('/roles/add/', {'name':'developer', 'perms_proyecto':[u'add_proyecto', u'change_proyecto', u'delete_proyecto'], 'perms_userstory':[u'add_userstory',u'delete_userstory']}, follow=True)
+        #deberia redirigir
+        self.assertRedirects(response, '/roles/1/')
+        #comprobamos que aparezca el permiso asignado
+        self.assertContains(response, 'Can add proyecto')
+
+    def test_not_create_invalid_role(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/roles/add/');
+        self.assertEquals(response.status_code, 200)
+        #intentamos crear un rol sin nombre
+        response = c.post('/roles/add/', {'name':'', 'perms_proyecto':[u'add_proyecto', u'change_proyecto', u'delete_proyecto'], 'perms_userstory':[u'add_userstory',u'delete_userstory']})
+        #no deberia redirigir
+        self.assertIsNot(response.status_code, 302)
+        self.assertContains(response, 'This field is required.')
