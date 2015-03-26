@@ -5,4 +5,8 @@
 <h2>My Projects</h2>
 <ul>
 </ul>
+     <div class="row">
+    <p><a href="{% url 'project:user_update' usuario.id %}" class="fa fa-pencil">Editar</a></p>
+    <p><a href="{% url 'project:user_delete' usuario.id %}" class="fa fa-eraser">Eliminar</a></p>
+    </div>
 {% endblock %}

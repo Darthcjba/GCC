@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Permission, Group
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.forms import PasswordInput
+from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
@@ -42,6 +44,46 @@ class UserDetail(LoginRequiredMixin, DetailView):
     model = User
     context_object_name = 'usuario'
     template_name = 'project/user_detail.html'
+
+class AddUser(LoginRequiredMixin,generic.CreateView):
+    model = User
+    form_class = modelform_factory(User,
+    fields = ['first_name', 'last_name','email','username', 'password',],
+    widgets = {"password":PasswordInput()})
+    template_name = 'project/user_form.html'
+    @method_decorator(permission_required('auth.add_group', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(AddUser, self).dispatch(request, *args, **kwargs)
+    def get_success_url(self):
+        return reverse('project:user_detail',kwargs={'pk':self.object.id})
+
+    def form_valid(self, form):
+        super(AddUser, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class DeleteUser(LoginRequiredMixin,generic.DeleteView):
+    model = User
+    template_name = 'project/user_delete.html'
+    context_object_name = 'usuario'
+    success_url = reverse_lazy('project:user_list')
+
+class UpdateUser(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    template_name = 'project/user_form.html'
+    form_class = modelform_factory(User,
+    fields = ['first_name', 'last_name','email','username','last_login','date_joined'],
+    widgets = {"password":PasswordInput()})
+    @method_decorator(permission_required('auth.change_group', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(UpdateUser, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('project:user_detail', kwargs={'pk': self.object.id })
+
+    def form_valid(self, form):
+        super(UpdateUser, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProjectList(LoginRequiredMixin, ListView):
@@ -136,3 +178,4 @@ class RolDetail(generic.DetailView):
     model = Group
     template_name = 'project/rol_detail.html'
     context_object_name = 'rol'
+
