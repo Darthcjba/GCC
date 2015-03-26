@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from django.views import generic
 from project.forms import RolForm
 
+
 class LoginRequiredMixin(object):
     @classmethod
     def as_view(cls, **initkwargs):
@@ -45,41 +46,51 @@ class UserDetail(LoginRequiredMixin, DetailView):
     context_object_name = 'usuario'
     template_name = 'project/user_detail.html'
 
-class AddUser(LoginRequiredMixin,generic.CreateView):
+    def get_context_data(self, **kwargs):
+        context = super(UserDetail, self).get_context_data(**kwargs)
+        context['projects'] = [x.proyecto for x in self.object.miembroequipo_set.all()]
+        return context
+
+
+class AddUser(LoginRequiredMixin, generic.CreateView):
     model = User
     form_class = modelform_factory(User,
-    fields = ['first_name', 'last_name','email','username', 'password',],
-    widgets = {"password":PasswordInput()})
+                                   fields=['first_name', 'last_name', 'email', 'username', 'password', ],
+                                   widgets={"password": PasswordInput()})
     template_name = 'project/user_form.html'
+
     @method_decorator(permission_required('auth.add_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(AddUser, self).dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
-        return reverse('project:user_detail',kwargs={'pk':self.object.id})
+        return reverse('project:user_detail', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
         super(AddUser, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url())
 
 
-class DeleteUser(LoginRequiredMixin,generic.DeleteView):
+class DeleteUser(LoginRequiredMixin, generic.DeleteView):
     model = User
     template_name = 'project/user_delete.html'
     context_object_name = 'usuario'
     success_url = reverse_lazy('project:user_list')
 
+
 class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     model = User
     template_name = 'project/user_form.html'
     form_class = modelform_factory(User,
-    fields = ['first_name', 'last_name','email','username','last_login','date_joined'],
-    widgets = {"password":PasswordInput()})
+                                   fields=['first_name', 'last_name', 'email', 'username', 'last_login',
+                                           'date_joined'], )
+
     @method_decorator(permission_required('auth.change_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(UpdateUser, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('project:user_detail', kwargs={'pk': self.object.id })
+        return reverse('project:user_detail', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
         super(UpdateUser, self).form_valid(form)
@@ -105,14 +116,14 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(AddRolView, self).get_context_data(**kwargs)
-        context['current_action']="Add"
+        context['current_action'] = "Add"
         return context
 
     def get_success_url(self):
         """
         :return:la url de redireccion a la vista de los detalles del rol editado.
         """
-        return reverse('project:rol_detail', kwargs={'pk': self.object.id })
+        return reverse('project:rol_detail', kwargs={'pk': self.object.id})
 
     @method_decorator(permission_required('auth.add_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
@@ -134,11 +145,11 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UpdateRolView, self).get_context_data(**kwargs)
-        context['current_action']="Update"
+        context['current_action'] = "Update"
         return context
 
     def get_success_url(self):
-        return reverse('project:rol_detail', kwargs={'pk': self.object.id })
+        return reverse('project:rol_detail', kwargs={'pk': self.object.id})
 
     @method_decorator(permission_required('auth.change_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
@@ -149,15 +160,15 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
 
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
-        initial = {'perms_proyecto':perm_list, 'perms_sprint':perm_list, 'perms_userstory':perm_list,
-                   'perms_flujo':perm_list, 'perms_actividad':perm_list, 'perms_user':perm_list,
-                   'perms_group':perm_list}
+        initial = {'perms_proyecto': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
+                   'perms_flujo': perm_list, 'perms_actividad': perm_list, 'perms_user': perm_list,
+                   'perms_group': perm_list}
         return initial
 
 
     def form_valid(self, form):
         super(UpdateRolView, self).form_valid(form)
-        #eliminamos permisos anteriores
+        # eliminamos permisos anteriores
         self.object.permissions.clear()
         escogidas = get_selected_perms(self.request.POST)
         for permname in escogidas:
@@ -165,6 +176,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
             self.object.permissions.add(perm)
 
         return HttpResponseRedirect(self.get_success_url())
+
 
 class DeleteRolView(generic.DeleteView):
     model = Group
@@ -174,6 +186,7 @@ class DeleteRolView(generic.DeleteView):
     @method_decorator(permission_required('auth.delete_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(DeleteRolView, self).dispatch(request, *args, **kwargs)
+
 
 def get_selected_perms(POST):
     current_list = POST.getlist('perms_proyecto')
@@ -186,10 +199,12 @@ def get_selected_perms(POST):
     current_list.extend(POST.getlist('perms_group'))
     return current_list
 
+
 class RolList(generic.ListView):
     model = Group
     template_name = 'project/rol_list.html'
     context_object_name = 'roles'
+
 
 class RolDetail(generic.DetailView):
     model = Group
