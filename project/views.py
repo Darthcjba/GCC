@@ -103,7 +103,15 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
     template_name = 'project/rol_form.html'
     form_class = RolForm
 
+    def get_context_data(self, **kwargs):
+        context = super(AddRolView, self).get_context_data(**kwargs)
+        context['current_action']="Add"
+        return context
+
     def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del rol editado.
+        """
         return reverse('project:rol_detail', kwargs={'pk': self.object.id })
 
     @method_decorator(permission_required('auth.add_group', raise_exception=True))
@@ -124,6 +132,11 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'project/rol_form.html'
     form_class = RolForm
 
+    def get_context_data(self, **kwargs):
+        context = super(UpdateRolView, self).get_context_data(**kwargs)
+        context['current_action']="Update"
+        return context
+
     def get_success_url(self):
         return reverse('project:rol_detail', kwargs={'pk': self.object.id })
 
@@ -137,7 +150,8 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
         initial = {'perms_proyecto':perm_list, 'perms_sprint':perm_list, 'perms_userstory':perm_list,
-                   'perms_flujo':perm_list, 'perms_actividad':perm_list}
+                   'perms_flujo':perm_list, 'perms_actividad':perm_list, 'perms_user':perm_list,
+                   'perms_group':perm_list}
         return initial
 
 
@@ -162,12 +176,15 @@ class DeleteRolView(generic.DeleteView):
         return super(DeleteRolView, self).dispatch(request, *args, **kwargs)
 
 def get_selected_perms(POST):
-    list = POST.getlist('perms_proyecto')
-    list.extend(POST.getlist('perms_userstory'))
-    list.extend(POST.getlist('perms_flujo'))
-    list.extend(POST.getlist('perms_sprint'))
-    list.extend(POST.getlist('perms_actividad'))
-    return list
+    current_list = POST.getlist('perms_proyecto')
+    current_list.extend(POST.getlist('perms_teammembers'))
+    current_list.extend(POST.getlist('perms_userstory'))
+    current_list.extend(POST.getlist('perms_flujo'))
+    current_list.extend(POST.getlist('perms_sprint'))
+    current_list.extend(POST.getlist('perms_actividad'))
+    current_list.extend(POST.getlist('perms_user'))
+    current_list.extend(POST.getlist('perms_group'))
+    return current_list
 
 class RolList(generic.ListView):
     model = Group

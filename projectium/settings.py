@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'project',
     'guardian',
+    'django.contrib.admindocs',
 )
 
 MIDDLEWARE_CLASSES = (

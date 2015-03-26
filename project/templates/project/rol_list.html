@@ -8,6 +8,6 @@
     {% endfor %}
     </ul>
     <div class="row">
-    <p><a href="{% url 'project:rol_add' %}" class="fa fa-plus-circle">Agregar</a></p>
+    {% if perms.auth.add_group %}<p><a href="{% url 'project:rol_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}
     </div>
 {% endblock %}
