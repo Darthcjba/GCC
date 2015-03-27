@@ -24,6 +24,13 @@ class Proyecto(models.Model):
     duracion_sprint = models.IntegerField(default=0)
     descripcion = models.TextField()
 
+    class Meta:
+        permissions = (
+            ('list_all_projects', 'list all available projects'),
+        )
+
+
+
     def __unicode__(self):
         return self.nombre_corto
 
@@ -55,6 +62,11 @@ class Flujo(models.Model):
 
     class Meta:
         verbose_name_plural = 'flujos'
+        permissions = (
+            ('add_flow_template', 'add flow template'),
+            ('change_flow_template', 'change flow template'),
+            ('delete_flow_template', 'delete flow template')
+        )
 
 
 class Actividad(models.Model):

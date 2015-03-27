@@ -11,7 +11,9 @@ from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
-from project.forms import RolForm
+from project.forms import RolForm, UserForm
+from guardian.shortcuts import get_perms
+
 
 
 class LoginRequiredMixin(object):
@@ -54,7 +56,7 @@ class UserDetail(LoginRequiredMixin, DetailView):
 
 class AddUser(LoginRequiredMixin, generic.CreateView):
     model = User
-    form_class = modelform_factory(User,
+    form_class = modelform_factory(User, form=UserForm,
                                    fields=['first_name', 'last_name', 'email', 'username', 'password', ],
                                    widgets={"password": PasswordInput()})
     template_name = 'project/user_form.html'
@@ -68,6 +70,11 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         super(AddUser, self).form_valid(form)
+        escogidas = self.request.POST.getlist('general_perms')
+        for permname in escogidas:
+            perm = Permission.objects.get(codename=permname)
+            self.object.permissions.add(perm)
+
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -81,7 +88,7 @@ class DeleteUser(LoginRequiredMixin, generic.DeleteView):
 class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     model = User
     template_name = 'project/user_form.html'
-    form_class = modelform_factory(User,
+    form_class = modelform_factory(User, form=UserForm,
                                    fields=['first_name', 'last_name', 'email', 'username', 'last_login',
                                            'date_joined'], )
 
@@ -92,8 +99,24 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         return reverse('project:user_detail', kwargs={'pk': self.object.id})
 
+    def get_initial(self):
+        modelo = self.get_object()
+
+        perm_list = [perm.codename for perm in list(modelo.user_permissions.all())]
+
+        initial = {'general_perms':perm_list}
+
+        return initial
+
     def form_valid(self, form):
         super(UpdateUser, self).form_valid(form)
+        # eliminamos permisos anteriores
+        self.object.user_permissions.clear()
+        escogidas = self.request.POST.getlist('general_perms')
+        for permname in escogidas:
+            perm = Permission.objects.get(codename=permname)
+            self.object.user_permissions.add(perm)
+
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -101,6 +124,12 @@ class ProjectList(LoginRequiredMixin, ListView):
     model = Proyecto
     context_object_name = 'projects'
     template_name = 'project/project_list.html'
+
+    def get_queryset(self):
+        if self.request.user.has_perm('project.list_all_projects'):
+            return Proyecto.objects.all()
+        else:
+            return [x.proyecto for x in self.request.user.miembroequipo_set.all()]
 
 
 class ProjectDetail(LoginRequiredMixin, DetailView):

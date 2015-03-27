@@ -4,6 +4,11 @@ from guardian.shortcuts import get_perms_for_model
 from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
 from project.models import UserStory
 
+class UserForm(forms.ModelForm):
+    perm1 = Permission.objects.get(codename="list_all_projects")
+    general_perms_list = [(perm1.codename, perm1.name)]
+
+    general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
 
 class RolForm(forms.ModelForm):
 
