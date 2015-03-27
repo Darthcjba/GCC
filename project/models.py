@@ -9,6 +9,10 @@ def validate_dates(start, end):
 
 
 class Proyecto(models.Model):
+    """
+    Stores a single project.
+
+    """
     estado_choices = (
         ('EP', 'En Produccion'), ('CO', 'Completado'), ('AP', 'Aprobado'), ('CA', 'Cancelado'), ('IN', 'Inactivo'))
     nombre_corto = models.CharField(max_length=20)

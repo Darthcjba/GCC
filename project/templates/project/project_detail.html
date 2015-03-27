@@ -1,21 +1,7 @@
 {% extends 'project/base.html' %}
 
-{% block title %}{{ project.name }}{% endblock %}
+{% block title %}{{ project.nombre_corto }}{% endblock %}
 
-{% block header %}{{ project.name }}{% endblock %}
+{% block header %}{{ project.nombre_largo }}: {{ project.nombre_corto }}{% endblock %}
 {% block content %}
-    <h3>Status: {{ project.status }}</h3>
-    <h3>Progress: {{ project.progress }}</h3>
-    <hr />
-    <h2>Flujos</h2>
-    <ul>
-    {% for f in project.flujo_set.all %}
-        <li>{{ f.name }}</li>
-        <ol>
-        {% for a in f.actividad_set.all %}
-            <li>{{ a.name }}(id: {{ a.id }})</li>
-        {% endfor %}
-        </ol>
-    {% endfor %}
-    </ul>
 {% endblock %}
