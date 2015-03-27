@@ -4,9 +4,17 @@ from guardian.shortcuts import get_perms_for_model
 from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
 from project.models import UserStory
 
+def general_perms_list():
+    permlist = []
+    permlist.append(Permission.objects.get(codename="list_all_projects"))
+    permlist.append(Permission.objects.get(codename="add_flow_template"))
+    permlist.append(Permission.objects.get(codename="change_flow_template"))
+    permlist.append(Permission.objects.get(codename="delete_flow_template"))
+    return permlist
+
 class UserForm(forms.ModelForm):
-    perm1 = Permission.objects.get(codename="list_all_projects")
-    general_perms_list = [(perm1.codename, perm1.name)]
+
+    general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
 
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
 

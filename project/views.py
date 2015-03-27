@@ -73,7 +73,7 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
         escogidas = self.request.POST.getlist('general_perms')
         for permname in escogidas:
             perm = Permission.objects.get(codename=permname)
-            self.object.permissions.add(perm)
+            self.object.user_permissions.add(perm)
 
         return HttpResponseRedirect(self.get_success_url())
 
