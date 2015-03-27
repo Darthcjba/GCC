@@ -181,7 +181,7 @@
                         {% else %}
                             <li><a href="#"><i class="fa fa-user fa-fw"></i> {{ user.username }}</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            <li><a href="{% url 'project:password_change' %}"><i class="fa fa-gear fa-fw"></i> Cambiar Password</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="{% url 'project:logout' %}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>

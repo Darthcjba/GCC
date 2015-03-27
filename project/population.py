@@ -45,7 +45,11 @@ def add_project(short, longn, sprint=30):
 
 
 def add_team_member(user, project, role):
-    return MiembroEquipo.objects.get_or_create(usuario=user, proyecto=project, rol=role)
+    try:
+        t = MiembroEquipo.objects.get(usuario=user.id, proyecto=project.id, rol=role.id)
+    except MiembroEquipo.DoesNotExist:
+        t = MiembroEquipo.objects.create(usuario=user, proyecto=project, rol=role)
+    return t
 
 # Start execution here!
 if __name__ == '__main__':
