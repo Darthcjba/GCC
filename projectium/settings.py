@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'project',
     'guardian',
     'django.contrib.admindocs',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
