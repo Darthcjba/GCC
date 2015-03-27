@@ -15,7 +15,10 @@ def general_perms_list():
 class UserForm(forms.ModelForm):
 
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
-
+    perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
+    perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
+    general_perms_list.extend(perms_user_list)
+    general_perms_list.extend(perms_group_list)
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
 
 class RolForm(forms.ModelForm):
@@ -26,8 +29,7 @@ class RolForm(forms.ModelForm):
     perms_flujo_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Flujo)]
     perms_sprint_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Sprint)]
     perms_actividad_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Actividad)]
-    perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
-    perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
+
 
     #perms_list = [(perm.codename, perm.name) for perm in Permission.objects.all()] #alternativa con una sola lista
 
@@ -37,8 +39,6 @@ class RolForm(forms.ModelForm):
     perms_flujo = forms.MultipleChoiceField(perms_flujo_list, widget=forms.CheckboxSelectMultiple, label=Flujo._meta.verbose_name_plural, required=False)
     perms_sprint = forms.MultipleChoiceField(perms_sprint_list, widget=forms.CheckboxSelectMultiple, label=Sprint._meta.verbose_name_plural, required=False)
     perms_actividad = forms.MultipleChoiceField(perms_actividad_list, widget=forms.CheckboxSelectMultiple, label=Actividad._meta.verbose_name_plural, required=False)
-    perms_user = forms.MultipleChoiceField(perms_user_list, widget=forms.CheckboxSelectMultiple, label=User._meta.verbose_name_plural, required=False)
-    perms_group = forms.MultipleChoiceField(perms_group_list, widget=forms.CheckboxSelectMultiple, label=Group._meta.verbose_name_plural, required=False)
     #perms = forms.MultipleChoiceField(perms_list, widget=forms.CheckboxSelectMultiple, label="Permisos", required=False)
     class Meta:
         model = Group

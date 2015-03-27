@@ -197,8 +197,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
         initial = {'perms_proyecto': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
-                   'perms_flujo': perm_list, 'perms_actividad': perm_list, 'perms_user': perm_list,
-                   'perms_group': perm_list}
+                   'perms_flujo': perm_list, 'perms_actividad': perm_list}
         return initial
 
 
@@ -231,8 +230,6 @@ def get_selected_perms(POST):
     current_list.extend(POST.getlist('perms_flujo'))
     current_list.extend(POST.getlist('perms_sprint'))
     current_list.extend(POST.getlist('perms_actividad'))
-    current_list.extend(POST.getlist('perms_user'))
-    current_list.extend(POST.getlist('perms_group'))
     return current_list
 
 
