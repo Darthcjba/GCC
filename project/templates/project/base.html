@@ -179,7 +179,7 @@
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Register</a>
                             </li>
                         {% else %}
-                            <li><a href="#"><i class="fa fa-user fa-fw"></i> {{ user.username }}</a>
+                            <li><a href="{% url 'project:user_detail' user.id %}"><i class="fa fa-user fa-fw"></i> {{ user.username }}</a>
                             </li>
                             <li><a href="{% url 'project:password_change' %}"><i class="fa fa-gear fa-fw"></i> Cambiar Password</a>
                             </li>
