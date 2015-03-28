@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>project.forms &mdash; documentación de project - 1</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="documentación de project - 1" href="../../index.html" />
+    <link rel="up" title="Código de módulo" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">documentación de project - 1</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Código de módulo</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para project.forms</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">UserCreationForm</span><span class="p">,</span> <span class="n">UserChangeForm</span><span class="p">,</span> <span class="n">ReadOnlyPasswordHashField</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">guardian.shortcuts</span> <span class="kn">import</span> <span class="n">get_perms_for_model</span>
+<span class="kn">from</span> <span class="nn">project.models</span> <span class="kn">import</span> <span class="n">Proyecto</span><span class="p">,</span> <span class="n">Flujo</span><span class="p">,</span> <span class="n">Sprint</span><span class="p">,</span> <span class="n">Actividad</span><span class="p">,</span> <span class="n">MiembroEquipo</span>
+<span class="kn">from</span> <span class="nn">project.models</span> <span class="kn">import</span> <span class="n">UserStory</span>
+
+<div class="viewcode-block" id="general_perms_list"><a class="viewcode-back" href="../../modules/forms.html#project.views.general_perms_list">[documentos]</a><span class="k">def</span> <span class="nf">general_perms_list</span><span class="p">():</span>
+    <span class="n">permlist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">permlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Permission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codename</span><span class="o">=</span><span class="s">&quot;list_all_projects&quot;</span><span class="p">))</span>
+    <span class="n">permlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Permission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codename</span><span class="o">=</span><span class="s">&quot;add_flow_template&quot;</span><span class="p">))</span>
+    <span class="n">permlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Permission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codename</span><span class="o">=</span><span class="s">&quot;change_flow_template&quot;</span><span class="p">))</span>
+    <span class="n">permlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Permission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codename</span><span class="o">=</span><span class="s">&quot;delete_flow_template&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">permlist</span>
+</div>
+<div class="viewcode-block" id="UserForm"><a class="viewcode-back" href="../../modules/forms.html#project.views.UserForm">[documentos]</a><span class="k">class</span> <span class="nc">UserForm</span><span class="p">(</span><span class="n">UserChangeForm</span><span class="p">):</span>
+
+    <span class="n">password</span> <span class="o">=</span> <span class="n">ReadOnlyPasswordHashField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;Password&quot;</span><span class="p">),</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;Solo se almacena un hash del password, no hay manera de verla. &quot;</span>
+                   <span class="s">&quot;Para modificarla seleccionar la opcion &lt;strong&gt;Cambiar Password&lt;/strong&gt;&quot;</span><span class="p">))</span>
+    <span class="n">general_perms_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">general_perms_list</span><span class="p">()]</span>
+    <span class="n">perms_user_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">User</span><span class="p">)]</span>
+    <span class="n">perms_group_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">Group</span><span class="p">)]</span>
+    <span class="n">general_perms_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">perms_user_list</span><span class="p">)</span>
+    <span class="n">general_perms_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">perms_group_list</span><span class="p">)</span>
+    <span class="n">general_perms</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span><span class="n">general_perms_list</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;General permissions&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="RolForm"><a class="viewcode-back" href="../../modules/forms.html#project.views.RolForm">[documentos]</a><span class="k">class</span> <span class="nc">RolForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+
+    <span class="n">perms_proyecto_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">)]</span>
+    <span class="n">perms_teammembers_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">MiembroEquipo</span><span class="p">)]</span>
+    <span class="n">perms_userstories_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">UserStory</span><span class="p">)]</span>
+    <span class="n">perms_flujo_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">Flujo</span><span class="p">)]</span>
+    <span class="n">perms_sprint_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">Sprint</span><span class="p">)]</span>
+    <span class="n">perms_actividad_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span><span class="p">,</span> <span class="n">perm</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms_for_model</span><span class="p">(</span><span class="n">Actividad</span><span class="p">)]</span>
+
+
+    <span class="c">#perms_list = [(perm.codename, perm.name) for perm in Permission.objects.all()] #alternativa con una sola lista</span>
+
+    <span class="n">perms_proyecto</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span><span class="n">perms_proyecto_list</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Proyecto</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">perms_teammembers</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span><span class="n">perms_teammembers_list</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">MiembroEquipo</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">perms_userstory</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span><span class="n">perms_userstories_list</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">UserStory</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">perms_flujo</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span><span class="n">perms_flujo_list</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Flujo</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">perms_sprint</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span><span class="n">perms_sprint_list</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Sprint</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">perms_actividad</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span><span class="n">perms_actividad_list</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">Actividad</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="c">#perms = forms.MultipleChoiceField(perms_list, widget=forms.CheckboxSelectMultiple, label=&quot;Permisos&quot;, required=False)</span>
+<div class="viewcode-block" id="RolForm.Meta"><a class="viewcode-back" href="../../modules/forms.html#project.views.RolForm.Meta">[documentos]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Group</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+</div></div>
+<div class="viewcode-block" id="UserCreateForm"><a class="viewcode-back" href="../../modules/forms.html#project.views.UserCreateForm">[documentos]</a><span class="k">class</span> <span class="nc">UserCreateForm</span><span class="p">(</span><span class="n">UserCreationForm</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UserCreateForm.Meta"><a class="viewcode-back" href="../../modules/forms.html#project.views.UserCreateForm.Meta">[documentos]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

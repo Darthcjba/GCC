@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>project.population &mdash; documentación de project - 1</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="documentación de project - 1" href="../../index.html" />
+    <link rel="up" title="Código de módulo" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">documentación de project - 1</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Código de módulo</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Código fuente para project.population</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="populate"><a class="viewcode-back" href="../../project.html#project.population.populate">[documentos]</a><span class="k">def</span> <span class="nf">populate</span><span class="p">():</span>
+    <span class="n">po</span> <span class="o">=</span> <span class="n">add_rol</span><span class="p">(</span><span class="s">&#39;Product Owner&#39;</span><span class="p">)</span>
+    <span class="n">dev</span> <span class="o">=</span> <span class="n">add_rol</span><span class="p">(</span><span class="s">&#39;Developer&#39;</span><span class="p">)</span>
+    <span class="n">sm</span> <span class="o">=</span> <span class="n">add_rol</span><span class="p">(</span><span class="s">&#39;Scrum Master&#39;</span><span class="p">)</span>
+
+    <span class="n">u</span> <span class="o">=</span> <span class="n">add_user</span><span class="p">(</span><span class="s">&#39;Guille&#39;</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">add_user</span><span class="p">(</span><span class="s">&#39;lg_ceo&#39;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">add_user</span><span class="p">(</span><span class="s">&#39;Google&#39;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">add_project</span><span class="p">(</span><span class="s">&#39;Shamu&#39;</span><span class="p">,</span> <span class="s">&#39;Nexus 6&#39;</span><span class="p">)</span>
+    <span class="n">add_team_member</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
+    <span class="n">add_team_member</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">po</span><span class="p">)</span>
+    <span class="n">add_team_member</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">sm</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="s">&quot;Population finished&quot;</span>
+
+
+<span class="c"># TODO anhadir permisos</span></div>
+<div class="viewcode-block" id="add_rol"><a class="viewcode-back" href="../../project.html#project.population.add_rol">[documentos]</a><span class="k">def</span> <span class="nf">add_rol</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">permisos</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">nombre</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">Group</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">nombre</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span>
+
+</div>
+<div class="viewcode-block" id="add_user"><a class="viewcode-back" href="../../project.html#project.population.add_user">[documentos]</a><span class="k">def</span> <span class="nf">add_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&#39;123&#39;</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">User</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="s">&quot;{}@gmail.com&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span> <span class="n">password</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">u</span>
+
+</div>
+<div class="viewcode-block" id="add_project"><a class="viewcode-back" href="../../project.html#project.population.add_project">[documentos]</a><span class="k">def</span> <span class="nf">add_project</span><span class="p">(</span><span class="n">short</span><span class="p">,</span> <span class="n">longn</span><span class="p">,</span> <span class="n">sprint</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Proyecto</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">nombre_corto</span><span class="o">=</span><span class="n">short</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">Proyecto</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Proyecto</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">nombre_corto</span><span class="o">=</span><span class="n">short</span><span class="p">,</span> <span class="n">nombre_largo</span><span class="o">=</span><span class="n">longn</span><span class="p">,</span> <span class="n">duracion_sprint</span><span class="o">=</span><span class="n">sprint</span><span class="p">,</span>
+                                           <span class="n">inicio</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">fin</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">p</span>
+
+</div>
+<div class="viewcode-block" id="add_team_member"><a class="viewcode-back" href="../../project.html#project.population.add_team_member">[documentos]</a><span class="k">def</span> <span class="nf">add_team_member</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">MiembroEquipo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">rol</span><span class="o">=</span><span class="n">role</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">MiembroEquipo</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">MiembroEquipo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">usuario</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">=</span><span class="n">project</span><span class="p">,</span> <span class="n">rol</span><span class="o">=</span><span class="n">role</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span>
+
+<span class="c"># Start execution here!</span></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Starting Projectium population script...&quot;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s">&#39;DJANGO_SETTINGS_MODULE&#39;</span><span class="p">,</span> <span class="s">&#39;projectium.settings&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">django</span>
+
+    <span class="n">django</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+    <span class="kn">from</span> <span class="nn">project.models</span> <span class="kn">import</span> <span class="n">Proyecto</span><span class="p">,</span> <span class="n">MiembroEquipo</span>
+    <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Group</span>
+    <span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">timezone</span>
+
+    <span class="n">populate</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Models &mdash; documentación de project - 1</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="documentación de project - 1" href="index.html" />
+    <link rel="prev" title="Welcome to project’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Índice de Módulos Python"
+             >módulos</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to project’s documentation!"
+             accesskey="P">anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">documentación de project - 1</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-project.models">
+<span id="models"></span><h1>Models<a class="headerlink" href="#module-project.models" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="class">
+<dt id="project.models.Actividad">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Actividad</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>flujo_id</em>, <em>_order</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#Actividad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Actividad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="project.models.Adjunto">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Adjunto</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>descripcion</em>, <em>creacion</em>, <em>user_story_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#Adjunto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Adjunto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="project.models.Flujo">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Flujo</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>proyecto_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#Flujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Flujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="project.models.MiembroEquipo">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">MiembroEquipo</code><span class="sig-paren">(</span><em>id</em>, <em>usuario_id</em>, <em>proyecto_id</em>, <em>rol_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#MiembroEquipo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.MiembroEquipo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="project.models.Nota">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Nota</code><span class="sig-paren">(</span><em>id</em>, <em>descripcion</em>, <em>fecha</em>, <em>user_story_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#Nota"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Nota" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="project.models.Proyecto">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Proyecto</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#Proyecto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Proyecto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Stores a single project.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="project.models.Sprint">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Sprint</code><span class="sig-paren">(</span><em>id</em>, <em>inicio</em>, <em>fin</em>, <em>proyecto_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#Sprint"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Sprint" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="project.models.UserStory">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">UserStory</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>descripcion</em>, <em>prioridad</em>, <em>valor_negocio</em>, <em>valor_tecnico</em>, <em>tiempo_estimado</em>, <em>tiempo_registrado</em>, <em>ultimo_cambio</em>, <em>estado</em>, <em>proyecto_id</em>, <em>desarrollador_id</em>, <em>sprint_id</em>, <em>actividad_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#UserStory"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.UserStory" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="project.models.Version">
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Version</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>descripcion</em>, <em>valor_negocio</em>, <em>valor_tecnico</em>, <em>tiempo_estimado</em>, <em>modificacion</em>, <em>user_story_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/project/models.html#Version"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Version" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="index.html"
+                        title="capítulo anterior">Welcome to project&#8217;s documentation!</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/models.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="_sources/models.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

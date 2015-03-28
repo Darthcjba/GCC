@@ -1,0 +1,70 @@
+project.migrations package
+==========================
+
+Submodules
+----------
+
+project.migrations.0001_initial module
+--------------------------------------
+
+.. automodule:: project.migrations.0001_initial
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+project.migrations.0002_auto_20150324_1442 module
+-------------------------------------------------
+
+.. automodule:: project.migrations.0002_auto_20150324_1442
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+project.migrations.0003_auto_20150324_2209 module
+-------------------------------------------------
+
+.. automodule:: project.migrations.0003_auto_20150324_2209
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+project.migrations.0004_auto_20150327_2310 module
+-------------------------------------------------
+
+.. automodule:: project.migrations.0004_auto_20150327_2310
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+project.migrations.0004_auto_20150328_0155 module
+-------------------------------------------------
+
+.. automodule:: project.migrations.0004_auto_20150328_0155
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+project.migrations.0005_auto_20150327_2313 module
+-------------------------------------------------
+
+.. automodule:: project.migrations.0005_auto_20150327_2313
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+project.migrations.0006_merge module
+------------------------------------
+
+.. automodule:: project.migrations.0006_merge
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: project.migrations
+    :members:
+    :undoc-members:
+    :show-inheritance:
