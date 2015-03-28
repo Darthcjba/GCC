@@ -1,6 +1,6 @@
 {% extends 'project/base.html'%}
 {% load staticfiles %}
-
+{% block title %}Usuarios{% endblock %}
 {% block header %}Usuarios{% endblock %}
 {% block content %}
 <p><a href="{% url 'project:user_add' %}" class="fa fa-plus-circle">Agregar</a></p>
@@ -12,10 +12,10 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Activo</th>
-                <th>Last Login</th>
-                <th>Detail</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Ultimo Login</th>
+                <th>Ver</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
