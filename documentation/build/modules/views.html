@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="top" title="documentación de project - 1" href="../index.html" />
-    <link rel="next" title="Urls" href="urls.html" />
+    <link rel="next" title="Forms" href="forms.html" />
     <link rel="prev" title="Models" href="models.html" />
    
   
@@ -43,7 +43,7 @@
           <a href="../py-modindex.html" title="Índice de Módulos Python"
              >módulos</a> |</li>
         <li class="right" >
-          <a href="urls.html" title="Urls"
+          <a href="forms.html" title="Forms"
              accesskey="N">siguiente</a> |</li>
         <li class="right" >
           <a href="models.html" title="Models"
@@ -78,12 +78,18 @@
 <dl class="method">
 <dt id="project.views.AddRolView.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddRolView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddRolView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Comprobar validez del formulario
+:param form: formulario recibido
+:return: URL de redireccion</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.AddRolView.get_context_data">
 <code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddRolView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddRolView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.AddRolView.get_success_url">
@@ -108,10 +114,16 @@
 <dt id="project.views.AddUser">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">AddUser</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddUser"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddUser" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>Agregar un Usuario al Sistema</p>
 <dl class="method">
 <dt id="project.views.AddUser.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddUser.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddUser.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Requiere el permiso &#8216;add_user&#8217;
+:param request: Request del cliente
+:param args: Lista de argumentos
+:param kwargs: Argumentos Clave
+:return: dispatch de CreateView</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.AddUser.form_class">
@@ -122,12 +134,17 @@
 <dl class="method">
 <dt id="project.views.AddUser.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddUser.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddUser.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Verificar validez del formulario
+:param form: formulario completado
+:return: Url de Evento Correcto</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.AddUser.get_success_url">
 <code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddUser.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddUser.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Retorna una los usuarios excluyendo el AnonymousUser
+:return: url del UserDetail</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.AddUser.model">
@@ -146,10 +163,16 @@
 <dt id="project.views.DeleteRolView">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">DeleteRolView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteRolView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteRolView" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista de Eliminacion de Roles</p>
 <dl class="method">
 <dt id="project.views.DeleteRolView.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteRolView.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteRolView.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Requerir permisos &#8216;delete_group&#8217;
+:param request: request del cliente
+:param args: lista de argumentos
+:param kwargs: argumentos clave
+:return: dispatch de DeleteView</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.DeleteRolView.model">
@@ -173,6 +196,7 @@
 <dt id="project.views.DeleteUser">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">DeleteUser</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteUser"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteUser" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Eliminar un Usuario del Sistema</p>
 <dl class="attribute">
 <dt id="project.views.DeleteUser.context_object_name">
 <code class="descname">context_object_name</code><em class="property"> = 'usuario'</em><a class="headerlink" href="#project.views.DeleteUser.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -205,6 +229,7 @@
 <dt id="project.views.LoginRequiredMixin">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">LoginRequiredMixin</code><a class="reference internal" href="../_modules/project/views.html#LoginRequiredMixin"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.LoginRequiredMixin" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Mixin que exige que el usuario este logueado.</p>
 <dl class="classmethod">
 <dt id="project.views.LoginRequiredMixin.as_view">
 <em class="property">classmethod </em><code class="descname">as_view</code><span class="sig-paren">(</span><em>**initkwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#LoginRequiredMixin.as_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.LoginRequiredMixin.as_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -216,6 +241,7 @@
 <dt id="project.views.ProjectDetail">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">ProjectDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de Proyecto</p>
 <dl class="attribute">
 <dt id="project.views.ProjectDetail.context_object_name">
 <code class="descname">context_object_name</code><em class="property"> = 'project'</em><a class="headerlink" href="#project.views.ProjectDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -243,6 +269,7 @@
 <dt id="project.views.ProjectList">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">ProjectList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectList" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Listado de Proyectos</p>
 <dl class="attribute">
 <dt id="project.views.ProjectList.context_object_name">
 <code class="descname">context_object_name</code><em class="property"> = 'projects'</em><a class="headerlink" href="#project.views.ProjectList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -251,7 +278,9 @@
 <dl class="method">
 <dt id="project.views.ProjectList.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtener proyectos del Sistema.
+:return: lista de proyectos</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.ProjectList.model">
@@ -270,6 +299,7 @@
 <dt id="project.views.RolDetail">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">RolDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#RolDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.RolDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de Rol</p>
 <dl class="attribute">
 <dt id="project.views.RolDetail.context_object_name">
 <code class="descname">context_object_name</code><em class="property"> = 'rol'</em><a class="headerlink" href="#project.views.RolDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -292,6 +322,7 @@
 <dt id="project.views.RolList">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">RolList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#RolList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.RolList" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista de Listado de Roles</p>
 <dl class="attribute">
 <dt id="project.views.RolList.context_object_name">
 <code class="descname">context_object_name</code><em class="property"> = 'roles'</em><a class="headerlink" href="#project.views.RolList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -314,10 +345,16 @@
 <dt id="project.views.UpdateRolView">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">UpdateRolView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>Vista de Actualizacion de Roles</p>
 <dl class="method">
 <dt id="project.views.UpdateRolView.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Solicitar el permiso &#8216;change_group&#8217;
+:param request: request del cliente
+:param args: lista de argumentos
+:param kwargs: argumentos clave
+:return: dispatch de UpdateView</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.UpdateRolView.form_class">
@@ -328,22 +365,38 @@
 <dl class="method">
 <dt id="project.views.UpdateRolView.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Comprobar validez del formulario
+:param form: formulario recibido
+:return: URL de redireccion correcta</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateRolView.get_context_data">
 <code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Agregar datos adicionales al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateRolView.get_initial">
 <code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.get_initial"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.get_initial" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtener datos iniciales para el formulario
+:return: diccionario de datos iniciales</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateRolView.get_success_url">
 <code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">URL de redireccion correcta a UserDetail</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.UpdateRolView.model">
@@ -362,10 +415,16 @@
 <dt id="project.views.UpdateUser">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">UpdateUser</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>Actualizar un Usuario del Sistema</p>
 <dl class="method">
 <dt id="project.views.UpdateUser.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Requerir permiso &#8216;change_user&#8217;
+:param request: Requeust del cliente
+:param args: Lista de Argumentos
+:param kwargs: Argumentos Clave
+:return: Dispatch de UpdateView</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.UpdateUser.form_class">
@@ -376,17 +435,24 @@
 <dl class="method">
 <dt id="project.views.UpdateUser.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Comprobar validez del formulario recibido
+:param form: Formulario recibido
+:return: URL de evento correcto</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateUser.get_initial">
 <code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.get_initial"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.get_initial" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtener datos iniciales para el formulario
+:return: diccionario con los datos iniciales</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateUser.get_success_url">
 <code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtener url de evento correcto
+:return: url de UserDetail</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.UpdateUser.model">
@@ -405,6 +471,7 @@
 <dt id="project.views.UserDetail">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">UserDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UserDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UserDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Ver detalles de Usuario</p>
 <dl class="attribute">
 <dt id="project.views.UserDetail.context_object_name">
 <code class="descname">context_object_name</code><em class="property"> = 'usuario'</em><a class="headerlink" href="#project.views.UserDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -413,7 +480,10 @@
 <dl class="method">
 <dt id="project.views.UserDetail.get_context_data">
 <code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UserDetail.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UserDetail.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Agregar lista de proyectos al contexto
+:param kwargs: diccionario de argumentos claves
+:return: contexto</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.UserDetail.model">
@@ -432,6 +502,7 @@
 <dt id="project.views.UserList">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">UserList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UserList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UserList" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Lista de usuarios.</p>
 <dl class="attribute">
 <dt id="project.views.UserList.context_object_name">
 <code class="descname">context_object_name</code><em class="property"> = 'users'</em><a class="headerlink" href="#project.views.UserList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -440,7 +511,9 @@
 <dl class="method">
 <dt id="project.views.UserList.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UserList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UserList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Retorna una los usuarios excluyendo el AnonymousUser
+:return: lista de usuarios</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.UserList.model">
@@ -458,12 +531,16 @@
 <dl class="function">
 <dt id="project.views.get_selected_perms">
 <code class="descclassname">project.views.</code><code class="descname">get_selected_perms</code><span class="sig-paren">(</span><em>POST</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#get_selected_perms"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.get_selected_perms" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Obtener los permisos marcados en el formulario
+:param POST: diccionario con los datos del formulario
+:return: lista de permisos</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="project.views.home">
 <code class="descclassname">project.views.</code><code class="descname">home</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#home"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.home" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Vista para la pantalla principal.</p>
+</dd></dl>
 
 </div>
 
@@ -477,8 +554,8 @@
   <p class="topless"><a href="models.html"
                         title="capítulo anterior">Models</a></p>
   <h4>Próximo tema</h4>
-  <p class="topless"><a href="urls.html"
-                        title="próximo capítulo">Urls</a></p>
+  <p class="topless"><a href="forms.html"
+                        title="próximo capítulo">Forms</a></p>
   <div role="note" aria-label="source link">
     <h3>Esta página</h3>
     <ul class="this-page-menu">

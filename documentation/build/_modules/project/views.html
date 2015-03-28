@@ -52,7 +52,7 @@
           <div class="body" role="main">
             
   <h1>Código fuente para project.views</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span><span class="p">,</span> <span class="n">permission_required</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.hashers</span> <span class="kn">import</span> <span class="n">make_password</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">Group</span>
@@ -72,15 +72,20 @@
 
 
 <div class="viewcode-block" id="LoginRequiredMixin"><a class="viewcode-back" href="../../modules/views.html#project.views.LoginRequiredMixin">[documentos]</a><span class="k">class</span> <span class="nc">LoginRequiredMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mixin que exige que el usuario este logueado.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="LoginRequiredMixin.as_view"><a class="viewcode-back" href="../../modules/views.html#project.views.LoginRequiredMixin.as_view">[documentos]</a>    <span class="k">def</span> <span class="nf">as_view</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">initkwargs</span><span class="p">):</span>
         <span class="n">view</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="o">**</span><span class="n">initkwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">login_required</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
 
-
-<span class="c"># Home simple para probar bootstrap</span></div></div>
+</div></div>
 <span class="nd">@login_required</span><span class="p">()</span>
 <div class="viewcode-block" id="home"><a class="viewcode-back" href="../../modules/views.html#project.views.home">[documentos]</a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vista para la pantalla principal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">context</span><span class="p">[</span><span class="s">&#39;users&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
     <span class="n">context</span><span class="p">[</span><span class="s">&#39;proyects&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Proyecto</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
@@ -90,38 +95,72 @@
 
 </div>
 <div class="viewcode-block" id="UserList"><a class="viewcode-back" href="../../modules/views.html#project.views.UserList">[documentos]</a><span class="k">class</span> <span class="nc">UserList</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lista de usuarios.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
     <span class="n">context_object_name</span> <span class="o">=</span> <span class="s">&#39;users&#39;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/user_list.html&#39;</span>
 
 <div class="viewcode-block" id="UserList.get_queryset"><a class="viewcode-back" href="../../modules/views.html#project.views.UserList.get_queryset">[documentos]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna una los usuarios excluyendo el AnonymousUser</span>
+<span class="sd">        :return: lista de usuarios</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
 </div></div>
 <div class="viewcode-block" id="UserDetail"><a class="viewcode-back" href="../../modules/views.html#project.views.UserDetail">[documentos]</a><span class="k">class</span> <span class="nc">UserDetail</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ver detalles de Usuario</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
     <span class="n">context_object_name</span> <span class="o">=</span> <span class="s">&#39;usuario&#39;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/user_detail.html&#39;</span>
 
 <div class="viewcode-block" id="UserDetail.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.UserDetail.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Agregar lista de proyectos al contexto</span>
+<span class="sd">        :param kwargs: diccionario de argumentos claves</span>
+<span class="sd">        :return: contexto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UserDetail</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;projects&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">miembroequipo_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">context</span>
 
 </div></div>
 <div class="viewcode-block" id="AddUser"><a class="viewcode-back" href="../../modules/views.html#project.views.AddUser">[documentos]</a><span class="k">class</span> <span class="nc">AddUser</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">CreateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Agregar un Usuario al Sistema</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">UserCreateForm</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/user_form.html&#39;</span>
 
     <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;auth.add_user&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <div class="viewcode-block" id="AddUser.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.AddUser.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Requiere el permiso &#39;add_user&#39;</span>
+<span class="sd">        :param request: Request del cliente</span>
+<span class="sd">        :param args: Lista de argumentos</span>
+<span class="sd">        :param kwargs: Argumentos Clave</span>
+<span class="sd">        :return: dispatch de CreateView</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AddUser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="AddUser.get_success_url"><a class="viewcode-back" href="../../modules/views.html#project.views.AddUser.get_success_url">[documentos]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna una los usuarios excluyendo el AnonymousUser</span>
+<span class="sd">        :return: url del UserDetail</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;project:user_detail&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;pk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
 </div>
 <div class="viewcode-block" id="AddUser.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.AddUser.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verificar validez del formulario</span>
+<span class="sd">        :param form: formulario completado</span>
+<span class="sd">        :return: Url de Evento Correcto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AddUser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
 
         <span class="n">escogidas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;general_perms&#39;</span><span class="p">)</span>
@@ -133,6 +172,9 @@
 
 </div></div>
 <div class="viewcode-block" id="DeleteUser"><a class="viewcode-back" href="../../modules/views.html#project.views.DeleteUser">[documentos]</a><span class="k">class</span> <span class="nc">DeleteUser</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">DeleteView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eliminar un Usuario del Sistema</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/user_delete.html&#39;</span>
     <span class="n">context_object_name</span> <span class="o">=</span> <span class="s">&#39;usuario&#39;</span>
@@ -143,6 +185,9 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DeleteUser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div></div>
 <div class="viewcode-block" id="UpdateUser"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser">[documentos]</a><span class="k">class</span> <span class="nc">UpdateUser</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">UpdateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Actualizar un Usuario del Sistema</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/user_form.html&#39;</span>
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">modelform_factory</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">UserEditForm</span><span class="p">,</span>
@@ -150,12 +195,27 @@
 
     <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;auth.change_user&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <div class="viewcode-block" id="UpdateUser.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Requerir permiso &#39;change_user&#39;</span>
+<span class="sd">        :param request: Requeust del cliente</span>
+<span class="sd">        :param args: Lista de Argumentos</span>
+<span class="sd">        :param kwargs: Argumentos Clave</span>
+<span class="sd">        :return: Dispatch de UpdateView</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">UpdateUser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="UpdateUser.get_success_url"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.get_success_url">[documentos]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtener url de evento correcto</span>
+<span class="sd">        :return: url de UserDetail</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;project:user_detail&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;pk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
 </div>
 <div class="viewcode-block" id="UpdateUser.get_initial"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.get_initial">[documentos]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtener datos iniciales para el formulario</span>
+<span class="sd">        :return: diccionario con los datos iniciales</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modelo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
 
         <span class="n">perm_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">user_permissions</span><span class="o">.</span><span class="n">all</span><span class="p">())]</span>
@@ -165,6 +225,11 @@
         <span class="k">return</span> <span class="n">initial</span>
 </div>
 <div class="viewcode-block" id="UpdateUser.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Comprobar validez del formulario recibido</span>
+<span class="sd">        :param form: Formulario recibido</span>
+<span class="sd">        :return: URL de evento correcto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">UpdateUser</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
         <span class="c"># eliminamos permisos anteriores</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">user_permissions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -177,11 +242,18 @@
 
 </div></div>
 <div class="viewcode-block" id="ProjectList"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectList">[documentos]</a><span class="k">class</span> <span class="nc">ProjectList</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Listado de Proyectos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Proyecto</span>
     <span class="n">context_object_name</span> <span class="o">=</span> <span class="s">&#39;projects&#39;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/project_list.html&#39;</span>
 
 <div class="viewcode-block" id="ProjectList.get_queryset"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectList.get_queryset">[documentos]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtener proyectos del Sistema.</span>
+<span class="sd">        :return: lista de proyectos</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_perm</span><span class="p">(</span><span class="s">&#39;project.list_all_projects&#39;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">Proyecto</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -189,6 +261,9 @@
 
 </div></div>
 <div class="viewcode-block" id="ProjectDetail"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectDetail">[documentos]</a><span class="k">class</span> <span class="nc">ProjectDetail</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vista de Detalles de Proyecto</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Proyecto</span>
     <span class="n">context_object_name</span> <span class="o">=</span> <span class="s">&#39;project&#39;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/project_detail.html&#39;</span>
@@ -211,6 +286,11 @@
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">RolForm</span>
 
 <div class="viewcode-block" id="AddRolView.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.AddRolView.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Agregar datos al contexto</span>
+<span class="sd">        :param kwargs: argumentos clave</span>
+<span class="sd">        :return: contexto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AddRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;current_action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Add&quot;</span>
         <span class="k">return</span> <span class="n">context</span>
@@ -226,6 +306,11 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AddRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="AddRolView.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.AddRolView.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Comprobar validez del formulario</span>
+<span class="sd">        :param form: formulario recibido</span>
+<span class="sd">        :return: URL de redireccion</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AddRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
         <span class="n">escogidas</span> <span class="o">=</span> <span class="n">get_selected_perms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">permname</span> <span class="ow">in</span> <span class="n">escogidas</span><span class="p">:</span>
@@ -235,23 +320,45 @@
 
 </div></div>
 <div class="viewcode-block" id="UpdateRolView"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView">[documentos]</a><span class="k">class</span> <span class="nc">UpdateRolView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">UpdateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vista de Actualizacion de Roles</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Group</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/rol_form.html&#39;</span>
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">RolForm</span>
 
 <div class="viewcode-block" id="UpdateRolView.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Agregar datos adicionales al contexto</span>
+<span class="sd">        :param kwargs: argumentos clave</span>
+<span class="sd">        :return: contexto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UpdateRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">context</span><span class="p">[</span><span class="s">&#39;current_action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Update&quot;</span>
         <span class="k">return</span> <span class="n">context</span>
 </div>
 <div class="viewcode-block" id="UpdateRolView.get_success_url"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.get_success_url">[documentos]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: URL de redireccion correcta a UserDetail</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;project:rol_detail&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;pk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
 </div>
     <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;auth.change_group&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <div class="viewcode-block" id="UpdateRolView.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Solicitar el permiso &#39;change_group&#39;</span>
+<span class="sd">        :param request: request del cliente</span>
+<span class="sd">        :param args: lista de argumentos</span>
+<span class="sd">        :param kwargs: argumentos clave</span>
+<span class="sd">        :return: dispatch de UpdateView</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">UpdateRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="UpdateRolView.get_initial"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.get_initial">[documentos]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtener datos iniciales para el formulario</span>
+<span class="sd">        :return: diccionario de datos iniciales</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modelo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
 
         <span class="n">perm_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">all</span><span class="p">())]</span>
@@ -262,6 +369,11 @@
 
 </div>
 <div class="viewcode-block" id="UpdateRolView.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Comprobar validez del formulario</span>
+<span class="sd">        :param form: formulario recibido</span>
+<span class="sd">        :return: URL de redireccion correcta</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">UpdateRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
         <span class="c"># eliminamos permisos anteriores</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -274,16 +386,31 @@
 
 </div></div>
 <div class="viewcode-block" id="DeleteRolView"><a class="viewcode-back" href="../../modules/views.html#project.views.DeleteRolView">[documentos]</a><span class="k">class</span> <span class="nc">DeleteRolView</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">DeleteView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vista de Eliminacion de Roles</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Group</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/rol_delete.html&#39;</span>
     <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s">&#39;project:rol_list&#39;</span><span class="p">)</span>
 
     <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;auth.delete_group&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <div class="viewcode-block" id="DeleteRolView.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.DeleteRolView.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Requerir permisos &#39;delete_group&#39;</span>
+<span class="sd">        :param request: request del cliente</span>
+<span class="sd">        :param args: lista de argumentos</span>
+<span class="sd">        :param kwargs: argumentos clave</span>
+<span class="sd">        :return: dispatch de DeleteView</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DeleteRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 </div></div>
 <div class="viewcode-block" id="get_selected_perms"><a class="viewcode-back" href="../../modules/views.html#project.views.get_selected_perms">[documentos]</a><span class="k">def</span> <span class="nf">get_selected_perms</span><span class="p">(</span><span class="n">POST</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Obtener los permisos marcados en el formulario</span>
+<span class="sd">    :param POST: diccionario con los datos del formulario</span>
+<span class="sd">    :return: lista de permisos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">current_list</span> <span class="o">=</span> <span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_proyecto&#39;</span><span class="p">)</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_teammembers&#39;</span><span class="p">))</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_userstory&#39;</span><span class="p">))</span>
@@ -294,12 +421,18 @@
 
 </div>
 <div class="viewcode-block" id="RolList"><a class="viewcode-back" href="../../modules/views.html#project.views.RolList">[documentos]</a><span class="k">class</span> <span class="nc">RolList</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vista de Listado de Roles</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Group</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/rol_list.html&#39;</span>
     <span class="n">context_object_name</span> <span class="o">=</span> <span class="s">&#39;roles&#39;</span>
 
 </div>
 <div class="viewcode-block" id="RolDetail"><a class="viewcode-back" href="../../modules/views.html#project.views.RolDetail">[documentos]</a><span class="k">class</span> <span class="nc">RolDetail</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vista de Detalles de Rol</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Group</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/rol_detail.html&#39;</span>
     <span class="n">context_object_name</span> <span class="o">=</span> <span class="s">&#39;rol&#39;</span>
