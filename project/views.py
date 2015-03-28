@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Permission, Group
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import PasswordInput
@@ -67,7 +68,12 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
         return reverse('project:user_detail', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
+        print(form.cleaned_data)
+        password = make_password(form.cleaned_data['password'])
+        form.cleaned_data['password'] = password
+        print(form.cleaned_data)
         super(AddUser, self).form_valid(form)
+
         escogidas = self.request.POST.getlist('general_perms')
         for permname in escogidas:
             perm = Permission.objects.get(codename=permname)
