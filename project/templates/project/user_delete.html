@@ -1,8 +1,7 @@
 {% extends 'project/base.html' %}
+{% block title %}Eliminar Usuario{% endblock %}
 
-{% block title %}{{ usuario.name }}{% endblock %}
-
-{% block header %}{{ usuario.name }}{% endblock %}
+{% block header %}{{ user.first_name }} {{ user.last_name }}{% endblock %}
 {% block content %}
 <form action="" method="post" role="form">
     {% csrf_token %}

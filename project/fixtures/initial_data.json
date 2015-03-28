@@ -1,0 +1,1261 @@
+[
+{
+   "fields": {
+      "model": "logentry",
+      "name": "log entry",
+      "app_label": "admin"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 1
+},
+{
+   "fields": {
+      "model": "permission",
+      "name": "permission",
+      "app_label": "auth"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 2
+},
+{
+   "fields": {
+      "model": "group",
+      "name": "group",
+      "app_label": "auth"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 3
+},
+{
+   "fields": {
+      "model": "user",
+      "name": "user",
+      "app_label": "auth"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 4
+},
+{
+   "fields": {
+      "model": "contenttype",
+      "name": "content type",
+      "app_label": "contenttypes"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 5
+},
+{
+   "fields": {
+      "model": "session",
+      "name": "session",
+      "app_label": "sessions"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 6
+},
+{
+   "fields": {
+      "model": "proyecto",
+      "name": "proyecto",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 7
+},
+{
+   "fields": {
+      "model": "miembroequipo",
+      "name": "miembro equipo",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 8
+},
+{
+   "fields": {
+      "model": "sprint",
+      "name": "sprint",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 9
+},
+{
+   "fields": {
+      "model": "flujo",
+      "name": "flujo",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 10
+},
+{
+   "fields": {
+      "model": "actividad",
+      "name": "actividad",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 11
+},
+{
+   "fields": {
+      "model": "userstory",
+      "name": "user story",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 12
+},
+{
+   "fields": {
+      "model": "version",
+      "name": "version",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 13
+},
+{
+   "fields": {
+      "model": "nota",
+      "name": "nota",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 14
+},
+{
+   "fields": {
+      "model": "adjunto",
+      "name": "adjunto",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 15
+},
+{
+   "fields": {
+      "model": "userobjectpermission",
+      "name": "user object permission",
+      "app_label": "guardian"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 16
+},
+{
+   "fields": {
+      "model": "groupobjectpermission",
+      "name": "group object permission",
+      "app_label": "guardian"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 17
+},
+{
+   "fields": {
+      "expire_date": "2015-04-10T18:56:42.917Z",
+      "session_data": "ZDExNDhmZTNmMzc3ZTZmMGUzMjRiZDdiMGI1ZmUzMmUxY2ViNTMxZTp7Il9hdXRoX3VzZXJfaGFzaCI6IjFmNzg0NTBhMWFlOTY4NmRmNTYzOTg0ZDdkMmIxNThmMTVkNDVmYzAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjR9"
+   },
+   "model": "sessions.session",
+   "pk": "1ds0oqqf2ghduzk01ti8lnz2khcs4knh"
+},
+{
+   "fields": {
+      "expire_date": "2015-04-11T07:08:46.336Z",
+      "session_data": "ZDExNDhmZTNmMzc3ZTZmMGUzMjRiZDdiMGI1ZmUzMmUxY2ViNTMxZTp7Il9hdXRoX3VzZXJfaGFzaCI6IjFmNzg0NTBhMWFlOTY4NmRmNTYzOTg0ZDdkMmIxNThmMTVkNDVmYzAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjR9"
+   },
+   "model": "sessions.session",
+   "pk": "e35p53bom51uj1oe4tcyj557xl20k9in"
+},
+{
+   "fields": {
+      "expire_date": "2015-04-10T20:09:26.214Z",
+      "session_data": "YTNiZDQwZTE5MGEwN2U1M2I5ZDQ3ZGJiZWI1ZWE5YjVmMDdkMTA5Mjp7Il9hdXRoX3VzZXJfaGFzaCI6IjcyMTdhNmVjZTI2ZDcyMzI4MDhlZDJmYmYxZTRmMjM5NTBhMjcyZWMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9"
+   },
+   "model": "sessions.session",
+   "pk": "f5yaejqv7478zk89eup4mysglr431hxp"
+},
+{
+   "fields": {
+      "expire_date": "2015-04-10T04:35:20.319Z",
+      "session_data": "ZDExNDhmZTNmMzc3ZTZmMGUzMjRiZDdiMGI1ZmUzMmUxY2ViNTMxZTp7Il9hdXRoX3VzZXJfaGFzaCI6IjFmNzg0NTBhMWFlOTY4NmRmNTYzOTg0ZDdkMmIxNThmMTVkNDVmYzAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjR9"
+   },
+   "model": "sessions.session",
+   "pk": "o2kncxjl3rnzuak6nu5hmw0wvz6kmaz7"
+},
+{
+   "fields": {
+      "expire_date": "2015-04-10T19:25:11.935Z",
+      "session_data": "YWE2MDZkMWY4ODY2MGY5ZDMxZTVmZWQ2OGNhZTViZmI3YmIzYWU3Mzp7fQ=="
+   },
+   "model": "sessions.session",
+   "pk": "wojhbd875c7h8jor5lh6hpclcyllq01b"
+},
+{
+   "fields": {
+      "nombre_corto": "Shamu",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-03-27T04:30:57.516Z",
+      "inicio": "2015-03-27T04:30:57.513Z",
+      "descripcion": "",
+      "fin": "2015-03-27T04:30:57.513Z",
+      "nombre_largo": "Nexus 6"
+   },
+   "model": "project.proyecto",
+   "pk": 1
+},
+{
+   "fields": {
+      "nombre_corto": "Hammerhead",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-03-28T06:29:07.835Z",
+      "inicio": "2015-03-28T06:28:41Z",
+      "descripcion": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "fin": "2015-03-28T06:28:42Z",
+      "nombre_largo": "Nexus 5"
+   },
+   "model": "project.proyecto",
+   "pk": 2
+},
+{
+   "fields": {
+      "nombre_corto": "Tesla",
+      "estado": "AP",
+      "duracion_sprint": 30,
+      "creacion": "2015-03-28T06:29:38.170Z",
+      "inicio": "2015-03-28T06:29:30Z",
+      "descripcion": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "fin": "2015-03-28T06:29:33Z",
+      "nombre_largo": "Tesla V6"
+   },
+   "model": "project.proyecto",
+   "pk": 3
+},
+{
+   "fields": {
+      "nombre_corto": "MG5",
+      "estado": "EP",
+      "duracion_sprint": 32,
+      "creacion": "2015-03-28T06:30:01.855Z",
+      "inicio": "2015-03-28T06:29:56Z",
+      "descripcion": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "fin": "2015-03-28T06:29:57Z",
+      "nombre_largo": "Metal Gear Solid 5"
+   },
+   "model": "project.proyecto",
+   "pk": 4
+},
+{
+   "fields": {
+      "nombre_corto": "PJM",
+      "estado": "EP",
+      "duracion_sprint": 20,
+      "creacion": "2015-03-28T06:31:48.920Z",
+      "inicio": "2015-03-28T06:31:44Z",
+      "descripcion": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "fin": "2015-03-28T06:31:44Z",
+      "nombre_largo": "Projectium"
+   },
+   "model": "project.proyecto",
+   "pk": 5
+},
+{
+   "fields": {
+      "codename": "add_logentry",
+      "name": "Can add log entry",
+      "content_type": 1
+   },
+   "model": "auth.permission",
+   "pk": 1
+},
+{
+   "fields": {
+      "codename": "change_logentry",
+      "name": "Can change log entry",
+      "content_type": 1
+   },
+   "model": "auth.permission",
+   "pk": 2
+},
+{
+   "fields": {
+      "codename": "delete_logentry",
+      "name": "Can delete log entry",
+      "content_type": 1
+   },
+   "model": "auth.permission",
+   "pk": 3
+},
+{
+   "fields": {
+      "codename": "add_permission",
+      "name": "Can add permission",
+      "content_type": 2
+   },
+   "model": "auth.permission",
+   "pk": 4
+},
+{
+   "fields": {
+      "codename": "change_permission",
+      "name": "Can change permission",
+      "content_type": 2
+   },
+   "model": "auth.permission",
+   "pk": 5
+},
+{
+   "fields": {
+      "codename": "delete_permission",
+      "name": "Can delete permission",
+      "content_type": 2
+   },
+   "model": "auth.permission",
+   "pk": 6
+},
+{
+   "fields": {
+      "codename": "add_group",
+      "name": "Can add group",
+      "content_type": 3
+   },
+   "model": "auth.permission",
+   "pk": 7
+},
+{
+   "fields": {
+      "codename": "change_group",
+      "name": "Can change group",
+      "content_type": 3
+   },
+   "model": "auth.permission",
+   "pk": 8
+},
+{
+   "fields": {
+      "codename": "delete_group",
+      "name": "Can delete group",
+      "content_type": 3
+   },
+   "model": "auth.permission",
+   "pk": 9
+},
+{
+   "fields": {
+      "codename": "add_user",
+      "name": "Can add user",
+      "content_type": 4
+   },
+   "model": "auth.permission",
+   "pk": 10
+},
+{
+   "fields": {
+      "codename": "change_user",
+      "name": "Can change user",
+      "content_type": 4
+   },
+   "model": "auth.permission",
+   "pk": 11
+},
+{
+   "fields": {
+      "codename": "delete_user",
+      "name": "Can delete user",
+      "content_type": 4
+   },
+   "model": "auth.permission",
+   "pk": 12
+},
+{
+   "fields": {
+      "codename": "add_contenttype",
+      "name": "Can add content type",
+      "content_type": 5
+   },
+   "model": "auth.permission",
+   "pk": 13
+},
+{
+   "fields": {
+      "codename": "change_contenttype",
+      "name": "Can change content type",
+      "content_type": 5
+   },
+   "model": "auth.permission",
+   "pk": 14
+},
+{
+   "fields": {
+      "codename": "delete_contenttype",
+      "name": "Can delete content type",
+      "content_type": 5
+   },
+   "model": "auth.permission",
+   "pk": 15
+},
+{
+   "fields": {
+      "codename": "add_session",
+      "name": "Can add session",
+      "content_type": 6
+   },
+   "model": "auth.permission",
+   "pk": 16
+},
+{
+   "fields": {
+      "codename": "change_session",
+      "name": "Can change session",
+      "content_type": 6
+   },
+   "model": "auth.permission",
+   "pk": 17
+},
+{
+   "fields": {
+      "codename": "delete_session",
+      "name": "Can delete session",
+      "content_type": 6
+   },
+   "model": "auth.permission",
+   "pk": 18
+},
+{
+   "fields": {
+      "codename": "add_proyecto",
+      "name": "Can add proyecto",
+      "content_type": 7
+   },
+   "model": "auth.permission",
+   "pk": 19
+},
+{
+   "fields": {
+      "codename": "change_proyecto",
+      "name": "Can change proyecto",
+      "content_type": 7
+   },
+   "model": "auth.permission",
+   "pk": 20
+},
+{
+   "fields": {
+      "codename": "delete_proyecto",
+      "name": "Can delete proyecto",
+      "content_type": 7
+   },
+   "model": "auth.permission",
+   "pk": 21
+},
+{
+   "fields": {
+      "codename": "add_miembroequipo",
+      "name": "Can add miembro equipo",
+      "content_type": 8
+   },
+   "model": "auth.permission",
+   "pk": 22
+},
+{
+   "fields": {
+      "codename": "change_miembroequipo",
+      "name": "Can change miembro equipo",
+      "content_type": 8
+   },
+   "model": "auth.permission",
+   "pk": 23
+},
+{
+   "fields": {
+      "codename": "delete_miembroequipo",
+      "name": "Can delete miembro equipo",
+      "content_type": 8
+   },
+   "model": "auth.permission",
+   "pk": 24
+},
+{
+   "fields": {
+      "codename": "add_sprint",
+      "name": "Can add sprint",
+      "content_type": 9
+   },
+   "model": "auth.permission",
+   "pk": 25
+},
+{
+   "fields": {
+      "codename": "change_sprint",
+      "name": "Can change sprint",
+      "content_type": 9
+   },
+   "model": "auth.permission",
+   "pk": 26
+},
+{
+   "fields": {
+      "codename": "delete_sprint",
+      "name": "Can delete sprint",
+      "content_type": 9
+   },
+   "model": "auth.permission",
+   "pk": 27
+},
+{
+   "fields": {
+      "codename": "add_flujo",
+      "name": "Can add flujo",
+      "content_type": 10
+   },
+   "model": "auth.permission",
+   "pk": 28
+},
+{
+   "fields": {
+      "codename": "change_flujo",
+      "name": "Can change flujo",
+      "content_type": 10
+   },
+   "model": "auth.permission",
+   "pk": 29
+},
+{
+   "fields": {
+      "codename": "delete_flujo",
+      "name": "Can delete flujo",
+      "content_type": 10
+   },
+   "model": "auth.permission",
+   "pk": 30
+},
+{
+   "fields": {
+      "codename": "add_actividad",
+      "name": "Can add actividad",
+      "content_type": 11
+   },
+   "model": "auth.permission",
+   "pk": 31
+},
+{
+   "fields": {
+      "codename": "change_actividad",
+      "name": "Can change actividad",
+      "content_type": 11
+   },
+   "model": "auth.permission",
+   "pk": 32
+},
+{
+   "fields": {
+      "codename": "delete_actividad",
+      "name": "Can delete actividad",
+      "content_type": 11
+   },
+   "model": "auth.permission",
+   "pk": 33
+},
+{
+   "fields": {
+      "codename": "add_userstory",
+      "name": "Can add user story",
+      "content_type": 12
+   },
+   "model": "auth.permission",
+   "pk": 34
+},
+{
+   "fields": {
+      "codename": "change_userstory",
+      "name": "Can change user story",
+      "content_type": 12
+   },
+   "model": "auth.permission",
+   "pk": 35
+},
+{
+   "fields": {
+      "codename": "delete_userstory",
+      "name": "Can delete user story",
+      "content_type": 12
+   },
+   "model": "auth.permission",
+   "pk": 36
+},
+{
+   "fields": {
+      "codename": "add_version",
+      "name": "Can add version",
+      "content_type": 13
+   },
+   "model": "auth.permission",
+   "pk": 37
+},
+{
+   "fields": {
+      "codename": "change_version",
+      "name": "Can change version",
+      "content_type": 13
+   },
+   "model": "auth.permission",
+   "pk": 38
+},
+{
+   "fields": {
+      "codename": "delete_version",
+      "name": "Can delete version",
+      "content_type": 13
+   },
+   "model": "auth.permission",
+   "pk": 39
+},
+{
+   "fields": {
+      "codename": "add_nota",
+      "name": "Can add nota",
+      "content_type": 14
+   },
+   "model": "auth.permission",
+   "pk": 40
+},
+{
+   "fields": {
+      "codename": "change_nota",
+      "name": "Can change nota",
+      "content_type": 14
+   },
+   "model": "auth.permission",
+   "pk": 41
+},
+{
+   "fields": {
+      "codename": "delete_nota",
+      "name": "Can delete nota",
+      "content_type": 14
+   },
+   "model": "auth.permission",
+   "pk": 42
+},
+{
+   "fields": {
+      "codename": "add_adjunto",
+      "name": "Can add adjunto",
+      "content_type": 15
+   },
+   "model": "auth.permission",
+   "pk": 43
+},
+{
+   "fields": {
+      "codename": "change_adjunto",
+      "name": "Can change adjunto",
+      "content_type": 15
+   },
+   "model": "auth.permission",
+   "pk": 44
+},
+{
+   "fields": {
+      "codename": "delete_adjunto",
+      "name": "Can delete adjunto",
+      "content_type": 15
+   },
+   "model": "auth.permission",
+   "pk": 45
+},
+{
+   "fields": {
+      "codename": "add_userobjectpermission",
+      "name": "Can add user object permission",
+      "content_type": 16
+   },
+   "model": "auth.permission",
+   "pk": 46
+},
+{
+   "fields": {
+      "codename": "change_userobjectpermission",
+      "name": "Can change user object permission",
+      "content_type": 16
+   },
+   "model": "auth.permission",
+   "pk": 47
+},
+{
+   "fields": {
+      "codename": "delete_userobjectpermission",
+      "name": "Can delete user object permission",
+      "content_type": 16
+   },
+   "model": "auth.permission",
+   "pk": 48
+},
+{
+   "fields": {
+      "codename": "add_groupobjectpermission",
+      "name": "Can add group object permission",
+      "content_type": 17
+   },
+   "model": "auth.permission",
+   "pk": 49
+},
+{
+   "fields": {
+      "codename": "change_groupobjectpermission",
+      "name": "Can change group object permission",
+      "content_type": 17
+   },
+   "model": "auth.permission",
+   "pk": 50
+},
+{
+   "fields": {
+      "codename": "delete_groupobjectpermission",
+      "name": "Can delete group object permission",
+      "content_type": 17
+   },
+   "model": "auth.permission",
+   "pk": 51
+},
+{
+   "fields": {
+      "codename": "list_all_projects",
+      "name": "list all available projects",
+      "content_type": 7
+   },
+   "model": "auth.permission",
+   "pk": 52
+},
+{
+   "fields": {
+      "codename": "add_flow_template",
+      "name": "add flow template",
+      "content_type": 10
+   },
+   "model": "auth.permission",
+   "pk": 53
+},
+{
+   "fields": {
+      "codename": "change_flow_template",
+      "name": "change flow template",
+      "content_type": 10
+   },
+   "model": "auth.permission",
+   "pk": 54
+},
+{
+   "fields": {
+      "codename": "delete_flow_template",
+      "name": "delete flow template",
+      "content_type": 10
+   },
+   "model": "auth.permission",
+   "pk": 55
+},
+{
+   "fields": {
+      "name": "Product Owner",
+      "permissions": [
+         31,
+         32,
+         33,
+         22,
+         23,
+         24,
+         19,
+         20,
+         21
+      ]
+   },
+   "model": "auth.group",
+   "pk": 1
+},
+{
+   "fields": {
+      "name": "Developer",
+      "permissions": [
+         1
+      ]
+   },
+   "model": "auth.group",
+   "pk": 2
+},
+{
+   "fields": {
+      "name": "Scrum Master",
+      "permissions": [
+         31,
+         32,
+         33,
+         53,
+         28,
+         54,
+         29,
+         55,
+         30,
+         22,
+         23,
+         24,
+         19,
+         20,
+         21,
+         52,
+         25,
+         26,
+         27,
+         34,
+         35,
+         36
+      ]
+   },
+   "model": "auth.group",
+   "pk": 3
+},
+{
+   "fields": {
+      "username": "AnonymousUser",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-03-27T04:30:50.962Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "",
+      "email": "",
+      "date_joined": "2015-03-27T04:30:50.962Z"
+   },
+   "model": "auth.user",
+   "pk": -1
+},
+{
+   "fields": {
+      "username": "admin",
+      "first_name": "Admi",
+      "last_name": "Nistrador",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "last_login": "2015-03-28T07:08:46.146Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$15000$xxFOgR452dbl$4vr9zkyn5DED8x3SG7ib8jupyP4ZDA9uoOPa8QIidMA=",
+      "email": "admin@ad.com",
+      "date_joined": "2015-03-27T04:35:17.457Z"
+   },
+   "model": "auth.user",
+   "pk": 4
+},
+{
+   "fields": {
+      "username": "santi",
+      "first_name": "Santiago",
+      "last_name": "Ortiz",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-03-28T06:26:13.727Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$15000$oJc8uM2qhBtz$KXVT1L/J2DQGpC1LB6kx2h72fAsNVfunMP7LF+SAPhE=",
+      "email": "sanmiorto@gmail.com",
+      "date_joined": "2015-03-28T06:26:13.727Z"
+   },
+   "model": "auth.user",
+   "pk": 11
+},
+{
+   "fields": {
+      "username": "guille",
+      "first_name": "Guillermo",
+      "last_name": "Peralta",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-03-28T07:03:42.446Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$15000$KyBo6UrrTLur$xBx+xHK5lY7poaeC4C9fVy9UYm6RnHLF1oMv/1Bundc=",
+      "email": "gperaltascura@gmail.com",
+      "date_joined": "2015-03-28T06:26:36.868Z"
+   },
+   "model": "auth.user",
+   "pk": 12
+},
+{
+   "fields": {
+      "username": "emusk",
+      "first_name": "Elon",
+      "last_name": "Musk",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-03-28T06:27:06.720Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$15000$VZM0bxQ0GPOx$/hveK1I9ZlQCfyk7QNZvpgzlGZ4mSu9IA0GtacITT38=",
+      "email": "emusk@tesla.com",
+      "date_joined": "2015-03-28T06:27:06.720Z"
+   },
+   "model": "auth.user",
+   "pk": 13
+},
+{
+   "fields": {
+      "username": "sato",
+      "first_name": "Satoru",
+      "last_name": "Iwata",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-03-28T06:27:44.578Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$15000$DE3qj7u2xSEB$ZnSTkiYQ7oy6ycq3r1j4roRczi2ERLgnyWEsFACXmpU=",
+      "email": "sato@nin.com",
+      "date_joined": "2015-03-28T06:27:44.578Z"
+   },
+   "model": "auth.user",
+   "pk": 14
+},
+{
+   "fields": {
+      "username": "hideo",
+      "first_name": "Hideo",
+      "last_name": "Kojima",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-03-28T06:28:07.169Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$15000$VhV31X8SupBA$SGBiJKl/yqMjMy8HqNoFHILkzkNGV/ZB1K5fObjqSJM=",
+      "email": "hideo@ko.jp",
+      "date_joined": "2015-03-28T06:28:07.169Z"
+   },
+   "model": "auth.user",
+   "pk": 15
+},
+{
+   "fields": {
+      "username": "jordan",
+      "first_name": "Jordan",
+      "last_name": "Ayala",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-03-28T07:10:05.200Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$15000$7GhBSDFuc2f7$aaiRgzoQJv7x9SPIDFm8dbrzLSkh6EjtWCmtLPRe6pk=",
+      "email": "jayala1993@outlook.com",
+      "date_joined": "2015-03-28T07:10:05.200Z"
+   },
+   "model": "auth.user",
+   "pk": 16
+},
+{
+   "fields": {
+      "proyecto": 4,
+      "rol": 3,
+      "usuario": 15
+   },
+   "model": "project.miembroequipo",
+   "pk": 4
+},
+{
+   "fields": {
+      "proyecto": 4,
+      "rol": 1,
+      "usuario": 14
+   },
+   "model": "project.miembroequipo",
+   "pk": 5
+},
+{
+   "fields": {
+      "proyecto": 3,
+      "rol": 1,
+      "usuario": 13
+   },
+   "model": "project.miembroequipo",
+   "pk": 6
+},
+{
+   "fields": {
+      "proyecto": 2,
+      "rol": 2,
+      "usuario": 11
+   },
+   "model": "project.miembroequipo",
+   "pk": 8
+},
+{
+   "fields": {
+      "proyecto": 2,
+      "rol": 2,
+      "usuario": 12
+   },
+   "model": "project.miembroequipo",
+   "pk": 9
+},
+{
+   "fields": {
+      "proyecto": 5,
+      "rol": 2,
+      "usuario": 12
+   },
+   "model": "project.miembroequipo",
+   "pk": 10
+},
+{
+   "fields": {
+      "proyecto": 5,
+      "rol": 2,
+      "usuario": 11
+   },
+   "model": "project.miembroequipo",
+   "pk": 12
+},
+{
+   "fields": {
+      "proyecto": 5,
+      "rol": 1,
+      "usuario": 13
+   },
+   "model": "project.miembroequipo",
+   "pk": 13
+},
+{
+   "fields": {
+      "proyecto": 5,
+      "rol": 3,
+      "usuario": 14
+   },
+   "model": "project.miembroequipo",
+   "pk": 14
+},
+{
+   "fields": {
+      "proyecto": 5,
+      "rol": 2,
+      "usuario": 16
+   },
+   "model": "project.miembroequipo",
+   "pk": 15
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:29:07.838Z",
+      "object_repr": "Hammerhead",
+      "object_id": "2",
+      "change_message": "",
+      "user": 4,
+      "content_type": 7
+   },
+   "model": "admin.logentry",
+   "pk": 1
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:29:38.173Z",
+      "object_repr": "Tesla",
+      "object_id": "3",
+      "change_message": "",
+      "user": 4,
+      "content_type": 7
+   },
+   "model": "admin.logentry",
+   "pk": 2
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:30:01.858Z",
+      "object_repr": "MG5",
+      "object_id": "4",
+      "change_message": "",
+      "user": 4,
+      "content_type": 7
+   },
+   "model": "admin.logentry",
+   "pk": 3
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:30:21.221Z",
+      "object_repr": "MG5 - hideo:Scrum Master",
+      "object_id": "4",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 4
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:30:35.971Z",
+      "object_repr": "MG5 - sato:Product Owner",
+      "object_id": "5",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 5
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:30:45.729Z",
+      "object_repr": "Tesla - emusk:Product Owner",
+      "object_id": "6",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 6
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:30:58.792Z",
+      "object_repr": "Hammerhead - jordan:Developer",
+      "object_id": "7",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 7
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:31:09.011Z",
+      "object_repr": "Hammerhead - santi:Developer",
+      "object_id": "8",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 8
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:31:18.701Z",
+      "object_repr": "Hammerhead - guille:Developer",
+      "object_id": "9",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 9
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:31:48.923Z",
+      "object_repr": "PJM",
+      "object_id": "5",
+      "change_message": "",
+      "user": 4,
+      "content_type": 7
+   },
+   "model": "admin.logentry",
+   "pk": 10
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:31:56.566Z",
+      "object_repr": "PJM - guille:Developer",
+      "object_id": "10",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 11
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:32:05.739Z",
+      "object_repr": "PJM - jordan:Developer",
+      "object_id": "11",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 12
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:32:13.791Z",
+      "object_repr": "PJM - santi:Developer",
+      "object_id": "12",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 13
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:32:20.976Z",
+      "object_repr": "PJM - emusk:Product Owner",
+      "object_id": "13",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 14
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T06:32:34.578Z",
+      "object_repr": "PJM - sato:Scrum Master",
+      "object_id": "14",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 15
+},
+{
+   "fields": {
+      "action_flag": 1,
+      "action_time": "2015-03-28T07:10:40.689Z",
+      "object_repr": "PJM - jordan:Developer",
+      "object_id": "15",
+      "change_message": "",
+      "user": 4,
+      "content_type": 8
+   },
+   "model": "admin.logentry",
+   "pk": 16
+}
+]

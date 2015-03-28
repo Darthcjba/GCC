@@ -1,11 +1,15 @@
 {% extends 'project/base.html' %}
-
-{% block header %}{{ usuario.username | title}}{% endblock %}
+{% block title %}Ver Usuario{% endblock %}
+{% block header %}{{ usuario.first_name | title}} {{ usuario.last_name }}{% endblock %}
 {% block content %}
-<h3>My Projects</h3>
+<p>Nombre: {{ usuario.first_name }}</p>
+<p>Apellido: {{ usuario.last_name }}</p>
+<p>Username: {{ usuario.username }}</p>
+<p>Email: {{ usuario.email }}</p>
+<h3>Proyectos</h3>
 <ul>
 {% for p in projects %}
-    <li><a href="{% url 'project:project_detail' p.id %}">{{ p.nombre_corto }}</a></li>
+    <li><a href="{% url 'project:project_detail' p.proyecto_id %}">{{ p.proyecto.nombre_corto }} - {{ p.rol }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}

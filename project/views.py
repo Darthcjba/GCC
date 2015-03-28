@@ -51,7 +51,7 @@ class UserDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserDetail, self).get_context_data(**kwargs)
-        context['projects'] = [x.proyecto for x in self.object.miembroequipo_set.all()]
+        context['projects'] = self.object.miembroequipo_set.all()
         return context
 
 
@@ -60,7 +60,7 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
     form_class = UserCreateForm
     template_name = 'project/user_form.html'
 
-    @method_decorator(permission_required('auth.add_group', raise_exception=True))
+    @method_decorator(permission_required('auth.add_user', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(AddUser, self).dispatch(request, *args, **kwargs)
 
@@ -68,10 +68,6 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
         return reverse('project:user_detail', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
-        print(form.cleaned_data)
-        password = make_password(form.cleaned_data['password'])
-        form.cleaned_data['password'] = password
-        print(form.cleaned_data)
         super(AddUser, self).form_valid(form)
 
         escogidas = self.request.POST.getlist('general_perms')
@@ -95,7 +91,7 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     form_class = modelform_factory(User, form=UserForm,
                                    fields=['first_name', 'last_name', 'email', 'username', 'password'], )
 
-    @method_decorator(permission_required('auth.change_group', raise_exception=True))
+    @method_decorator(permission_required('auth.change_user', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(UpdateUser, self).dispatch(request, *args, **kwargs)
 

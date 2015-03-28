@@ -1,19 +1,19 @@
 {% extends 'project/base.html' %}
-
+{% block title %}Roles{% endblock %}
 {% block header %}Roles{% endblock %}
 {% block content %}
 
 
-    {% if perms.auth.add_group %}<p><a href="{% url 'project:rol_add' %}" class="fa fa-plus-circle">Add new</a></p>{% endif %}
+    {% if perms.auth.add_group %}<p><a href="{% url 'project:rol_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}
 
     <div class="dataTable_wrapper">
     <table class="table table-bordered table-striped table-hover" >
         <thead>
             <tr>
-                <th width="70%">Name</th>
-                <th>Detail</th>
-                {% if perms.auth.change_group %}<th>Edit</th>{% endif %}
-                {% if perms.auth.delete_group %}<th>Delete</th>{% endif %}
+                <th width="70%">Nombre</th>
+                <th>Ver</th>
+                {% if perms.auth.change_group %}<th>Editar</th>{% endif %}
+                {% if perms.auth.delete_group %}<th>Eliminar</th>{% endif %}
             </tr>
         </thead>
         <tbody>
