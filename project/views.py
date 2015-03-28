@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+# -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Permission, Group
@@ -18,15 +18,20 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class LoginRequiredMixin(object):
+    """
+        Mixin que exige que el usuario este logueado.
+    """
     @classmethod
     def as_view(cls, **initkwargs):
         view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
         return login_required(view)
 
 
-# Home simple para probar bootstrap
 @login_required()
 def home(request):
+    """
+    Vista para la pantalla principal.
+    """
     context = {}
     context['users'] = User.objects.all()
     context['proyects'] = Proyecto.objects.all()
@@ -36,20 +41,35 @@ def home(request):
 
 
 class UserList(LoginRequiredMixin, ListView):
+    """
+    Lista de usuarios.
+    """
     model = User
     context_object_name = 'users'
     template_name = 'project/user_list.html'
 
     def get_queryset(self):
+        """
+        Retorna una los usuarios excluyendo el AnonymousUser
+        :return: lista de usuarios
+        """
         return User.objects.exclude(id=-1)
 
 
 class UserDetail(LoginRequiredMixin, DetailView):
+    """
+    Ver detalles de Usuario
+    """
     model = User
     context_object_name = 'usuario'
     template_name = 'project/user_detail.html'
 
     def get_context_data(self, **kwargs):
+        """
+        Agregar lista de proyectos al contexto
+        :param kwargs: diccionario de argumentos claves
+        :return: contexto
+        """
         context = super(UserDetail, self).get_context_data(**kwargs)
         context['projects'] = self.object.miembroequipo_set.all()
         return context
@@ -57,7 +77,7 @@ class UserDetail(LoginRequiredMixin, DetailView):
 
 class AddUser(LoginRequiredMixin, generic.CreateView):
     """
-    AddUser: Crea un Usuario dentro del sistema, en el cual se pide los detalles de Usuario a registrar en el sistema
+    Agregar un Usuario al Sistema
     """
     model = User
     form_class = UserCreateForm
@@ -65,12 +85,28 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
 
     @method_decorator(permission_required('auth.add_user', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        """
+        Requiere el permiso 'add_user'
+        :param request: Request del cliente
+        :param args: Lista de argumentos
+        :param kwargs: Argumentos Clave
+        :return: dispatch de CreateView
+        """
         return super(AddUser, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
+        """
+        Retorna una los usuarios excluyendo el AnonymousUser
+        :return: url del UserDetail
+        """
         return reverse('project:user_detail', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
+        """
+        Verificar validez del formulario
+        :param form: formulario completado
+        :return: Url de Evento Correcto
+        """
         super(AddUser, self).form_valid(form)
 
         escogidas = self.request.POST.getlist('general_perms')
@@ -83,8 +119,7 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
 
 class DeleteUser(LoginRequiredMixin, generic.DeleteView):
     """
-    DeleteUser: Elimina a un usuario registrado en el sistema el cual debe estar registrado y solo si tiene los permisos para
-    eliminar usuario se podra eliminar
+    Eliminar un Usuario del Sistema
     """
     model = User
     template_name = 'project/user_delete.html'
@@ -97,7 +132,7 @@ class DeleteUser(LoginRequiredMixin, generic.DeleteView):
 
 class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     """
-    UpdateUser: Actualiza los datos que se quisiera actualizar del Usuario
+    Actualizar un Usuario del Sistema
     """
     model = User
     template_name = 'project/user_form.html'
@@ -106,12 +141,27 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
 
     @method_decorator(permission_required('auth.change_user', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        """
+        Requerir permiso 'change_user'
+        :param request: Requeust del cliente
+        :param args: Lista de Argumentos
+        :param kwargs: Argumentos Clave
+        :return: Dispatch de UpdateView
+        """
         return super(UpdateUser, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
+        """
+        Obtener url de evento correcto
+        :return: url de UserDetail
+        """
         return reverse('project:user_detail', kwargs={'pk': self.object.id})
 
     def get_initial(self):
+        """
+        Obtener datos iniciales para el formulario
+        :return: diccionario con los datos iniciales
+        """
         modelo = self.get_object()
 
         perm_list = [perm.codename for perm in list(modelo.user_permissions.all())]
@@ -121,6 +171,11 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
         return initial
 
     def form_valid(self, form):
+        """
+        Comprobar validez del formulario recibido
+        :param form: Formulario recibido
+        :return: URL de evento correcto
+        """
         super(UpdateUser, self).form_valid(form)
         # eliminamos permisos anteriores
         self.object.user_permissions.clear()
@@ -133,11 +188,18 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
 
 
 class ProjectList(LoginRequiredMixin, ListView):
+    """
+    Listado de Proyectos
+    """
     model = Proyecto
     context_object_name = 'projects'
     template_name = 'project/project_list.html'
 
     def get_queryset(self):
+        """
+        Obtener proyectos del Sistema.
+        :return: lista de proyectos
+        """
         if self.request.user.has_perm('project.list_all_projects'):
             return Proyecto.objects.all()
         else:
@@ -145,6 +207,9 @@ class ProjectList(LoginRequiredMixin, ListView):
 
 
 class ProjectDetail(LoginRequiredMixin, DetailView):
+    """
+    Vista de Detalles de Proyecto
+    """
     model = Proyecto
     context_object_name = 'project'
     template_name = 'project/project_detail.html'
@@ -167,6 +232,11 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
     form_class = RolForm
 
     def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
         context = super(AddRolView, self).get_context_data(**kwargs)
         context['current_action'] = "Add"
         return context
@@ -182,6 +252,11 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
         return super(AddRolView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+        """
+        Comprobar validez del formulario
+        :param form: formulario recibido
+        :return: URL de redireccion
+        """
         super(AddRolView, self).form_valid(form)
         escogidas = get_selected_perms(self.request.POST)
         for permname in escogidas:
@@ -191,23 +266,45 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
 
 
 class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
+    """
+    Vista de Actualizacion de Roles
+    """
     model = Group
     template_name = 'project/rol_form.html'
     form_class = RolForm
 
     def get_context_data(self, **kwargs):
+        """
+        Agregar datos adicionales al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
         context = super(UpdateRolView, self).get_context_data(**kwargs)
         context['current_action'] = "Update"
         return context
 
     def get_success_url(self):
+        """
+        :return: URL de redireccion correcta a UserDetail
+        """
         return reverse('project:rol_detail', kwargs={'pk': self.object.id})
 
     @method_decorator(permission_required('auth.change_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        """
+        Solicitar el permiso 'change_group'
+        :param request: request del cliente
+        :param args: lista de argumentos
+        :param kwargs: argumentos clave
+        :return: dispatch de UpdateView
+        """
         return super(UpdateRolView, self).dispatch(request, *args, **kwargs)
 
     def get_initial(self):
+        """
+        Obtener datos iniciales para el formulario
+        :return: diccionario de datos iniciales
+        """
         modelo = self.get_object()
 
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
@@ -218,6 +315,11 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
 
 
     def form_valid(self, form):
+        """
+        Comprobar validez del formulario
+        :param form: formulario recibido
+        :return: URL de redireccion correcta
+        """
         super(UpdateRolView, self).form_valid(form)
         # eliminamos permisos anteriores
         self.object.permissions.clear()
@@ -230,16 +332,31 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
 
 
 class DeleteRolView(generic.DeleteView):
+    """
+    Vista de Eliminacion de Roles
+    """
     model = Group
     template_name = 'project/rol_delete.html'
     success_url = reverse_lazy('project:rol_list')
 
     @method_decorator(permission_required('auth.delete_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        """
+        Requerir permisos 'delete_group'
+        :param request: request del cliente
+        :param args: lista de argumentos
+        :param kwargs: argumentos clave
+        :return: dispatch de DeleteView
+        """
         return super(DeleteRolView, self).dispatch(request, *args, **kwargs)
 
 
 def get_selected_perms(POST):
+    """
+    Obtener los permisos marcados en el formulario
+    :param POST: diccionario con los datos del formulario
+    :return: lista de permisos
+    """
     current_list = POST.getlist('perms_proyecto')
     current_list.extend(POST.getlist('perms_teammembers'))
     current_list.extend(POST.getlist('perms_userstory'))
@@ -250,12 +367,18 @@ def get_selected_perms(POST):
 
 
 class RolList(generic.ListView):
+    """
+    Vista de Listado de Roles
+    """
     model = Group
     template_name = 'project/rol_list.html'
     context_object_name = 'roles'
 
 
 class RolDetail(generic.DetailView):
+    """
+    Vista de Detalles de Rol
+    """
     model = Group
     template_name = 'project/rol_detail.html'
     context_object_name = 'rol'
