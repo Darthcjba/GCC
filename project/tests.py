@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Permission
 from django.test import TestCase
 
 class RolesTest(TestCase):
