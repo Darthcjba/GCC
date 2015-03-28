@@ -61,8 +61,9 @@
 <span id="models"></span><h1>Models<a class="headerlink" href="#module-project.models" title="Enlazar permanentemente con este título">¶</a></h1>
 <dl class="class">
 <dt id="project.models.Actividad">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Actividad</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>flujo_id</em>, <em>_order</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Actividad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Actividad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Actividad</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Actividad"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Actividad" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Las actividades representan las distintas etapas de las que se componen un flujo</p>
 <dl class="exception">
 <dt id="project.models.Actividad.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.Actividad.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -104,8 +105,9 @@
 
 <dl class="class">
 <dt id="project.models.Adjunto">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Adjunto</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>descripcion</em>, <em>creacion</em>, <em>user_story_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Adjunto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Adjunto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Adjunto</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Adjunto"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Adjunto" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Modelo para la administración de archivos adjuntos a un User Story.</p>
 <dl class="exception">
 <dt id="project.models.Adjunto.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.Adjunto.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -142,8 +144,9 @@
 
 <dl class="class">
 <dt id="project.models.Flujo">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Flujo</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>proyecto_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Flujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Flujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Flujo</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Flujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Flujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Administración de los flujos que forman parte de un proyecto. Las plantillas de flujo se manejan como Flujos sin proyecto asignado.</p>
 <dl class="exception">
 <dt id="project.models.Flujo.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.Flujo.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -185,8 +188,9 @@
 
 <dl class="class">
 <dt id="project.models.MiembroEquipo">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">MiembroEquipo</code><span class="sig-paren">(</span><em>id</em>, <em>usuario_id</em>, <em>proyecto_id</em>, <em>rol_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#MiembroEquipo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.MiembroEquipo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">MiembroEquipo</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#MiembroEquipo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.MiembroEquipo" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Miembros del equipo de un proyecto con un rol específico</p>
 <dl class="exception">
 <dt id="project.models.MiembroEquipo.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.MiembroEquipo.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -223,8 +227,9 @@
 
 <dl class="class">
 <dt id="project.models.Nota">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Nota</code><span class="sig-paren">(</span><em>id</em>, <em>descripcion</em>, <em>fecha</em>, <em>user_story_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Nota"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Nota" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Nota</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Nota"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Nota" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Manejo de notas adjuntas relacionadas a un User Story, estás entradas representan constancias de los cambios, como cantidad de horas trabajadas, en un user story.</p>
 <dl class="exception">
 <dt id="project.models.Nota.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.Nota.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -345,8 +350,9 @@
 
 <dl class="class">
 <dt id="project.models.Sprint">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Sprint</code><span class="sig-paren">(</span><em>id</em>, <em>inicio</em>, <em>fin</em>, <em>proyecto_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Sprint"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Sprint" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Sprint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Sprint"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Sprint" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Manejo de los sprints del proyecto</p>
 <dl class="exception">
 <dt id="project.models.Sprint.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.Sprint.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -398,8 +404,9 @@
 
 <dl class="class">
 <dt id="project.models.UserStory">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">UserStory</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>descripcion</em>, <em>prioridad</em>, <em>valor_negocio</em>, <em>valor_tecnico</em>, <em>tiempo_estimado</em>, <em>tiempo_registrado</em>, <em>ultimo_cambio</em>, <em>estado</em>, <em>proyecto_id</em>, <em>desarrollador_id</em>, <em>sprint_id</em>, <em>actividad_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#UserStory"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.UserStory" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">UserStory</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#UserStory"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.UserStory" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Manejo de los User Stories. Los User Stories representan a cada funcionalidad desde la perspectiva del cliente que debe realizar el sistema.</p>
 <dl class="exception">
 <dt id="project.models.UserStory.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.UserStory.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>
@@ -481,8 +488,9 @@
 
 <dl class="class">
 <dt id="project.models.Version">
-<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Version</code><span class="sig-paren">(</span><em>id</em>, <em>nombre</em>, <em>descripcion</em>, <em>valor_negocio</em>, <em>valor_tecnico</em>, <em>tiempo_estimado</em>, <em>modificacion</em>, <em>user_story_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Version"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Version" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<em class="property">class </em><code class="descclassname">project.models.</code><code class="descname">Version</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/models.html#Version"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.models.Version" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Modelo para el versionado de los User Stories. Con esta entidad se puede volver atrás a un estado anterior del User Story.</p>
 <dl class="exception">
 <dt id="project.models.Version.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#project.models.Version.DoesNotExist" title="Enlazar permanentemente con esta definición">¶</a></dt>

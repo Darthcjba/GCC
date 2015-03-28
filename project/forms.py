@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group, Permission, User
 from django import forms
@@ -6,6 +7,11 @@ from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
 from project.models import UserStory
 
 def general_perms_list():
+    '''
+
+    :return: lista con los permisos que pueden asignarse a nivel general
+    :rtype: list
+    '''
     permlist = []
     permlist.append(Permission.objects.get(codename="list_all_projects"))
     permlist.append(Permission.objects.get(codename="add_flow_template"))
@@ -18,7 +24,9 @@ def general_perms_list():
 
 
 class UserEditForm(UserChangeForm):
-
+    '''
+    Formulario para edición de usuarios
+    '''
     password = ReadOnlyPasswordHashField(label=("Password"),
         help_text=("Solo se almacena un hash del password, no hay manera de verla. "
                    "Para modificarla seleccionar la opcion <strong>Cambiar Password</strong>"))
@@ -30,7 +38,9 @@ class UserEditForm(UserChangeForm):
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
 
 class RolForm(forms.ModelForm):
-
+    '''
+    Formulario para el manejo de roles
+    '''
     perms_proyecto_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto)]
     perms_teammembers_list = [(perm.codename, perm.name) for perm in get_perms_for_model(MiembroEquipo)]
     perms_userstories_list = [(perm.codename, perm.name) for perm in get_perms_for_model(UserStory)]
@@ -53,6 +63,9 @@ class RolForm(forms.ModelForm):
         fields = ["name"]
 
 class UserCreateForm(UserCreationForm):
+    '''
+    Formulario para la creación de usuarios
+    '''
     email = forms.EmailField(required=True)
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
