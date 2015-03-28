@@ -12,7 +12,7 @@ from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
-from project.forms import RolForm, UserForm, UserCreateForm
+from project.forms import RolForm, UserEditForm, UserCreateForm
 from guardian.shortcuts import get_perms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
@@ -88,7 +88,7 @@ class DeleteUser(LoginRequiredMixin, generic.DeleteView):
 class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     model = User
     template_name = 'project/user_form.html'
-    form_class = modelform_factory(User, form=UserForm,
+    form_class = modelform_factory(User, form=UserEditForm,
                                    fields=['first_name', 'last_name', 'email', 'username', 'password'], )
 
     @method_decorator(permission_required('auth.change_user', raise_exception=True))
@@ -145,6 +145,10 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
 
 
 class AddRolView(LoginRequiredMixin, generic.CreateView):
+    '''
+    View que agrega un rol al sistema
+    '''
+
     model = Group
     template_name = 'project/rol_form.html'
     form_class = RolForm
