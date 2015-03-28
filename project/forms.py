@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group, Permission, User
 from django import forms
 from guardian.shortcuts import get_perms_for_model
@@ -12,8 +13,11 @@ def general_perms_list():
     permlist.append(Permission.objects.get(codename="delete_flow_template"))
     return permlist
 
-class UserForm(forms.ModelForm):
+class UserForm(UserChangeForm):
 
+    password = ReadOnlyPasswordHashField(label=("Password"),
+        help_text=("Solo se almacena un hash del password, no hay manera de verla. "
+                   "Para modificarla seleccionar la opcion <strong>Cambiar Password</strong>"))
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
     perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
@@ -43,3 +47,10 @@ class RolForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ["name"]
+
+class UserCreateForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'username')

@@ -11,9 +11,9 @@ from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
-from project.forms import RolForm, UserForm
+from project.forms import RolForm, UserForm, UserCreateForm
 from guardian.shortcuts import get_perms
-
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class LoginRequiredMixin(object):
@@ -56,9 +56,7 @@ class UserDetail(LoginRequiredMixin, DetailView):
 
 class AddUser(LoginRequiredMixin, generic.CreateView):
     model = User
-    form_class = modelform_factory(User, form=UserForm,
-                                   fields=['first_name', 'last_name', 'email', 'username', 'password', ],
-                                   widgets={"password": PasswordInput()})
+    form_class = UserCreateForm
     template_name = 'project/user_form.html'
 
     @method_decorator(permission_required('auth.add_group', raise_exception=True))
@@ -89,8 +87,7 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     model = User
     template_name = 'project/user_form.html'
     form_class = modelform_factory(User, form=UserForm,
-                                   fields=['first_name', 'last_name', 'email', 'username', 'last_login',
-                                           'date_joined'], )
+                                   fields=['first_name', 'last_name', 'email', 'username', 'password'], )
 
     @method_decorator(permission_required('auth.change_group', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
