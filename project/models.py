@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
@@ -36,6 +37,9 @@ class Proyecto(models.Model):
 
 
 class MiembroEquipo(models.Model):
+    """
+    Miembros del equipo de un proyecto con un rol específico
+    """
     usuario = models.ForeignKey(User)
     proyecto = models.ForeignKey(Proyecto)
     rol = models.ForeignKey(Group)
@@ -48,12 +52,18 @@ class MiembroEquipo(models.Model):
 
 
 class Sprint(models.Model):
+    """
+    Manejo de los sprints del proyecto
+    """
     inicio = models.DateTimeField()
     fin = models.DateTimeField()
     proyecto = models.ForeignKey(Proyecto)
 
 
 class Flujo(models.Model):
+    """
+    Administración de los flujos que forman parte de un proyecto. Las plantillas de flujo se manejan como Flujos sin proyecto asignado.
+    """
     nombre = models.CharField(max_length=20)
     proyecto = models.ForeignKey(Proyecto, null=True)
 
@@ -70,6 +80,9 @@ class Flujo(models.Model):
 
 
 class Actividad(models.Model):
+    """
+    Las actividades representan las distintas etapas de las que se componen un flujo
+    """
     name = models.CharField(max_length=20)
     flujo = models.ForeignKey(Flujo)
 
@@ -82,6 +95,9 @@ class Actividad(models.Model):
 
 
 class UserStory(models.Model):
+    """
+    Manejo de los User Stories. Los User Stories representan a cada funcionalidad desde la perspectiva del cliente que debe realizar el sistema.
+    """
     estado_choices = ((0, 'ToDo'), (1, 'Doing'), (2, 'Done'), (3, 'Pendiente Aprobacion'), (4, 'Aprobado'))
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
@@ -102,6 +118,9 @@ class UserStory(models.Model):
 
 
 class Version(models.Model):
+    """
+    Modelo para el versionado de los User Stories. Con esta entidad se puede volver atrás a un estado anterior del User Story.
+    """
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
     valor_negocio = models.IntegerField()
@@ -112,6 +131,9 @@ class Version(models.Model):
 
 
 class Nota(models.Model):
+    """
+    Manejo de notas adjuntas relacionadas a un User Story, estás entradas representan constancias de los cambios, como cantidad de horas trabajadas, en un user story.
+    """
     descripcion = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
     # usuario = models.ForeignKey(User)
@@ -119,6 +141,9 @@ class Nota(models.Model):
 
 
 class Adjunto(models.Model):
+    """
+    Modelo para la administración de archivos adjuntos a un User Story.
+    """
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
     # path = models.FilePathField()

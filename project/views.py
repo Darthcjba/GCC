@@ -84,6 +84,9 @@ class DeleteUser(LoginRequiredMixin, generic.DeleteView):
     context_object_name = 'usuario'
     success_url = reverse_lazy('project:user_list')
 
+    @method_decorator(permission_required('auth.delete_user', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(DeleteUser, self).dispatch(request, *args, **kwargs)
 
 class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     model = User

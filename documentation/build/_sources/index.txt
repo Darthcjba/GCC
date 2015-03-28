@@ -13,7 +13,6 @@ Contents:
 
    modules/models
    modules/views
-   modules/urls
    modules/forms
 
 Indices and tables

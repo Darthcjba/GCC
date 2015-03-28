@@ -52,6 +52,7 @@
           <div class="body" role="main">
             
   <h1>Código fuente para project.models</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Group</span>
 <span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ValidationError</span>
@@ -90,6 +91,9 @@
 
 </div>
 <div class="viewcode-block" id="MiembroEquipo"><a class="viewcode-back" href="../../modules/models.html#project.models.MiembroEquipo">[documentos]</a><span class="k">class</span> <span class="nc">MiembroEquipo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Miembros del equipo de un proyecto con un rol específico</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">usuario</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
     <span class="n">proyecto</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">)</span>
     <span class="n">rol</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Group</span><span class="p">)</span>
@@ -102,12 +106,18 @@
 
 </div>
 <div class="viewcode-block" id="Sprint"><a class="viewcode-back" href="../../modules/models.html#project.models.Sprint">[documentos]</a><span class="k">class</span> <span class="nc">Sprint</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manejo de los sprints del proyecto</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">inicio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
     <span class="n">fin</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
     <span class="n">proyecto</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="Flujo"><a class="viewcode-back" href="../../modules/models.html#project.models.Flujo">[documentos]</a><span class="k">class</span> <span class="nc">Flujo</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Administración de los flujos que forman parte de un proyecto. Las plantillas de flujo se manejan como Flujos sin proyecto asignado.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nombre</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">proyecto</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
@@ -124,6 +134,9 @@
 
 </div>
 <div class="viewcode-block" id="Actividad"><a class="viewcode-back" href="../../modules/models.html#project.models.Actividad">[documentos]</a><span class="k">class</span> <span class="nc">Actividad</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Las actividades representan las distintas etapas de las que se componen un flujo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">flujo</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Flujo</span><span class="p">)</span>
 
@@ -136,6 +149,9 @@
 
 </div>
 <div class="viewcode-block" id="UserStory"><a class="viewcode-back" href="../../modules/models.html#project.models.UserStory">[documentos]</a><span class="k">class</span> <span class="nc">UserStory</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manejo de los User Stories. Los User Stories representan a cada funcionalidad desde la perspectiva del cliente que debe realizar el sistema.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">estado_choices</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;ToDo&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Doing&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;Done&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;Pendiente Aprobacion&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;Aprobado&#39;</span><span class="p">))</span>
     <span class="n">nombre</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">descripcion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
@@ -156,6 +172,9 @@
 
 </div>
 <div class="viewcode-block" id="Version"><a class="viewcode-back" href="../../modules/models.html#project.models.Version">[documentos]</a><span class="k">class</span> <span class="nc">Version</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para el versionado de los User Stories. Con esta entidad se puede volver atrás a un estado anterior del User Story.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nombre</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">descripcion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
     <span class="n">valor_negocio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
@@ -166,6 +185,9 @@
 
 </div>
 <div class="viewcode-block" id="Nota"><a class="viewcode-back" href="../../modules/models.html#project.models.Nota">[documentos]</a><span class="k">class</span> <span class="nc">Nota</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manejo de notas adjuntas relacionadas a un User Story, estás entradas representan constancias de los cambios, como cantidad de horas trabajadas, en un user story.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">descripcion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
     <span class="n">fecha</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="c"># usuario = models.ForeignKey(User)</span>
@@ -173,6 +195,9 @@
 
 </div>
 <div class="viewcode-block" id="Adjunto"><a class="viewcode-back" href="../../modules/models.html#project.models.Adjunto">[documentos]</a><span class="k">class</span> <span class="nc">Adjunto</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para la administración de archivos adjuntos a un User Story.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nombre</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">descripcion</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
     <span class="c"># path = models.FilePathField()</span>
