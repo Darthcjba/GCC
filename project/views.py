@@ -56,6 +56,9 @@ class UserDetail(LoginRequiredMixin, DetailView):
 
 
 class AddUser(LoginRequiredMixin, generic.CreateView):
+    """
+    AddUser: Crea un Usuario dentro del sistema, en el cual se pide los detalles de Usuario a registrar en el sistema
+    """
     model = User
     form_class = UserCreateForm
     template_name = 'project/user_form.html'
@@ -79,6 +82,10 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
 
 
 class DeleteUser(LoginRequiredMixin, generic.DeleteView):
+    """
+    DeleteUser: Elimina a un usuario registrado en el sistema el cual debe estar registrado y solo si tiene los permisos para
+    eliminar usuario se podra eliminar
+    """
     model = User
     template_name = 'project/user_delete.html'
     context_object_name = 'usuario'
@@ -86,6 +93,9 @@ class DeleteUser(LoginRequiredMixin, generic.DeleteView):
 
 
 class UpdateUser(LoginRequiredMixin, generic.UpdateView):
+    """
+    UpdateUser: Actualiza los datos que se quisiera actualizar del Usuario
+    """
     model = User
     template_name = 'project/user_form.html'
     form_class = modelform_factory(User, form=UserEditForm,
