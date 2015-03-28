@@ -11,7 +11,6 @@
                 <th>Username</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Activo</th>
                 <th>Ultimo Login</th>
                 <th>Ver</th>
                 <th>Editar</th>
@@ -24,7 +23,6 @@
                 <td>{{ u.username }}</td>
                 <td>{{ u.first_name }}</td>
                 <td>{{ u.last_name }}</td>
-                <td><i class="fa {% if u.is_active %}fa-check{% else %}fa-times{% endif %} fa-fw"></i></td>
                 <td>{{ u.last_login }}</td>
                 <td ><a href="{% url 'project:user_detail' u.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
                 <td><a href="{% url 'project:user_update' u.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>
