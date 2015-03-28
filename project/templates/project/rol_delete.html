@@ -1,8 +1,7 @@
 {% extends 'project/base.html' %}
-{% block title %}Elminar Rol{% endblock %}
-{% block title %}{{ rol.name }}{% endblock %}
+{% block title %}{{ group }}{% endblock %}
 
-{% block header %}{{ rol.name }}{% endblock %}
+{% block header %}{{ group }}{% endblock %}
 {% block content %}
 <form action="" method="post" role="form">
     {% csrf_token %}
