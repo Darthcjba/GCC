@@ -55,10 +55,18 @@ class Sprint(models.Model):
     """
     Manejo de los sprints del proyecto
     """
+    nombre = models.CharField(max_length=20, blank=True, default='')
     inicio = models.DateTimeField()
     fin = models.DateTimeField()
-    proyecto = models.ForeignKey(Proyecto)
+    proyecto = models.ForeignKey(Proyecto, null=False)
 
+    def save(self, *args, **kwargs):
+        if self.nombre == '':
+            self.nombre = "Sprint %d" % self.proyecto.sprint_set.count() + 1
+        super(Sprint, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.nombre
 
 class Flujo(models.Model):
     """
@@ -68,7 +76,7 @@ class Flujo(models.Model):
     proyecto = models.ForeignKey(Proyecto, null=True)
 
     def __unicode__(self):
-        return self.name
+        return self.nombre
 
     class Meta:
         verbose_name_plural = 'flujos'
