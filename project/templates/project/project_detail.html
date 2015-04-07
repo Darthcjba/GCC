@@ -1,6 +1,61 @@
 {% extends 'project/base.html' %}
 {% block title %}{{ project.nombre_corto }}{% endblock %}
 
-{% block header %}{{ project.nombre_largo }}: {{ project.nombre_corto }}{% endblock %}
+{% block header %}{{ project.nombre_corto }}{% endblock %}
 {% block content %}
+    <h3>{{ project.nombre_largo }}</h3>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="well">
+                <p><strong>Estado:</strong> {{ project.get_estado_display }}</p>
+
+                <p><strong>Inicio:</strong> {{ project.inicio }}</p>
+
+                <p><strong>Fin:</strong> {{ project.fin }}</p>
+
+                <p><strong>Duracion de Sprints:</strong> {{ project.duracion_sprint }}</p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="well well-sm">
+                <h4>Descripcion</h4>
+
+                <p>{{ project.descripcion }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <h4 class="list-group-item-heading">Equipo</h4>
+        <ul class="list-group">
+            {% for m in team %}
+                <li class="list-group-item">
+                    <span class="badge">{{ m.rol }}</span>
+                    <a href="{% url 'project:user_detail' m.usuario_id %}">{{ m.usuario.first_name }} {{ m.usuario.last_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-4">
+        <h4 class="list-group-item-heading">Sprints</h4>
+        <ul class="list-group">
+            {% for m in team %}
+                <li class="list-group-item">
+                    <span class="badge">{{ m.rol }}</span>
+                    <a href="{% url 'project:user_detail' m.usuario_id %}">{{ m.usuario.first_name }} {{ m.usuario.last_name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-4">
+        <h4 class="list-group-item-heading">Flujos</h4>
+        <ul class="list-group">
+            {% for f in flows %}
+                <li class="list-group-item">
+                    <span class="badge">1</span>
+                    <a href="#">{{ f.nombre }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

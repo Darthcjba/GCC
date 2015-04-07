@@ -216,7 +216,8 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetail, self).get_context_data(**kwargs)
-        #team = self.object.miembroequipo_set
+        context['team'] = self.object.miembroequipo_set.all()
+        context['flows'] = self.object.flujo_set.all()
         #context['product_owner'] = team.filter(rol='Product Owner')
         #context['scrum_master'] = team.filter(rol='Scrum Master')
         return context
