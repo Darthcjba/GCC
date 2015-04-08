@@ -2,7 +2,9 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
-
+from django.db.models.signals import m2m_changed
+from guardian.shortcuts import assign_perm, remove_perm
+from project.signals import add_permissions_team_member
 
 def validate_dates(start, end):
     if start > end:
@@ -45,10 +47,6 @@ class Proyecto(models.Model):
             ('edit_flujo', 'editar flujo'),
             ('remove_flujo', 'eliminar flujo'),
 
-            ('create_flujotemplate', 'agregar template de flujo'),
-            ('edit_flujotemplate', 'editar template de flujo'),
-            ('remove_flujotemplate', 'eliminar template de flujo'),
-
             ('create_actividad', 'agregar actividad'),
             ('edit_actividad', 'editar actividad'),
             ('remove_actividad', 'eliminar actividad'),
@@ -71,15 +69,25 @@ class MiembroEquipo(models.Model):
     """
     usuario = models.ForeignKey(User)
     proyecto = models.ForeignKey(Proyecto)
-    rol = models.ForeignKey(Group)
+    rol = models.ManyToManyField(Group)
 
-    def __unicode__(self):
-        return "{} - {}:{}".format(self.proyecto, self.usuario, self.rol)
+
+    #def __unicode__(self):
+        #return unicode("{} - {}:{}".format(self.proyecto, self.usuario, [rol.name for rol in self.rol.all()]))
+
+    #nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
+    #llamar al delete de cada objeto para remover los permisos
+    def delete(self, using=None):
+        for role in self.rol.all():
+            for perm in role.permissions.all():
+                remove_perm(perm.codename, self.usuario, self.proyecto)
+        super(MiembroEquipo, self).delete(using)
 
     class Meta:
         default_permissions = ()
         verbose_name_plural = 'miembros equipo'
 
+m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.rol.through)
 
 class Sprint(models.Model):
     """
@@ -105,6 +113,11 @@ class Flujo(models.Model):
     class Meta:
         verbose_name_plural = 'flujos'
         default_permissions = ()
+        permissions = (
+            ('add_flow_template', 'agregar plantilla de flujo'),
+            ('change_flow_template', 'editar plantilla de flujo'),
+            ('delete_flow_template', 'eliminar plantilla de flujo'),
+            )
 
 
 class Actividad(models.Model):
@@ -143,6 +156,7 @@ class UserStory(models.Model):
 
     class Meta:
         verbose_name_plural = 'user stories'
+        default_permissions = ()
 
 
 class Version(models.Model):

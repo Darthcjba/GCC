@@ -327,6 +327,8 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
         for permname in escogidas:
             perm = Permission.objects.get(codename=permname)
             self.object.permissions.add(perm)
+        # actualizamos los permisos de los miembros de equipos que tienen este rol
+
 
         return HttpResponseRedirect(self.get_success_url())
 
