@@ -13,7 +13,7 @@ from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
 from project.forms import RolForm, UserEditForm, UserCreateForm
-from guardian.shortcuts import get_perms
+from guardian.shortcuts import get_perms, remove_perm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
@@ -328,8 +328,17 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
             perm = Permission.objects.get(codename=permname)
             self.object.permissions.add(perm)
         # actualizamos los permisos de los miembros de equipos que tienen este rol
-
-
+        team_members_set = self.object.miembroequipo_set.all()
+        for team_member in team_members_set:
+            user = team_member.usuario
+            project = team_member.proyecto
+            #borramos todos los permisos que tiene asociado el usuario en el proyecto
+            for perm in get_perms(user, project):
+                remove_perm(perm, user, project)
+            all_roles = team_member.rol.all()
+            for role in all_roles:
+                team_member.rol.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.rol.add(role) #volvemos a agregar para que se copien los permisos actualizados
         return HttpResponseRedirect(self.get_success_url())
 
 

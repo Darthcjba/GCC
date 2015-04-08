@@ -2,9 +2,10 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import m2m_changed, post_save
 from guardian.shortcuts import assign_perm, remove_perm
 from project.signals import add_permissions_team_member
+
 
 def validate_dates(start, end):
     if start > end:
@@ -87,7 +88,8 @@ class MiembroEquipo(models.Model):
         default_permissions = ()
         verbose_name_plural = 'miembros equipo'
 
-m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.rol.through)
+m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.rol.through, dispatch_uid='add_permissions_signal')
+
 
 class Sprint(models.Model):
     """
