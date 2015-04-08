@@ -41,12 +41,12 @@ class RolForm(forms.ModelForm):
     '''
     Formulario para el manejo de roles
     '''
-    perms_proyecto_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto)]
-    perms_teammembers_list = [(perm.codename, perm.name) for perm in get_perms_for_model(MiembroEquipo)]
-    perms_userstories_list = [(perm.codename, perm.name) for perm in get_perms_for_model(UserStory)]
-    perms_flujo_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Flujo)]
-    perms_sprint_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Sprint)]
-    perms_actividad_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Actividad)]
+    perms_proyecto_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'proyecto' in perm.codename]
+    perms_teammembers_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'miembroequipo' in perm.codename]
+    perms_userstories_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'userstory' in perm.codename]
+    perms_flujo_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'flujo' in perm.codename and not('template' in perm.codename)]
+    perms_sprint_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'sprint' in perm.codename]
+    perms_actividad_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'actividad' in perm.codename]
 
 
     #perms_list = [(perm.codename, perm.name) for perm in Permission.objects.all()] #alternativa con una sola lista

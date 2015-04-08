@@ -26,8 +26,37 @@ class Proyecto(models.Model):
     descripcion = models.TextField()
 
     class Meta:
+        #Los permisos estaran asociados a los proyectos, por lo que todos los permisos de ABM de las entidades
+        #dependientes del proyecto, deben crearse como permisos de proyecto
+        #en vez de 'add', 'change' y 'delete', los permisos personalizados seran 'create', 'edit' y 'remove' para
+        #evitar confusiones con los por defecto.
+
         permissions = (
-            ('list_all_projects', 'list all available projects'),
+            ('list_all_projects', 'listar los proyectos disponibles'),
+            ('create_miembroequipo', 'agregar miembro del equipo'),
+            ('edit_miembroequipo', 'editar miembro del equipo'),
+            ('remove_miembroequipo', 'eliminar miembro del equipo'),
+
+            ('create_sprint', 'agregar sprint'),
+            ('edit_sprint', 'editar sprint'),
+            ('remove_sprint', 'eliminar sprint'),
+
+            ('create_flujo', 'agregar flujo'),
+            ('edit_flujo', 'editar flujo'),
+            ('remove_flujo', 'eliminar flujo'),
+
+            ('create_flujotemplate', 'agregar template de flujo'),
+            ('edit_flujotemplate', 'editar template de flujo'),
+            ('remove_flujotemplate', 'eliminar template de flujo'),
+
+            ('create_actividad', 'agregar actividad'),
+            ('edit_actividad', 'editar actividad'),
+            ('remove_actividad', 'eliminar actividad'),
+
+            ('create_userstory', 'agregar userstory'),
+            ('edit_userstory', 'editar userstory'),
+            ('remove_userstory', 'eliminar userstory'),
+            #Hace falta definir permisos para Versiones, Notas y Adjuntos?
         )
 
 
@@ -48,6 +77,7 @@ class MiembroEquipo(models.Model):
         return "{} - {}:{}".format(self.proyecto, self.usuario, self.rol)
 
     class Meta:
+        default_permissions = ()
         verbose_name_plural = 'miembros equipo'
 
 
@@ -59,7 +89,9 @@ class Sprint(models.Model):
     fin = models.DateTimeField()
     proyecto = models.ForeignKey(Proyecto)
 
-
+    class Meta:
+        default_permissions = ()
+        
 class Flujo(models.Model):
     """
     Administración de los flujos que forman parte de un proyecto. Las plantillas de flujo se manejan como Flujos sin proyecto asignado.
@@ -72,11 +104,7 @@ class Flujo(models.Model):
 
     class Meta:
         verbose_name_plural = 'flujos'
-        permissions = (
-            ('add_flow_template', 'add flow template'),
-            ('change_flow_template', 'change flow template'),
-            ('delete_flow_template', 'delete flow template')
-        )
+        default_permissions = ()
 
 
 class Actividad(models.Model):
