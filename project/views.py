@@ -12,6 +12,7 @@ from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
+from django.forms.extras.widgets import SelectDateWidget
 from project.forms import RolForm, UserEditForm, UserCreateForm
 from guardian.shortcuts import get_perms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -225,13 +226,18 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
 
 class ProjectCreate(LoginRequiredMixin, generic.CreateView):
     model = Proyecto
+    form_class =  modelform_factory(Proyecto,
+        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
     template_name = 'project/project_form.html'
-    fields = ['nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion']
+
 
 class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Proyecto
     template_name = 'project/project_form.html'
-    fields = ['nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion']
+    form_class =  modelform_factory(Proyecto,
+        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
 
 class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
     model = Proyecto
