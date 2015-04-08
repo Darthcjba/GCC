@@ -1,12 +1,18 @@
 {% extends "project/base.html" %}
+{% load bootstrap %}
 {% block title %}Formulario Usuario{% endblock %}
 {% block header %}Usuario{% endblock %}
 {% block content %}
 
-    <form action="" method="post" role="form">
-        {% csrf_token %}
-            {{ form.as_p}}
-        <input type="submit" value="Guardar" class="btn btn-default"/>
-    </form>
+
+<form role="form" method="post">
+    <legend>Crear Nuevo Usuario</legend>
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
+    </div>
+</form>
 
 {% endblock %}

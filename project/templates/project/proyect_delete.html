@@ -1,0 +1,15 @@
+{% extends 'project/base.html' %}
+{% block title %}Eliminar Proyecto{% endblock %}
+
+{% block header %}{{ proyecto }}{% endblock %}
+{% block content %}
+<form action="" method="post" role="form">
+    {% csrf_token %}
+    <div class="form-group">
+        <p>Seguro de que desea eliminar el proyecto <strong>{{ usuario}}</strong>?</p>
+    </div>
+
+    <input type="submit" value="Confirmar" class="btn btn-default"/>
+    <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
+</form>
+{% endblock %}

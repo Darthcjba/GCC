@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'guardian',
     'django.contrib.admindocs',
     'debug_toolbar',
+    'bootstrapform',
 )
 
 MIDDLEWARE_CLASSES = (

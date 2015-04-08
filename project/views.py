@@ -201,7 +201,7 @@ class ProjectList(LoginRequiredMixin, ListView):
         :return: lista de proyectos
         """
         if self.request.user.has_perm('project.list_all_projects'):
-            return Proyecto.objects.all()
+            return Proyecto.objects.exclude(estado='CA')
         else:
             return [x.proyecto for x in self.request.user.miembroequipo_set.all()]
 
@@ -223,6 +223,32 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
         #context['scrum_master'] = team.filter(rol='Scrum Master')
         return context
 
+class ProjectCreate(LoginRequiredMixin, generic.CreateView):
+    model = Proyecto
+    template_name = 'project/project_form.html'
+    fields = ['nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion']
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del rol editado.
+        """
+        return reverse('project:project_detail', kwargs={'pk': self.object.id})
+
+class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Proyecto
+    template_name = 'project/project_form.html'
+    fields = ['nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion']
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del rol editado.
+        """
+        return reverse('project:project_detail', kwargs={'pk': self.object.id})
+
+class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Proyecto
+    template_name = 'project/proyect_delete.html'
+    success_url = reverse_lazy('project:project_list')
 
 class AddRolView(LoginRequiredMixin, generic.CreateView):
     '''

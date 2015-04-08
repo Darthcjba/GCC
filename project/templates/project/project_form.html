@@ -1,0 +1,28 @@
+{% extends "project/base.html" %}
+{% load bootstrap %}
+{% block title %}Formulario Proyecto{% endblock %}
+{% block header %}Proyecto{% endblock %}
+{% block content %}
+    <div class="row">
+        <form role="form" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6">
+                    {{ form.nombre_corto|bootstrap }}
+                    {{ form.nombre_largo|bootstrap }}
+                    {{ form.estado|bootstrap }}
+                    {{ form.inicio|bootstrap }}
+                    {{ form.fin|bootstrap }}
+                </div>
+                <div class="col-lg-6">
+                    {{ form.duracion_sprint|bootstrap }}
+                    {{ form.descripcion|bootstrap }}
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
