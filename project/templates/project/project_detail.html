@@ -37,8 +37,14 @@
                 {% for m in team %}
                     <a href="{% url 'project:user_detail' m.usuario_id %}" class="list-group-item">
                         {{ m.usuario.get_full_name }}
+                        {% for r in m.roles.all %}
+                            <span class="badge" data-toggle="tooltip" data-placement="left"
+                              title="Rol">{{ r }}</span>
+                        {% endfor %}
+                        {% comment %}
                         <span class="badge" data-toggle="tooltip" data-placement="left"
-                              title="Rol">{{ m.rol }}</span>
+                              title="Rol">{{ m.roles.all|join:", " }}</span>
+                        {% endcomment %}
                     </a>
                 {% endfor %}
             </div>

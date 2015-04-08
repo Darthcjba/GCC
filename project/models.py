@@ -24,6 +24,7 @@ class Proyecto(models.Model):
     creacion = models.DateTimeField(auto_now_add=True)
     duracion_sprint = models.IntegerField(default=0)
     descripcion = models.TextField()
+    equipo = models.ManyToManyField(User, through='MiembroEquipo')
 
     class Meta:
         permissions = (
@@ -42,10 +43,10 @@ class MiembroEquipo(models.Model):
     """
     usuario = models.ForeignKey(User)
     proyecto = models.ForeignKey(Proyecto)
-    rol = models.ForeignKey(Group)
+    roles = models.ManyToManyField(Group)
 
     def __unicode__(self):
-        return "{} - {}:{}".format(self.proyecto, self.usuario, self.rol)
+        return "{} - {}:{}".format(self.proyecto, self.usuario, self.roles.all())
 
     class Meta:
         verbose_name_plural = 'miembros equipo'
