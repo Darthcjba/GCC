@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
-
+from django.core.urlresolvers import reverse_lazy
 
 def validate_dates(start, end):
     if start > end:
@@ -31,11 +31,11 @@ class Proyecto(models.Model):
             ('list_all_projects', 'list all available projects'),
         )
 
-
-
     def __unicode__(self):
         return self.nombre_corto
 
+    def get_absolute_url(self):
+        return reverse_lazy('project:project_detail', args=[self.pk])
 
 class MiembroEquipo(models.Model):
     """

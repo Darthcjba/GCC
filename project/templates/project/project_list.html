@@ -26,7 +26,7 @@
                 <td>{{ p.get_estado_display }}</td>
                 <td>{{ p.inicio }}</td>
                 <td>{{ p.fin }}</td>
-                <td ><a href="{% url 'project:project_detail' p.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
+                <td ><a href="{{ p.get_absolute_url }}"><i class="fa fa-eye fa-fw"></i></a> </td>
                 <td><a href="{% url 'project:project_update' p.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>
                 <td><a href="{% url 'project:project_delete' p.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>
             </tr>

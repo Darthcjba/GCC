@@ -228,22 +228,10 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
     template_name = 'project/project_form.html'
     fields = ['nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion']
 
-    def get_success_url(self):
-        """
-        :return:la url de redireccion a la vista de los detalles del rol editado.
-        """
-        return reverse('project:project_detail', kwargs={'pk': self.object.id})
-
 class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Proyecto
     template_name = 'project/project_form.html'
     fields = ['nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion']
-
-    def get_success_url(self):
-        """
-        :return:la url de redireccion a la vista de los detalles del rol editado.
-        """
-        return reverse('project:project_detail', kwargs={'pk': self.object.id})
 
 class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
     model = Proyecto
