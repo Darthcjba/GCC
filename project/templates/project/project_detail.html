@@ -4,6 +4,11 @@
 {% block header %}{{ project.nombre_corto }}{% endblock %}
 {% block content %}
     <h3>{{ project.nombre_largo }}</h3>
+    <ul class="list-inline">
+        <li><a href="#" class="fa fa-pencil"> Edit</a></li>
+        <li><a href="#" class="fa fa-eraser"> Delete</a></li>
+    </ul>
+
     <div class="row">
         <div class="col-lg-4">
             <div class="well">
@@ -25,37 +30,42 @@
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <h4 class="list-group-item-heading">Equipo</h4>
-        <ul class="list-group">
-            {% for m in team %}
-                <li class="list-group-item">
-                    <span class="badge">{{ m.rol }}</span>
-                    <a href="{% url 'project:user_detail' m.usuario_id %}">{{ m.usuario.first_name }} {{ m.usuario.last_name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="col-lg-4">
-        <h4 class="list-group-item-heading">Sprints</h4>
-        <ul class="list-group">
-            {% for m in team %}
-                <li class="list-group-item">
-                    <span class="badge">{{ m.rol }}</span>
-                    <a href="{% url 'project:user_detail' m.usuario_id %}">{{ m.usuario.first_name }} {{ m.usuario.last_name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="col-lg-4">
-        <h4 class="list-group-item-heading">Flujos</h4>
-        <ul class="list-group">
-            {% for f in flows %}
-                <li class="list-group-item">
-                    <span class="badge">1</span>
-                    <a href="#">{{ f.nombre }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <h4 class="list-group-item-heading"><a href="#">Equipo</a></h4>
+            <div class="list-group">
+                {% for m in team %}
+                    <a href="{% url 'project:user_detail' m.usuario_id %}" class="list-group-item">
+                        {{ m.usuario.get_full_name }}
+                        <span class="badge" data-toggle="tooltip" data-placement="left"
+                              title="Rol">{{ m.rol }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h4 class="list-group-item-heading"><a href="#">Sprints</a></h4>
+            <div class="list-group">
+                {% for s in sprints %}
+                    <a href="#" class="list-group-item">{{ s.nombre }}
+                        <span class="badge" data-toggle="tooltip" data-placement="right"
+                              title="Fecha de Inicio">{{ s.inicio }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h4 class="list-group-item-heading"><a href="#">Flujos</a></h4>
+
+            <div class="list-group">
+                {% for f in flows %}
+                    <a href="#" class="list-group-item">{{ f.nombre }}
+                        <span class="badge" data-toggle="tooltip" data-placement="right"
+                              title="Actividades">1</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
 {% endblock %}
