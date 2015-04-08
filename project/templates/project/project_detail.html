@@ -14,9 +14,9 @@
             <div class="well">
                 <p><strong>Estado:</strong> {{ project.get_estado_display }}</p>
 
-                <p><strong>Inicio:</strong> {{ project.inicio }}</p>
+                <p><strong>Inicio:</strong> {{ project.inicio|date }}</p>
 
-                <p><strong>Fin:</strong> {{ project.fin }}</p>
+                <p><strong>Fin:</strong> {{ project.fin|date }}</p>
 
                 <p><strong>Duracion de Sprints:</strong> {{ project.duracion_sprint }}</p>
             </div>

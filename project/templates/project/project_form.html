@@ -1,5 +1,5 @@
 {% extends "project/base.html" %}
-{% load bootstrap %}
+{% load bootstrap3 %}
 {% block title %}Formulario Proyecto{% endblock %}
 {% block header %}Proyecto{% endblock %}
 {% block content %}
@@ -8,21 +8,20 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-lg-6">
-                    {{ form.nombre_corto|bootstrap }}
-                    {{ form.nombre_largo|bootstrap }}
-                    {{ form.estado|bootstrap }}
-                    {{ form.inicio|bootstrap }}
-                    {{ form.fin|bootstrap }}
+                    {% bootstrap_field form.nombre_corto %}
+                    {% bootstrap_field form.nombre_largo %}
+                    {% bootstrap_field form.estado %}
+                    {% bootstrap_field form.inicio %}
+                    {% bootstrap_field form.fin %}
                 </div>
                 <div class="col-lg-6">
-                    {{ form.duracion_sprint|bootstrap }}
-                    {{ form.descripcion|bootstrap }}
+                    {% bootstrap_field form.duracion_sprint %}
+                    {% bootstrap_field form.descripcion %}
                 </div>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
-            </div>
+            {% buttons submit='Guardar' reset="Reset" %}
+            <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
+            {% endbuttons %}
         </form>
     </div>
 {% endblock %}

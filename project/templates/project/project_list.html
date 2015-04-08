@@ -24,8 +24,8 @@
                 <td>{{ p.nombre_corto }}</td>
                 <td>{{ p.nombre_largo }}</td>
                 <td>{{ p.get_estado_display }}</td>
-                <td>{{ p.inicio }}</td>
-                <td>{{ p.fin }}</td>
+                <td>{{ p.inicio|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ p.fin|date:"SHORT_DATE_FORMAT" }}</td>
                 <td ><a href="{{ p.get_absolute_url }}"><i class="fa fa-eye fa-fw"></i></a> </td>
                 <td><a href="{% url 'project:project_update' p.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>
                 <td><a href="{% url 'project:project_delete' p.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>
