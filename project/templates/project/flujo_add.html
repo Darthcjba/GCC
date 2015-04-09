@@ -12,18 +12,22 @@
             <legend> Actividades</legend>
             {{ actividad_form.management_form }}
             {{ actividad_form.non_form_errors }}
+
             {%for form in actividad_form%}
-            <div>
+                <div  class="form-group">
                 {{ form.name.errors }}
-                {{ form.name.label_tag }}
-                {{ form.name }}
+               <label> {{ form.name.label_tag }}</label>
+               {{ form.name }}
                 {% if actividad_form.can_order %}
                 {{ form.ORDER }}
                 {% endif %}
             </div>
+
             {% endfor %}
         </fieldset>
         <input type="submit" value="{{ current_action }}" class="btn btn-default"/>
     </form>
 
 {% endblock %}
+
+

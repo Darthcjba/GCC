@@ -3,7 +3,7 @@
 {% block title %}kanban{% endblock %}
 {% block header %}kanban{% endblock %}
 {% block content %}
-    {% if perms.auth.add_user %}<p><a href="{% url 'project:user_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}
+    {% if perms.auth.add_user %}<p><a href="{% url 'project:flujo_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}
 <div class="dataTable_wrapper">
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>
