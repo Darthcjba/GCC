@@ -1,4 +1,5 @@
 {% extends "project/base.html" %}
+{% load bootstrap3 %}
 {% block title %}Formulario Rol{% endblock %}
 {% block header %}Role{% endblock %}
 {% block content %}
@@ -16,38 +17,26 @@
         <div class="row">
             <div class="form-group">
                 <div class="col-lg-4">
-                    <h5>{{ form.perms_proyecto.label_tag }}</h5>
-                    {{ form.perms_proyecto.errors }}
-                    {{ form.perms_proyecto }}
+                    {% bootstrap_field form.perms_proyecto %}
                 </div>
                 <div class="col-lg-4">
-                    <h5>{{ form.perms_flujo.label_tag }}</h5>
-                    {{ form.perms_flujo.errors }}
-                    {{ form.perms_flujo }}
+                    {% bootstrap_field form.perms_flujo %}
                 </div>
                 <div class="col-lg-4">
-                    <h5>{{ form.perms_actividad.label_tag }}</h5>
-                    {{ form.perms_actividad.errors }}
-                    {{ form.perms_actividad }}
+                    {% bootstrap_field form.perms_actividad %}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 <div class="col-lg-4">
-                    <h5>{{ form.perms_userstory.label_tag }}</h5>
-                    {{ form.perms_userstory.errors }}
-                    {{ form.perms_userstory }}
+                    {% bootstrap_field form.perms_userstory %}
                 </div>
                 <div class="col-lg-4">
-                    <h5>{{ form.perms_sprint.label_tag }}</h5>
-                    {{ form.perms_sprint.errors }}
-                    {{ form.perms_sprint }}
+                    {% bootstrap_field form.perms_sprint %}
                 </div>
                 <div class="col-lg-4">
-                    <h5>{{ form.perms_teammembers.label_tag }}</h5>
-                    {{ form.perms_teammembers.errors }}
-                    {{ form.perms_teammembers }}
+                    {% bootstrap_field form.perms_teammembers %}
                 </div>
             </div>
         </div>
