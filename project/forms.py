@@ -88,8 +88,7 @@ class FlujosCreateForm(forms.ModelForm):
         model = Flujo
         fields = ('nombre', 'proyecto')
 
-ActividadFormSet = inlineformset_factory(Flujo,Actividad,fields=('name',),labels=Actividad._meta.verbose_name_plural)
-
+ActividadFormSet = inlineformset_factory(Flujo, Actividad, can_order=True, max_num=None )
 
 
 

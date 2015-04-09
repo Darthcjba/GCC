@@ -14,9 +14,7 @@
             {{ actividad_form.non_form_errors }}
             {%for form in actividad_form%}
             <div>
-                {{ form.name.errors }}
-                {{ form.name.label_tag }}
-                {{ form.name }}
+                {{ form.as_p }}
             </div>
             {% endfor %}
         </fieldset>
