@@ -1,0 +1,26 @@
+{% extends "project/base.html" %}
+{% block title %}Formulario Flujo{% endblock %}
+{% block header %}Flujo{% endblock %}
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <fieldset>
+            <legend> Actividades</legend>
+            {{ actividad_form.management_form }}
+            {{ actividad_form.non_form_errors }}
+
+            <div>
+
+                {{ actividad_form.name.label_tag }}
+                {{ actividad_form.name }}
+            </div>
+
+        </fieldset>
+        <input type="submit" value="{{ current_action }}" class="btn btn-default"/>
+    </form>
+
+{% endblock %}
