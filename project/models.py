@@ -89,7 +89,7 @@ class MiembroEquipo(models.Model):
     #nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
     #llamar al delete de cada objeto para remover los permisos
     def delete(self, using=None):
-        for role in self.rol.all():
+        for role in self.roles.all():
             for perm in role.permissions.all():
                 remove_perm(perm.codename, self.usuario, self.proyecto)
         super(MiembroEquipo, self).delete(using)
@@ -98,7 +98,7 @@ class MiembroEquipo(models.Model):
         default_permissions = ()
         verbose_name_plural = 'miembros equipo'
 
-m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.rol.through, dispatch_uid='add_permissions_signal')
+m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through, dispatch_uid='add_permissions_signal')
 
 
 class Sprint(models.Model):

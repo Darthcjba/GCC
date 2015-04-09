@@ -357,10 +357,10 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
             #borramos todos los permisos que tiene asociado el usuario en el proyecto
             for perm in get_perms(user, project):
                 remove_perm(perm, user, project)
-            all_roles = team_member.rol.all()
+            all_roles = team_member.roles.all()
             for role in all_roles:
-                team_member.rol.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
-                team_member.rol.add(role) #volvemos a agregar para que se copien los permisos actualizados
+                team_member.roles.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.add(role) #volvemos a agregar para que se copien los permisos actualizados
         return HttpResponseRedirect(self.get_success_url())
 
 
