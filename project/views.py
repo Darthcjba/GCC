@@ -4,15 +4,15 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Permission, Group
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import PasswordInput
-from django.forms.models import modelform_factory
+from django.forms.models import modelform_factory, inlineformset_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.contrib.auth.models import User
-from project.models import MiembroEquipo, Proyecto
+from project.models import MiembroEquipo, Proyecto,Flujo, Actividad
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
-from project.forms import RolForm, UserEditForm, UserCreateForm
+from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet
 from guardian.shortcuts import get_perms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
@@ -383,3 +383,101 @@ class RolDetail(generic.DetailView):
     template_name = 'project/rol_detail.html'
     context_object_name = 'rol'
 
+class FlujoList(generic.ListView):
+    """
+    Vista de Listado de Flujos en el sistema
+    """
+    model= Flujo
+    template_name = 'project/flujo_list.html'
+    context_object_name='flujos'
+class FlujoDetail(generic.DetailView):
+    """
+    Vista de Detalles de un flujo
+    """
+    model= Flujo
+    template_name = 'project/flujo_detail.html'
+    context_object_name = 'flujo'
+    def get_context_data(self, **kwargs):
+        """
+        Agregar lista de actividades al contexto
+        :param kwargs: diccionario de argumentos claves
+        :return: contexto
+        """
+        context = super(FlujoDetail, self).get_context_data(**kwargs)
+        context['actividad'] = self.object.actividad_set.all()
+        return context
+
+class AddFlujo(LoginRequiredMixin, generic.CreateView):
+    """
+    View que agrega un flujo al sistema
+    """
+    model = Flujo
+    template_name = 'project/flujo_add.html'
+    form_class = FlujosCreateForm
+    def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
+        context = super(AddFlujo, self).get_context_data(**kwargs)
+        context['current_action'] = "Agregar"
+        return context
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:flujo_detail', kwargs={'pk': self.object.id})
+
+
+    def get(self, request, *args, **kwargs):
+        """
+        Manejar los Get requests e instanciar una version en blanco del form y el inline formsets.
+        :param request:  la solicitud de la pagina
+        :param args: argumentos
+        :param kwargs: argumentos clave
+        :return: la solicitud
+        """
+        self.object =None
+        form_class = self.get_form_class()
+        form= self.get_form(form_class)
+        actividad_form = ActividadFormSet
+        return self.render_to_response(self.get_context_data(form=form, actividad_form=actividad_form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Maneja los POST requests, instantiating a form instance and its inline formsets with the POST variables and then chacking them for validity.
+        :param request:  la solicitud de la pagina
+        :param args: argumentos
+        :param kwargs: argumentos claves
+        :return: la validacion del form
+        """
+        self.object =None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        actividad_form = ActividadFormSet(self.request.POST)
+        if(form.is_valid() and actividad_form.is_valid()):
+            return self.form_valid(form,actividad_form)
+        else:
+            return self.form_invalid(form,actividad_form)
+
+    def form_valid(self, form, actividad_form):
+        """
+        Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+        :param form: formulario recibido
+        :param actividad_form: formulario recibido de actividad
+        :return: URL de redireccion
+        """
+        self.object = form.save()
+        actividad_form.instance = self.object
+        actividad_form.save()
+        #super(AddFlujo, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+    def form_invalid(self, form, actividad_form):
+        """
+        Si el form no es valido es llamado
+        :param form:
+        :param actividad_form:
+        :return: Re-renders the context data with the data-filled forms and errors.
+        """
+        return self.render_to_response(self.get_context_data(form=form, actividad_form=actividad_form))

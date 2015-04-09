@@ -68,7 +68,7 @@ class Flujo(models.Model):
     proyecto = models.ForeignKey(Proyecto, null=True)
 
     def __unicode__(self):
-        return self.name
+        return self.nombre
 
     class Meta:
         verbose_name_plural = 'flujos'

@@ -5,6 +5,7 @@ from django import forms
 from guardian.shortcuts import get_perms_for_model
 from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
 from project.models import UserStory
+from django.forms.models import inlineformset_factory
 
 def general_perms_list():
     '''
@@ -77,3 +78,24 @@ class UserCreateForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username')
+
+
+class FlujosCreateForm(forms.ModelForm):
+    """
+    Formulario para la creacion de flujos
+    """
+    class Meta:
+        model = Flujo
+        fields = ('nombre', 'proyecto')
+
+ActividadFormSet = inlineformset_factory(Flujo,Actividad,fields=('name',),labels=Actividad._meta.verbose_name_plural)
+
+
+
+
+
+
+
+
+
+
