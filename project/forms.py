@@ -13,12 +13,10 @@ def general_perms_list():
     :rtype: list
     '''
     permlist = []
-
     permlist.append(Permission.objects.get(codename="list_all_projects"))
     permlist.append(Permission.objects.get(codename="add_flow_template"))
     permlist.append(Permission.objects.get(codename="change_flow_template"))
     permlist.append(Permission.objects.get(codename="delete_flow_template"))
-
     return permlist
 
 
@@ -32,14 +30,12 @@ class UserEditForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(label=("Password"),
         help_text=("Solo se almacena un hash del password, no hay manera de verla. "
                    "Para modificarla seleccionar la opcion <strong>Cambiar Password</strong>"))
-
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
     perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
     general_perms_list.extend(perms_user_list)
     general_perms_list.extend(perms_group_list)
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
-
 
 
 class RolForm(forms.ModelForm):
@@ -53,7 +49,6 @@ class RolForm(forms.ModelForm):
     perms_flujo_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'flujo' in perm.codename and not('template' in perm.codename)]
     perms_sprint_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'sprint' in perm.codename]
     perms_actividad_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'actividad' in perm.codename]
-
 
     #perms_list = [(perm.codename, perm.name) for perm in Permission.objects.all()] #alternativa con una sola lista
 
@@ -74,14 +69,12 @@ class UserCreateForm(UserCreationForm):
     Formulario para la creación de usuarios
     '''
     email = forms.EmailField(required=True)
-
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
     perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
     general_perms_list.extend(perms_user_list)
     general_perms_list.extend(perms_group_list)
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
-
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username')

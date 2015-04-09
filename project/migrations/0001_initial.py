@@ -8,15 +8,15 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('auth', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Actividad',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=20)),
             ],
             options={
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Adjunto',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=20)),
                 ('descripcion', models.TextField()),
                 ('creacion', models.DateTimeField(auto_now_add=True)),
@@ -39,27 +39,31 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Flujo',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=20)),
             ],
             options={
+                'default_permissions': (),
                 'verbose_name_plural': 'flujos',
+                'permissions': (('add_flow_template', 'agregar plantilla de flujo'), ('change_flow_template', 'editar plantilla de flujo'), ('delete_flow_template', 'eliminar plantilla de flujo')),
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='MiembroProyecto',
+            name='MiembroEquipo',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
             ],
             options={
+                'default_permissions': (),
+                'verbose_name_plural': 'miembros equipo',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Nota',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('descripcion', models.TextField()),
                 ('fecha', models.DateTimeField(auto_now_add=True)),
             ],
@@ -70,36 +74,40 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Proyecto',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre_corto', models.CharField(max_length=20)),
                 ('nombre_largo', models.CharField(max_length=40)),
-                ('estado', models.CharField(default='IN', max_length=2, choices=[('EP', 'En Produccion'), ('CO', 'Completado'), ('AP', 'Aprobado'), ('CA', 'Cancelado'), ('IN', 'Inactivo')])),
+                ('estado', models.CharField(default=b'IN', max_length=2, choices=[(b'EP', b'En Produccion'), (b'CO', b'Completado'), (b'AP', b'Aprobado'), (b'CA', b'Cancelado'), (b'IN', b'Inactivo')])),
                 ('inicio', models.DateTimeField()),
                 ('fin', models.DateTimeField()),
                 ('creacion', models.DateTimeField(auto_now_add=True)),
-                ('duracion_sprint', models.IntegerField(default=0)),
+                ('duracion_sprint', models.PositiveIntegerField(default=30)),
                 ('descripcion', models.TextField()),
+                ('equipo', models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='project.MiembroEquipo')),
             ],
             options={
+                'permissions': (('list_all_projects', 'listar los proyectos disponibles'), ('create_miembroequipo', 'agregar miembro del equipo'), ('edit_miembroequipo', 'editar miembro del equipo'), ('remove_miembroequipo', 'eliminar miembro del equipo'), ('create_sprint', 'agregar sprint'), ('edit_sprint', 'editar sprint'), ('remove_sprint', 'eliminar sprint'), ('create_flujo', 'agregar flujo'), ('edit_flujo', 'editar flujo'), ('remove_flujo', 'eliminar flujo'), ('create_actividad', 'agregar actividad'), ('edit_actividad', 'editar actividad'), ('remove_actividad', 'eliminar actividad'), ('create_userstory', 'agregar userstory'), ('edit_userstory', 'editar userstory'), ('remove_userstory', 'eliminar userstory')),
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Sprint',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('nombre', models.CharField(default=b'', max_length=20, blank=True)),
                 ('inicio', models.DateTimeField()),
                 ('fin', models.DateTimeField()),
                 ('proyecto', models.ForeignKey(to='project.Proyecto')),
             ],
             options={
+                'default_permissions': (),
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='UserStory',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=20)),
                 ('descripcion', models.TextField()),
                 ('prioridad', models.IntegerField(default=1, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)])),
@@ -108,20 +116,22 @@ class Migration(migrations.Migration):
                 ('tiempo_estimado', models.TimeField()),
                 ('tiempo_registrado', models.TimeField()),
                 ('ultimo_cambio', models.DateTimeField(auto_now=True)),
-                ('estado', models.IntegerField(default=0, choices=[(0, 'ToDo'), (1, 'Doing'), (2, 'Done'), (3, 'Pendiente Aprobacion'), (4, 'Aprobado')])),
-                ('actividad', models.ForeignKey(null=True, to='project.Actividad')),
-                ('desarrollador', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL)),
+                ('estado', models.IntegerField(default=0, choices=[(0, b'ToDo'), (1, b'Doing'), (2, b'Done'), (3, b'Pendiente Aprobacion'), (4, b'Aprobado')])),
+                ('actividad', models.ForeignKey(to='project.Actividad', null=True)),
+                ('desarrollador', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
                 ('proyecto', models.ForeignKey(to='project.Proyecto')),
-                ('sprint', models.ForeignKey(null=True, to='project.Sprint')),
+                ('sprint', models.ForeignKey(to='project.Sprint', null=True)),
             ],
             options={
+                'default_permissions': (),
+                'verbose_name_plural': 'user stories',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Version',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=20)),
                 ('descripcion', models.TextField()),
                 ('valor_negocio', models.IntegerField()),
@@ -141,19 +151,19 @@ class Migration(migrations.Migration):
             preserve_default=True,
         ),
         migrations.AddField(
-            model_name='miembroproyecto',
+            model_name='miembroequipo',
             name='proyecto',
             field=models.ForeignKey(to='project.Proyecto'),
             preserve_default=True,
         ),
         migrations.AddField(
-            model_name='miembroproyecto',
-            name='rol',
-            field=models.ForeignKey(to='auth.Group'),
+            model_name='miembroequipo',
+            name='roles',
+            field=models.ManyToManyField(to='auth.Group'),
             preserve_default=True,
         ),
         migrations.AddField(
-            model_name='miembroproyecto',
+            model_name='miembroequipo',
             name='usuario',
             field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
             preserve_default=True,
@@ -161,7 +171,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='flujo',
             name='proyecto',
-            field=models.ForeignKey(null=True, to='project.Proyecto'),
+            field=models.ForeignKey(to='project.Proyecto', null=True),
             preserve_default=True,
         ),
         migrations.AddField(

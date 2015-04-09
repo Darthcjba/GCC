@@ -331,7 +331,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
 
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
-        initial = {'perms_proyecto': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
+        initial = {'perms_proyecto': perm_list, 'perms_teammembers': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
                    'perms_flujo': perm_list, 'perms_actividad': perm_list}
         return initial
 
@@ -383,6 +383,38 @@ class DeleteRolView(generic.DeleteView):
         """
         return super(DeleteRolView, self).dispatch(request, *args, **kwargs)
 
+    def delete(self, request, *args, **kwargs):
+        '''
+        Borrar permisos en miembros que hayan tenido este rol asignado luego de eliminar el rol
+        :param request: request del cliente
+        :param args: lista de argumentos
+        :param kwargs: lista de argumentos con palabras claves
+        :return: HttpResponseRedirect a la nueva URL
+        '''
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        miembroequipo_set = self.object.miembroequipo_set
+
+        # actualizamos los permisos de los miembros de equipos que tienen este rol
+        team_members_set = miembroequipo_set.all()
+        #print('team_members_set antes de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
+        self.object.delete()
+        #print('team_members_set despues de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
+        for team_member in team_members_set:
+            print('team_member')
+            user = team_member.usuario
+            project = team_member.proyecto
+            #borramos todos los permisos que tiene asociado el usuario en el proyecto
+            for perm in get_perms(user, project):
+                remove_perm(perm, user, project)
+            other_roles = team_member.roles.all()
+            #print("other_roles= " + ' '.join([rol.name for rol in other_roles]))
+            for role in other_roles:
+                team_member.roles.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.add(role) #volvemos a agregar para que se copien los permisos actualizados
+
+
+        return HttpResponseRedirect(success_url)
 
 def get_selected_perms(POST):
     """

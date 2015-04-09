@@ -82,10 +82,10 @@ class MiembroEquipo(models.Model):
     usuario = models.ForeignKey(User)
     proyecto = models.ForeignKey(Proyecto)
     roles = models.ManyToManyField(Group)
-
+    '''
     def __unicode__(self):
         return "{} - {}:{}".format(self.proyecto, self.usuario, self.roles.all())
-
+    '''
     #nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
     #llamar al delete de cada objeto para remover los permisos
     def delete(self, using=None):
