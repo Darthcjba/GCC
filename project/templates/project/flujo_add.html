@@ -12,13 +12,13 @@
             <legend> Actividades</legend>
             {{ actividad_form.management_form }}
             {{ actividad_form.non_form_errors }}
-
+            {%for form in actividad_form%}
             <div>
-
-                {{ actividad_form.name.label_tag }}
-                {{ actividad_form.name }}
+                {{ form.name.errors }}
+                {{ form.name.label_tag }}
+                {{ form.name }}
             </div>
-
+            {% endfor %}
         </fieldset>
         <input type="submit" value="{{ current_action }}" class="btn btn-default"/>
     </form>
