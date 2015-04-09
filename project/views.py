@@ -12,6 +12,7 @@ from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
+from django.forms.extras.widgets import SelectDateWidget
 from project.forms import RolForm, UserEditForm, UserCreateForm
 from guardian.shortcuts import get_perms, remove_perm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -201,7 +202,7 @@ class ProjectList(LoginRequiredMixin, ListView):
         :return: lista de proyectos
         """
         if self.request.user.has_perm('project.list_all_projects'):
-            return Proyecto.objects.all()
+            return Proyecto.objects.exclude(estado='CA')
         else:
             return [x.proyecto for x in self.request.user.miembroequipo_set.all()]
 
@@ -216,11 +217,32 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetail, self).get_context_data(**kwargs)
-        #team = self.object.miembroequipo_set
+        context['team'] = self.object.miembroequipo_set.all()
+        context['flows'] = self.object.flujo_set.all()
+        context['sprints'] = self.object.sprint_set.all()
         #context['product_owner'] = team.filter(rol='Product Owner')
         #context['scrum_master'] = team.filter(rol='Scrum Master')
         return context
 
+class ProjectCreate(LoginRequiredMixin, generic.CreateView):
+    model = Proyecto
+    form_class =  modelform_factory(Proyecto,
+        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+    template_name = 'project/project_form.html'
+
+
+class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Proyecto
+    template_name = 'project/project_form.html'
+    form_class =  modelform_factory(Proyecto,
+        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+
+class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Proyecto
+    template_name = 'project/proyect_delete.html'
+    success_url = reverse_lazy('project:project_list')
 
 class AddRolView(LoginRequiredMixin, generic.CreateView):
     '''
