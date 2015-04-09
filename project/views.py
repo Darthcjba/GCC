@@ -423,6 +423,16 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         context = super(AddFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
         return context
+    @method_decorator(permission_required('add_flow_template', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Requiere el permiso 'add_flow_template'
+        :param request: Request del cliente
+        :param args: Lista de argumentos
+        :param kwargs: Argumentos Clave
+        :return: dispatch de CreateView
+        """
+        return super(AddFlujo, self).dispatch(request, *args, **kwargs)
     def get_success_url(self):
         """
         :return:la url de redireccion a la vista de los detalles del flujo agregado.
@@ -481,3 +491,16 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         :return: Re-renders the context data with the data-filled forms and errors.
         """
         return self.render_to_response(self.get_context_data(form=form, actividad_form=actividad_form))
+
+class DeleteFlujo(generic.DeleteView):
+    """
+    Vista de Eliminacion de Flujos
+    """
+    model = Flujo
+    template_name = 'project/flujo_delete.html'
+    context_object_name = 'flujo'
+    success_url = reverse_lazy('project:flujo_list')
+
+    @method_decorator(permission_required('delete_flow_template', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(DeleteFlujo, self).dispatch(request, *args, **kwargs)
