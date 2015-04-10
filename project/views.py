@@ -225,21 +225,37 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
         return context
 
 class ProjectCreate(LoginRequiredMixin, generic.CreateView):
+    """
+    Permite la creacion de Proyectos
+    """
     model = Proyecto
     form_class =  modelform_factory(Proyecto,
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
         fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
     template_name = 'project/project_form.html'
 
+    @method_decorator(permission_required('auth.add_proyecto', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProjectCreate, self).dispatch(request, *args, **kwargs)
 
 class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
+    """
+    Permite la Edicion de Proyectos
+    """
     model = Proyecto
     template_name = 'project/project_form.html'
     form_class =  modelform_factory(Proyecto,
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
         fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
 
+    @method_decorator(permission_required('auth.change_proyecto', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProjectUpdate, self).dispatch(request, *args, **kwargs)
+
 class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
+    """
+    Vista para la cancelacion de proyectos
+    """
     model = Proyecto
     template_name = 'project/proyect_delete.html'
     success_url = reverse_lazy('project:project_list')
@@ -257,6 +273,10 @@ class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
             self.object.estado = 'CA'
             self.object.save(update_fields=['estado'])
         return HttpResponseRedirect(success_url)
+
+    @method_decorator(permission_required('auth.delete_proyecto', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProjectDelete, self).dispatch(request, *args, **kwargs)
 
 
 class AddRolView(LoginRequiredMixin, generic.CreateView):
