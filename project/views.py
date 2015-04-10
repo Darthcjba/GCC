@@ -268,7 +268,15 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         self.object = form.save()
         formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
-        if(formset.is_valid()):
+        if formset.is_valid():
+            #borramos todos los permisos asociados al usuario en el proyecto antes de volver a asignar los nuevos
+            project = self.object
+            for form in formset:
+                if form.has_changed(): #solo los formularios con cambios efectuados
+                    user = form.cleaned_data['usuario']
+                    for perm in get_perms(user, project):
+                        remove_perm(perm, user, project)
+
             formset.save()
             return HttpResponseRedirect(self.get_success_url())
 
