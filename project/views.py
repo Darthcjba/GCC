@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
-
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Permission, Group
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.forms import PasswordInput
+from django.forms.models import modelform_factory, inlineformset_factory
 from django.forms import PasswordInput, inlineformset_factory, CheckboxSelectMultiple
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.contrib.auth.models import User
+from project.models import MiembroEquipo, Proyecto,Flujo, Actividad
 from django.template import RequestContext
 from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
+from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet
+from guardian.shortcuts import get_perms
 from django.forms.extras.widgets import SelectDateWidget
 from project.forms import RolForm, UserEditForm, UserCreateForm
 from guardian.shortcuts import get_perms, remove_perm
@@ -576,3 +580,95 @@ class RolDetail(generic.DetailView):
     template_name = 'project/rol_detail.html'
     context_object_name = 'rol'
 
+class FlujoList(generic.ListView):
+    """
+    Vista de Listado de Flujos en el sistema
+    """
+    model= Flujo
+    template_name = 'project/flujo_list.html'
+    context_object_name='flujos'
+class FlujoDetail(generic.DetailView):
+    """
+    Vista de Detalles de un flujo
+    """
+    model= Flujo
+    template_name = 'project/flujo_detail.html'
+    context_object_name = 'flujo'
+    def get_context_data(self, **kwargs):
+        """
+        Agregar lista de actividades al contexto
+        :param kwargs: diccionario de argumentos claves
+        :return: contexto
+        """
+        context = super(FlujoDetail, self).get_context_data(**kwargs)
+        context['actividad'] = self.object.actividad_set.all()
+        return context
+
+class AddFlujo(LoginRequiredMixin, generic.CreateView):
+    """
+    View que agrega un flujo al sistema
+    """
+    model = Flujo
+    template_name = 'project/flujo_add.html'
+    form_class = FlujosCreateForm
+    def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
+        context = super(AddFlujo, self).get_context_data(**kwargs)
+        context['current_action'] = "Agregar"
+        if(self.request.method == 'GET'):
+            context['actividad_form'] = ActividadFormSet()
+        return context
+
+
+    @method_decorator(permission_required('add_flow_template', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Requiere el permiso 'add_flow_template'
+        :param request: Request del cliente
+        :param args: Lista de argumentos
+        :param kwargs: Argumentos Clave
+        :return: dispatch de CreateView
+        """
+        return super(AddFlujo, self).dispatch(request, *args, **kwargs)
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:flujo_detail', kwargs={'pk': self.object.id})
+
+
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+        :param form: formulario recibido
+        :param actividad_form: formulario recibido de actividad
+        :return: URL de redireccion
+        """
+        self.object = form.save()
+        actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
+        if actividad_form.is_valid():
+            actividad_form.save()
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render(self.request, self.get_template_names(), {'form' : form,
+                                                                     'actividad_form' : actividad_form},
+                           context_instance=RequestContext(self.request))
+
+
+class DeleteFlujo(generic.DeleteView):
+    """
+    Vista de Eliminacion de Flujos
+    """
+    model = Flujo
+    template_name = 'project/flujo_delete.html'
+    context_object_name = 'flujo'
+    success_url = reverse_lazy('project:flujo_list')
+
+    @method_decorator(permission_required('delete_flow_template', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(DeleteFlujo, self).dispatch(request, *args, **kwargs)
