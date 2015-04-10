@@ -227,6 +227,9 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
         return context
 
 class ProjectCreate(LoginRequiredMixin, generic.CreateView):
+    """
+    Permite la creacion de Proyectos
+    """
     model = Proyecto
     form_class =  modelform_factory(Proyecto,
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
@@ -237,6 +240,9 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
                                         extra=1,
                                         widgets={'roles' : CheckboxSelectMultiple})
 
+    @method_decorator(permission_required('auth.add_proyecto', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProjectCreate, self).dispatch(request, *args, **kwargs)
     def get_context_data(self, **kwargs):
         context = super(ProjectCreate, self).get_context_data(**kwargs)
         if(self.request.method == 'GET'):
@@ -255,6 +261,9 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
 
 
 class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
+    """
+    Permite la Edicion de Proyectos
+    """
     model = Proyecto
     template_name = 'project/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
@@ -264,6 +273,10 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
     form_class =  modelform_factory(Proyecto,
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
         fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+
+    @method_decorator(permission_required('auth.change_proyecto', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProjectUpdate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -290,9 +303,31 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
         return context
 
 class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
+    """
+    Vista para la cancelacion de proyectos
+    """
     model = Proyecto
     template_name = 'project/proyect_delete.html'
     success_url = reverse_lazy('project:project_list')
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Llama al metodo delete() del objeto
+        y luego redirige a la url exitosa.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        if False:
+            self.object.delete()
+        else:
+            self.object.estado = 'CA'
+            self.object.save(update_fields=['estado'])
+        return HttpResponseRedirect(success_url)
+
+    @method_decorator(permission_required('auth.delete_proyecto', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProjectDelete, self).dispatch(request, *args, **kwargs)
+
 
 class AddRolView(LoginRequiredMixin, generic.CreateView):
     '''
