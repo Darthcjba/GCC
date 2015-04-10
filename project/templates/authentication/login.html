@@ -1,0 +1,31 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Ingresar a Projectium</h3>
+    </div>
+    <div class="panel-body">
+        {% if form.errors %}
+            <p>Su username y password no coinciden. Vuelva a intentar.</p>
+        {% endif %}
+        <form role="form" method="post" action="{% url 'project:login' %}">
+            {% csrf_token %}
+            <fieldset>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Username" id="id_username" name="username" autofocus
+                           type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Password" id="id_password" name="password" type="password"
+                           value="">
+                </div>
+                <!-- Change this to a button or input when using this as a form -->
+                <a href="{% url 'project:password_reset' %}">Olvido su password?</a>
+                <input type="submit" value="Login" class="btn btn-lg btn-success btn-block"/>
+                <input type="hidden" name="next" value=""/>
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock %}

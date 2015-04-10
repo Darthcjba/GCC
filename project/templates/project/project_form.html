@@ -1,0 +1,71 @@
+{% extends "project/base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block title %}Formulario Proyecto{% endblock %}
+{% block header %}Proyecto{% endblock %}
+{% block extrahead %}
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.teammember').formset({
+            prefix: '{{ formset.prefix }}',
+            addText: 'Agregar miembro',
+            deleteText: 'Eliminar'
+        });
+    })
+    </script>
+{% endblock %}
+{% block content %}
+    <style>
+        .empty-form {
+            display: none;
+        }
+    </style>
+    <div class="row">
+        <form role="form" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                    {% bootstrap_field form.nombre_corto %}
+                    {% bootstrap_field form.nombre_largo %}
+                    {% bootstrap_field form.estado %}
+                    {% bootstrap_field form.inicio %}
+                    {% bootstrap_field form.fin %}
+                    </div>
+                    <h3>Miembros del Equipo</h3>
+                    {{ formset.management_form }}
+                    <div class="row top-buffer team-members">
+                        {% for subform in formset %}
+                            {{ subform.id }}
+                            <div class="teammember" id="teammember-{{ forloop.counter0 }}">
+                                {% if subform.instance.pk %}{% bootstrap_field subform.DELETE %}{% endif %}
+                                {% bootstrap_field subform.usuario %}
+                                {% bootstrap_field subform.roles %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    {% bootstrap_field form.duracion_sprint %}
+                    {% bootstrap_field form.descripcion %}
+                </div>
+            </div>
+
+            {% buttons submit='Guardar' reset="Reset" %}
+            <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript">
+    $('.adder').click(function(ev){
+        var formset = $('.team-members').children('div').djangoFormset({
+            deleteButtonText : 'Borrar'
+        });
+        formset.addForm();
+    });
+</script>
+
+{% endblock %}

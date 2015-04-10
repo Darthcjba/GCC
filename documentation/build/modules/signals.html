@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Resumen: código de modulo &mdash; documentación de project - 1</title>
+  <title>Signals &mdash; documentación de project - 1</title>
   
 
   
@@ -30,7 +30,8 @@
   
 
   
-    <link rel="top" title="documentación de project - 1" href="../index.html"/> 
+    <link rel="top" title="documentación de project - 1" href="../index.html"/>
+        <link rel="prev" title="Forms" href="forms.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -61,11 +62,11 @@
         
           
           
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../modules/models.html">Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/views.html">Views</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/signals.html">Signals</a></li>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Signals</a></li>
 </ul>
 
           
@@ -90,8 +91,10 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Resumen: código de modulo</li>
+    <li>Signals</li>
       <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/signals.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -99,31 +102,39 @@
 </div>
           <div role="main" class="document">
             
-  <h1>Todos los módulos para los cuales disponen código</h1>
-<ul><li><a href="collections.html">collections</a></li>
-<li><a href="django/contrib/auth/models.html">django.contrib.auth.models</a></li>
-<li><a href="django/db/models/fields/related.html">django.db.models.fields.related</a></li>
-<li><a href="django/db/models/manager.html">django.db.models.manager</a></li>
-<li><a href="django/forms/formsets.html">django.forms.formsets</a></li>
-<li><a href="django/forms/widgets.html">django.forms.widgets</a></li>
-<li><a href="django/utils/functional.html">django.utils.functional</a></li>
-<li><a href="project/forms.html">project.forms</a></li>
-<li><a href="project/migrations/0001_initial.html">project.migrations.0001_initial</a></li>
-<li><a href="project/migrations/0002_auto_20150324_1442.html">project.migrations.0002_auto_20150324_1442</a></li>
-<li><a href="project/migrations/0003_auto_20150324_2209.html">project.migrations.0003_auto_20150324_2209</a></li>
-<li><a href="project/migrations/0004_auto_20150327_2310.html">project.migrations.0004_auto_20150327_2310</a></li>
-<li><a href="project/migrations/0004_auto_20150328_0155.html">project.migrations.0004_auto_20150328_0155</a></li>
-<li><a href="project/migrations/0005_auto_20150327_2313.html">project.migrations.0005_auto_20150327_2313</a></li>
-<li><a href="project/migrations/0006_merge.html">project.migrations.0006_merge</a></li>
-<li><a href="project/models.html">project.models</a></li>
-<li><a href="project/population.html">project.population</a></li>
-<li><a href="project/signals.html">project.signals</a></li>
-<li><a href="project/tests.html">project.tests</a></li>
-<li><a href="project/views.html">project.views</a></li>
+  <div class="section" id="signals">
+<h1>Signals<a class="headerlink" href="#signals" title="Enlazar permanentemente con este título">¶</a></h1>
+<span class="target" id="module-project.signals"></span><dl class="function">
+<dt id="project.signals.add_permissions_team_member">
+<code class="descclassname">project.signals.</code><code class="descname">add_permissions_team_member</code><span class="sig-paren">(</span><em>sender</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/signals.html#add_permissions_team_member"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.signals.add_permissions_team_member" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Signal que se ejecuta cuando se agrega un rol a un miembro de equipo
+que hace que los permisos asociados al rol se asigne.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sender</strong> &#8211; Clase que envia la signal</li>
+<li><strong>kwargs</strong> &#8211; Diccionario con parámetros</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="forms.html" class="btn btn-neutral" title="Forms"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -1,73 +1,127 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>project.views &mdash; documentación de project - 1</title>
-    
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/translations.js"></script>
-    <link rel="top" title="documentación de project - 1" href="../../index.html" />
-    <link rel="up" title="Código de módulo" href="../index.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <title>project.views &mdash; documentación de project - 1</title>
+  
 
-  </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navegación</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="Índice General"
-             accesskey="I">índice</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Índice de Módulos Python"
-             >módulos</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">documentación de project - 1</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Código de módulo</a> &raquo;</li> 
-      </ul>
-    </div>  
+  
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="documentación de project - 1" href="../../index.html"/>
+        <link rel="up" title="Código de módulo" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../index.html" class="fa fa-home"> project</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/signals.html">Signals</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Código de módulo</a> &raquo;</li>
+      
+    <li>project.views</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
             
   <h1>Código fuente para project.views</h1><div class="highlight"><pre>
 <span class="c"># -*- coding: utf-8 -*-</span>
+
 <span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span><span class="p">,</span> <span class="n">permission_required</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.hashers</span> <span class="kn">import</span> <span class="n">make_password</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">Group</span>
 <span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span><span class="p">,</span> <span class="n">reverse_lazy</span>
-<span class="kn">from</span> <span class="nn">django.forms</span> <span class="kn">import</span> <span class="n">PasswordInput</span>
+<span class="kn">from</span> <span class="nn">django.forms</span> <span class="kn">import</span> <span class="n">PasswordInput</span><span class="p">,</span> <span class="n">inlineformset_factory</span><span class="p">,</span> <span class="n">CheckboxSelectMultiple</span>
 <span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">modelform_factory</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
 <span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
 <span class="kn">from</span> <span class="nn">project.models</span> <span class="kn">import</span> <span class="n">MiembroEquipo</span><span class="p">,</span> <span class="n">Proyecto</span>
 <span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">ListView</span><span class="p">,</span> <span class="n">DetailView</span>
 <span class="kn">from</span> <span class="nn">django.utils.decorators</span> <span class="kn">import</span> <span class="n">method_decorator</span>
 <span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">django.forms.extras.widgets</span> <span class="kn">import</span> <span class="n">SelectDateWidget</span>
 <span class="kn">from</span> <span class="nn">project.forms</span> <span class="kn">import</span> <span class="n">RolForm</span><span class="p">,</span> <span class="n">UserEditForm</span><span class="p">,</span> <span class="n">UserCreateForm</span>
-<span class="kn">from</span> <span class="nn">guardian.shortcuts</span> <span class="kn">import</span> <span class="n">get_perms</span>
+<span class="kn">from</span> <span class="nn">guardian.shortcuts</span> <span class="kn">import</span> <span class="n">get_perms</span><span class="p">,</span> <span class="n">remove_perm</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">UserCreationForm</span><span class="p">,</span> <span class="n">UserChangeForm</span>
 
 
@@ -105,6 +159,7 @@
 <div class="viewcode-block" id="UserList.get_queryset"><a class="viewcode-back" href="../../modules/views.html#project.views.UserList.get_queryset">[documentos]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retorna una los usuarios excluyendo el AnonymousUser</span>
+
 <span class="sd">        :return: lista de usuarios</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -121,6 +176,7 @@
 <div class="viewcode-block" id="UserDetail.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.UserDetail.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Agregar lista de proyectos al contexto</span>
+
 <span class="sd">        :param kwargs: diccionario de argumentos claves</span>
 <span class="sd">        :return: contexto</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -141,6 +197,7 @@
 <div class="viewcode-block" id="AddUser.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.AddUser.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Requiere el permiso &#39;add_user&#39;</span>
+
 <span class="sd">        :param request: Request del cliente</span>
 <span class="sd">        :param args: Lista de argumentos</span>
 <span class="sd">        :param kwargs: Argumentos Clave</span>
@@ -151,6 +208,7 @@
 <div class="viewcode-block" id="AddUser.get_success_url"><a class="viewcode-back" href="../../modules/views.html#project.views.AddUser.get_success_url">[documentos]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retorna una los usuarios excluyendo el AnonymousUser</span>
+
 <span class="sd">        :return: url del UserDetail</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;project:user_detail&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;pk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
@@ -158,6 +216,7 @@
 <div class="viewcode-block" id="AddUser.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.AddUser.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Verificar validez del formulario</span>
+
 <span class="sd">        :param form: formulario completado</span>
 <span class="sd">        :return: Url de Evento Correcto</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -197,6 +256,7 @@
 <div class="viewcode-block" id="UpdateUser.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Requerir permiso &#39;change_user&#39;</span>
+
 <span class="sd">        :param request: Requeust del cliente</span>
 <span class="sd">        :param args: Lista de Argumentos</span>
 <span class="sd">        :param kwargs: Argumentos Clave</span>
@@ -207,6 +267,7 @@
 <div class="viewcode-block" id="UpdateUser.get_success_url"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.get_success_url">[documentos]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtener url de evento correcto</span>
+
 <span class="sd">        :return: url de UserDetail</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;project:user_detail&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;pk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
@@ -214,6 +275,7 @@
 <div class="viewcode-block" id="UpdateUser.get_initial"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.get_initial">[documentos]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtener datos iniciales para el formulario</span>
+
 <span class="sd">        :return: diccionario con los datos iniciales</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modelo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
@@ -227,6 +289,7 @@
 <div class="viewcode-block" id="UpdateUser.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateUser.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Comprobar validez del formulario recibido</span>
+
 <span class="sd">        :param form: Formulario recibido</span>
 <span class="sd">        :return: URL de evento correcto</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -252,10 +315,11 @@
 <div class="viewcode-block" id="ProjectList.get_queryset"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectList.get_queryset">[documentos]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtener proyectos del Sistema.</span>
+
 <span class="sd">        :return: lista de proyectos</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_perm</span><span class="p">(</span><span class="s">&#39;project.list_all_projects&#39;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">Proyecto</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">Proyecto</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s">&#39;CA&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">proyecto</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">miembroequipo_set</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span>
 
@@ -270,10 +334,138 @@
 
 <div class="viewcode-block" id="ProjectDetail.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectDetail.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectDetail</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="c">#team = self.object.miembroequipo_set</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;team&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">miembroequipo_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;flows&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">flujo_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;sprints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">sprint_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="c">#context[&#39;product_owner&#39;] = team.filter(rol=&#39;Product Owner&#39;)</span>
         <span class="c">#context[&#39;scrum_master&#39;] = team.filter(rol=&#39;Scrum Master&#39;)</span>
         <span class="k">return</span> <span class="n">context</span>
+</div></div>
+<div class="viewcode-block" id="ProjectCreate"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectCreate">[documentos]</a><span class="k">class</span> <span class="nc">ProjectCreate</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">CreateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permite la creacion de Proyectos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Proyecto</span>
+    <span class="n">form_class</span> <span class="o">=</span>  <span class="n">modelform_factory</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">,</span>
+        <span class="n">widgets</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;inicio&#39;</span><span class="p">:</span> <span class="n">SelectDateWidget</span><span class="p">,</span> <span class="s">&#39;fin&#39;</span><span class="p">:</span> <span class="n">SelectDateWidget</span><span class="p">},</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;nombre_corto&#39;</span><span class="p">,</span> <span class="s">&#39;nombre_largo&#39;</span><span class="p">,</span> <span class="s">&#39;estado&#39;</span><span class="p">,</span> <span class="s">&#39;inicio&#39;</span><span class="p">,</span> <span class="s">&#39;fin&#39;</span><span class="p">,</span> <span class="s">&#39;duracion_sprint&#39;</span><span class="p">,</span> <span class="s">&#39;descripcion&#39;</span><span class="p">))</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/project_form.html&#39;</span>
+    <span class="n">TeamMemberInlineFormSet</span> <span class="o">=</span> <span class="n">inlineformset_factory</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">,</span> <span class="n">MiembroEquipo</span><span class="p">,</span> <span class="n">can_delete</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                        <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;usuario&#39;</span><span class="p">,</span> <span class="s">&#39;roles&#39;</span><span class="p">],</span>
+                                        <span class="n">extra</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                        <span class="n">widgets</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;roles&#39;</span> <span class="p">:</span> <span class="n">CheckboxSelectMultiple</span><span class="p">})</span>
+
+    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;project.add_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<div class="viewcode-block" id="ProjectCreate.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectCreate.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Comprueba que esté el permiso de agregar proyecto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectCreate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ProjectCreate.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectCreate.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectCreate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">[</span><span class="s">&#39;formset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">context</span>
+</div>
+<div class="viewcode-block" id="ProjectCreate.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectCreate.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Guarda los miembros de equipo especificados asociados al proyecto.</span>
+
+<span class="sd">        :param form: formulario del proyecto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">formset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">formset</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">formset</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_success_url</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_template_names</span><span class="p">(),</span> <span class="p">{</span><span class="s">&#39;form&#39;</span> <span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s">&#39;formset&#39;</span> <span class="p">:</span> <span class="n">formset</span><span class="p">},</span>
+                      <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+
+</div></div>
+<div class="viewcode-block" id="ProjectUpdate"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectUpdate">[documentos]</a><span class="k">class</span> <span class="nc">ProjectUpdate</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">UpdateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permite la Edicion de Proyectos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Proyecto</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/project_form.html&#39;</span>
+    <span class="n">TeamMemberInlineFormSet</span> <span class="o">=</span> <span class="n">inlineformset_factory</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">,</span> <span class="n">MiembroEquipo</span><span class="p">,</span> <span class="n">can_delete</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;usuario&#39;</span><span class="p">,</span> <span class="s">&#39;roles&#39;</span><span class="p">],</span>
+        <span class="n">extra</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">widgets</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;roles&#39;</span> <span class="p">:</span> <span class="n">CheckboxSelectMultiple</span><span class="p">})</span>
+    <span class="n">form_class</span> <span class="o">=</span>  <span class="n">modelform_factory</span><span class="p">(</span><span class="n">Proyecto</span><span class="p">,</span>
+        <span class="n">widgets</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;inicio&#39;</span><span class="p">:</span> <span class="n">SelectDateWidget</span><span class="p">,</span> <span class="s">&#39;fin&#39;</span><span class="p">:</span> <span class="n">SelectDateWidget</span><span class="p">},</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;nombre_corto&#39;</span><span class="p">,</span> <span class="s">&#39;nombre_largo&#39;</span><span class="p">,</span> <span class="s">&#39;estado&#39;</span><span class="p">,</span> <span class="s">&#39;inicio&#39;</span><span class="p">,</span> <span class="s">&#39;fin&#39;</span><span class="p">,</span> <span class="s">&#39;duracion_sprint&#39;</span><span class="p">,</span> <span class="s">&#39;descripcion&#39;</span><span class="p">))</span>
+
+    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;project.change_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<div class="viewcode-block" id="ProjectUpdate.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectUpdate.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        verifica que se cuenten con los permisos de edición de proyecto</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectUpdate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ProjectUpdate.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectUpdate.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        actualiza los miembros del equipo del proyecto que se hayan especifico</span>
+
+<span class="sd">        :param form: formulario de edición del proyecto</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">formset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">formset</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="c">#borramos todos los permisos asociados al usuario en el proyecto antes de volver a asignar los nuevos</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+            <span class="k">for</span> <span class="n">form</span> <span class="ow">in</span> <span class="n">formset</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">has_changed</span><span class="p">():</span> <span class="c">#solo los formularios con cambios efectuados</span>
+                    <span class="n">user</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s">&#39;usuario&#39;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+                        <span class="n">remove_perm</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
+
+            <span class="n">formset</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_success_url</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_template_names</span><span class="p">(),</span> <span class="p">{</span><span class="s">&#39;form&#39;</span> <span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s">&#39;formset&#39;</span> <span class="p">:</span> <span class="n">formset</span><span class="p">},</span>
+                      <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="ProjectUpdate.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectUpdate.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Especifica los datos de contexto a pasar al template</span>
+<span class="sd">        :param kwargs: Diccionario con parametros con nombres clave</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectUpdate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">):</span>
+            <span class="n">context</span><span class="p">[</span><span class="s">&#39;formset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">context</span>
+</div></div>
+<div class="viewcode-block" id="ProjectDelete"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectDelete">[documentos]</a><span class="k">class</span> <span class="nc">ProjectDelete</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">DeleteView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vista para la cancelacion de proyectos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Proyecto</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s">&#39;project/proyect_delete.html&#39;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s">&#39;project:project_list&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ProjectDelete.delete"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectDelete.delete">[documentos]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Llama al metodo delete() del objeto</span>
+<span class="sd">        y luego redirige a la url exitosa.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
+        <span class="n">success_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_success_url</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">estado</span> <span class="o">=</span> <span class="s">&#39;CA&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;estado&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">success_url</span><span class="p">)</span>
+</div>
+    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;project.delete_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<div class="viewcode-block" id="ProjectDelete.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectDelete.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        verifica que se cuente con el permiso de eliminar proyecto</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectDelete</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 </div></div>
 <div class="viewcode-block" id="AddRolView"><a class="viewcode-back" href="../../modules/views.html#project.views.AddRolView">[documentos]</a><span class="k">class</span> <span class="nc">AddRolView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">generic</span><span class="o">.</span><span class="n">CreateView</span><span class="p">):</span>
@@ -288,6 +480,7 @@
 <div class="viewcode-block" id="AddRolView.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.AddRolView.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Agregar datos al contexto</span>
+
 <span class="sd">        :param kwargs: argumentos clave</span>
 <span class="sd">        :return: contexto</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -297,6 +490,7 @@
 </div>
 <div class="viewcode-block" id="AddRolView.get_success_url"><a class="viewcode-back" href="../../modules/views.html#project.views.AddRolView.get_success_url">[documentos]</a>    <span class="k">def</span> <span class="nf">get_success_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        :return:la url de redireccion a la vista de los detalles del rol editado.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;project:rol_detail&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;pk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">id</span><span class="p">})</span>
@@ -308,6 +502,7 @@
 <div class="viewcode-block" id="AddRolView.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.AddRolView.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Comprobar validez del formulario</span>
+
 <span class="sd">        :param form: formulario recibido</span>
 <span class="sd">        :return: URL de redireccion</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -330,6 +525,7 @@
 <div class="viewcode-block" id="UpdateRolView.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Agregar datos adicionales al contexto</span>
+
 <span class="sd">        :param kwargs: argumentos clave</span>
 <span class="sd">        :return: contexto</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -347,6 +543,7 @@
 <div class="viewcode-block" id="UpdateRolView.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Solicitar el permiso &#39;change_group&#39;</span>
+
 <span class="sd">        :param request: request del cliente</span>
 <span class="sd">        :param args: lista de argumentos</span>
 <span class="sd">        :param kwargs: argumentos clave</span>
@@ -357,6 +554,7 @@
 <div class="viewcode-block" id="UpdateRolView.get_initial"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.get_initial">[documentos]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Obtener datos iniciales para el formulario</span>
+
 <span class="sd">        :return: diccionario de datos iniciales</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">modelo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
@@ -371,6 +569,7 @@
 <div class="viewcode-block" id="UpdateRolView.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.UpdateRolView.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Comprobar validez del formulario</span>
+
 <span class="sd">        :param form: formulario recibido</span>
 <span class="sd">        :return: URL de redireccion correcta</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -381,7 +580,18 @@
         <span class="k">for</span> <span class="n">permname</span> <span class="ow">in</span> <span class="n">escogidas</span><span class="p">:</span>
             <span class="n">perm</span> <span class="o">=</span> <span class="n">Permission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">codename</span><span class="o">=</span><span class="n">permname</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">perm</span><span class="p">)</span>
-
+        <span class="c"># actualizamos los permisos de los miembros de equipos que tienen este rol</span>
+        <span class="n">team_members_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">miembroequipo_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">team_member</span> <span class="ow">in</span> <span class="n">team_members_set</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">team_member</span><span class="o">.</span><span class="n">usuario</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="n">team_member</span><span class="o">.</span><span class="n">proyecto</span>
+            <span class="c">#borramos todos los permisos que tiene asociado el usuario en el proyecto</span>
+            <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+                <span class="n">remove_perm</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
+            <span class="n">all_roles</span> <span class="o">=</span> <span class="n">team_member</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="n">all_roles</span><span class="p">:</span>
+                <span class="n">team_member</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">role</span><span class="p">)</span> <span class="c">#desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)</span>
+                <span class="n">team_member</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">role</span><span class="p">)</span> <span class="c">#volvemos a agregar para que se copien los permisos actualizados</span>
         <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_success_url</span><span class="p">())</span>
 
 </div></div>
@@ -397,22 +607,56 @@
 <div class="viewcode-block" id="DeleteRolView.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.DeleteRolView.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Requerir permisos &#39;delete_group&#39;</span>
+
 <span class="sd">        :param request: request del cliente</span>
 <span class="sd">        :param args: lista de argumentos</span>
 <span class="sd">        :param kwargs: argumentos clave</span>
 <span class="sd">        :return: dispatch de DeleteView</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DeleteRolView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DeleteRolView.delete"><a class="viewcode-back" href="../../modules/views.html#project.views.DeleteRolView.delete">[documentos]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Borrar permisos en miembros que hayan tenido este rol asignado luego de eliminar el rol</span>
 
+<span class="sd">        :param request: request del cliente</span>
+<span class="sd">        :param args: lista de argumentos</span>
+<span class="sd">        :param kwargs: lista de argumentos con palabras claves</span>
+<span class="sd">        :return: HttpResponseRedirect a la nueva URL</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_object</span><span class="p">()</span>
+        <span class="n">success_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_success_url</span><span class="p">()</span>
+        <span class="n">miembroequipo_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">miembroequipo_set</span>
+
+        <span class="c"># actualizamos los permisos de los miembros de equipos que tienen este rol</span>
+        <span class="n">team_members_set</span> <span class="o">=</span> <span class="n">miembroequipo_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="c">#print(&#39;team_members_set antes de borrar: &#39; + &#39; &#39;.join([member.usuario.username for member in team_members_set]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="c">#print(&#39;team_members_set despues de borrar: &#39; + &#39; &#39;.join([member.usuario.username for member in team_members_set]))</span>
+        <span class="k">for</span> <span class="n">team_member</span> <span class="ow">in</span> <span class="n">team_members_set</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;team_member&#39;</span><span class="p">)</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">team_member</span><span class="o">.</span><span class="n">usuario</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="n">team_member</span><span class="o">.</span><span class="n">proyecto</span>
+            <span class="c">#borramos todos los permisos que tiene asociado el usuario en el proyecto</span>
+            <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">get_perms</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">project</span><span class="p">):</span>
+                <span class="n">remove_perm</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">project</span><span class="p">)</span>
+            <span class="n">other_roles</span> <span class="o">=</span> <span class="n">team_member</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="c">#print(&quot;other_roles= &quot; + &#39; &#39;.join([rol.name for rol in other_roles]))</span>
+            <span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="n">other_roles</span><span class="p">:</span>
+                <span class="n">team_member</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">role</span><span class="p">)</span> <span class="c">#desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)</span>
+                <span class="n">team_member</span><span class="o">.</span><span class="n">roles</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">role</span><span class="p">)</span> <span class="c">#volvemos a agregar para que se copien los permisos actualizados</span>
+
+
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">success_url</span><span class="p">)</span>
 </div></div>
 <div class="viewcode-block" id="get_selected_perms"><a class="viewcode-back" href="../../modules/views.html#project.views.get_selected_perms">[documentos]</a><span class="k">def</span> <span class="nf">get_selected_perms</span><span class="p">(</span><span class="n">POST</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Obtener los permisos marcados en el formulario</span>
+
 <span class="sd">    :param POST: diccionario con los datos del formulario</span>
 <span class="sd">    :return: lista de permisos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">current_list</span> <span class="o">=</span> <span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_proyecto&#39;</span><span class="p">)</span>
-    <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_teammembers&#39;</span><span class="p">))</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_userstory&#39;</span><span class="p">))</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_flujo&#39;</span><span class="p">))</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_sprint&#39;</span><span class="p">))</span>
@@ -439,38 +683,60 @@
 </pre></div></div>
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3>Búsqueda rápida</h3>
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Ir a" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
-      
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
