@@ -16,7 +16,7 @@ from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
-from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet
+from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet, PlantillaCreateForm
 from guardian.shortcuts import get_perms
 from django.forms.extras.widgets import SelectDateWidget
 from project.forms import RolForm, UserEditForm, UserCreateForm
@@ -637,8 +637,6 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
                                                                      'actividad_form' : actividad_form},
                            context_instance=RequestContext(self.request))
 
-
-
 class DeleteFlujo(generic.DeleteView):
     """
     Vista de Eliminacion de Flujos
@@ -651,3 +649,149 @@ class DeleteFlujo(generic.DeleteView):
     @method_decorator(permission_required('delete_flow_template', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(DeleteFlujo, self).dispatch(request, *args, **kwargs)
+
+class PlantillaList(generic.ListView):
+    """
+    Vista de Listado de Plantillas en el sistema
+    """
+    model = Flujo
+    template_name = 'project/plantilla/plantilla_list.html'
+    context_object_name = 'plantillas'
+
+    def get_queryset(self):
+        return Flujo.objects.filter(proyecto_id=None)
+
+class PlantillaDetail(generic.DetailView):
+    """
+    Vista de Detalles de una Plantilla
+    """
+    model= Flujo
+    template_name = 'project/plantilla/plantilla_detail.html_detail.html'
+    context_object_name = 'plantilla'
+
+class AddPlantilla(LoginRequiredMixin, generic.CreateView):
+    """
+    View que agrega un flujo al sistema
+    """
+    model = Flujo
+    template_name = 'project/plantilla/plantilla_form.html'
+    form_class = FlujosCreateForm
+
+    def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
+        context = super(AddPlantilla, self).get_context_data(**kwargs)
+        context['current_action'] = "Agregar"
+        if(self.request.method == 'GET'):
+            context['actividad_form'] = ActividadFormSet()
+        return context
+
+    @method_decorator(permission_required('add_flow_template', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Requiere el permiso 'add_flow_template'
+        :param request: Request del cliente
+        :param args: Lista de argumentos
+        :param kwargs: Argumentos Clave
+        :return: dispatch de CreateView
+        """
+        return super(AddPlantilla, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:plantilla_detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+        :param form: formulario recibido
+        :param actividad_form: formulario recibido de actividad
+        :return: URL de redireccion
+        """
+        self.object = form.save()
+        actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
+        if actividad_form.is_valid():
+            actividad_form.save()
+            order = [form.instance.id for form in actividad_form.ordered_forms]
+            self.object.set_actividad_order(order)
+
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render(self.request, self.get_template_names(), {'form' : form,
+                                                                     'actividad_form' : actividad_form},
+                           context_instance=RequestContext(self.request))
+
+class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
+    """
+    View que agrega un flujo al sistema
+    """
+    model = Flujo
+    template_name = 'project/plantilla/plantilla_form.html'
+    form_class = PlantillaCreateForm
+    def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
+        context = super(UpdateFlujo, self).get_context_data(**kwargs)
+        context['current_action'] = "Agregar"
+        if(self.request.method == 'GET'):
+            context['actividad_form'] = ActividadFormSet(instance=self.object)
+
+        return context
+
+    @method_decorator(permission_required('change_flow', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Requiere el permiso 'add_flow_template'
+        :param request: Request del cliente
+        :param args: Lista de argumentos
+        :param kwargs: Argumentos Clave
+        :return: dispatch de CreateView
+        """
+        return super(UpdatePlantilla, self).dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:plantilla_detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+        :param form: formulario recibido
+        :param actividad_form: formulario recibido de actividad
+        :return: URL de redireccion
+        """
+        self.object = form.save()
+        actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
+        if actividad_form.is_valid():
+            actividad_form.save()
+            order = [form.instance.id for form in actividad_form.ordered_forms]
+            self.object.set_actividad_order(order)
+
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render(self.request, self.get_template_names(), {'form' : form,
+                                                                     'actividad_form' : actividad_form},
+                           context_instance=RequestContext(self.request))
+
+class DeletePlantilla(generic.DeleteView):
+    """
+    Vista de Eliminacion de Plantillas
+    """
+    model = Flujo
+    template_name = 'project/plantilla/plantilla_delete.html'
+    context_object_name = 'flujo'
+    success_url = reverse_lazy('project:plantilla_list')
+
+    @method_decorator(permission_required('delete_flow_template', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        return super(DeletePlantilla, self).dispatch(request, *args, **kwargs)

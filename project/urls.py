@@ -28,4 +28,10 @@ urlpatterns = patterns('',
                        url(r'^flujo/add/$', views.AddFlujo.as_view(), name="flujo_add"),
                        url(r'^flujo/(?P<pk>\d+)/delete/$', views.DeleteFlujo.as_view(), name="flujo_delete"),
                        url(r'^flujo/(?P<pk>\d+)/edit/$', views.UpdateFlujo.as_view(), name="flujo_update"),
+                       
+                       url(r'^plantilla/$',views.PlantillaList.as_view(),name='plantilla_list'),
+                       url(r'^plantilla/(?P<pk>\d+)/$', views.PlantillaDetail.as_view(), name='plantilla_detail'),
+                       url(r'^plantilla/add/$', views.AddPlantilla.as_view(), name="plantilla_add"),
+                       url(r'^plantilla/(?P<pk>\d+)/delete/$', views.DeletePlantilla.as_view(), name="plantilla_delete"),
+                       url(r'^plantilla/(?P<pk>\d+)/edit/$', views.UpdatePlantilla.as_view(), name="plantilla_update"),
                        )
