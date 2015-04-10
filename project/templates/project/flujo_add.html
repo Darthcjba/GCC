@@ -1,0 +1,48 @@
+{% extends "project/base.html" %}
+{% load static %}
+{% block title %}Formulario Flujo{% endblock %}
+{% block extrahead %}
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.activity').formset({
+            prefix: '{{ actividad_form.prefix }}',
+            addText: 'Agregar actividad',
+            deleteText: 'Eliminar'
+        });
+    })
+    </script>
+{% endblock %}
+{% block header %}Flujo{% endblock %}
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <fieldset>
+            <legend> Actividades</legend>
+            {{ actividad_form.management_form }}
+            {{ actividad_form.non_form_errors }}
+
+            {%for form in actividad_form%}
+                {{ form.id }}
+                <div  class="form-group activity">
+                {{ form.name.errors }}
+               <label> {{ form.name.label_tag }}</label>
+               {{ form.name }}
+                {% if actividad_form.can_order %}
+                {{ form.ORDER }}
+                {{ form.DELETE }}
+                {% endif %}
+            </div>
+
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="{{ current_action }}" class="btn btn-default"/>
+    </form>
+
+{% endblock %}
+
+
