@@ -89,7 +89,7 @@ class FlujosCreateForm(forms.ModelForm):
         fields = ('nombre', 'proyecto')
 #ActividadFormSet utilizamos este form para agregar la actividad al flujo, extra es la cantidad que aparecera en el formulario, can_order es
 #para poder ordenar(aun a prueba hasta que le encuentre el uso)
-ActividadFormSet = inlineformset_factory(Flujo, Actividad, can_order=True, max_num=None,extra=10)
+ActividadFormSet = inlineformset_factory(Flujo, Actividad, can_order=True, max_num=None,extra=1)
 
 
 
