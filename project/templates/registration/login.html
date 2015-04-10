@@ -22,6 +22,7 @@
                                     <input class="form-control" placeholder="Password" id="id_password" name="password" type="password" value="">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
+                                <a href="{% url 'project:password_reset' %}">Forgot Password?</a>
                                 <input type="submit" value="Login" class="btn btn-lg btn-success btn-block"/>
                                 <input type="hidden" name="next" value="" />
                             </fieldset>
