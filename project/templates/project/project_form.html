@@ -3,6 +3,11 @@
 {% block title %}Formulario Proyecto{% endblock %}
 {% block header %}Proyecto{% endblock %}
 {% block content %}
+    <style>
+        .empty-form {
+            visibility: hidden;
+        }
+    </style>
     <div class="row">
         <form role="form" method="post">
             {% csrf_token %}
@@ -16,16 +21,23 @@
                     {% bootstrap_field form.fin %}
                     </div>
                     <h3>Miembros del Equipo</h3>
-                    <div class="row top-buffer">
-                        {{ formset.management_form }}
+                    {{ formset.management_form }}
+                    <div class="row top-buffer team-members">
                         {% for subform in formset %}
-                            {{ subform.id }}
-                            {% bootstrap_field subform.usuario %}
-                            {% bootstrap_field subform.roles %}
-                            {% bootstrap_field subform.DELETE %}
+                            <div id="teammember-{{ forloop.counter0 }}">
+                                {{ subform.id }}
+                                {% bootstrap_field subform.usuario %}
+                                {% bootstrap_field subform.roles %}
+                                {% bootstrap_field subform.DELETE %}
+                            </div>
                         {% endfor %}
+                        <div class="row empty-form">
+                            <div class="column">
+                                {% bootstrap_form formset.empty_form %}
+                            </div>
+                        </div>
                     </div>
-
+                    <button type="button" class="btn btn-primary adder" data-action="add-formset">Add formset</button>
                 </div>
                 <div class="col-lg-6">
                     {% bootstrap_field form.duracion_sprint %}
@@ -38,4 +50,16 @@
             {% endbuttons %}
         </form>
     </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript">
+    $('.adder').click(function(ev){
+        var count = $('.team-members').children().length;
+        var formset = $('.empty-form').djangoFormset();
+        formset.addForm();
+        $('#id_miembroequipo_set-TOTAL_FORMS').attr('value', count+1);
+       console.log('se hizo clic');
+    });
+</script>
+
 {% endblock %}
