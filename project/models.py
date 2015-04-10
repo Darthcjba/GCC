@@ -2,6 +2,10 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
+from django.db.models.signals import m2m_changed, post_save
+from guardian.shortcuts import assign_perm, remove_perm
+from project.signals import add_permissions_team_member
+from django.core.urlresolvers import reverse_lazy
 
 
 def validate_dates(start, end):
@@ -11,7 +15,7 @@ def validate_dates(start, end):
 
 class Proyecto(models.Model):
     """
-    Stores a single project.
+    Modelo de Proyecto del sistema.
 
     """
     estado_choices = (
@@ -22,18 +26,53 @@ class Proyecto(models.Model):
     inicio = models.DateTimeField()
     fin = models.DateTimeField()
     creacion = models.DateTimeField(auto_now_add=True)
-    duracion_sprint = models.IntegerField(default=0)
+    duracion_sprint = models.PositiveIntegerField(default=30)
     descripcion = models.TextField()
+    equipo = models.ManyToManyField(User, through='MiembroEquipo')
 
     class Meta:
+        #Los permisos estaran asociados a los proyectos, por lo que todos los permisos de ABM de las entidades
+        #dependientes del proyecto, deben crearse como permisos de proyecto
+        #en vez de 'add', 'change' y 'delete', los permisos personalizados seran 'create', 'edit' y 'remove' para
+        #evitar confusiones con los por defecto.
+
         permissions = (
-            ('list_all_projects', 'list all available projects'),
+            ('list_all_projects', 'listar los proyectos disponibles'),
+            ('create_miembroequipo', 'agregar miembro del equipo'),
+            ('edit_miembroequipo', 'editar miembro del equipo'),
+            ('remove_miembroequipo', 'eliminar miembro del equipo'),
+
+            ('create_sprint', 'agregar sprint'),
+            ('edit_sprint', 'editar sprint'),
+            ('remove_sprint', 'eliminar sprint'),
+
+            ('create_flujo', 'agregar flujo'),
+            ('edit_flujo', 'editar flujo'),
+            ('remove_flujo', 'eliminar flujo'),
+
+            ('create_actividad', 'agregar actividad'),
+            ('edit_actividad', 'editar actividad'),
+            ('remove_actividad', 'eliminar actividad'),
+
+            ('create_userstory', 'agregar userstory'),
+            ('edit_userstory', 'editar userstory'),
+            ('remove_userstory', 'eliminar userstory'),
+            #Hace falta definir permisos para Versiones, Notas y Adjuntos?
         )
-
-
 
     def __unicode__(self):
         return self.nombre_corto
+
+    def get_absolute_url(self):
+        return reverse_lazy('project:project_detail', args=[self.pk])
+
+    def clean(self):
+        try:
+            if self.inicio > self.fin:
+                raise ValidationError({'inicio': 'Fecha de inicio no puede ser mayor '
+                                                 'que la fecha de terminacion.'})
+        except TypeError:
+            pass  # si una de las fechas es null, clean_field() se encarga de lanzar error
 
 
 class MiembroEquipo(models.Model):
@@ -42,27 +81,51 @@ class MiembroEquipo(models.Model):
     """
     usuario = models.ForeignKey(User)
     proyecto = models.ForeignKey(Proyecto)
-    rol = models.ForeignKey(Group)
-
+    roles = models.ManyToManyField(Group)
+    '''
     def __unicode__(self):
-        return "{} - {}:{}".format(self.proyecto, self.usuario, self.rol)
+        return "{} - {}:{}".format(self.proyecto, self.usuario, self.roles.all())
+    '''
+    #nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
+    #llamar al delete de cada objeto para remover los permisos
+    def delete(self, using=None):
+        for role in self.roles.all():
+            for perm in role.permissions.all():
+                remove_perm(perm.codename, self.usuario, self.proyecto)
+        super(MiembroEquipo, self).delete(using)
 
     class Meta:
+        default_permissions = ()
         verbose_name_plural = 'miembros equipo'
+
+m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through, dispatch_uid='add_permissions_signal')
 
 
 class Sprint(models.Model):
     """
     Manejo de los sprints del proyecto
     """
+    nombre = models.CharField(max_length=20, blank=True, default='')
     inicio = models.DateTimeField()
     fin = models.DateTimeField()
-    proyecto = models.ForeignKey(Proyecto)
+    proyecto = models.ForeignKey(Proyecto, null=False)
+
+    class Meta:
+        default_permissions = ()
+        
+    def save(self, *args, **kwargs):
+        if self.nombre == '':
+            self.nombre = "Sprint %d" % self.proyecto.sprint_set.count() + 1
+        super(Sprint, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.nombre
 
 
 class Flujo(models.Model):
     """
-    Administración de los flujos que forman parte de un proyecto. Las plantillas de flujo se manejan como Flujos sin proyecto asignado.
+    Administración de los flujos que forman parte de un proyecto.
+    Las plantillas de flujo se manejan como Flujos sin proyecto asignado.
     """
     nombre = models.CharField(max_length=20)
     proyecto = models.ForeignKey(Proyecto, null=True)
@@ -72,11 +135,12 @@ class Flujo(models.Model):
 
     class Meta:
         verbose_name_plural = 'flujos'
+        default_permissions = ()
         permissions = (
-            ('add_flow_template', 'add flow template'),
-            ('change_flow_template', 'change flow template'),
-            ('delete_flow_template', 'delete flow template')
-        )
+            ('add_flow_template', 'agregar plantilla de flujo'),
+            ('change_flow_template', 'editar plantilla de flujo'),
+            ('delete_flow_template', 'eliminar plantilla de flujo'),
+            )
 
 
 class Actividad(models.Model):
@@ -96,7 +160,8 @@ class Actividad(models.Model):
 
 class UserStory(models.Model):
     """
-    Manejo de los User Stories. Los User Stories representan a cada funcionalidad desde la perspectiva del cliente que debe realizar el sistema.
+    Manejo de los User Stories. Los User Stories representan a cada
+    funcionalidad desde la perspectiva del cliente que debe realizar el sistema.
     """
     estado_choices = ((0, 'ToDo'), (1, 'Doing'), (2, 'Done'), (3, 'Pendiente Aprobacion'), (4, 'Aprobado'))
     nombre = models.CharField(max_length=20)
@@ -115,11 +180,13 @@ class UserStory(models.Model):
 
     class Meta:
         verbose_name_plural = 'user stories'
+        default_permissions = ()
 
 
 class Version(models.Model):
     """
-    Modelo para el versionado de los User Stories. Con esta entidad se puede volver atrás a un estado anterior del User Story.
+    Modelo para el versionado de los User Stories.
+    Con esta entidad se puede volver atrás a un estado anterior del User Story.
     """
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
@@ -132,7 +199,8 @@ class Version(models.Model):
 
 class Nota(models.Model):
     """
-    Manejo de notas adjuntas relacionadas a un User Story, estás entradas representan constancias de los cambios, como cantidad de horas trabajadas, en un user story.
+    Manejo de notas adjuntas relacionadas a un User Story, estás entradas representan
+    constancias de los cambios, como cantidad de horas trabajadas, en un user story.
     """
     descripcion = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)

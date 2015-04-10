@@ -5,15 +5,22 @@ from django.contrib.auth.models import Permission, Group
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import PasswordInput
 from django.forms.models import modelform_factory, inlineformset_factory
+from django.forms import PasswordInput, inlineformset_factory, CheckboxSelectMultiple
+from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.contrib.auth.models import User
 from project.models import MiembroEquipo, Proyecto,Flujo, Actividad
+from django.template import RequestContext
+from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
 from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet
 from guardian.shortcuts import get_perms
+from django.forms.extras.widgets import SelectDateWidget
+from project.forms import RolForm, UserEditForm, UserCreateForm
+from guardian.shortcuts import get_perms, remove_perm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
@@ -201,7 +208,7 @@ class ProjectList(LoginRequiredMixin, ListView):
         :return: lista de proyectos
         """
         if self.request.user.has_perm('project.list_all_projects'):
-            return Proyecto.objects.all()
+            return Proyecto.objects.exclude(estado='CA')
         else:
             return [x.proyecto for x in self.request.user.miembroequipo_set.all()]
 
@@ -216,11 +223,80 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetail, self).get_context_data(**kwargs)
-        #team = self.object.miembroequipo_set
+        context['team'] = self.object.miembroequipo_set.all()
+        context['flows'] = self.object.flujo_set.all()
+        context['sprints'] = self.object.sprint_set.all()
         #context['product_owner'] = team.filter(rol='Product Owner')
         #context['scrum_master'] = team.filter(rol='Scrum Master')
         return context
 
+class ProjectCreate(LoginRequiredMixin, generic.CreateView):
+    model = Proyecto
+    form_class =  modelform_factory(Proyecto,
+        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+    template_name = 'project/project_form.html'
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
+                                        fields=['usuario', 'roles'],
+                                        extra=1,
+                                        widgets={'roles' : CheckboxSelectMultiple})
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectCreate, self).get_context_data(**kwargs)
+        if(self.request.method == 'GET'):
+            context['formset'] = self.TeamMemberInlineFormSet()
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
+        if formset.is_valid():
+            formset.save()
+            return HttpResponseRedirect(self.get_success_url())
+
+        return render(self.request, self.get_template_names(), {'form' : form, 'formset' : formset},
+                      context_instance=RequestContext(self.request))
+
+
+class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Proyecto
+    template_name = 'project/project_form.html'
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
+        fields=['usuario', 'roles'],
+        extra=0,
+        widgets={'roles' : CheckboxSelectMultiple})
+    form_class =  modelform_factory(Proyecto,
+        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+
+    def form_valid(self, form):
+        self.object = form.save()
+        formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
+        if formset.is_valid():
+            #borramos todos los permisos asociados al usuario en el proyecto antes de volver a asignar los nuevos
+            project = self.object
+            for form in formset:
+                if form.has_changed(): #solo los formularios con cambios efectuados
+                    user = form.cleaned_data['usuario']
+                    for perm in get_perms(user, project):
+                        remove_perm(perm, user, project)
+
+            formset.save()
+            return HttpResponseRedirect(self.get_success_url())
+
+        return render(self.request, self.get_template_names(), {'form' : form, 'formset' : formset},
+                      context_instance=RequestContext(self.request))
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectUpdate, self).get_context_data(**kwargs)
+        if(self.request.method == 'GET'):
+            context['formset'] = self.TeamMemberInlineFormSet(instance=self.object)
+        return context
+
+class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Proyecto
+    template_name = 'project/proyect_delete.html'
+    success_url = reverse_lazy('project:project_list')
 
 class AddRolView(LoginRequiredMixin, generic.CreateView):
     '''
@@ -309,7 +385,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
 
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
-        initial = {'perms_proyecto': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
+        initial = {'perms_proyecto': perm_list, 'perms_teammembers': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
                    'perms_flujo': perm_list, 'perms_actividad': perm_list}
         return initial
 
@@ -327,7 +403,18 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
         for permname in escogidas:
             perm = Permission.objects.get(codename=permname)
             self.object.permissions.add(perm)
-
+        # actualizamos los permisos de los miembros de equipos que tienen este rol
+        team_members_set = self.object.miembroequipo_set.all()
+        for team_member in team_members_set:
+            user = team_member.usuario
+            project = team_member.proyecto
+            #borramos todos los permisos que tiene asociado el usuario en el proyecto
+            for perm in get_perms(user, project):
+                remove_perm(perm, user, project)
+            all_roles = team_member.roles.all()
+            for role in all_roles:
+                team_member.roles.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.add(role) #volvemos a agregar para que se copien los permisos actualizados
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -350,6 +437,38 @@ class DeleteRolView(generic.DeleteView):
         """
         return super(DeleteRolView, self).dispatch(request, *args, **kwargs)
 
+    def delete(self, request, *args, **kwargs):
+        '''
+        Borrar permisos en miembros que hayan tenido este rol asignado luego de eliminar el rol
+        :param request: request del cliente
+        :param args: lista de argumentos
+        :param kwargs: lista de argumentos con palabras claves
+        :return: HttpResponseRedirect a la nueva URL
+        '''
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        miembroequipo_set = self.object.miembroequipo_set
+
+        # actualizamos los permisos de los miembros de equipos que tienen este rol
+        team_members_set = miembroequipo_set.all()
+        #print('team_members_set antes de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
+        self.object.delete()
+        #print('team_members_set despues de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
+        for team_member in team_members_set:
+            print('team_member')
+            user = team_member.usuario
+            project = team_member.proyecto
+            #borramos todos los permisos que tiene asociado el usuario en el proyecto
+            for perm in get_perms(user, project):
+                remove_perm(perm, user, project)
+            other_roles = team_member.roles.all()
+            #print("other_roles= " + ' '.join([rol.name for rol in other_roles]))
+            for role in other_roles:
+                team_member.roles.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.add(role) #volvemos a agregar para que se copien los permisos actualizados
+
+
+        return HttpResponseRedirect(success_url)
 
 def get_selected_perms(POST):
     """
