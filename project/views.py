@@ -244,6 +244,21 @@ class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
     template_name = 'project/proyect_delete.html'
     success_url = reverse_lazy('project:project_list')
 
+    def delete(self, request, *args, **kwargs):
+        """
+        Llama al metodo delete() del objeto
+        y luego redirige a la url exitosa.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        if False:
+            self.object.delete()
+        else:
+            self.object.estado = 'CA'
+            self.object.save(update_fields=['estado'])
+        return HttpResponseRedirect(success_url)
+
+
 class AddRolView(LoginRequiredMixin, generic.CreateView):
     '''
     View que agrega un rol al sistema
