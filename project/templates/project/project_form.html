@@ -1,7 +1,20 @@
 {% extends "project/base.html" %}
 {% load bootstrap3 %}
+{% load static %}
 {% block title %}Formulario Proyecto{% endblock %}
 {% block header %}Proyecto{% endblock %}
+{% block extrahead %}
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.teammember').formset({
+            prefix: '{{ formset.prefix }}',
+            addText: 'Agregar miembro',
+            deleteText: 'Eliminar'
+        });
+    })
+    </script>
+{% endblock %}
 {% block content %}
     <style>
         .empty-form {
@@ -23,18 +36,18 @@
                     <h3>Miembros del Equipo</h3>
                     {{ formset.management_form }}
                     <div class="row top-buffer team-members">
-                        <div class="row empty-form">
+                        <div class="empty-form">
                                 {% bootstrap_form formset.empty_form %}
                         </div>
                         {% for subform in formset %}
-                            <div id="teammember-{{ forloop.counter0 }}">
-                                {{ subform.id }}
+                            {{ subform.id }}
+                            <div class="teammember" id="teammember-{{ forloop.counter0 }}">
+                                {% if subform.instance.pk %}{% bootstrap_field subform.DELETE %}{% endif %}
                                 {% bootstrap_field subform.usuario %}
                                 {% bootstrap_field subform.roles %}
                             </div>
                         {% endfor %}
                     </div>
-                    <button type="button" class="btn btn-primary adder" data-action="add-formset">Agregar miembro</button>
                 </div>
                 <div class="col-lg-6">
                     {% bootstrap_field form.duracion_sprint %}

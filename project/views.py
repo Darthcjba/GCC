@@ -232,9 +232,9 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
         fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
     template_name = 'project/project_form.html'
-    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo,
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
                                         fields=['usuario', 'roles'],
-                                        extra=0,
+                                        extra=1,
                                         widgets={'roles' : CheckboxSelectMultiple})
 
     def get_context_data(self, **kwargs):
@@ -257,7 +257,7 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
 class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Proyecto
     template_name = 'project/project_form.html'
-    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo,
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
         fields=['usuario', 'roles'],
         extra=0,
         widgets={'roles' : CheckboxSelectMultiple})
