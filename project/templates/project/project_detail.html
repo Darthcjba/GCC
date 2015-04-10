@@ -41,10 +41,6 @@
                             <span class="badge" data-toggle="tooltip" data-placement="left"
                               title="Rol">{{ r }}</span>
                         {% endfor %}
-                        {% comment %}
-                        <span class="badge" data-toggle="tooltip" data-placement="left"
-                              title="Rol">{{ m.roles.all|join:", " }}</span>
-                        {% endcomment %}
                     </a>
                 {% endfor %}
             </div>
@@ -69,7 +65,7 @@
                 {% for f in flows %}
                     <a href="#" class="list-group-item">{{ f.nombre }}
                         <span class="badge" data-toggle="tooltip" data-placement="right"
-                              title="Actividades">1</span>
+                              title="Actividades">{{ f.actividad_set.count }}</span>
                     </a>
                 {% endfor %}
             </div>
