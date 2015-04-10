@@ -67,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Views</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signals.html">Signals</a></li>
 </ul>
 
           
@@ -373,7 +374,8 @@
 <dl class="method">
 <dt id="project.views.ProjectCreate.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectCreate.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectCreate.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Comprueba que esté el permiso de agregar proyecto</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.ProjectCreate.form_class">
@@ -384,7 +386,16 @@
 <dl class="method">
 <dt id="project.views.ProjectCreate.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectCreate.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectCreate.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Guarda los miembros de equipo especificados asociados al proyecto.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario del proyecto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.ProjectCreate.get_context_data">
@@ -419,7 +430,8 @@ y luego redirige a la url exitosa.</p>
 <dl class="method">
 <dt id="project.views.ProjectDelete.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectDelete.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectDelete.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>verifica que se cuente con el permiso de eliminar proyecto</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.ProjectDelete.model">
@@ -518,7 +530,8 @@ y luego redirige a la url exitosa.</p>
 <dl class="method">
 <dt id="project.views.ProjectUpdate.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectUpdate.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectUpdate.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>verifica que se cuenten con los permisos de edición de proyecto</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.ProjectUpdate.form_class">
@@ -529,12 +542,23 @@ y luego redirige a la url exitosa.</p>
 <dl class="method">
 <dt id="project.views.ProjectUpdate.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectUpdate.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectUpdate.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>actualiza los miembros del equipo del proyecto que se hayan especifico</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario de edición del proyecto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="project.views.ProjectUpdate.get_context_data">
 <code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectUpdate.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectUpdate.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Especifica los datos de contexto a pasar al template
+:param kwargs: Diccionario con parametros con nombres clave</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="project.views.ProjectUpdate.model">

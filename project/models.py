@@ -38,9 +38,6 @@ class Proyecto(models.Model):
 
         permissions = (
             ('list_all_projects', 'listar los proyectos disponibles'),
-            ('create_miembroequipo', 'agregar miembro del equipo'),
-            ('edit_miembroequipo', 'editar miembro del equipo'),
-            ('remove_miembroequipo', 'eliminar miembro del equipo'),
 
             ('create_sprint', 'agregar sprint'),
             ('edit_sprint', 'editar sprint'),

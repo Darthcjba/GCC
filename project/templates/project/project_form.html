@@ -36,9 +36,6 @@
                     <h3>Miembros del Equipo</h3>
                     {{ formset.management_form }}
                     <div class="row top-buffer team-members">
-                        <div class="empty-form">
-                                {% bootstrap_form formset.empty_form %}
-                        </div>
                         {% for subform in formset %}
                             {{ subform.id }}
                             <div class="teammember" id="teammember-{{ forloop.counter0 }}">

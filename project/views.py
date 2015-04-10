@@ -258,7 +258,7 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
         return super(ProjectCreate, self).dispatch(request, *args, **kwargs)
     def get_context_data(self, **kwargs):
         context = super(ProjectCreate, self).get_context_data(**kwargs)
-        if(self.request.method == 'GET'):
+        if self.request.method == 'GET':
             context['formset'] = self.TeamMemberInlineFormSet()
         return context
 
@@ -456,7 +456,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
 
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
-        initial = {'perms_proyecto': perm_list, 'perms_teammembers': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
+        initial = {'perms_proyecto': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
                    'perms_flujo': perm_list, 'perms_actividad': perm_list}
         return initial
 
@@ -552,7 +552,6 @@ def get_selected_perms(POST):
     :return: lista de permisos
     """
     current_list = POST.getlist('perms_proyecto')
-    current_list.extend(POST.getlist('perms_teammembers'))
     current_list.extend(POST.getlist('perms_userstory'))
     current_list.extend(POST.getlist('perms_flujo'))
     current_list.extend(POST.getlist('perms_sprint'))

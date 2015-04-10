@@ -355,16 +355,25 @@
                                         <span class="n">extra</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                                         <span class="n">widgets</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;roles&#39;</span> <span class="p">:</span> <span class="n">CheckboxSelectMultiple</span><span class="p">})</span>
 
-    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;auth.add_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;project.add_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <div class="viewcode-block" id="ProjectCreate.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectCreate.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Comprueba que esté el permiso de agregar proyecto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectCreate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 <div class="viewcode-block" id="ProjectCreate.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectCreate.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectCreate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
             <span class="n">context</span><span class="p">[</span><span class="s">&#39;formset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">context</span>
 </div>
 <div class="viewcode-block" id="ProjectCreate.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectCreate.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Guarda los miembros de equipo especificados asociados al proyecto.</span>
+
+<span class="sd">        :param form: formulario del proyecto</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="n">formset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">formset</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
@@ -389,11 +398,19 @@
         <span class="n">widgets</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;inicio&#39;</span><span class="p">:</span> <span class="n">SelectDateWidget</span><span class="p">,</span> <span class="s">&#39;fin&#39;</span><span class="p">:</span> <span class="n">SelectDateWidget</span><span class="p">},</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;nombre_corto&#39;</span><span class="p">,</span> <span class="s">&#39;nombre_largo&#39;</span><span class="p">,</span> <span class="s">&#39;estado&#39;</span><span class="p">,</span> <span class="s">&#39;inicio&#39;</span><span class="p">,</span> <span class="s">&#39;fin&#39;</span><span class="p">,</span> <span class="s">&#39;duracion_sprint&#39;</span><span class="p">,</span> <span class="s">&#39;descripcion&#39;</span><span class="p">))</span>
 
-    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;auth.change_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;project.change_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <div class="viewcode-block" id="ProjectUpdate.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectUpdate.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        verifica que se cuenten con los permisos de edición de proyecto</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectUpdate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="ProjectUpdate.form_valid"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectUpdate.form_valid">[documentos]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        actualiza los miembros del equipo del proyecto que se hayan especifico</span>
+
+<span class="sd">        :param form: formulario de edición del proyecto</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="n">formset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">formset</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
@@ -412,6 +429,10 @@
                       <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">))</span>
 </div>
 <div class="viewcode-block" id="ProjectUpdate.get_context_data"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectUpdate.get_context_data">[documentos]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Especifica los datos de contexto a pasar al template</span>
+<span class="sd">        :param kwargs: Diccionario con parametros con nombres clave</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectUpdate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">):</span>
             <span class="n">context</span><span class="p">[</span><span class="s">&#39;formset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TeamMemberInlineFormSet</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
@@ -439,8 +460,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;estado&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">success_url</span><span class="p">)</span>
 </div>
-    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;auth.delete_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">permission_required</span><span class="p">(</span><span class="s">&#39;project.delete_proyecto&#39;</span><span class="p">,</span> <span class="n">raise_exception</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <div class="viewcode-block" id="ProjectDelete.dispatch"><a class="viewcode-back" href="../../modules/views.html#project.views.ProjectDelete.dispatch">[documentos]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        verifica que se cuente con el permiso de eliminar proyecto</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ProjectDelete</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 </div></div>
@@ -537,7 +561,7 @@
 
         <span class="n">perm_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">perm</span><span class="o">.</span><span class="n">codename</span> <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">modelo</span><span class="o">.</span><span class="n">permissions</span><span class="o">.</span><span class="n">all</span><span class="p">())]</span>
 
-        <span class="n">initial</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;perms_proyecto&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span> <span class="s">&#39;perms_teammembers&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span> <span class="s">&#39;perms_sprint&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span> <span class="s">&#39;perms_userstory&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span>
+        <span class="n">initial</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;perms_proyecto&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span> <span class="s">&#39;perms_sprint&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span> <span class="s">&#39;perms_userstory&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span>
                    <span class="s">&#39;perms_flujo&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">,</span> <span class="s">&#39;perms_actividad&#39;</span><span class="p">:</span> <span class="n">perm_list</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">initial</span>
 
@@ -633,7 +657,6 @@
 <span class="sd">    :return: lista de permisos</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">current_list</span> <span class="o">=</span> <span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_proyecto&#39;</span><span class="p">)</span>
-    <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_teammembers&#39;</span><span class="p">))</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_userstory&#39;</span><span class="p">))</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_flujo&#39;</span><span class="p">))</span>
     <span class="n">current_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s">&#39;perms_sprint&#39;</span><span class="p">))</span>

@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'debug_toolbar',
     'bootstrap3',
-    'django_bootstrap_dynamic_formsets',
 )
 
 MIDDLEWARE_CLASSES = (
