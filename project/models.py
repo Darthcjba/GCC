@@ -125,7 +125,7 @@ class Flujo(models.Model):
     Las plantillas de flujo se manejan como Flujos sin proyecto asignado.
     """
     nombre = models.CharField(max_length=20)
-    proyecto = models.ForeignKey(Proyecto, null=True)
+    proyecto = models.ForeignKey(Proyecto, null=True, blank=True)
 
     def __unicode__(self):
         return self.nombre
