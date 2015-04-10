@@ -287,7 +287,7 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
     template_name = 'project/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
         fields=['usuario', 'roles'],
-        extra=0,
+        extra=1,
         widgets={'roles' : CheckboxSelectMultiple})
     form_class =  modelform_factory(Proyecto,
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
