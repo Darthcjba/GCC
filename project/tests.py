@@ -3,6 +3,7 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import SESSION_KEY
+from project.models import Proyecto
 
 class LoginTest(TestCase):
     def setUp(self):
@@ -247,4 +248,74 @@ class UserTest(TestCase):
         self.assertRedirects(response, '/users/')
         #ahora ya no deberia existir el registro
         response = c.get('/users/2/')
+        self.assertEquals(response.status_code, 404)
+
+class ProjectTest(TestCase):
+    """
+    Test de project
+    """
+    def setUp(self):
+        u = User.objects.create_user('temp','temp@email.com', 'temp')
+        p = Permission.objects.get(codename='add_proyecto')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='change_proyecto')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='delete_proyecto')
+        u.user_permissions.add(p)
+        u = User.objects.create_user('fulano','temp@email.com', 'temp')
+        pro= Proyecto.objects.create(nombre_corto='Royecto', nombre_largo='Royecto Largo', estado='Inactivo',inicio='2015-03-10 18:00',fin='2015-03-10 18:00',creacion='2015-03-10 18:00',duracion_sprint='30', descripcion='Prueba numero 800')
+
+    def test_create_proyecto(self):
+         c = self.client
+         self.assertTrue(c.login(username='temp', password='temp'))
+         response = c.get('/projects/add/')
+         self.assertEquals(response.status_code, 200)
+         #intentamos crear un rol developer que pueda crear, editar y borrar proyectos,
+         response = c.post('/projects/add/', {'nombre_corto':'Proyect', 'nombre_largo': 'Proyecto prueba', 'estado': 'Inactivo','inicio':'2015-03-10 18:00','fin':'2015-03-10 18:00','creacion':'2015-03-10 18:00','duracion_sprint':'30', 'descripcion': 'Prueba numero 800'}, follow=True)
+         p = Proyecto.objects.get(nombre_corto = 'Proyect')
+         #comprobamos que exista el proyecto
+         self.assertIsNotNone(p)
+         #deberia redirigir
+         self.assertRedirects(response, '/projects/{}/'.format(p.id))
+
+    def test_not_create_invalid_proyect(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/projects/add/')
+        self.assertEquals(response.status_code, 200)
+        #intentamos crear un rol developer que pueda crear, editar y borrar proyectos,
+        response = c.post('/projects/add/', {'nombre_corto':'Proyect', 'nombre_largo': 'Proyecto prueba', 'estado': 'Inactivo','inicio':'2015-03-10 18:00','fin':'2015-03-10 18:00','creacion':'2015-03-10 18:00','duracion_sprint':'30', 'descripcion': 'Prueba numero 800'}, follow=True)
+        #no deberia redirigir
+        self.assertIsNot(response.status_code, 302)
+        #no deberia existir en la base de datos
+        self.assertEquals(Proyecto.objects.filter(nombre_corto ='Proyect').count(), 0)
+
+    def test_not_create_proyect(self):
+        c=self.client
+        self.assertTrue(c.login(username='fulano',password='temp'))
+        response = c.get('/project/add')
+        #No deberia entrar en este sector si no tiene los permisos
+        self.assertEquals(response.status_code, 403)
+
+    def test_edit_proyecto(self):
+        c= self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/project/1/edit/')
+        self.assertEquals(response.tatus_code, 200)
+        response = c.post('/projects/1/edit', {'nombre_corto':'Proyect', 'nombre_largo': 'Proyecto prueba', 'estado': 'Inactivo','inicio':'2015-03-10 18:00','fin':'2015-03-10 18:00','creacion':'2015-03-10 18:00','duracion_sprint':'30', 'descripcion': 'Prueba numero 800'}, follow=True)
+        self.assertRedirects(response, '/edit/1/')
+        #comprobamos el cambio en la bd
+        self.assertIsNotNone(User.objects.get(nombre_corto='Royecto'))
+
+    def test_delete_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        #vemos que el proyecto existe
+        response = c.get('/projects/1/')
+        self.assertEquals(response.status_code, 200)
+        #eliminamos el proyecto
+        response = c.post('/projects/1/delete/', {'Confirmar':True}, follow=True)
+        self.assertRedirects(response, '/projects/')
+        #ahora ya no deberia existir el registro
+        response = c.get('/projects/1/')
         self.assertEquals(response.status_code, 404)
