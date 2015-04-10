@@ -1,61 +1,106 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Views &mdash; documentación de project - 1</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/translations.js"></script>
-    <link rel="top" title="documentación de project - 1" href="../index.html" />
-    <link rel="next" title="Forms" href="forms.html" />
-    <link rel="prev" title="Models" href="models.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <title>Views &mdash; documentación de project - 1</title>
+  
 
-  </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navegación</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="Índice General"
-             accesskey="I">índice</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Índice de Módulos Python"
-             >módulos</a> |</li>
-        <li class="right" >
-          <a href="forms.html" title="Forms"
-             accesskey="N">siguiente</a> |</li>
-        <li class="right" >
-          <a href="models.html" title="Models"
-             accesskey="P">anterior</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">documentación de project - 1</a> &raquo;</li> 
-      </ul>
-    </div>  
+  
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="documentación de project - 1" href="../index.html"/>
+        <link rel="next" title="Forms" href="forms.html"/>
+        <link rel="prev" title="Models" href="models.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> project</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Views</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/views.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
             
   <div class="section" id="module-project.views">
 <span id="views"></span><h1>Views<a class="headerlink" href="#module-project.views" title="Enlazar permanentemente con este título">¶</a></h1>
@@ -78,17 +123,33 @@
 <dl class="method">
 <dt id="project.views.AddRolView.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddRolView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddRolView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Comprobar validez del formulario
-:param form: formulario recibido
-:return: URL de redireccion</p>
+<dd><p>Comprobar validez del formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario recibido</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">URL de redireccion</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="project.views.AddRolView.get_context_data">
 <code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddRolView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddRolView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Agregar datos al contexto
-:param kwargs: argumentos clave
-:return: contexto</p>
+<dd><p>Agregar datos al contexto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>kwargs</strong> &#8211; argumentos clave</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">contexto</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -118,11 +179,23 @@
 <dl class="method">
 <dt id="project.views.AddUser.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddUser.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddUser.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Requiere el permiso &#8216;add_user&#8217;
-:param request: Request del cliente
-:param args: Lista de argumentos
-:param kwargs: Argumentos Clave
-:return: dispatch de CreateView</p>
+<dd><p>Requiere el permiso &#8216;add_user&#8217;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> &#8211; Request del cliente</li>
+<li><strong>args</strong> &#8211; Lista de argumentos</li>
+<li><strong>kwargs</strong> &#8211; Argumentos Clave</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body"><p class="first last">dispatch de CreateView</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -134,16 +207,31 @@
 <dl class="method">
 <dt id="project.views.AddUser.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddUser.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddUser.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Verificar validez del formulario
-:param form: formulario completado
-:return: Url de Evento Correcto</p>
+<dd><p>Verificar validez del formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario completado</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">Url de Evento Correcto</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="project.views.AddUser.get_success_url">
 <code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddUser.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddUser.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Retorna una los usuarios excluyendo el AnonymousUser
-:return: url del UserDetail</p>
+<dd><p>Retorna una los usuarios excluyendo el AnonymousUser</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">url del UserDetail</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -165,13 +253,47 @@
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
 <p>Vista de Eliminacion de Roles</p>
 <dl class="method">
+<dt id="project.views.DeleteRolView.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteRolView.delete"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteRolView.delete" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Borrar permisos en miembros que hayan tenido este rol asignado luego de eliminar el rol</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> &#8211; request del cliente</li>
+<li><strong>args</strong> &#8211; lista de argumentos</li>
+<li><strong>kwargs</strong> &#8211; lista de argumentos con palabras claves</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body"><p class="first last">HttpResponseRedirect a la nueva URL</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="project.views.DeleteRolView.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteRolView.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteRolView.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Requerir permisos &#8216;delete_group&#8217;
-:param request: request del cliente
-:param args: lista de argumentos
-:param kwargs: argumentos clave
-:return: dispatch de DeleteView</p>
+<dd><p>Requerir permisos &#8216;delete_group&#8217;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> &#8211; request del cliente</li>
+<li><strong>args</strong> &#8211; lista de argumentos</li>
+<li><strong>kwargs</strong> &#8211; argumentos clave</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body"><p class="first last">dispatch de DeleteView</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -238,6 +360,86 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="project.views.ProjectCreate">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">ProjectCreate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectCreate"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectCreate" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>Permite la creacion de Proyectos</p>
+<dl class="attribute">
+<dt id="project.views.ProjectCreate.TeamMemberInlineFormSet">
+<code class="descname">TeamMemberInlineFormSet</code><a class="headerlink" href="#project.views.ProjectCreate.TeamMemberInlineFormSet" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">MiembroEquipoFormFormSet</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.ProjectCreate.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectCreate.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectCreate.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectCreate.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.ProjectCreate.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">ProyectoForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.ProjectCreate.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectCreate.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectCreate.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.ProjectCreate.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectCreate.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectCreate.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectCreate.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.ProjectCreate.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectCreate.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/project_form.html'</em><a class="headerlink" href="#project.views.ProjectCreate.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.ProjectDelete">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">ProjectDelete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectDelete"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectDelete" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista para la cancelacion de proyectos</p>
+<dl class="method">
+<dt id="project.views.ProjectDelete.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectDelete.delete"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectDelete.delete" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Llama al metodo delete() del objeto
+y luego redirige a la url exitosa.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.ProjectDelete.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectDelete.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectDelete.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectDelete.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.ProjectDelete.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectDelete.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.ProjectDelete.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectDelete.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/proyect_delete.html'</em><a class="headerlink" href="#project.views.ProjectDelete.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="project.views.ProjectDetail">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">ProjectDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
@@ -278,8 +480,15 @@
 <dl class="method">
 <dt id="project.views.ProjectList.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Obtener proyectos del Sistema.
-:return: lista de proyectos</p>
+<dd><p>Obtener proyectos del Sistema.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">lista de proyectos</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -291,6 +500,51 @@
 <dl class="attribute">
 <dt id="project.views.ProjectList.template_name">
 <code class="descname">template_name</code><em class="property"> = 'project/project_list.html'</em><a class="headerlink" href="#project.views.ProjectList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.ProjectUpdate">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">ProjectUpdate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectUpdate"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectUpdate" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>Permite la Edicion de Proyectos</p>
+<dl class="attribute">
+<dt id="project.views.ProjectUpdate.TeamMemberInlineFormSet">
+<code class="descname">TeamMemberInlineFormSet</code><a class="headerlink" href="#project.views.ProjectUpdate.TeamMemberInlineFormSet" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">MiembroEquipoFormFormSet</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.ProjectUpdate.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectUpdate.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectUpdate.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectUpdate.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.ProjectUpdate.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">ProyectoForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.ProjectUpdate.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectUpdate.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectUpdate.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.ProjectUpdate.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#ProjectUpdate.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.ProjectUpdate.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectUpdate.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.ProjectUpdate.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.ProjectUpdate.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/project_form.html'</em><a class="headerlink" href="#project.views.ProjectUpdate.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -349,11 +603,23 @@
 <dl class="method">
 <dt id="project.views.UpdateRolView.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Solicitar el permiso &#8216;change_group&#8217;
-:param request: request del cliente
-:param args: lista de argumentos
-:param kwargs: argumentos clave
-:return: dispatch de UpdateView</p>
+<dd><p>Solicitar el permiso &#8216;change_group&#8217;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> &#8211; request del cliente</li>
+<li><strong>args</strong> &#8211; lista de argumentos</li>
+<li><strong>kwargs</strong> &#8211; argumentos clave</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body"><p class="first last">dispatch de UpdateView</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -365,24 +631,47 @@
 <dl class="method">
 <dt id="project.views.UpdateRolView.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Comprobar validez del formulario
-:param form: formulario recibido
-:return: URL de redireccion correcta</p>
+<dd><p>Comprobar validez del formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario recibido</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">URL de redireccion correcta</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateRolView.get_context_data">
 <code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Agregar datos adicionales al contexto
-:param kwargs: argumentos clave
-:return: contexto</p>
+<dd><p>Agregar datos adicionales al contexto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>kwargs</strong> &#8211; argumentos clave</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">contexto</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateRolView.get_initial">
 <code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateRolView.get_initial"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateRolView.get_initial" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Obtener datos iniciales para el formulario
-:return: diccionario de datos iniciales</p>
+<dd><p>Obtener datos iniciales para el formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">diccionario de datos iniciales</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -419,11 +708,23 @@
 <dl class="method">
 <dt id="project.views.UpdateUser.dispatch">
 <code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Requerir permiso &#8216;change_user&#8217;
-:param request: Requeust del cliente
-:param args: Lista de Argumentos
-:param kwargs: Argumentos Clave
-:return: Dispatch de UpdateView</p>
+<dd><p>Requerir permiso &#8216;change_user&#8217;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> &#8211; Requeust del cliente</li>
+<li><strong>args</strong> &#8211; Lista de Argumentos</li>
+<li><strong>kwargs</strong> &#8211; Argumentos Clave</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body"><p class="first last">Dispatch de UpdateView</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -435,23 +736,45 @@
 <dl class="method">
 <dt id="project.views.UpdateUser.form_valid">
 <code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Comprobar validez del formulario recibido
-:param form: Formulario recibido
-:return: URL de evento correcto</p>
+<dd><p>Comprobar validez del formulario recibido</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; Formulario recibido</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">URL de evento correcto</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateUser.get_initial">
 <code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.get_initial"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.get_initial" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Obtener datos iniciales para el formulario
-:return: diccionario con los datos iniciales</p>
+<dd><p>Obtener datos iniciales para el formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">diccionario con los datos iniciales</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="project.views.UpdateUser.get_success_url">
 <code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateUser.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateUser.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Obtener url de evento correcto
-:return: url de UserDetail</p>
+<dd><p>Obtener url de evento correcto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">url de UserDetail</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -480,9 +803,17 @@
 <dl class="method">
 <dt id="project.views.UserDetail.get_context_data">
 <code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UserDetail.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UserDetail.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Agregar lista de proyectos al contexto
-:param kwargs: diccionario de argumentos claves
-:return: contexto</p>
+<dd><p>Agregar lista de proyectos al contexto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>kwargs</strong> &#8211; diccionario de argumentos claves</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">contexto</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -511,8 +842,15 @@
 <dl class="method">
 <dt id="project.views.UserList.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UserList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UserList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Retorna una los usuarios excluyendo el AnonymousUser
-:return: lista de usuarios</p>
+<dd><p>Retorna una los usuarios excluyendo el AnonymousUser</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">lista de usuarios</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -531,9 +869,17 @@
 <dl class="function">
 <dt id="project.views.get_selected_perms">
 <code class="descclassname">project.views.</code><code class="descname">get_selected_perms</code><span class="sig-paren">(</span><em>POST</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#get_selected_perms"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.get_selected_perms" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Obtener los permisos marcados en el formulario
-:param POST: diccionario con los datos del formulario
-:return: lista de permisos</p>
+<dd><p>Obtener los permisos marcados en el formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>POST</strong> &#8211; diccionario con los datos del formulario</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">lista de permisos</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -546,54 +892,69 @@
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Tema anterior</h4>
-  <p class="topless"><a href="models.html"
-                        title="capítulo anterior">Models</a></p>
-  <h4>Próximo tema</h4>
-  <p class="topless"><a href="forms.html"
-                        title="próximo capítulo">Forms</a></p>
-  <div role="note" aria-label="source link">
-    <h3>Esta página</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/views.txt"
-            rel="nofollow">Mostrar el código</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Búsqueda rápida</h3>
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Ir a" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="forms.html" class="btn btn-neutral float-right" title="Forms">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models.html" class="btn btn-neutral" title="Models"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
-      
-      |
-      <a href="../_sources/modules/views.txt"
-          rel="nofollow">Page source</a></li>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

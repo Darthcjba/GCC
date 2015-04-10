@@ -54,6 +54,7 @@ class UserList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         """
         Retorna una los usuarios excluyendo el AnonymousUser
+
         :return: lista de usuarios
         """
         return User.objects.exclude(id=-1)
@@ -70,6 +71,7 @@ class UserDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         """
         Agregar lista de proyectos al contexto
+
         :param kwargs: diccionario de argumentos claves
         :return: contexto
         """
@@ -90,6 +92,7 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
     def dispatch(self, request, *args, **kwargs):
         """
         Requiere el permiso 'add_user'
+
         :param request: Request del cliente
         :param args: Lista de argumentos
         :param kwargs: Argumentos Clave
@@ -100,6 +103,7 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
     def get_success_url(self):
         """
         Retorna una los usuarios excluyendo el AnonymousUser
+
         :return: url del UserDetail
         """
         return reverse('project:user_detail', kwargs={'pk': self.object.id})
@@ -107,6 +111,7 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         """
         Verificar validez del formulario
+
         :param form: formulario completado
         :return: Url de Evento Correcto
         """
@@ -146,6 +151,7 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     def dispatch(self, request, *args, **kwargs):
         """
         Requerir permiso 'change_user'
+
         :param request: Requeust del cliente
         :param args: Lista de Argumentos
         :param kwargs: Argumentos Clave
@@ -156,6 +162,7 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         """
         Obtener url de evento correcto
+
         :return: url de UserDetail
         """
         return reverse('project:user_detail', kwargs={'pk': self.object.id})
@@ -163,6 +170,7 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     def get_initial(self):
         """
         Obtener datos iniciales para el formulario
+
         :return: diccionario con los datos iniciales
         """
         modelo = self.get_object()
@@ -176,6 +184,7 @@ class UpdateUser(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         """
         Comprobar validez del formulario recibido
+
         :param form: Formulario recibido
         :return: URL de evento correcto
         """
@@ -201,6 +210,7 @@ class ProjectList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         """
         Obtener proyectos del Sistema.
+
         :return: lista de proyectos
         """
         if self.request.user.has_perm('project.list_all_projects'):
@@ -240,8 +250,11 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
                                         extra=1,
                                         widgets={'roles' : CheckboxSelectMultiple})
 
-    @method_decorator(permission_required('auth.add_proyecto', raise_exception=True))
+    @method_decorator(permission_required('project.add_proyecto', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        """
+        Comprueba que esté el permiso de agregar proyecto
+        """
         return super(ProjectCreate, self).dispatch(request, *args, **kwargs)
     def get_context_data(self, **kwargs):
         context = super(ProjectCreate, self).get_context_data(**kwargs)
@@ -250,6 +263,12 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
         return context
 
     def form_valid(self, form):
+        """
+        Guarda los miembros de equipo especificados asociados al proyecto.
+
+        :param form: formulario del proyecto
+        """
+
         self.object = form.save()
         formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
         if formset.is_valid():
@@ -274,11 +293,19 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
         fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
 
-    @method_decorator(permission_required('auth.change_proyecto', raise_exception=True))
+    @method_decorator(permission_required('project.change_proyecto', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        '''
+        verifica que se cuenten con los permisos de edición de proyecto
+        '''
         return super(ProjectUpdate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+        '''
+        actualiza los miembros del equipo del proyecto que se hayan especifico
+
+        :param form: formulario de edición del proyecto
+        '''
         self.object = form.save()
         formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
         if formset.is_valid():
@@ -297,6 +324,10 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
                       context_instance=RequestContext(self.request))
 
     def get_context_data(self, **kwargs):
+        '''
+        Especifica los datos de contexto a pasar al template
+        :param kwargs: Diccionario con parametros con nombres clave
+        '''
         context = super(ProjectUpdate, self).get_context_data(**kwargs)
         if(self.request.method == 'GET'):
             context['formset'] = self.TeamMemberInlineFormSet(instance=self.object)
@@ -324,8 +355,11 @@ class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
             self.object.save(update_fields=['estado'])
         return HttpResponseRedirect(success_url)
 
-    @method_decorator(permission_required('auth.delete_proyecto', raise_exception=True))
+    @method_decorator(permission_required('project.delete_proyecto', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
+        '''
+        verifica que se cuente con el permiso de eliminar proyecto
+        '''
         return super(ProjectDelete, self).dispatch(request, *args, **kwargs)
 
 
@@ -341,6 +375,7 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
     def get_context_data(self, **kwargs):
         """
         Agregar datos al contexto
+
         :param kwargs: argumentos clave
         :return: contexto
         """
@@ -350,6 +385,7 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         """
+
         :return:la url de redireccion a la vista de los detalles del rol editado.
         """
         return reverse('project:rol_detail', kwargs={'pk': self.object.id})
@@ -361,6 +397,7 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         """
         Comprobar validez del formulario
+
         :param form: formulario recibido
         :return: URL de redireccion
         """
@@ -383,6 +420,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs):
         """
         Agregar datos adicionales al contexto
+
         :param kwargs: argumentos clave
         :return: contexto
         """
@@ -400,6 +438,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
     def dispatch(self, request, *args, **kwargs):
         """
         Solicitar el permiso 'change_group'
+
         :param request: request del cliente
         :param args: lista de argumentos
         :param kwargs: argumentos clave
@@ -410,6 +449,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
     def get_initial(self):
         """
         Obtener datos iniciales para el formulario
+
         :return: diccionario de datos iniciales
         """
         modelo = self.get_object()
@@ -424,6 +464,7 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         """
         Comprobar validez del formulario
+
         :param form: formulario recibido
         :return: URL de redireccion correcta
         """
@@ -461,6 +502,7 @@ class DeleteRolView(generic.DeleteView):
     def dispatch(self, request, *args, **kwargs):
         """
         Requerir permisos 'delete_group'
+
         :param request: request del cliente
         :param args: lista de argumentos
         :param kwargs: argumentos clave
@@ -471,6 +513,7 @@ class DeleteRolView(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         '''
         Borrar permisos en miembros que hayan tenido este rol asignado luego de eliminar el rol
+
         :param request: request del cliente
         :param args: lista de argumentos
         :param kwargs: lista de argumentos con palabras claves
@@ -504,6 +547,7 @@ class DeleteRolView(generic.DeleteView):
 def get_selected_perms(POST):
     """
     Obtener los permisos marcados en el formulario
+
     :param POST: diccionario con los datos del formulario
     :return: lista de permisos
     """

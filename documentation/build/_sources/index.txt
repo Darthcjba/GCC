@@ -14,6 +14,7 @@ Contents:
    modules/models
    modules/views
    modules/forms
+   modules/signals
 
 Indices and tables
 ==================

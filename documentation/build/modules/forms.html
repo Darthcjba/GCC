@@ -1,57 +1,105 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Forms &mdash; documentación de project - 1</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/translations.js"></script>
-    <link rel="top" title="documentación de project - 1" href="../index.html" />
-    <link rel="prev" title="Urls" href="urls.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <title>Forms &mdash; documentación de project - 1</title>
+  
 
-  </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navegación</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="Índice General"
-             accesskey="I">índice</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Índice de Módulos Python"
-             >módulos</a> |</li>
-        <li class="right" >
-          <a href="urls.html" title="Urls"
-             accesskey="P">anterior</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">documentación de project - 1</a> &raquo;</li> 
-      </ul>
-    </div>  
+  
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="documentación de project - 1" href="../index.html"/>
+        <link rel="prev" title="Views" href="views.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> project</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Forms</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">project</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Forms</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/forms.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
             
   <div class="section" id="module-project.forms">
 <span id="forms"></span><h1>Forms<a class="headerlink" href="#module-project.forms" title="Enlazar permanentemente con este título">¶</a></h1>
@@ -78,12 +126,12 @@
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.base_fields">
-<code class="descclassname">RolForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('name', &lt;django.forms.fields.CharField object at 0x7fa8f26ee550&gt;), ('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26959d0&gt;), ('perms_teammembers', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26e8d90&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26e8290&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee350&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee450&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee150&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('name', &lt;django.forms.fields.CharField object at 0x7f05507c4050&gt;), ('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7f0550855f90&gt;), ('perms_teammembers', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bdf50&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bdc50&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bd890&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bdb90&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bd490&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.declared_fields">
-<code class="descclassname">RolForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26959d0&gt;), ('perms_teammembers', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26e8d90&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26e8290&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee350&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee450&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee150&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7f0550855f90&gt;), ('perms_teammembers', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bdf50&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bdc50&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bd890&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bdb90&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507bd490&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -93,37 +141,37 @@
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.perm">
-<code class="descclassname">RolForm.</code><code class="descname">perm</code><em class="property"> = &lt;Permission: project | actividad | Can delete actividad&gt;</em><a class="headerlink" href="#project.forms.RolForm.perm" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">perm</code><em class="property"> = &lt;Permission: project | proyecto | eliminar userstory&gt;</em><a class="headerlink" href="#project.forms.RolForm.perm" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.perms_actividad_list">
-<code class="descclassname">RolForm.</code><code class="descname">perms_actividad_list</code><em class="property"> = [(u'add_actividad', u'Can add actividad'), (u'change_actividad', u'Can change actividad'), (u'delete_actividad', u'Can delete actividad')]</em><a class="headerlink" href="#project.forms.RolForm.perms_actividad_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">perms_actividad_list</code><em class="property"> = [(u'create_actividad', u'agregar actividad'), (u'edit_actividad', u'editar actividad'), (u'remove_actividad', u'eliminar actividad')]</em><a class="headerlink" href="#project.forms.RolForm.perms_actividad_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.perms_flujo_list">
-<code class="descclassname">RolForm.</code><code class="descname">perms_flujo_list</code><em class="property"> = [(u'add_flow_template', u'add flow template'), (u'add_flujo', u'Can add flujo'), (u'change_flow_template', u'change flow template'), (u'change_flujo', u'Can change flujo'), (u'delete_flow_template', u'delete flow template'), (u'delete_flujo', u'Can delete flujo')]</em><a class="headerlink" href="#project.forms.RolForm.perms_flujo_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">perms_flujo_list</code><em class="property"> = [(u'create_flujo', u'agregar flujo'), (u'edit_flujo', u'editar flujo'), (u'remove_flujo', u'eliminar flujo')]</em><a class="headerlink" href="#project.forms.RolForm.perms_flujo_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.perms_proyecto_list">
-<code class="descclassname">RolForm.</code><code class="descname">perms_proyecto_list</code><em class="property"> = [(u'add_proyecto', u'Can add proyecto'), (u'change_proyecto', u'Can change proyecto'), (u'delete_proyecto', u'Can delete proyecto'), (u'list_all_projects', u'list all available projects')]</em><a class="headerlink" href="#project.forms.RolForm.perms_proyecto_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">perms_proyecto_list</code><em class="property"> = [(u'add_proyecto', u'Can add proyecto'), (u'change_proyecto', u'Can change proyecto'), (u'delete_proyecto', u'Can delete proyecto')]</em><a class="headerlink" href="#project.forms.RolForm.perms_proyecto_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.perms_sprint_list">
-<code class="descclassname">RolForm.</code><code class="descname">perms_sprint_list</code><em class="property"> = [(u'add_sprint', u'Can add sprint'), (u'change_sprint', u'Can change sprint'), (u'delete_sprint', u'Can delete sprint')]</em><a class="headerlink" href="#project.forms.RolForm.perms_sprint_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">perms_sprint_list</code><em class="property"> = [(u'create_sprint', u'agregar sprint'), (u'edit_sprint', u'editar sprint'), (u'remove_sprint', u'eliminar sprint')]</em><a class="headerlink" href="#project.forms.RolForm.perms_sprint_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.perms_teammembers_list">
-<code class="descclassname">RolForm.</code><code class="descname">perms_teammembers_list</code><em class="property"> = [(u'add_miembroequipo', u'Can add miembro equipo'), (u'change_miembroequipo', u'Can change miembro equipo'), (u'delete_miembroequipo', u'Can delete miembro equipo')]</em><a class="headerlink" href="#project.forms.RolForm.perms_teammembers_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">perms_teammembers_list</code><em class="property"> = [(u'create_miembroequipo', u'agregar miembro del equipo'), (u'edit_miembroequipo', u'editar miembro del equipo'), (u'remove_miembroequipo', u'eliminar miembro del equipo')]</em><a class="headerlink" href="#project.forms.RolForm.perms_teammembers_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.perms_userstories_list">
-<code class="descclassname">RolForm.</code><code class="descname">perms_userstories_list</code><em class="property"> = [(u'add_userstory', u'Can add user story'), (u'change_userstory', u'Can change user story'), (u'delete_userstory', u'Can delete user story')]</em><a class="headerlink" href="#project.forms.RolForm.perms_userstories_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">perms_userstories_list</code><em class="property"> = [(u'create_userstory', u'agregar userstory'), (u'edit_userstory', u'editar userstory'), (u'remove_userstory', u'eliminar userstory')]</em><a class="headerlink" href="#project.forms.RolForm.perms_userstories_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -151,17 +199,17 @@
 
 <dl class="attribute">
 <dt id="project.forms.UserCreateForm.base_fields">
-<code class="descclassname">UserCreateForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('first_name', &lt;django.forms.fields.CharField object at 0x7fa8f26f8250&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7fa8f26f8410&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7fa8f26ee390&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7fa8f3004750&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7fa8f3004990&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7fa8f3004ad0&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee710&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">UserCreateForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('first_name', &lt;django.forms.fields.CharField object at 0x7f05507c4890&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7f05507c4f50&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7f05507bde90&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7f05511f3450&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7f05511f3690&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7f05511f37d0&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507c4210&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.UserCreateForm.declared_fields">
-<code class="descclassname">UserCreateForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7fa8f3004750&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7fa8f3004990&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7fa8f3004ad0&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7fa8f26ee390&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f26ee710&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">UserCreateForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7f05511f3450&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7f05511f3690&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7f05511f37d0&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7f05507bde90&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f05507c4210&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.UserCreateForm.general_perms_list">
-<code class="descclassname">UserCreateForm.</code><code class="descname">general_perms_list</code><em class="property"> = [(u'list_all_projects', u'list all available projects'), (u'add_flow_template', u'add flow template'), (u'change_flow_template', u'change flow template'), (u'delete_flow_template', u'delete flow template'), (u'add_user', u'Can add user'), (u'change_user', u'Can change user'), (u'delete_user', u'Can delete user'), (u'add_group', u'Can add group'), (u'change_group', u'Can change group'), (u'delete_group', u'Can delete group')]</em><a class="headerlink" href="#project.forms.UserCreateForm.general_perms_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">UserCreateForm.</code><code class="descname">general_perms_list</code><em class="property"> = [(u'list_all_projects', u'listar los proyectos disponibles'), (u'add_flow_template', u'agregar plantilla de flujo'), (u'change_flow_template', u'editar plantilla de flujo'), (u'delete_flow_template', u'eliminar plantilla de flujo'), (u'add_user', u'Can add user'), (u'change_user', u'Can change user'), (u'delete_user', u'Can delete user'), (u'add_group', u'Can add group'), (u'change_group', u'Can change group'), (u'delete_group', u'Can delete group')]</em><a class="headerlink" href="#project.forms.UserCreateForm.general_perms_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -193,17 +241,17 @@
 <p>Formulario para edición de usuarios</p>
 <dl class="attribute">
 <dt id="project.forms.UserEditForm.base_fields">
-<code class="descname">base_fields</code><em class="property"> = OrderedDict([('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7fa8f272fdd0&gt;), ('last_login', &lt;django.forms.fields.DateTimeField object at 0x7fa8f26a7990&gt;), ('is_superuser', &lt;django.forms.fields.BooleanField object at 0x7fa8f26a7c10&gt;), ('groups', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7fa8f26a7d90&gt;), ('user_permissions', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7fa8f26c4450&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7fa8f3011110&gt;), ('first_name', &lt;django.forms.fields.CharField object at 0x7fa8f2fa7990&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7fa8f3011450&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7fa8f26c4fd0&gt;), ('is_staff', &lt;django.forms.fields.BooleanField object at 0x7fa8f26d03d0&gt;), ('is_active', &lt;django.forms.fields.BooleanField object at 0x7fa8f26d0750&gt;), ('date_joined', &lt;django.forms.fields.DateTimeField object at 0x7fa8f26d0b10&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f2680190&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">base_fields</code><em class="property"> = OrderedDict([('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7f055083f9d0&gt;), ('last_login', &lt;django.forms.fields.DateTimeField object at 0x7f05507fc290&gt;), ('is_superuser', &lt;django.forms.fields.BooleanField object at 0x7f05507fc4d0&gt;), ('groups', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7f05507fc650&gt;), ('user_permissions', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7f05507fcc50&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7f05511f3dd0&gt;), ('first_name', &lt;django.forms.fields.CharField object at 0x7f05508174d0&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7f05508178d0&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7f0550817d10&gt;), ('is_staff', &lt;django.forms.fields.BooleanField object at 0x7f055082b110&gt;), ('is_active', &lt;django.forms.fields.BooleanField object at 0x7f055082b490&gt;), ('date_joined', &lt;django.forms.fields.DateTimeField object at 0x7f055082b850&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f055086bfd0&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.UserEditForm.declared_fields">
-<code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7fa8f3011110&gt;), ('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7fa8f272fdd0&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7fa8f2680190&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7f05511f3dd0&gt;), ('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7f055083f9d0&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f055086bfd0&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.UserEditForm.general_perms_list">
-<code class="descname">general_perms_list</code><em class="property"> = [(u'list_all_projects', u'list all available projects'), (u'add_flow_template', u'add flow template'), (u'change_flow_template', u'change flow template'), (u'delete_flow_template', u'delete flow template'), (u'add_user', u'Can add user'), (u'change_user', u'Can change user'), (u'delete_user', u'Can delete user'), (u'add_group', u'Can add group'), (u'change_group', u'Can change group'), (u'delete_group', u'Can delete group')]</em><a class="headerlink" href="#project.forms.UserEditForm.general_perms_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">general_perms_list</code><em class="property"> = [(u'list_all_projects', u'listar los proyectos disponibles'), (u'add_flow_template', u'agregar plantilla de flujo'), (u'change_flow_template', u'editar plantilla de flujo'), (u'delete_flow_template', u'eliminar plantilla de flujo'), (u'add_user', u'Can add user'), (u'change_user', u'Can change user'), (u'delete_user', u'Can delete user'), (u'add_group', u'Can add group'), (u'change_group', u'Can change group'), (u'delete_group', u'Can delete group')]</em><a class="headerlink" href="#project.forms.UserEditForm.general_perms_list" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -248,51 +296,67 @@
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Tema anterior</h4>
-  <p class="topless"><a href="urls.html"
-                        title="capítulo anterior">Urls</a></p>
-  <div role="note" aria-label="source link">
-    <h3>Esta página</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/modules/forms.txt"
-            rel="nofollow">Mostrar el código</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Búsqueda rápida</h3>
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Ir a" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="views.html" class="btn btn-neutral" title="Views"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2015, Jordan Ayala, Saniago Ortiz, Guillermo Peralta.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
-      
-      |
-      <a href="../_sources/modules/forms.txt"
-          rel="nofollow">Page source</a></li>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
