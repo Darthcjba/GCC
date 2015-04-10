@@ -541,7 +541,11 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         """
         context = super(AddFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
+        if(self.request.method == 'GET'):
+            context['actividad_form'] = ActividadFormSet()
         return context
+
+
     @method_decorator(permission_required('add_flow_template', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         """
@@ -559,38 +563,8 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         return reverse('project:flujo_detail', kwargs={'pk': self.object.id})
 
 
-    def get(self, request, *args, **kwargs):
-        """
-        Manejar los Get requests e instanciar una version en blanco del form y el inline formsets.
-        :param request:  la solicitud de la pagina
-        :param args: argumentos
-        :param kwargs: argumentos clave
-        :return: la solicitud
-        """
-        self.object =None
-        form_class = self.get_form_class()
-        form= self.get_form(form_class)
-        actividad_form = ActividadFormSet
-        return self.render_to_response(self.get_context_data(form=form, actividad_form=actividad_form))
 
-    def post(self, request, *args, **kwargs):
-        """
-        Maneja los POST requests, instantiating a form instance and its inline formsets with the POST variables and then chacking them for validity.
-        :param request:  la solicitud de la pagina
-        :param args: argumentos
-        :param kwargs: argumentos claves
-        :return: la validacion del form
-        """
-        self.object =None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        actividad_form = ActividadFormSet(self.request.POST)
-        if(form.is_valid() and actividad_form.is_valid()):
-            return self.form_valid(form,actividad_form)
-        else:
-            return self.form_invalid(form,actividad_form)
-
-    def form_valid(self, form, actividad_form):
+    def form_valid(self, form):
         """
         Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
         :param form: formulario recibido
@@ -598,18 +572,15 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         :return: URL de redireccion
         """
         self.object = form.save()
-        actividad_form.instance = self.object
-        actividad_form.save()
-        #super(AddFlujo, self).form_valid(form)
-        return HttpResponseRedirect(self.get_success_url())
-    def form_invalid(self, form, actividad_form):
-        """
-        Si el form no es valido es llamado
-        :param form:
-        :param actividad_form:
-        :return: Re-renders the context data with the data-filled forms and errors.
-        """
-        return self.render_to_response(self.get_context_data(form=form, actividad_form=actividad_form))
+        actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
+        if actividad_form.is_valid():
+            actividad_form.save()
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render(self.request, self.get_template_names(), {'form' : form,
+                                                                     'actividad_form' : actividad_form},
+                           context_instance=RequestContext(self.request))
+
 
 class DeleteFlujo(generic.DeleteView):
     """
