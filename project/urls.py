@@ -27,5 +27,5 @@ urlpatterns = patterns('',
                        url(r'^flujo/(?P<pk>\d+)/$', views.FlujoDetail.as_view(), name='flujo_detail'),
                        url(r'^flujo/add/$', views.AddFlujo.as_view(), name="flujo_add"),
                        url(r'^flujo/(?P<pk>\d+)/delete/$', views.DeleteFlujo.as_view(), name="flujo_delete"),
-
+                       url(r'^flujo/(?P<pk>\d+)/edit/$', views.UpdateFlujo.as_view(), name="flujo_update"),
                        )

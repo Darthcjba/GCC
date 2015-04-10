@@ -531,7 +531,7 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
     View que agrega un flujo al sistema
     """
     model = Flujo
-    template_name = 'project/flujo_add.html'
+    template_name = 'project/flujo_form.html'
     form_class = FlujosCreateForm
     def get_context_data(self, **kwargs):
         """
@@ -580,6 +580,63 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         return self.render(self.request, self.get_template_names(), {'form' : form,
                                                                      'actividad_form' : actividad_form},
                            context_instance=RequestContext(self.request))
+
+class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
+    """
+    View que agrega un flujo al sistema
+    """
+    model = Flujo
+    template_name = 'project/flujo_form.html'
+    form_class = FlujosCreateForm
+    def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
+        context = super(UpdateFlujo, self).get_context_data(**kwargs)
+        context['current_action'] = "Agregar"
+        if(self.request.method == 'GET'):
+            context['actividad_form'] = ActividadFormSet(instance=self.object)
+
+        return context
+
+    @method_decorator(permission_required('change_flow', raise_exception=True))
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Requiere el permiso 'add_flow_template'
+        :param request: Request del cliente
+        :param args: Lista de argumentos
+        :param kwargs: Argumentos Clave
+        :return: dispatch de CreateView
+        """
+        return super(UpdateFlujo, self).dispatch(request, *args, **kwargs)
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:flujo_detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+        :param form: formulario recibido
+        :param actividad_form: formulario recibido de actividad
+        :return: URL de redireccion
+        """
+        self.object = form.save()
+        actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
+        if actividad_form.is_valid():
+            actividad_form.save()
+            order = [form.instance.id for form in actividad_form.ordered_forms]
+            self.object.set_actividad_order(order)
+
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render(self.request, self.get_template_names(), {'form' : form,
+                                                                     'actividad_form' : actividad_form},
+                           context_instance=RequestContext(self.request))
+
 
 
 class DeleteFlujo(generic.DeleteView):
