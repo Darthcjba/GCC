@@ -8,17 +8,31 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-lg-6">
+                    <div class="row">
                     {% bootstrap_field form.nombre_corto %}
                     {% bootstrap_field form.nombre_largo %}
                     {% bootstrap_field form.estado %}
                     {% bootstrap_field form.inicio %}
                     {% bootstrap_field form.fin %}
+                    </div>
+                    <h3>Miembros del Equipo</h3>
+                    <div class="row top-buffer">
+                        {{ formset.management_form }}
+                        {% for subform in formset %}
+                            {{ subform.id }}
+                            {% bootstrap_field subform.usuario %}
+                            {% bootstrap_field subform.roles %}
+                            {% bootstrap_field subform.DELETE %}
+                        {% endfor %}
+                    </div>
+
                 </div>
                 <div class="col-lg-6">
                     {% bootstrap_field form.duracion_sprint %}
                     {% bootstrap_field form.descripcion %}
                 </div>
             </div>
+
             {% buttons submit='Guardar' reset="Reset" %}
             <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
             {% endbuttons %}

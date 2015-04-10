@@ -30,6 +30,7 @@ class UserEditForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(label=("Password"),
         help_text=("Solo se almacena un hash del password, no hay manera de verla. "
                    "Para modificarla seleccionar la opcion <strong>Cambiar Password</strong>"))
+
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
     perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
@@ -69,12 +70,14 @@ class UserCreateForm(UserCreationForm):
     Formulario para la creación de usuarios
     '''
     email = forms.EmailField(required=True)
+
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
     perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
     general_perms_list.extend(perms_user_list)
     general_perms_list.extend(perms_group_list)
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username')

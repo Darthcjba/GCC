@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Permission, Group
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.forms import PasswordInput
+from django.forms import PasswordInput, inlineformset_factory, CheckboxSelectMultiple
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.template import RequestContext
 from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
@@ -230,14 +232,54 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
         fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
     template_name = 'project/project_form.html'
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo,
+                                        fields=['usuario', 'roles'],
+                                        extra=2,
+                                        widgets={'roles' : CheckboxSelectMultiple})
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectCreate, self).get_context_data(**kwargs)
+        if(self.request.method == 'GET'):
+            context['formset'] = self.TeamMemberInlineFormSet()
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
+        if formset.is_valid():
+            formset.save()
+            return HttpResponseRedirect(self.get_success_url())
+
+        return render(self.request, self.get_template_names(), {'form' : form, 'formset' : formset},
+                      context_instance=RequestContext(self.request))
 
 
 class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Proyecto
     template_name = 'project/project_form.html'
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo,
+        fields=['usuario', 'roles'],
+        extra=0,
+        widgets={'roles' : CheckboxSelectMultiple})
     form_class =  modelform_factory(Proyecto,
         widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
         fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+
+    def form_valid(self, form):
+        self.object = form.save()
+        formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
+        if(formset.is_valid()):
+            formset.save()
+            return HttpResponseRedirect(self.get_success_url())
+
+        return render(self.request, self.get_template_names(), {'form' : form, 'formset' : formset},
+                      context_instance=RequestContext(self.request))
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectUpdate, self).get_context_data(**kwargs)
+        if(self.request.method == 'GET'):
+            context['formset'] = self.TeamMemberInlineFormSet(instance=self.object)
+        return context
 
 class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
     model = Proyecto
