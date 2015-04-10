@@ -33,7 +33,7 @@
                <label> {{ form.name.label_tag }}</label>
                {{ form.name }}
                 {% if actividad_form.can_order %}
-                {{ form.ORDER }}
+                    <label>Orden: </label>{{ form.ORDER }}
                 {% endif %}
             </div>
 

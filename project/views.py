@@ -545,7 +545,6 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
             context['actividad_form'] = ActividadFormSet()
         return context
 
-
     @method_decorator(permission_required('add_flow_template', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         """
@@ -562,8 +561,6 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         """
         return reverse('project:flujo_detail', kwargs={'pk': self.object.id})
 
-
-
     def form_valid(self, form):
         """
         Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
@@ -575,6 +572,9 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
         if actividad_form.is_valid():
             actividad_form.save()
+            order = [form.instance.id for form in actividad_form.ordered_forms]
+            self.object.set_actividad_order(order)
+
             return HttpResponseRedirect(self.get_success_url())
 
         return self.render(self.request, self.get_template_names(), {'form' : form,
