@@ -234,7 +234,7 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
     template_name = 'project/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo,
                                         fields=['usuario', 'roles'],
-                                        extra=2,
+                                        extra=0,
                                         widgets={'roles' : CheckboxSelectMultiple})
 
     def get_context_data(self, **kwargs):

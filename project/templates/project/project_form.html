@@ -5,7 +5,7 @@
 {% block content %}
     <style>
         .empty-form {
-            visibility: hidden;
+            display: none;
         }
     </style>
     <div class="row">
@@ -23,21 +23,18 @@
                     <h3>Miembros del Equipo</h3>
                     {{ formset.management_form }}
                     <div class="row top-buffer team-members">
+                        <div class="row empty-form">
+                                {% bootstrap_form formset.empty_form %}
+                        </div>
                         {% for subform in formset %}
                             <div id="teammember-{{ forloop.counter0 }}">
                                 {{ subform.id }}
                                 {% bootstrap_field subform.usuario %}
                                 {% bootstrap_field subform.roles %}
-                                {% bootstrap_field subform.DELETE %}
                             </div>
                         {% endfor %}
-                        <div class="row empty-form">
-                            <div class="column">
-                                {% bootstrap_form formset.empty_form %}
-                            </div>
-                        </div>
                     </div>
-                    <button type="button" class="btn btn-primary adder" data-action="add-formset">Add formset</button>
+                    <button type="button" class="btn btn-primary adder" data-action="add-formset">Agregar miembro</button>
                 </div>
                 <div class="col-lg-6">
                     {% bootstrap_field form.duracion_sprint %}
@@ -54,11 +51,10 @@
 {% block extra_js %}
     <script type="text/javascript">
     $('.adder').click(function(ev){
-        var count = $('.team-members').children().length;
-        var formset = $('.empty-form').djangoFormset();
+        var formset = $('.team-members').children('div').djangoFormset({
+            deleteButtonText : 'Borrar'
+        });
         formset.addForm();
-        $('#id_miembroequipo_set-TOTAL_FORMS').attr('value', count+1);
-       console.log('se hizo clic');
     });
 </script>
 
