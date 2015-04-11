@@ -287,6 +287,24 @@ class ProjectTest(TestCase):
         response = c.get('/projects/1/delete/')
         self.assertEquals(response.status_code, 200)
 
+    def test_not_permission_to_create_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/projects/add/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_change_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/projects/1/edit/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_delete_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/projects/1/delete/')
+        self.assertEquals(response.status_code, 403)
+
     def test_create_proyecto(self):
         c = self.client
         self.assertTrue(c.login(username='temp', password='temp'))
@@ -332,3 +350,23 @@ class FlujoTest(TestCase):
         self.assertTrue(c.login(username='temp', password='temp'))
         response = c.get('/flujo/1/delete/')
         self.assertEquals(response.status_code, 200)
+
+    def test_not_permission_to_create_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/flujo/add/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_change_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/flujo/1/edit/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_delete_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/flujo/1/delete/')
+        self.assertEquals(response.status_code, 403)
+
+
