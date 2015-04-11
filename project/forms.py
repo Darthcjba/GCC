@@ -100,3 +100,10 @@ class PlantillaCreateForm(forms.ModelForm):
     class Meta:
         model = Flujo
         fields = ('nombre',)
+
+class CreateFromPlantillaForm(forms.Form):
+    '''
+    Formulario para la creacion de copias de plantilla
+    '''
+    plantilla = forms.ModelChoiceField(queryset=Flujo.objects.filter(proyecto=None), empty_label=None)
+    proyecto = forms.ModelChoiceField(queryset=Proyecto.objects.exclude(estado='CA'), empty_label=None)

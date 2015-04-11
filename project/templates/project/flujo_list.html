@@ -4,6 +4,7 @@
 {% block header %}Flujos{% endblock %}
 {% block content %}
     {% if perms.project.create_flujo %}<p><a href="{% url 'project:flujo_add' %}" class="fa fa-plus-circle"> Agregar</a></p>{% endif %}
+    {% if perms.project.create_flujo %}<p><a href="{% url 'project:flujo_addfromtemplate' %}" class="fa fa-clipboard"> Crear desde plantilla</a></p>{% endif %}
 <div class="dataTable_wrapper">
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>

@@ -16,7 +16,8 @@ from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
-from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet, PlantillaCreateForm
+from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet, PlantillaCreateForm, \
+    CreateFromPlantillaForm
 from guardian.shortcuts import get_perms
 from django.forms.extras.widgets import SelectDateWidget
 from project.forms import RolForm, UserEditForm, UserCreateForm
@@ -877,3 +878,28 @@ class DeletePlantilla(generic.DeleteView):
     @method_decorator(permission_required('project.delete_flow_template', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(DeletePlantilla, self).dispatch(request, *args, **kwargs)
+
+class CreateFromPlantilla(generic.FormView):
+    '''
+    Vista de creación a partir de plantillas
+    '''
+    template_name = 'project/flujo_createcopy.html'
+    form_class = CreateFromPlantillaForm
+    success_url = reverse_lazy('project:flujo_list')
+
+    def form_valid(self, form):
+        new_flujo = form.cleaned_data['plantilla']
+        proyecto = form.cleaned_data['proyecto']
+        acti_set = new_flujo.actividad_set.all()
+        new_flujo.pk = None
+        new_flujo.proyecto = proyecto
+        new_flujo.save()
+        for actividad in acti_set:
+            actividad.pk = None
+            actividad.flujo = new_flujo
+            actividad.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+
+
