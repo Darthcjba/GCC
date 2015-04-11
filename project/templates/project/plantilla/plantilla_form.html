@@ -1,6 +1,6 @@
 {% extends "project/base.html" %}
 {% load static %}
-{% block title %}Formulario Flujo{% endblock %}
+{% block title %}Plantilla{% endblock %}
 {% block extrahead %}
     <script src="{% static 'js/jquery.formset.js' %}"></script>
     <script type="text/javascript">
@@ -13,7 +13,7 @@
     })
     </script>
 {% endblock %}
-{% block header %}Flujo{% endblock %}
+{% block header %}Plantilla{% endblock %}
 {% block content %}
 
     <form action="" method="post">
@@ -26,7 +26,7 @@
             {{ actividad_form.management_form }}
             {{ actividad_form.non_form_errors }}
 
-            {%for form in actividad_form%}
+            {% for form in actividad_form %}
                 {{ form.id }}
                 <div  class="form-group activity">
                 {{ form.name.errors }}

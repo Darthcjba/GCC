@@ -1,24 +1,23 @@
 {% extends 'project/base.html' %}
-{% block title %}{{ flujo }}{% endblock %}
-{% block header %}{{ flujo.nombre | title}} {% endblock %}
+{% block title %}{{ plantilla }}{% endblock %}
+{% block header %}{{ plantilla.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline">
-        <li><a href="{% url 'project:flujo_update' flujo.id %}" class="fa fa-pencil"> Edit</a></li>
-        <li><a href="{% url 'project:flujo_delete' flujo.id %}" class="fa fa-eraser"> Delete</a></li>
+        <li><a href="{% url 'project:change_flow_template' plantilla.id %}" class="fa fa-pencil"> Edit</a></li>
+        <li><a href="{% url 'project:delete_flow_template' plantilla.id %}" class="fa fa-eraser"> Delete</a></li>
     </ul>
-<p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
     <div class="dataTable_wrapper">
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>
             <tr>
-                {% for a in actividad %}
+                {% for a in plantilla.actividad_set.all %}
                 <th>{{ a.name }}</th>
              {% endfor %}
             </tr>
         </thead>
         <tbody>
         <tr class="odd gradeX">
-             {% for a in actividad %}
+             {% for a in plantilla.actividad_set.all %}
                 <td></td>
              {% endfor %}
             </tr>

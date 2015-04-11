@@ -757,7 +757,7 @@ class AddPlantilla(LoginRequiredMixin, generic.CreateView):
     """
     model = Flujo
     template_name = 'project/plantilla/plantilla_form.html'
-    form_class = FlujosCreateForm
+    form_class = PlantillaCreateForm
 
     def get_context_data(self, **kwargs):
         """
@@ -822,7 +822,7 @@ class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
         :return: contexto
         """
         context = super(UpdateFlujo, self).get_context_data(**kwargs)
-        context['current_action'] = "Agregar"
+        context['current_action'] = "Actualizar"
         if(self.request.method == 'GET'):
             context['actividad_form'] = ActividadFormSet(instance=self.object)
 
@@ -862,7 +862,7 @@ class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
             return HttpResponseRedirect(self.get_success_url())
 
         return self.render(self.request, self.get_template_names(), {'form' : form,
-                                                                     'actividad_form' : actividad_form},
+                                                                     'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
 class DeletePlantilla(generic.DeleteView):
@@ -871,7 +871,7 @@ class DeletePlantilla(generic.DeleteView):
     """
     model = Flujo
     template_name = 'project/plantilla/plantilla_delete.html'
-    context_object_name = 'flujo'
+    context_object_name = 'plantilla'
     success_url = reverse_lazy('project:plantilla_list')
 
     @method_decorator(permission_required('project.delete_flow_template', raise_exception=True))

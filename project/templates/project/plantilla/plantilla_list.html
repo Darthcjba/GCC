@@ -19,8 +19,8 @@
             <tr class="odd gradeX">
                 <td>{{ p.nombre }}</td>
                 <td ><a href="{% url 'project:plantilla_detail' p.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
-                <td><a href="{% url 'project:plantilla_update' p.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>
-                {% if perms.auth.delete_flow_template %}<td><a href="{% url 'project:plantilla_delete' p.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
+                {% if perms.project.change_flow_template %}<td><a href="{% url 'project:plantilla_update' p.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
+                {% if perms.project.delete_flow_template %}<td><a href="{% url 'project:plantilla_delete' p.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
             </tr>
             {% endfor %}
         </tbody>
