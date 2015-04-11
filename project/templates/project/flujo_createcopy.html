@@ -1,0 +1,23 @@
+{% extends "project/base.html" %}
+{% load bootstrap3 %}
+{% block title %}Formulario Flujo{% endblock %}
+{% block header %}Flujo{% endblock %}
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-lg-6">
+            {% bootstrap_form form %}
+
+
+        {% buttons submit='Guardar' reset="Reset" %}
+            <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
+            {% endbuttons %}
+        </div>
+    </div>
+    </form>
+
+{% endblock %}
+
+

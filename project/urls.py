@@ -21,6 +21,7 @@ urlpatterns = patterns('',
                        url(r'^flujo/$',views.FlujoList.as_view(),name='flujo_list'),
                        url(r'^flujo/(?P<pk>\d+)/$', views.FlujoDetail.as_view(), name='flujo_detail'),
                        url(r'^flujo/add/$', views.AddFlujo.as_view(), name="flujo_add"),
+                       url(r'^flujo/addfromtemplate/$', views.CreateFromPlantilla.as_view(), name="flujo_addfromtemplate"),
                        url(r'^flujo/(?P<pk>\d+)/delete/$', views.DeleteFlujo.as_view(), name="flujo_delete"),
 
                        #TODO: mover la logica de autenticacion
