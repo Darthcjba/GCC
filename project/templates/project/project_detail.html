@@ -5,8 +5,8 @@
 {% block content %}
     <h3>{{ project.nombre_largo }}</h3>
     <ul class="list-inline">
-        <li><a href="{% url 'project:project_update' project.id %}" class="fa fa-pencil"> Edit</a></li>
-        <li><a href="{% url 'project:project_delete' project.id %}" class="fa fa-eraser"> Delete</a></li>
+        {% if perms.project.change_proyecto %}<li><a href="{% url 'project:project_update' project.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+        {% if perms.project.delete_proyecto %}<li><a href="{% url 'project:project_delete' project.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
     </ul>
 
     <div class="row">

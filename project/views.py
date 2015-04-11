@@ -627,7 +627,7 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
             context['actividad_form'] = ActividadFormSet()
         return context
 
-    @method_decorator(permission_required('add_flow_template', raise_exception=True))
+    @method_decorator(permission_required('project.create_flujo', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         """
         Requiere el permiso 'add_flow_template'
@@ -683,7 +683,7 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
 
         return context
 
-    @method_decorator(permission_required('change_flow', raise_exception=True))
+    @method_decorator(permission_required('project.edit_flujo', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         """
         Requiere el permiso 'add_flow_template'
@@ -728,7 +728,7 @@ class DeleteFlujo(generic.DeleteView):
     context_object_name = 'flujo'
     success_url = reverse_lazy('project:flujo_list')
 
-    @method_decorator(permission_required('delete_flow_template', raise_exception=True))
+    @method_decorator(permission_required('project.remove_flujo', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(DeleteFlujo, self).dispatch(request, *args, **kwargs)
 
@@ -748,7 +748,7 @@ class PlantillaDetail(generic.DetailView):
     Vista de Detalles de una Plantilla
     """
     model= Flujo
-    template_name = 'project/plantilla/plantilla_detail.html_detail.html'
+    template_name = 'project/plantilla/plantilla_detail.html'
     context_object_name = 'plantilla'
 
 class AddPlantilla(LoginRequiredMixin, generic.CreateView):
@@ -771,7 +771,7 @@ class AddPlantilla(LoginRequiredMixin, generic.CreateView):
             context['actividad_form'] = ActividadFormSet()
         return context
 
-    @method_decorator(permission_required('add_flow_template', raise_exception=True))
+    @method_decorator(permission_required('project.add_flow_template', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         """
         Requiere el permiso 'add_flow_template'
@@ -828,7 +828,7 @@ class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
 
         return context
 
-    @method_decorator(permission_required('change_flow', raise_exception=True))
+    @method_decorator(permission_required('project.change_flow_template', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         """
         Requiere el permiso 'add_flow_template'
@@ -874,6 +874,6 @@ class DeletePlantilla(generic.DeleteView):
     context_object_name = 'flujo'
     success_url = reverse_lazy('project:plantilla_list')
 
-    @method_decorator(permission_required('delete_flow_template', raise_exception=True))
+    @method_decorator(permission_required('project.delete_flow_template', raise_exception=True))
     def dispatch(self, request, *args, **kwargs):
         return super(DeletePlantilla, self).dispatch(request, *args, **kwargs)
