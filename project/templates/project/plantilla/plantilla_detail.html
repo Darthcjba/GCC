@@ -3,8 +3,8 @@
 {% block header %}{{ plantilla.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline">
-        <li><a href="{% url 'project:change_flow_template' plantilla.id %}" class="fa fa-pencil"> Edit</a></li>
-        <li><a href="{% url 'project:delete_flow_template' plantilla.id %}" class="fa fa-eraser"> Delete</a></li>
+        {% if perms.project.change_flow_template %}<li><a href="{% url 'project:plantilla_update' plantilla.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+        {% if perms.project.delete_flow_template %}<li><a href="{% url 'project:plantilla_delete' plantilla.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
     </ul>
     <div class="dataTable_wrapper">
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">

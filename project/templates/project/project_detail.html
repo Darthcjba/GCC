@@ -32,7 +32,11 @@
 
     <div class="row">
         <div class="col-lg-4">
-            <h4 class="list-group-item-heading"><a href="#">Equipo</a></h4>
+            <h4 class="list-group-item-heading">
+                <a href="{% if perms.project.change_proyecto %}
+                {% url 'project:project_update' project.id %}
+                {% else %}#{% endif %}">Equipo</a>
+            </h4>
             <div class="list-group">
                 {% for m in team %}
                     <a href="{% url 'project:user_detail' m.usuario_id %}" class="list-group-item">
@@ -59,11 +63,11 @@
         </div>
 
         <div class="col-lg-4">
-            <h4 class="list-group-item-heading"><a href="#">Flujos</a></h4>
+            <h4 class="list-group-item-heading"><a href="{% url 'project:flujo_list' %}">Flujos</a></h4>
 
             <div class="list-group">
                 {% for f in flows %}
-                    <a href="#" class="list-group-item">{{ f.nombre }}
+                    <a href="{% url 'project:flujo_detail' f.id %}" class="list-group-item">{{ f.nombre }}
                         <span class="badge" data-toggle="tooltip" data-placement="right"
                               title="Actividades">{{ f.actividad_set.count }}</span>
                     </a>

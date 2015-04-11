@@ -821,7 +821,7 @@ class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
         :param kwargs: argumentos clave
         :return: contexto
         """
-        context = super(UpdateFlujo, self).get_context_data(**kwargs)
+        context = super(UpdatePlantilla, self).get_context_data(**kwargs)
         context['current_action'] = "Actualizar"
         if(self.request.method == 'GET'):
             context['actividad_form'] = ActividadFormSet(instance=self.object)

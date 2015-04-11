@@ -54,7 +54,7 @@ class Proyecto(models.Model):
             ('create_userstory', 'agregar userstory'),
             ('edit_userstory', 'editar userstory'),
             ('remove_userstory', 'eliminar userstory'),
-            #Hace falta definir permisos para Versiones, Notas y Adjuntos?
+            #TODO: Hace falta definir permisos para Versiones, Notas y Adjuntos?
         )
 
     def __unicode__(self):

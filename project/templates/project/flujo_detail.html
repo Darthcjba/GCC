@@ -3,10 +3,11 @@
 {% block header %}{{ flujo.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline">
-        <li><a href="{% url 'project:flujo_update' flujo.id %}" class="fa fa-pencil"> Edit</a></li>
-        <li><a href="{% url 'project:flujo_delete' flujo.id %}" class="fa fa-eraser"> Delete</a></li>
+        {% if perms.project.change_flujo %}<li><a href="{% url 'project:flujo_update' flujo.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+        {% if perms.project.remove_flujo %}<li><a href="{% url 'project:flujo_delete' flujo.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
     </ul>
-<p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
+    <p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
+
     <div class="dataTable_wrapper">
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>
