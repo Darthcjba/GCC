@@ -106,6 +106,120 @@
   <div class="section" id="module-project.views">
 <span id="views"></span><h1>Views<a class="headerlink" href="#module-project.views" title="Enlazar permanentemente con este título">¶</a></h1>
 <dl class="class">
+<dt id="project.views.AddFlujo">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">AddFlujo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddFlujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddFlujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="method">
+<dt id="project.views.AddFlujo.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddFlujo.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddFlujo.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Requiere el permiso &#8216;add_flow_template&#8217;
+:param request: Request del cliente
+:param args: Lista de argumentos
+:param kwargs: Argumentos Clave
+:return: dispatch de CreateView</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.AddFlujo.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.AddFlujo.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">FlujosCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.AddFlujo.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddFlujo.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddFlujo.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.AddFlujo.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddFlujo.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddFlujo.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.AddFlujo.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddFlujo.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddFlujo.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.AddFlujo.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.AddFlujo.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.AddFlujo.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo_form.html'</em><a class="headerlink" href="#project.views.AddFlujo.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.AddPlantilla">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">AddPlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddPlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddPlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="method">
+<dt id="project.views.AddPlantilla.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddPlantilla.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddPlantilla.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Requiere el permiso &#8216;add_flow_template&#8217;
+:param request: Request del cliente
+:param args: Lista de argumentos
+:param kwargs: Argumentos Clave
+:return: dispatch de CreateView</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.AddPlantilla.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.AddPlantilla.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">PlantillaCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.AddPlantilla.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddPlantilla.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddPlantilla.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.AddPlantilla.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddPlantilla.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddPlantilla.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.AddPlantilla.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddPlantilla.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddPlantilla.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.AddPlantilla.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.AddPlantilla.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.AddPlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_form.html'</em><a class="headerlink" href="#project.views.AddPlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="project.views.AddRolView">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">AddRolView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#AddRolView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.AddRolView" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
@@ -249,6 +363,100 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="project.views.CreateFromPlantilla">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">CreateFromPlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#CreateFromPlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.CreateFromPlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.FormView</span></code></p>
+<p>Vista de creación a partir de plantillas</p>
+<dl class="attribute">
+<dt id="project.views.CreateFromPlantilla.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.CreateFromPlantilla.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">CreateFromPlantillaForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.CreateFromPlantilla.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#CreateFromPlantilla.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.CreateFromPlantilla.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.CreateFromPlantilla.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.CreateFromPlantilla.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.CreateFromPlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo_createcopy.html'</em><a class="headerlink" href="#project.views.CreateFromPlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.DeleteFlujo">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">DeleteFlujo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteFlujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteFlujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista de Eliminacion de Flujos</p>
+<dl class="attribute">
+<dt id="project.views.DeleteFlujo.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'flujo'</em><a class="headerlink" href="#project.views.DeleteFlujo.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.DeleteFlujo.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteFlujo.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteFlujo.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.DeleteFlujo.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.DeleteFlujo.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.DeleteFlujo.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.DeleteFlujo.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.DeleteFlujo.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo_delete.html'</em><a class="headerlink" href="#project.views.DeleteFlujo.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.DeletePlantilla">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">DeletePlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeletePlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeletePlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista de Eliminacion de Plantillas</p>
+<dl class="attribute">
+<dt id="project.views.DeletePlantilla.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'plantilla'</em><a class="headerlink" href="#project.views.DeletePlantilla.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.DeletePlantilla.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeletePlantilla.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeletePlantilla.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.DeletePlantilla.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.DeletePlantilla.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.DeletePlantilla.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.DeletePlantilla.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.DeletePlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_delete.html'</em><a class="headerlink" href="#project.views.DeletePlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="project.views.DeleteRolView">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">DeleteRolView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#DeleteRolView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.DeleteRolView" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
@@ -349,6 +557,65 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="project.views.FlujoDetail">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">FlujoDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#FlujoDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.FlujoDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de un flujo</p>
+<dl class="attribute">
+<dt id="project.views.FlujoDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'flujo'</em><a class="headerlink" href="#project.views.FlujoDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.FlujoDetail.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#FlujoDetail.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.FlujoDetail.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar lista de actividades al contexto
+:param kwargs: diccionario de argumentos claves
+:return: contexto</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.FlujoDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.FlujoDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.FlujoDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo_detail.html'</em><a class="headerlink" href="#project.views.FlujoDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.FlujoList">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">FlujoList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#FlujoList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.FlujoList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista de Listado de Flujos en el sistema</p>
+<dl class="attribute">
+<dt id="project.views.FlujoList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'flujos'</em><a class="headerlink" href="#project.views.FlujoList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.FlujoList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#FlujoList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.FlujoList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.FlujoList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.FlujoList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.FlujoList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo_list.html'</em><a class="headerlink" href="#project.views.FlujoList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="project.views.LoginRequiredMixin">
 <em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">LoginRequiredMixin</code><a class="reference internal" href="../_modules/project/views.html#LoginRequiredMixin"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.LoginRequiredMixin" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -356,6 +623,57 @@
 <dl class="classmethod">
 <dt id="project.views.LoginRequiredMixin.as_view">
 <em class="property">classmethod </em><code class="descname">as_view</code><span class="sig-paren">(</span><em>**initkwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#LoginRequiredMixin.as_view"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.LoginRequiredMixin.as_view" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.PlantillaDetail">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">PlantillaDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#PlantillaDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.PlantillaDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de una Plantilla</p>
+<dl class="attribute">
+<dt id="project.views.PlantillaDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'plantilla'</em><a class="headerlink" href="#project.views.PlantillaDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.PlantillaDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.PlantillaDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.PlantillaDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_detail.html'</em><a class="headerlink" href="#project.views.PlantillaDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.PlantillaList">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">PlantillaList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#PlantillaList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.PlantillaList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista de Listado de Plantillas en el sistema</p>
+<dl class="attribute">
+<dt id="project.views.PlantillaList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'plantillas'</em><a class="headerlink" href="#project.views.PlantillaList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.PlantillaList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#PlantillaList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.PlantillaList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.PlantillaList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.PlantillaList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.PlantillaList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_list.html'</em><a class="headerlink" href="#project.views.PlantillaList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -510,6 +828,11 @@ y luego redirige a la url exitosa.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="project.views.ProjectList.show_cancelled">
+<code class="descname">show_cancelled</code><em class="property"> = False</em><a class="headerlink" href="#project.views.ProjectList.show_cancelled" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="project.views.ProjectList.template_name">
 <code class="descname">template_name</code><em class="property"> = 'project/project_list.html'</em><a class="headerlink" href="#project.views.ProjectList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
@@ -615,6 +938,120 @@ y luego redirige a la url exitosa.</p>
 <dl class="attribute">
 <dt id="project.views.RolList.template_name">
 <code class="descname">template_name</code><em class="property"> = 'project/rol_list.html'</em><a class="headerlink" href="#project.views.RolList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.UpdateFlujo">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">UpdateFlujo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateFlujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateFlujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="method">
+<dt id="project.views.UpdateFlujo.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateFlujo.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateFlujo.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Requiere el permiso &#8216;add_flow_template&#8217;
+:param request: Request del cliente
+:param args: Lista de argumentos
+:param kwargs: Argumentos Clave
+:return: dispatch de CreateView</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.UpdateFlujo.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.UpdateFlujo.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">FlujosCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.UpdateFlujo.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateFlujo.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateFlujo.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.UpdateFlujo.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateFlujo.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateFlujo.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.UpdateFlujo.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdateFlujo.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdateFlujo.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.UpdateFlujo.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.UpdateFlujo.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.UpdateFlujo.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo_form.html'</em><a class="headerlink" href="#project.views.UpdateFlujo.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.UpdatePlantilla">
+<em class="property">class </em><code class="descclassname">project.views.</code><code class="descname">UpdatePlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdatePlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdatePlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.LoginRequiredMixin" title="project.views.LoginRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.LoginRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="method">
+<dt id="project.views.UpdatePlantilla.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdatePlantilla.dispatch"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdatePlantilla.dispatch" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Requiere el permiso &#8216;add_flow_template&#8217;
+:param request: Request del cliente
+:param args: Lista de argumentos
+:param kwargs: Argumentos Clave
+:return: dispatch de CreateView</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.UpdatePlantilla.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.UpdatePlantilla.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">PlantillaCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.UpdatePlantilla.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdatePlantilla.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdatePlantilla.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.UpdatePlantilla.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdatePlantilla.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdatePlantilla.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.UpdatePlantilla.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views.html#UpdatePlantilla.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.UpdatePlantilla.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.UpdatePlantilla.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.UpdatePlantilla.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.UpdatePlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_form.html'</em><a class="headerlink" href="#project.views.UpdatePlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

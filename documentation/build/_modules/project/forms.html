@@ -110,6 +110,7 @@
 <span class="kn">from</span> <span class="nn">guardian.shortcuts</span> <span class="kn">import</span> <span class="n">get_perms_for_model</span>
 <span class="kn">from</span> <span class="nn">project.models</span> <span class="kn">import</span> <span class="n">Proyecto</span><span class="p">,</span> <span class="n">Flujo</span><span class="p">,</span> <span class="n">Sprint</span><span class="p">,</span> <span class="n">Actividad</span><span class="p">,</span> <span class="n">MiembroEquipo</span>
 <span class="kn">from</span> <span class="nn">project.models</span> <span class="kn">import</span> <span class="n">UserStory</span>
+<span class="kn">from</span> <span class="nn">django.forms.models</span> <span class="kn">import</span> <span class="n">inlineformset_factory</span>
 
 <div class="viewcode-block" id="general_perms_list"><a class="viewcode-back" href="../../modules/forms.html#project.forms.general_perms_list">[documentos]</a><span class="k">def</span> <span class="nf">general_perms_list</span><span class="p">():</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -183,7 +184,34 @@
 
 <div class="viewcode-block" id="UserCreateForm.Meta"><a class="viewcode-back" href="../../modules/forms.html#project.forms.UserCreateForm.Meta">[documentos]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">)</span></div></div>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;first_name&#39;</span><span class="p">,</span> <span class="s">&#39;last_name&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="FlujosCreateForm"><a class="viewcode-back" href="../../modules/forms.html#project.forms.FlujosCreateForm">[documentos]</a><span class="k">class</span> <span class="nc">FlujosCreateForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Formulario para la creacion de flujos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="FlujosCreateForm.Meta"><a class="viewcode-back" href="../../modules/forms.html#project.forms.FlujosCreateForm.Meta">[documentos]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Flujo</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;nombre&#39;</span><span class="p">,</span> <span class="s">&#39;proyecto&#39;</span><span class="p">)</span>
+<span class="c">#ActividadFormSet utilizamos este form para agregar la actividad al flujo, extra es la cantidad que aparecera en el formulario, can_order es</span>
+<span class="c">#para poder ordenar(aun a prueba hasta que le encuentre el uso)</span></div></div>
+<span class="n">ActividadFormSet</span> <span class="o">=</span> <span class="n">inlineformset_factory</span><span class="p">(</span><span class="n">Flujo</span><span class="p">,</span> <span class="n">Actividad</span><span class="p">,</span> <span class="n">can_order</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_num</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">extra</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PlantillaCreateForm"><a class="viewcode-back" href="../../modules/forms.html#project.forms.PlantillaCreateForm">[documentos]</a><span class="k">class</span> <span class="nc">PlantillaCreateForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Formulario para la creacion de plantillas</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="PlantillaCreateForm.Meta"><a class="viewcode-back" href="../../modules/forms.html#project.forms.PlantillaCreateForm.Meta">[documentos]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Flujo</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;nombre&#39;</span><span class="p">,)</span>
+</div></div>
+<div class="viewcode-block" id="CreateFromPlantillaForm"><a class="viewcode-back" href="../../modules/forms.html#project.forms.CreateFromPlantillaForm">[documentos]</a><span class="k">class</span> <span class="nc">CreateFromPlantillaForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Formulario para la creacion de copias de plantilla</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">plantilla</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ModelChoiceField</span><span class="p">(</span><span class="n">queryset</span><span class="o">=</span><span class="n">Flujo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">proyecto</span><span class="o">=</span><span class="bp">None</span><span class="p">),</span> <span class="n">empty_label</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+    <span class="n">proyecto</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ModelChoiceField</span><span class="p">(</span><span class="n">queryset</span><span class="o">=</span><span class="n">Proyecto</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="s">&#39;CA&#39;</span><span class="p">),</span> <span class="n">empty_label</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

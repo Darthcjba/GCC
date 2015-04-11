@@ -11,8 +11,8 @@
                 <th>Nombre</th>
                 <th>Actividades</th>
                 <th>Ver</th>
-                <th>Editar</th>
-                 {% if perms.project.remove_plantilla %}<th>Eliminar</th>{% endif %}
+                {% if perms.project.change_flow_template %}<th>Editar</th>{% endif %}
+                 {% if perms.project.delete_flow_template %}<th>Eliminar</th>{% endif %}
             </tr>
         </thead>
         <tbody>

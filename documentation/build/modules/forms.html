@@ -106,6 +106,104 @@
   <div class="section" id="module-project.forms">
 <span id="forms"></span><h1>Forms<a class="headerlink" href="#module-project.forms" title="Enlazar permanentemente con este título">¶</a></h1>
 <dl class="class">
+<dt id="project.forms.CreateFromPlantillaForm">
+<em class="property">class </em><code class="descclassname">project.forms.</code><code class="descname">CreateFromPlantillaForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/forms.html#CreateFromPlantillaForm"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.forms.CreateFromPlantillaForm" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.forms.forms.Form</span></code></p>
+<p>Formulario para la creacion de copias de plantilla</p>
+<dl class="attribute">
+<dt id="project.forms.CreateFromPlantillaForm.base_fields">
+<code class="descname">base_fields</code><em class="property"> = OrderedDict([('plantilla', &lt;django.forms.models.ModelChoiceField object at 0x7f841b1ca7d0&gt;), ('proyecto', &lt;django.forms.models.ModelChoiceField object at 0x7f841b1ca950&gt;)])</em><a class="headerlink" href="#project.forms.CreateFromPlantillaForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.CreateFromPlantillaForm.declared_fields">
+<code class="descname">declared_fields</code><em class="property"> = OrderedDict([('plantilla', &lt;django.forms.models.ModelChoiceField object at 0x7f841b1ca7d0&gt;), ('proyecto', &lt;django.forms.models.ModelChoiceField object at 0x7f841b1ca950&gt;)])</em><a class="headerlink" href="#project.forms.CreateFromPlantillaForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.CreateFromPlantillaForm.media">
+<code class="descname">media</code><a class="headerlink" href="#project.forms.CreateFromPlantillaForm.media" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.forms.FlujosCreateForm">
+<em class="property">class </em><code class="descclassname">project.forms.</code><code class="descname">FlujosCreateForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/forms.html#FlujosCreateForm"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.forms.FlujosCreateForm" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<p>Formulario para la creacion de flujos</p>
+<dl class="class">
+<dt id="project.forms.FlujosCreateForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/project/forms.html#FlujosCreateForm.Meta"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.forms.FlujosCreateForm.Meta" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="project.forms.FlujosCreateForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('nombre', 'proyecto')</em><a class="headerlink" href="#project.forms.FlujosCreateForm.Meta.fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.FlujosCreateForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#project.forms.FlujosCreateForm.Meta.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.FlujosCreateForm.base_fields">
+<code class="descclassname">FlujosCreateForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('nombre', &lt;django.forms.fields.CharField object at 0x7f841b2159d0&gt;), ('proyecto', &lt;django.forms.models.ModelChoiceField object at 0x7f841b21a8d0&gt;)])</em><a class="headerlink" href="#project.forms.FlujosCreateForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.FlujosCreateForm.declared_fields">
+<code class="descclassname">FlujosCreateForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#project.forms.FlujosCreateForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.FlujosCreateForm.media">
+<code class="descclassname">FlujosCreateForm.</code><code class="descname">media</code><a class="headerlink" href="#project.forms.FlujosCreateForm.media" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.forms.PlantillaCreateForm">
+<em class="property">class </em><code class="descclassname">project.forms.</code><code class="descname">PlantillaCreateForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/forms.html#PlantillaCreateForm"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.forms.PlantillaCreateForm" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
+<p>Formulario para la creacion de plantillas</p>
+<dl class="class">
+<dt id="project.forms.PlantillaCreateForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/project/forms.html#PlantillaCreateForm.Meta"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.forms.PlantillaCreateForm.Meta" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="project.forms.PlantillaCreateForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('nombre',)</em><a class="headerlink" href="#project.forms.PlantillaCreateForm.Meta.fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.PlantillaCreateForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#project.forms.PlantillaCreateForm.Meta.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.PlantillaCreateForm.base_fields">
+<code class="descclassname">PlantillaCreateForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('nombre', &lt;django.forms.fields.CharField object at 0x7f841b1ca810&gt;)])</em><a class="headerlink" href="#project.forms.PlantillaCreateForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.PlantillaCreateForm.declared_fields">
+<code class="descclassname">PlantillaCreateForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em><a class="headerlink" href="#project.forms.PlantillaCreateForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.forms.PlantillaCreateForm.media">
+<code class="descclassname">PlantillaCreateForm.</code><code class="descname">media</code><a class="headerlink" href="#project.forms.PlantillaCreateForm.media" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="project.forms.RolForm">
 <em class="property">class </em><code class="descclassname">project.forms.</code><code class="descname">RolForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/forms.html#RolForm"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.forms.RolForm" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">django.forms.models.ModelForm</span></code></p>
@@ -128,12 +226,12 @@
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.base_fields">
-<code class="descclassname">RolForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('name', &lt;django.forms.fields.CharField object at 0x7ff770649fd0&gt;), ('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff7706efe50&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649b10&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649350&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649cd0&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff7706490d0&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('name', &lt;django.forms.fields.CharField object at 0x7f841b215bd0&gt;), ('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b2b2d10&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b207fd0&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215a50&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215150&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215890&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.RolForm.declared_fields">
-<code class="descclassname">RolForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff7706efe50&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649b10&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649350&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649cd0&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff7706490d0&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">RolForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('perms_proyecto', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b2b2d10&gt;), ('perms_userstory', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b207fd0&gt;), ('perms_flujo', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215a50&gt;), ('perms_sprint', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215150&gt;), ('perms_actividad', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215890&gt;)])</em><a class="headerlink" href="#project.forms.RolForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -196,12 +294,12 @@
 
 <dl class="attribute">
 <dt id="project.forms.UserCreateForm.base_fields">
-<code class="descclassname">UserCreateForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('first_name', &lt;django.forms.fields.CharField object at 0x7ff77064d750&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7ff77064da10&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7ff770649f50&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7ff770ffc190&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7ff770ffc3d0&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7ff770ffc510&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649d90&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">UserCreateForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('first_name', &lt;django.forms.fields.CharField object at 0x7f841b21a490&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7f841b21a710&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7f841b215b90&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7f841bbc42d0&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7f841bbc4510&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7f841bbc4650&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215d10&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.UserCreateForm.declared_fields">
-<code class="descclassname">UserCreateForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7ff770ffc190&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7ff770ffc3d0&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7ff770ffc510&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7ff770649f50&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff770649d90&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descclassname">UserCreateForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7f841bbc42d0&gt;), ('password1', &lt;django.forms.fields.CharField object at 0x7f841bbc4510&gt;), ('password2', &lt;django.forms.fields.CharField object at 0x7f841bbc4650&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7f841b215b90&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b215d10&gt;)])</em><a class="headerlink" href="#project.forms.UserCreateForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -238,12 +336,12 @@
 <p>Formulario para edición de usuarios</p>
 <dl class="attribute">
 <dt id="project.forms.UserEditForm.base_fields">
-<code class="descname">base_fields</code><em class="property"> = OrderedDict([('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7ff7706d0750&gt;), ('last_login', &lt;django.forms.fields.DateTimeField object at 0x7ff770608190&gt;), ('is_superuser', &lt;django.forms.fields.BooleanField object at 0x7ff770608310&gt;), ('groups', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7ff770608490&gt;), ('user_permissions', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7ff770608a90&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7ff770ffcb10&gt;), ('first_name', &lt;django.forms.fields.CharField object at 0x7ff770628310&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7ff770628710&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7ff770628b50&gt;), ('is_staff', &lt;django.forms.fields.BooleanField object at 0x7ff770628f10&gt;), ('is_active', &lt;django.forms.fields.BooleanField object at 0x7ff77063a2d0&gt;), ('date_joined', &lt;django.forms.fields.DateTimeField object at 0x7ff77063a690&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff7706e7d50&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">base_fields</code><em class="property"> = OrderedDict([('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7f841b29f350&gt;), ('last_login', &lt;django.forms.fields.DateTimeField object at 0x7f841b249cd0&gt;), ('is_superuser', &lt;django.forms.fields.BooleanField object at 0x7f841b249f50&gt;), ('groups', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7f841b25f110&gt;), ('user_permissions', &lt;django.forms.models.ModelMultipleChoiceField object at 0x7f841b25f790&gt;), ('username', &lt;django.forms.fields.RegexField object at 0x7f841bbc4c50&gt;), ('first_name', &lt;django.forms.fields.CharField object at 0x7f841b25ffd0&gt;), ('last_name', &lt;django.forms.fields.CharField object at 0x7f841b274410&gt;), ('email', &lt;django.forms.fields.EmailField object at 0x7f841b274850&gt;), ('is_staff', &lt;django.forms.fields.BooleanField object at 0x7f841b274c10&gt;), ('is_active', &lt;django.forms.fields.BooleanField object at 0x7f841b274f90&gt;), ('date_joined', &lt;django.forms.fields.DateTimeField object at 0x7f841b207390&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b29f4d0&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.base_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="project.forms.UserEditForm.declared_fields">
-<code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7ff770ffcb10&gt;), ('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7ff7706d0750&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7ff7706e7d50&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.RegexField object at 0x7f841bbc4c50&gt;), ('password', &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x7f841b29f350&gt;), ('general_perms', &lt;django.forms.fields.MultipleChoiceField object at 0x7f841b29f4d0&gt;)])</em><a class="headerlink" href="#project.forms.UserEditForm.declared_fields" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
