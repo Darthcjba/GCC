@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import PasswordInput
 from django.forms.models import modelform_factory, inlineformset_factory
 from django.forms import PasswordInput, inlineformset_factory, CheckboxSelectMultiple
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth.models import User
+from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from project.models import MiembroEquipo, Proyecto,Flujo, Actividad
 from django.template import RequestContext
 from project.models import MiembroEquipo, Proyecto
@@ -23,17 +27,16 @@ from django.forms.extras.widgets import SelectDateWidget
 from project.forms import RolForm, UserEditForm, UserCreateForm
 from guardian.shortcuts import get_perms, remove_perm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from projectium import settings
 
+class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
+    accept_global_perms = True
+    return_403 = True
+    raise_exception = True
 
-class LoginRequiredMixin(object):
-    """
-        Mixin que exige que el usuario este logueado.
-    """
-    @classmethod
-    def as_view(cls, **initkwargs):
-        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
-        return login_required(view)
-
+class CreateViewPermissionRequiredMixin(GlobalPermissionRequiredMixin):
+    def get_object(self):
+        return None
 
 @login_required()
 def home(request):
@@ -85,25 +88,14 @@ class UserDetail(LoginRequiredMixin, DetailView):
         return context
 
 
-class AddUser(LoginRequiredMixin, generic.CreateView):
+class AddUser(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     Agregar un Usuario al Sistema
     """
     model = User
     form_class = UserCreateForm
     template_name = 'project/user_form.html'
-
-    @method_decorator(permission_required('auth.add_user', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Requiere el permiso 'add_user'
-
-        :param request: Request del cliente
-        :param args: Lista de argumentos
-        :param kwargs: Argumentos Clave
-        :return: dispatch de CreateView
-        """
-        return super(AddUser, self).dispatch(request, *args, **kwargs)
+    permission_required = 'auth.add_user'
 
     def get_success_url(self):
         """
@@ -130,7 +122,7 @@ class AddUser(LoginRequiredMixin, generic.CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class DeleteUser(LoginRequiredMixin, generic.DeleteView):
+class DeleteUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Eliminar un Usuario del Sistema
     """
@@ -138,31 +130,17 @@ class DeleteUser(LoginRequiredMixin, generic.DeleteView):
     template_name = 'project/user_delete.html'
     context_object_name = 'usuario'
     success_url = reverse_lazy('project:user_list')
+    permission_required = 'auth.delete_user'
 
-    @method_decorator(permission_required('auth.delete_user', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        return super(DeleteUser, self).dispatch(request, *args, **kwargs)
-
-class UpdateUser(LoginRequiredMixin, generic.UpdateView):
+class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     Actualizar un Usuario del Sistema
     """
     model = User
     template_name = 'project/user_form.html'
+    permission_required = 'auth.change_user'
     form_class = modelform_factory(User, form=UserEditForm,
                                    fields=['first_name', 'last_name', 'email', 'username', 'password'], )
-
-    @method_decorator(permission_required('auth.change_user', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Requerir permiso 'change_user'
-
-        :param request: Requeust del cliente
-        :param args: Lista de Argumentos
-        :param kwargs: Argumentos Clave
-        :return: Dispatch de UpdateView
-        """
-        return super(UpdateUser, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         """
