@@ -9,7 +9,7 @@
 <h3>Proyectos</h3>
 <ul>
 {% for p in projects %}
-    <li><a href="{% url 'project:project_detail' p.proyecto_id %}">{{ p.proyecto.nombre_corto }} - {{ p.rol }}</a></li>
+    <li><a href="{% url 'project:project_detail' p.proyecto_id %}">{{ p.proyecto.nombre_corto }} - {{ p.roles.all|join:", " }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}
