@@ -33,9 +33,8 @@
                <label> {{ form.name.label_tag }}</label>
                {{ form.name }}
                 {% if actividad_form.can_order %}
-                {{ form.ORDER }}
-                {{ form.DELETE }}
                     <label>Orden: </label>{{ form.ORDER }}
+                    {{ form.DELETE }}
                 {% endif %}
             </div>
 

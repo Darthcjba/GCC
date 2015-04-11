@@ -587,6 +587,10 @@ class FlujoList(generic.ListView):
     model= Flujo
     template_name = 'project/flujo_list.html'
     context_object_name='flujos'
+
+    def get_queryset(self):
+        return Flujo.objects.exclude(proyecto=None)
+
 class FlujoDetail(generic.DetailView):
     """
     Vista de Detalles de un flujo
