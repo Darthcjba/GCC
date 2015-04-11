@@ -5,7 +5,8 @@ from django.test import TestCase
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import SESSION_KEY
 from django.utils.datetime_safe import datetime
-from project.models import Proyecto, models
+from project.models import Proyecto, models, Flujo
+
 
 class LoginTest(TestCase):
     def setUp(self):
@@ -299,4 +300,35 @@ class ProjectTest(TestCase):
         #deberia redirigir
         #self.assertRedirects(response, '/projects/{}/'.format(p.id))
 
+class FlujoTest(TestCase):
 
+    def setUp(self):
+        u = User.objects.create_user('temp','temp@email.com', 'temp')
+        p = Permission.objects.get(codename='create_flujo')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='edit_flujo')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='remove_flujo')
+        u.user_permissions.add(p)
+        u = User.objects.create_user('fulano','temp@email.com', 'temp')
+        pro= Proyecto.objects.create(nombre_corto='Royecto', nombre_largo='Royecto Largo', estado='Inactivo',inicio=datetime.now(),fin=datetime.now(),creacion='2015-03-10 18:00',duracion_sprint='30', descripcion='Prueba numero 800')
+        f = Flujo.objects.create(nombre='Flujo1',proyecto=pro)
+        Group.objects.create(name='rol')
+
+    def test_permission_to_create_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/flujo/add/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_permission_to_change_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/flujo/1/edit/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_permission_to_delete_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/flujo/1/delete/')
+        self.assertEquals(response.status_code, 200)
