@@ -226,9 +226,9 @@ class ProjectList(LoginRequiredMixin, ListView):
             else:
                 return Proyecto.objects.exclude(estado='CA')
         elif self.show_cancelled:
-            return [x.proyecto for x in self.request.user.miembroequipo_set.filter(estado='CA')]
+            return [x.proyecto for x in self.request.user.miembroequipo_set.filter(proyecto__estado='CA')]
         else:
-            return [x.proyecto for x in self.request.user.miembroequipo_set.exclude(estado='CA')]
+            return [x.proyecto for x in self.request.user.miembroequipo_set.exclude(proyecto__estado='CA')]
 
 
 class ProjectDetail(LoginRequiredMixin, DetailView):
