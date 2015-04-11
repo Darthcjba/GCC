@@ -14,13 +14,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth.models import User
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from project.models import MiembroEquipo, Proyecto,Flujo, Actividad
+from project.models import MiembroEquipo, Proyecto, Flujo, Actividad
 from django.template import RequestContext
 from project.models import MiembroEquipo, Proyecto
 from django.views.generic import ListView, DetailView
 from django.utils.decorators import method_decorator
 from django.views import generic
-from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet, PlantillaCreateForm, \
+from project.forms import RolForm, UserEditForm, UserCreateForm, FlujosCreateForm, ActividadFormSet, \
+    PlantillaCreateForm, \
     CreateFromPlantillaForm
 from guardian.shortcuts import get_perms
 from django.forms.extras.widgets import SelectDateWidget
@@ -29,14 +30,17 @@ from guardian.shortcuts import get_perms, remove_perm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from projectium import settings
 
+
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     accept_global_perms = True
     return_403 = True
     raise_exception = True
 
+
 class CreateViewPermissionRequiredMixin(GlobalPermissionRequiredMixin):
     def get_object(self):
         return None
+
 
 @login_required()
 def home(request):
@@ -132,6 +136,7 @@ class DeleteUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Dele
     success_url = reverse_lazy('project:user_list')
     permission_required = 'auth.delete_user'
 
+
 class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     Actualizar un Usuario del Sistema
@@ -160,7 +165,7 @@ class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upda
 
         perm_list = [perm.codename for perm in list(modelo.user_permissions.all())]
 
-        initial = {'general_perms':perm_list}
+        initial = {'general_perms': perm_list}
 
         return initial
 
@@ -197,16 +202,13 @@ class ProjectList(LoginRequiredMixin, ListView):
 
         :return: lista de proyectos
         """
-        #TODO: Factorizar repeticion
         if self.request.user.has_perm('project.list_all_projects'):
-            if self.show_cancelled:
-                return Proyecto.objects.filter(estado='CA')
-            else:
-                return Proyecto.objects.exclude(estado='CA')
-        elif self.show_cancelled:
-            return [x.proyecto for x in self.request.user.miembroequipo_set.filter(proyecto__estado='CA')]
+            proyectos = Proyecto.objects
+            return proyectos.filter(estado='CA') if self.show_cancelled else proyectos.exclude(estado='CA')
         else:
-            return [x.proyecto for x in self.request.user.miembroequipo_set.exclude(proyecto__estado='CA')]
+            proyectos = self.request.user.miembroequipo_set
+            return [x.proyecto for x in (proyectos.filter(proyecto__estado='CA') if self.show_cancelled
+                                         else proyectos.exclude(proyecto__estado='CA'))]
 
 
 class ProjectDetail(LoginRequiredMixin, DetailView):
@@ -222,30 +224,25 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
         context['team'] = self.object.miembroequipo_set.all()
         context['flows'] = self.object.flujo_set.all()
         context['sprints'] = self.object.sprint_set.all()
-        #context['product_owner'] = team.filter(rol='Product Owner')
-        #context['scrum_master'] = team.filter(rol='Scrum Master')
         return context
 
-class ProjectCreate(LoginRequiredMixin, generic.CreateView):
+
+class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     Permite la creacion de Proyectos
     """
     model = Proyecto
-    form_class =  modelform_factory(Proyecto,
-        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
-        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+    permission_required = 'project.add_proyecto'
+    form_class = modelform_factory(Proyecto,
+                                   widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+                                   fields=('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint',
+                                           'descripcion'))
     template_name = 'project/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
-                                        fields=['usuario', 'roles'],
-                                        extra=1,
-                                        widgets={'roles' : CheckboxSelectMultiple})
+                                                    fields=['usuario', 'roles'],
+                                                    extra=1,
+                                                    widgets={'roles': CheckboxSelectMultiple})
 
-    @method_decorator(permission_required('project.add_proyecto', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Comprueba que esté el permiso de agregar proyecto
-        """
-        return super(ProjectCreate, self).dispatch(request, *args, **kwargs)
     def get_context_data(self, **kwargs):
         context = super(ProjectCreate, self).get_context_data(**kwargs)
         if self.request.method == 'GET':
@@ -265,30 +262,26 @@ class ProjectCreate(LoginRequiredMixin, generic.CreateView):
             formset.save()
             return HttpResponseRedirect(self.get_success_url())
 
-        return render(self.request, self.get_template_names(), {'form' : form, 'formset' : formset},
+        return render(self.request, self.get_template_names(), {'form': form, 'formset': formset},
                       context_instance=RequestContext(self.request))
 
 
-class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
+class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     Permite la Edicion de Proyectos
     """
     model = Proyecto
+    permission_required = 'project.change_proyecto'
     template_name = 'project/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
-        fields=['usuario', 'roles'],
-        extra=1,
-        widgets={'roles' : CheckboxSelectMultiple})
-    form_class =  modelform_factory(Proyecto,
-        widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
-        fields = ('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint', 'descripcion'))
+                                                    fields=['usuario', 'roles'],
+                                                    extra=1,
+                                                    widgets={'roles': CheckboxSelectMultiple})
+    form_class = modelform_factory(Proyecto,
+                                   widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
+                                   fields=('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint',
+                                           'descripcion'))
 
-    @method_decorator(permission_required('project.change_proyecto', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        '''
-        verifica que se cuenten con los permisos de edición de proyecto
-        '''
-        return super(ProjectUpdate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         '''
@@ -299,10 +292,10 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
         self.object = form.save()
         formset = self.TeamMemberInlineFormSet(self.request.POST, instance=self.object)
         if formset.is_valid():
-            #borramos todos los permisos asociados al usuario en el proyecto antes de volver a asignar los nuevos
+            # borramos todos los permisos asociados al usuario en el proyecto antes de volver a asignar los nuevos
             project = self.object
             for form in formset:
-                if form.has_changed(): #solo los formularios con cambios efectuados
+                if form.has_changed():  #solo los formularios con cambios efectuados
                     user = form.cleaned_data['usuario']
                     for perm in get_perms(user, project):
                         remove_perm(perm, user, project)
@@ -310,7 +303,7 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
             formset.save()
             return HttpResponseRedirect(self.get_success_url())
 
-        return render(self.request, self.get_template_names(), {'form' : form, 'formset' : formset},
+        return render(self.request, self.get_template_names(), {'form': form, 'formset': formset},
                       context_instance=RequestContext(self.request))
 
     def get_context_data(self, **kwargs):
@@ -319,17 +312,19 @@ class ProjectUpdate(LoginRequiredMixin, generic.UpdateView):
         :param kwargs: Diccionario con parametros con nombres clave
         '''
         context = super(ProjectUpdate, self).get_context_data(**kwargs)
-        if(self.request.method == 'GET'):
+        if (self.request.method == 'GET'):
             context['formset'] = self.TeamMemberInlineFormSet(instance=self.object)
         return context
 
-class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
+
+class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista para la cancelacion de proyectos
     """
     model = Proyecto
     template_name = 'project/proyect_delete.html'
     success_url = reverse_lazy('project:project_list')
+    permission_required = 'project.delete_proyecto'
 
     def delete(self, request, *args, **kwargs):
         """
@@ -345,15 +340,8 @@ class ProjectDelete(LoginRequiredMixin, generic.DeleteView):
             self.object.save(update_fields=['estado'])
         return HttpResponseRedirect(success_url)
 
-    @method_decorator(permission_required('project.delete_proyecto', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        '''
-        verifica que se cuente con el permiso de eliminar proyecto
-        '''
-        return super(ProjectDelete, self).dispatch(request, *args, **kwargs)
 
-
-class AddRolView(LoginRequiredMixin, generic.CreateView):
+class AddRolView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     '''
     View que agrega un rol al sistema
     '''
@@ -361,6 +349,7 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
     model = Group
     template_name = 'project/rol_form.html'
     form_class = RolForm
+    permission_required = 'auth.add_group'
 
     def get_context_data(self, **kwargs):
         """
@@ -380,10 +369,6 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
         """
         return reverse('project:rol_detail', kwargs={'pk': self.object.id})
 
-    @method_decorator(permission_required('auth.add_group', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        return super(AddRolView, self).dispatch(request, *args, **kwargs)
-
     def form_valid(self, form):
         """
         Comprobar validez del formulario
@@ -399,13 +384,14 @@ class AddRolView(LoginRequiredMixin, generic.CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
+class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     Vista de Actualizacion de Roles
     """
     model = Group
     template_name = 'project/rol_form.html'
     form_class = RolForm
+    permission_required = 'auth.change_group'
 
     def get_context_data(self, **kwargs):
         """
@@ -423,18 +409,6 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
         :return: URL de redireccion correcta a UserDetail
         """
         return reverse('project:rol_detail', kwargs={'pk': self.object.id})
-
-    @method_decorator(permission_required('auth.change_group', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Solicitar el permiso 'change_group'
-
-        :param request: request del cliente
-        :param args: lista de argumentos
-        :param kwargs: argumentos clave
-        :return: dispatch de UpdateView
-        """
-        return super(UpdateRolView, self).dispatch(request, *args, **kwargs)
 
     def get_initial(self):
         """
@@ -470,35 +444,25 @@ class UpdateRolView(LoginRequiredMixin, generic.UpdateView):
         for team_member in team_members_set:
             user = team_member.usuario
             project = team_member.proyecto
-            #borramos todos los permisos que tiene asociado el usuario en el proyecto
+            # borramos todos los permisos que tiene asociado el usuario en el proyecto
             for perm in get_perms(user, project):
                 remove_perm(perm, user, project)
             all_roles = team_member.roles.all()
             for role in all_roles:
-                team_member.roles.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
-                team_member.roles.add(role) #volvemos a agregar para que se copien los permisos actualizados
+                team_member.roles.remove(
+                    role)  #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.add(role)  #volvemos a agregar para que se copien los permisos actualizados
         return HttpResponseRedirect(self.get_success_url())
 
 
-class DeleteRolView(generic.DeleteView):
+class DeleteRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista de Eliminacion de Roles
     """
     model = Group
     template_name = 'project/rol_delete.html'
     success_url = reverse_lazy('project:rol_list')
-
-    @method_decorator(permission_required('auth.delete_group', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Requerir permisos 'delete_group'
-
-        :param request: request del cliente
-        :param args: lista de argumentos
-        :param kwargs: argumentos clave
-        :return: dispatch de DeleteView
-        """
-        return super(DeleteRolView, self).dispatch(request, *args, **kwargs)
+    permission_required = 'auth.delete_group'
 
     def delete(self, request, *args, **kwargs):
         '''
@@ -515,7 +479,7 @@ class DeleteRolView(generic.DeleteView):
 
         # actualizamos los permisos de los miembros de equipos que tienen este rol
         team_members_set = miembroequipo_set.all()
-        #print('team_members_set antes de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
+        # print('team_members_set antes de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
         self.object.delete()
         #print('team_members_set despues de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
         for team_member in team_members_set:
@@ -528,11 +492,12 @@ class DeleteRolView(generic.DeleteView):
             other_roles = team_member.roles.all()
             #print("other_roles= " + ' '.join([rol.name for rol in other_roles]))
             for role in other_roles:
-                team_member.roles.remove(role) #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
-                team_member.roles.add(role) #volvemos a agregar para que se copien los permisos actualizados
-
+                team_member.roles.remove(
+                    role)  #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.add(role)  #volvemos a agregar para que se copien los permisos actualizados
 
         return HttpResponseRedirect(success_url)
+
 
 def get_selected_perms(POST):
     """
@@ -549,7 +514,7 @@ def get_selected_perms(POST):
     return current_list
 
 
-class RolList(generic.ListView):
+class RolList(LoginRequiredMixin, generic.ListView):
     """
     Vista de Listado de Roles
     """
@@ -558,7 +523,7 @@ class RolList(generic.ListView):
     context_object_name = 'roles'
 
 
-class RolDetail(generic.DetailView):
+class RolDetail(LoginRequiredMixin, generic.DetailView):
     """
     Vista de Detalles de Rol
     """
@@ -566,24 +531,25 @@ class RolDetail(generic.DetailView):
     template_name = 'project/rol_detail.html'
     context_object_name = 'rol'
 
-class FlujoList(generic.ListView):
+
+class FlujoList(LoginRequiredMixin, generic.ListView):
     """
     Vista de Listado de Flujos en el sistema
     """
-    model= Flujo
+    model = Flujo
     template_name = 'project/flujo_list.html'
-    context_object_name='flujos'
+    context_object_name = 'flujos'
+    queryset = Flujo.objects.exclude(proyecto=None)
 
-    def get_queryset(self):
-        return Flujo.objects.exclude(proyecto=None)
 
-class FlujoDetail(generic.DetailView):
+class FlujoDetail(LoginRequiredMixin, generic.DetailView):
     """
     Vista de Detalles de un flujo
     """
-    model= Flujo
+    model = Flujo
     template_name = 'project/flujo_detail.html'
     context_object_name = 'flujo'
+
     def get_context_data(self, **kwargs):
         """
         Agregar lista de actividades al contexto
@@ -594,13 +560,16 @@ class FlujoDetail(generic.DetailView):
         context['actividad'] = self.object.actividad_set.all()
         return context
 
-class AddFlujo(LoginRequiredMixin, generic.CreateView):
+
+class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     View que agrega un flujo al sistema
     """
     model = Flujo
     template_name = 'project/flujo_form.html'
     form_class = FlujosCreateForm
+    permission_required = 'project.create_flujo'
+
     def get_context_data(self, **kwargs):
         """
         Agregar datos al contexto
@@ -609,20 +578,10 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
         """
         context = super(AddFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
-        if(self.request.method == 'GET'):
+        if (self.request.method == 'GET'):
             context['actividad_form'] = ActividadFormSet()
         return context
 
-    @method_decorator(permission_required('project.create_flujo', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Requiere el permiso 'add_flow_template'
-        :param request: Request del cliente
-        :param args: Lista de argumentos
-        :param kwargs: Argumentos Clave
-        :return: dispatch de CreateView
-        """
-        return super(AddFlujo, self).dispatch(request, *args, **kwargs)
     def get_success_url(self):
         """
         :return:la url de redireccion a la vista de los detalles del flujo agregado.
@@ -645,17 +604,20 @@ class AddFlujo(LoginRequiredMixin, generic.CreateView):
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form' : form,
-                                                                     'actividad_form' : actividad_form},
+        return self.render(self.request, self.get_template_names(), {'form': form,
+                                                                     'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
-class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
+
+class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     View que agrega un flujo al sistema
     """
     model = Flujo
     template_name = 'project/flujo_form.html'
     form_class = FlujosCreateForm
+    permission_required = 'project.edit_flujo'
+
     def get_context_data(self, **kwargs):
         """
         Agregar datos al contexto
@@ -664,21 +626,11 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
         """
         context = super(UpdateFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
-        if(self.request.method == 'GET'):
+        if (self.request.method == 'GET'):
             context['actividad_form'] = ActividadFormSet(instance=self.object)
 
         return context
 
-    @method_decorator(permission_required('project.edit_flujo', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Requiere el permiso 'add_flow_template'
-        :param request: Request del cliente
-        :param args: Lista de argumentos
-        :param kwargs: Argumentos Clave
-        :return: dispatch de CreateView
-        """
-        return super(UpdateFlujo, self).dispatch(request, *args, **kwargs)
     def get_success_url(self):
         """
         :return:la url de redireccion a la vista de los detalles del flujo agregado.
@@ -701,11 +653,12 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form' : form,
-                                                                     'actividad_form' : actividad_form},
+        return self.render(self.request, self.get_template_names(), {'form': form,
+                                                                     'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
-class DeleteFlujo(generic.DeleteView):
+
+class DeleteFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista de Eliminacion de Flujos
     """
@@ -713,37 +666,36 @@ class DeleteFlujo(generic.DeleteView):
     template_name = 'project/flujo_delete.html'
     context_object_name = 'flujo'
     success_url = reverse_lazy('project:flujo_list')
+    permission_required = 'project.remove_flujo'
 
-    @method_decorator(permission_required('project.remove_flujo', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        return super(DeleteFlujo, self).dispatch(request, *args, **kwargs)
 
-class PlantillaList(generic.ListView):
+class PlantillaList(LoginRequiredMixin, generic.ListView):
     """
     Vista de Listado de Plantillas en el sistema
     """
     model = Flujo
     template_name = 'project/plantilla/plantilla_list.html'
     context_object_name = 'plantillas'
+    queryset = Flujo.objects.filter(proyecto_id=None)
 
-    def get_queryset(self):
-        return Flujo.objects.filter(proyecto_id=None)
 
-class PlantillaDetail(generic.DetailView):
+class PlantillaDetail(LoginRequiredMixin, generic.DetailView):
     """
     Vista de Detalles de una Plantilla
     """
-    model= Flujo
+    model = Flujo
     template_name = 'project/plantilla/plantilla_detail.html'
     context_object_name = 'plantilla'
 
-class AddPlantilla(LoginRequiredMixin, generic.CreateView):
+
+class AddPlantilla(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     View que agrega un flujo al sistema
     """
     model = Flujo
     template_name = 'project/plantilla/plantilla_form.html'
     form_class = PlantillaCreateForm
+    permission_required = 'project.add_flow_template'
 
     def get_context_data(self, **kwargs):
         """
@@ -753,20 +705,9 @@ class AddPlantilla(LoginRequiredMixin, generic.CreateView):
         """
         context = super(AddPlantilla, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
-        if(self.request.method == 'GET'):
+        if (self.request.method == 'GET'):
             context['actividad_form'] = ActividadFormSet()
         return context
-
-    @method_decorator(permission_required('project.add_flow_template', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Requiere el permiso 'add_flow_template'
-        :param request: Request del cliente
-        :param args: Lista de argumentos
-        :param kwargs: Argumentos Clave
-        :return: dispatch de CreateView
-        """
-        return super(AddPlantilla, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         """
@@ -790,17 +731,20 @@ class AddPlantilla(LoginRequiredMixin, generic.CreateView):
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form' : form,
-                                                                     'actividad_form' : actividad_form},
+        return self.render(self.request, self.get_template_names(), {'form': form,
+                                                                     'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
-class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
+
+class UpdatePlantilla(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     View que agrega un flujo al sistema
     """
     model = Flujo
     template_name = 'project/plantilla/plantilla_form.html'
     form_class = PlantillaCreateForm
+    permission_required = 'project.change_flow_template'
+
     def get_context_data(self, **kwargs):
         """
         Agregar datos al contexto
@@ -809,21 +753,10 @@ class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
         """
         context = super(UpdatePlantilla, self).get_context_data(**kwargs)
         context['current_action'] = "Actualizar"
-        if(self.request.method == 'GET'):
+        if (self.request.method == 'GET'):
             context['actividad_form'] = ActividadFormSet(instance=self.object)
 
         return context
-
-    @method_decorator(permission_required('project.change_flow_template', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Requiere el permiso 'add_flow_template'
-        :param request: Request del cliente
-        :param args: Lista de argumentos
-        :param kwargs: Argumentos Clave
-        :return: dispatch de CreateView
-        """
-        return super(UpdatePlantilla, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         """
@@ -847,11 +780,12 @@ class UpdatePlantilla(LoginRequiredMixin, generic.UpdateView):
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form' : form,
+        return self.render(self.request, self.get_template_names(), {'form': form,
                                                                      'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
-class DeletePlantilla(generic.DeleteView):
+
+class DeletePlantilla(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista de Eliminacion de Plantillas
     """
@@ -859,18 +793,17 @@ class DeletePlantilla(generic.DeleteView):
     template_name = 'project/plantilla/plantilla_delete.html'
     context_object_name = 'plantilla'
     success_url = reverse_lazy('project:plantilla_list')
+    permission_required = 'project.delete_flow_template'
 
-    @method_decorator(permission_required('project.delete_flow_template', raise_exception=True))
-    def dispatch(self, request, *args, **kwargs):
-        return super(DeletePlantilla, self).dispatch(request, *args, **kwargs)
 
-class CreateFromPlantilla(generic.FormView):
+class CreateFromPlantilla(LoginRequiredMixin, PermissionRequiredMixin, generic.FormView):
     '''
     Vista de creación a partir de plantillas
     '''
     template_name = 'project/flujo_createcopy.html'
     form_class = CreateFromPlantillaForm
     success_url = reverse_lazy('project:flujo_list')
+    permission_required = 'project.create_flujo'
 
     def form_valid(self, form):
         new_flujo = form.cleaned_data['plantilla']
