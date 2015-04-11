@@ -287,6 +287,24 @@ class ProjectTest(TestCase):
         response = c.get('/projects/1/delete/')
         self.assertEquals(response.status_code, 200)
 
+    def test_not_permission_to_create_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/projects/add/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_change_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/projects/1/edit/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_delete_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/projects/1/delete/')
+        self.assertEquals(response.status_code, 403)
+
     def test_create_proyecto(self):
         c = self.client
         self.assertTrue(c.login(username='temp', password='temp'))
@@ -332,3 +350,71 @@ class FlujoTest(TestCase):
         self.assertTrue(c.login(username='temp', password='temp'))
         response = c.get('/flujo/1/delete/')
         self.assertEquals(response.status_code, 200)
+
+    def test_not_permission_to_create_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/flujo/add/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_change_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/flujo/1/edit/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_delete_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/flujo/1/delete/')
+        self.assertEquals(response.status_code, 403)
+
+class PlantillaTest(TestCase):
+    def setUp(self):
+        u = User.objects.create_user('temp','temp@email.com', 'temp')
+        p = Permission.objects.get(codename='add_flow_template')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='change_flow_template')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='delete_flow_template')
+        u.user_permissions.add(p)
+        u = User.objects.create_user('fulano','temp@email.com', 'temp')
+        pro= Proyecto.objects.create(nombre_corto='Royecto', nombre_largo='Royecto Largo', estado='Inactivo',inicio=datetime.now(),fin=datetime.now(),creacion='2015-03-10 18:00',duracion_sprint='30', descripcion='Prueba numero 800')
+        f = Flujo.objects.create(nombre='Flujo1',proyecto=None)
+        Group.objects.create(name='rol')
+
+    def test_permission_to_create_plantilla(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/plantilla/add/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_permission_to_change_plantilla(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/plantilla/1/edit/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_permission_to_delete_plantilla(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/plantilla/1/delete/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_not_permission_to_create_plantilla(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/plantilla/add/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_change_plantilla(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/plantilla/1/edit/')
+        self.assertEquals(response.status_code, 403)
+
+    def test_not_permission_to_delete_plantilla(self):
+        c = self.client
+        self.assertTrue(c.login(username='fulano', password='temp'))
+        response = c.get('/plantilla/1/delete/')
+        self.assertEquals(response.status_code, 403)
