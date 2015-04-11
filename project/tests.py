@@ -255,9 +255,7 @@ class UserTest(TestCase):
         self.assertEquals(response.status_code, 404)
 
 class ProjectTest(TestCase):
-    """
-    Test de project
-    """
+
     def setUp(self):
         u = User.objects.create_user('temp','temp@email.com', 'temp')
         p = Permission.objects.get(codename='add_proyecto')
@@ -310,13 +308,31 @@ class ProjectTest(TestCase):
         self.assertTrue(c.login(username='temp', password='temp'))
         response = c.get('/projects/add/')
         self.assertEquals(response.status_code, 200)
-        #intentamos crear un rol developer que pueda crear, editar y borrar proyectos,
-        #response = c.post('/projects/add/', {'nombre_corto':'Proyect', 'nombre_largo': 'Proyecto prueba','inicio':datetime.now(),'fin': datetime.now(), 'descripcion': 'Prueba numero 800','username':'fulano',}, follow=True)
-        #p = Proyecto.objects.get(nombre_corto = 'Proyect')
-        #comprobamos que exista el proyecto
-        #self.assertIsNotNone(p)
+
+    def test_edit_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/projects/1/edit/')
+        self.assertEquals(response.status_code, 200)
+        response = c.post('/projects/1/edit/', {'nombre_corto': 'Poyecto', 'nombre_largo': 'Royecto Largo', 'estado': 'Inactivo', 'inicio': datetime.now(), 'fin': datetime.now(), 'creacion': '2015-03-10 18:00', 'duracion_sprint': '30', 'descripcion': 'Prueba numero 800'}, follow=True)
         #deberia redirigir
-        #self.assertRedirects(response, '/projects/{}/'.format(p.id))
+        self.assertEquals(response.status_code, 200)
+        #self.assertRedirects(response, '/projects/1/')
+        #comprobamos el cambio en la bd
+        #self.assertIsNotNone(Proyecto.objects.get(nombre_corto='Poyecto'))
+
+
+    def test_delete_proyecto(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        response = c.get('/projects/1/delete/')
+        self.assertEquals(response.status_code, 200)
+        #response = c.post('/projects/1/delete/', {'Confirmar':True}, follow=True)
+        #self.assertRedirects(response, '/projects/')
+        #ahora ya no deberia existir el registro
+        response = c.get('/projects/1/')
+        self.assertEquals(response.status_code, 200)
+
 
 class FlujoTest(TestCase):
 
