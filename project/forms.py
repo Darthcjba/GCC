@@ -93,11 +93,10 @@ class FlujosCreateForm(forms.ModelForm):
 #para poder ordenar(aun a prueba hasta que le encuentre el uso)
 ActividadFormSet = inlineformset_factory(Flujo, Actividad, can_order=True, max_num=None,extra=1)
 
-
-
-
-
-
-
-
-
+class PlantillaCreateForm(forms.ModelForm):
+    """
+    Formulario para la creacion de plantillas
+    """
+    class Meta:
+        model = Flujo
+        fields = ('nombre',)

@@ -1,28 +1,26 @@
 {% extends 'project/base.html' %}
 {% load staticfiles %}
-{% block title %}kanban{% endblock %}
-{% block header %}kanban{% endblock %}
+{% block title %}Plantillas{% endblock %}
+{% block header %}Plantillas{% endblock %}
 {% block content %}
-    {% if perms.auth.add_flow_template %}<p><a href="{% url 'project:flujo_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}
+    {% if perms.auth.add_flow_template %}<p><a href="{% url 'project:plantilla_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}
 <div class="dataTable_wrapper">
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>
             <tr>
                 <th>Nombre </th>
-                <th>Proyecto</th>
                 <th>Ver</th>
                 <th>Editar</th>
-                 {% if perms.project.remove_flujo %}<th>Eliminar</th>{% endif %}
+                 {% if perms.project.remove_plantilla %}<th>Eliminar</th>{% endif %}
             </tr>
         </thead>
         <tbody>
-            {% for f in flujos %}
+            {% for p in plantillas %}
             <tr class="odd gradeX">
-                <td>{{ f.nombre }}</td>
-                <td>{{ f.proyecto }}</td>
-                <td ><a href="{% url 'project:flujo_detail' f.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
-                <td><a href="{% url 'project:flujo_update' f.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>
-                {% if perms.auth.delete_flow_template %}<td><a href="{% url 'project:flujo_delete' f.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
+                <td>{{ p.nombre }}</td>
+                <td ><a href="{% url 'project:plantilla_detail' p.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
+                <td><a href="{% url 'project:plantilla_update' p.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>
+                {% if perms.auth.delete_flow_template %}<td><a href="{% url 'project:plantilla_delete' p.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
             </tr>
             {% endfor %}
         </tbody>
