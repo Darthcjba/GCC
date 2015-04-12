@@ -1,10 +1,12 @@
 {% extends 'project/base.html' %}
+{% load guardian_tags %}
 {% block title %}{{ flujo }}{% endblock %}
 {% block header %}{{ flujo.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline">
-        {% if perms.project.change_flujo %}<li><a href="{% url 'project:flujo_update' flujo.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
-        {% if perms.project.remove_flujo %}<li><a href="{% url 'project:flujo_delete' flujo.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
+        {% get_obj_perms user for flujo.proyecto as "proyecto_perms" %}
+        {% if "edit_flujo" in proyecto_perms %}<li><a href="{% url 'project:flujo_update'  flujo.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+        {% if "remove_flujo" in proyecto_perms %}<li><a href="{% url 'project:flujo_delete'  flujo.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
 
@@ -25,5 +27,6 @@
             </tr>
         </tbody>
     </table>
+    <p><a class="fa fa-step-backward" href="{% url 'project:flujo_list' flujo.proyecto.id %}"> Volver a Flujos</a></p>
 </div>
 {% endblock %}

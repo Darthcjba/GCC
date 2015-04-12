@@ -88,7 +88,7 @@ class FlujosCreateForm(forms.ModelForm):
     """
     class Meta:
         model = Flujo
-        fields = ('nombre', 'proyecto')
+        fields = ('nombre',)
 #ActividadFormSet utilizamos este form para agregar la actividad al flujo, extra es la cantidad que aparecera en el formulario, can_order es
 #para poder ordenar(aun a prueba hasta que le encuentre el uso)
 ActividadFormSet = inlineformset_factory(Flujo, Actividad, can_order=True, max_num=None,extra=1)
@@ -106,4 +106,3 @@ class CreateFromPlantillaForm(forms.Form):
     Formulario para la creacion de copias de plantilla
     '''
     plantilla = forms.ModelChoiceField(queryset=Flujo.objects.filter(proyecto=None), empty_label=None)
-    proyecto = forms.ModelChoiceField(queryset=Proyecto.objects.exclude(estado='CA'), empty_label=None)
