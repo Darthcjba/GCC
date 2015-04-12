@@ -9,7 +9,7 @@ from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from guardian.shortcuts import get_perms
 from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantillaForm
 from project.models import Flujo, Proyecto
-from project.views import CreateViewPermissionRequiredMixin
+from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 
 class FlujoList(LoginRequiredMixin, generic.ListView):
@@ -54,6 +54,12 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
     form_class = FlujosCreateForm
     permission_required = 'project.create_flujo'
 
+    def get_permission_object(self):
+        '''
+        Objeto por el cual comprobar el permiso
+        '''
+        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+
     def get_context_data(self, **kwargs):
         """
         Agregar datos al contexto
@@ -95,7 +101,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
                            context_instance=RequestContext(self.request))
 
 
-class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
+class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     View que agrega un flujo al sistema
     """
@@ -103,6 +109,9 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
     template_name = 'project/flujo/flujo_form.html'
     form_class = FlujosCreateForm
     permission_required = 'project.edit_flujo'
+
+    def get_permission_object(self):
+        return self.get_object().proyecto
 
     def get_context_data(self, **kwargs):
         """
@@ -116,15 +125,6 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
             context['actividad_form'] = ActividadFormSet(instance=self.object)
 
         return context
-
-    #Posiblemente la única forma de comprobar correctamente el permiso para nuestro caso
-    #ya que usando el mixin o el decorator, se requieren condiciones que no se cumplen
-    def dispatch(self, request, *args, **kwargs):
-        proyecto = self.get_object().proyecto
-        if 'edit_flujo' in get_perms(self.request.user, proyecto):
-            return super(UpdateFlujo, self).dispatch(request, *args, **kwargs)
-        else:
-            raise PermissionDenied()
 
     def get_success_url(self):
         """
@@ -153,20 +153,17 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
                            context_instance=RequestContext(self.request))
 
 
-class DeleteFlujo(LoginRequiredMixin, generic.DeleteView):
+class DeleteFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista de Eliminacion de Flujos
     """
     model = Flujo
     template_name = 'project/flujo/flujo_delete.html'
+    permission_required = 'project.delete_flujo'
     context_object_name = 'flujo'
 
-    def dispatch(self, request, *args, **kwargs):
-        proyecto = self.get_object().proyecto
-        if 'remove_flujo' in get_perms(self.request.user, proyecto):
-            return super(DeleteFlujo, self).dispatch(request, *args, **kwargs)
-        else:
-            raise PermissionDenied()
+    def get_permission_object(self):
+        return self.get_object().proyecto
 
     def get_success_url(self):
         return reverse_lazy('project:flujo_list', kwargs={'project_pk': self.get_object().proyecto.id})
@@ -178,6 +175,9 @@ class CreateFromPlantilla(LoginRequiredMixin, PermissionRequiredMixin, generic.F
     template_name = 'project/flujo/flujo_createcopy.html'
     form_class = CreateFromPlantillaForm
     permission_required = 'project.create_flujo'
+
+    def get_permission_object(self):
+        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
 
     def get_success_url(self):
         """

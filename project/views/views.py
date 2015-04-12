@@ -10,10 +10,6 @@ class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     return_403 = True
     raise_exception = True
 
-
-#TODO El GlobalPermissionRequiredMixin necesita que self.object esté definido con la instancia
-#TODO sobre la cual comparar el permiso. En nuestro caso por ejemplo AddFlujo necesita saber si
-#TODO el permiso create_flujo está asociado a la instancia del Proyecto y no a la de algún flujo
 class CreateViewPermissionRequiredMixin(GlobalPermissionRequiredMixin):
     def get_object(self):
         return None
