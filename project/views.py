@@ -65,7 +65,7 @@ class UserList(LoginRequiredMixin, ListView):
     """
     model = User
     context_object_name = 'users'
-    template_name = 'project/user_list.html'
+    template_name = 'project/user/user_list.html'
 
     def get_queryset(self):
         """
@@ -82,7 +82,7 @@ class UserDetail(LoginRequiredMixin, DetailView):
     """
     model = User
     context_object_name = 'usuario'
-    template_name = 'project/user_detail.html'
+    template_name = 'project/user/user_detail.html'
 
     def get_context_data(self, **kwargs):
         """
@@ -102,7 +102,7 @@ class AddUser(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cre
     """
     model = User
     form_class = UserCreateForm
-    template_name = 'project/user_form.html'
+    template_name = 'project/user/user_form.html'
     permission_required = 'auth.add_user'
 
     def get_success_url(self):
@@ -135,7 +135,7 @@ class DeleteUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Dele
     Eliminar un Usuario del Sistema
     """
     model = User
-    template_name = 'project/user_delete.html'
+    template_name = 'project/user/user_delete.html'
     context_object_name = 'usuario'
     success_url = reverse_lazy('project:user_list')
     permission_required = 'auth.delete_user'
@@ -146,7 +146,7 @@ class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upda
     Actualizar un Usuario del Sistema
     """
     model = User
-    template_name = 'project/user_form.html'
+    template_name = 'project/user/user_form.html'
     permission_required = 'auth.change_user'
     form_class = modelform_factory(User, form=UserEditForm,
                                    fields=['first_name', 'last_name', 'email', 'username', 'password'], )
@@ -197,7 +197,7 @@ class ProjectList(LoginRequiredMixin, ListView):
     """
     model = Proyecto
     context_object_name = 'projects'
-    template_name = 'project/project_list.html'
+    template_name = 'project/proyecto/project_list.html'
     show_cancelled = False
 
     def get_queryset(self):
@@ -221,7 +221,7 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
     """
     model = Proyecto
     context_object_name = 'project'
-    template_name = 'project/project_detail.html'
+    template_name = 'project/proyecto/project_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetail, self).get_context_data(**kwargs)
@@ -241,7 +241,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                                    widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
                                    fields=('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint',
                                            'descripcion'))
-    template_name = 'project/project_form.html'
+    template_name = 'project/proyecto/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
                                                     fields=['usuario', 'roles'],
                                                     extra=1,
@@ -276,7 +276,7 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
     """
     model = Proyecto
     permission_required = 'project.change_proyecto'
-    template_name = 'project/project_form.html'
+    template_name = 'project/proyecto/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
                                                     fields=['usuario', 'roles'],
                                                     extra=1,
@@ -326,7 +326,7 @@ class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.D
     Vista para la cancelacion de proyectos
     """
     model = Proyecto
-    template_name = 'project/proyect_delete.html'
+    template_name = 'project/proyecto/proyect_delete.html'
     success_url = reverse_lazy('project:project_list')
     permission_required = 'project.delete_proyecto'
 
@@ -351,7 +351,7 @@ class AddRolView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.
     '''
 
     model = Group
-    template_name = 'project/rol_form.html'
+    template_name = 'project/rol/rol_form.html'
     form_class = RolForm
     permission_required = 'auth.add_group'
 
@@ -393,7 +393,7 @@ class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
     Vista de Actualizacion de Roles
     """
     model = Group
-    template_name = 'project/rol_form.html'
+    template_name = 'project/rol/rol_form.html'
     form_class = RolForm
     permission_required = 'auth.change_group'
 
@@ -464,7 +464,7 @@ class DeleteRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.D
     Vista de Eliminacion de Roles
     """
     model = Group
-    template_name = 'project/rol_delete.html'
+    template_name = 'project/rol/rol_delete.html'
     success_url = reverse_lazy('project:rol_list')
     permission_required = 'auth.delete_group'
 
@@ -523,7 +523,7 @@ class RolList(LoginRequiredMixin, generic.ListView):
     Vista de Listado de Roles
     """
     model = Group
-    template_name = 'project/rol_list.html'
+    template_name = 'project/rol/rol_list.html'
     context_object_name = 'roles'
 
 
@@ -532,7 +532,7 @@ class RolDetail(LoginRequiredMixin, generic.DetailView):
     Vista de Detalles de Rol
     """
     model = Group
-    template_name = 'project/rol_detail.html'
+    template_name = 'project/rol/rol_detail.html'
     context_object_name = 'rol'
 
 
@@ -541,7 +541,7 @@ class FlujoList(LoginRequiredMixin, generic.ListView):
     Vista de Listado de Flujos en el sistema
     """
     model = Flujo
-    template_name = 'project/flujo_list.html'
+    template_name = 'project/flujo/flujo_list.html'
     context_object_name = 'flujos'
 
     def get_queryset(self):
@@ -555,7 +555,7 @@ class FlujoDetail(LoginRequiredMixin, generic.DetailView):
     Vista de Detalles de un flujo
     """
     model = Flujo
-    template_name = 'project/flujo_detail.html'
+    template_name = 'project/flujo/flujo_detail.html'
     context_object_name = 'flujo'
 
     def get_context_data(self, **kwargs):
@@ -574,7 +574,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
     View que agrega un flujo al sistema
     """
     model = Flujo
-    template_name = 'project/flujo_form.html'
+    template_name = 'project/flujo/flujo_form.html'
     form_class = FlujosCreateForm
     permission_required = 'project.create_flujo'
 
@@ -624,7 +624,7 @@ class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
     View que agrega un flujo al sistema
     """
     model = Flujo
-    template_name = 'project/flujo_form.html'
+    template_name = 'project/flujo/flujo_form.html'
     form_class = FlujosCreateForm
     permission_required = 'project.edit_flujo'
 
@@ -682,7 +682,7 @@ class DeleteFlujo(LoginRequiredMixin, generic.DeleteView):
     Vista de Eliminacion de Flujos
     """
     model = Flujo
-    template_name = 'project/flujo_delete.html'
+    template_name = 'project/flujo/flujo_delete.html'
     context_object_name = 'flujo'
 
     def dispatch(self, request, *args, **kwargs):
@@ -827,7 +827,7 @@ class CreateFromPlantilla(LoginRequiredMixin, PermissionRequiredMixin, generic.F
     '''
     Vista de creación a partir de plantillas
     '''
-    template_name = 'project/flujo_createcopy.html'
+    template_name = 'project/flujo/flujo_createcopy.html'
     form_class = CreateFromPlantillaForm
     permission_required = 'project.create_flujo'
 
