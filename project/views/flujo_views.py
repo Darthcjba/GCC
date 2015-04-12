@@ -1,0 +1,201 @@
+# -*- coding: utf-8 -*-
+from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.template import RequestContext
+from django.views import generic
+from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from guardian.shortcuts import get_perms
+from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantillaForm
+from project.models import Flujo, Proyecto
+from project.views import CreateViewPermissionRequiredMixin
+
+
+class FlujoList(LoginRequiredMixin, generic.ListView):
+    """
+    Vista de Listado de Flujos en el sistema
+    """
+    model = Flujo
+    template_name = 'project/flujo/flujo_list.html'
+    context_object_name = 'flujos'
+
+    def get_queryset(self):
+        project_pk = self.kwargs['project_pk']
+        project = get_object_or_404(Proyecto, pk=project_pk)
+        return Flujo.objects.filter(proyecto=project)
+
+
+class FlujoDetail(LoginRequiredMixin, generic.DetailView):
+    """
+    Vista de Detalles de un flujo
+    """
+    model = Flujo
+    template_name = 'project/flujo/flujo_detail.html'
+    context_object_name = 'flujo'
+
+    def get_context_data(self, **kwargs):
+        """
+        Agregar lista de actividades al contexto
+        :param kwargs: diccionario de argumentos claves
+        :return: contexto
+        """
+        context = super(FlujoDetail, self).get_context_data(**kwargs)
+        context['actividad'] = self.object.actividad_set.all()
+        return context
+
+
+class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
+    """
+    View que agrega un flujo al sistema
+    """
+    model = Flujo
+    template_name = 'project/flujo/flujo_form.html'
+    form_class = FlujosCreateForm
+    permission_required = 'project.create_flujo'
+
+    def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
+        context = super(AddFlujo, self).get_context_data(**kwargs)
+        context['current_action'] = "Agregar"
+        if (self.request.method == 'GET'):
+            context['actividad_form'] = ActividadFormSet()
+        return context
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:flujo_detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+        :param form: formulario recibido
+        :param actividad_form: formulario recibido de actividad
+        :return: URL de redireccion
+        """
+        self.object = form.save(commit=False)
+        self.object.proyecto = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        self.object.save()
+        actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
+        if actividad_form.is_valid():
+            actividad_form.save()
+            order = [form.instance.id for form in actividad_form.ordered_forms]
+            self.object.set_actividad_order(order)
+
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render(self.request, self.get_template_names(), {'form': form,
+                                                                     'actividad_form': actividad_form},
+                           context_instance=RequestContext(self.request))
+
+
+class UpdateFlujo(LoginRequiredMixin, generic.UpdateView):
+    """
+    View que agrega un flujo al sistema
+    """
+    model = Flujo
+    template_name = 'project/flujo/flujo_form.html'
+    form_class = FlujosCreateForm
+    permission_required = 'project.edit_flujo'
+
+    def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param kwargs: argumentos clave
+        :return: contexto
+        """
+        context = super(UpdateFlujo, self).get_context_data(**kwargs)
+        context['current_action'] = "Agregar"
+        if (self.request.method == 'GET'):
+            context['actividad_form'] = ActividadFormSet(instance=self.object)
+
+        return context
+
+    #Posiblemente la única forma de comprobar correctamente el permiso para nuestro caso
+    #ya que usando el mixin o el decorator, se requieren condiciones que no se cumplen
+    def dispatch(self, request, *args, **kwargs):
+        proyecto = self.get_object().proyecto
+        if 'edit_flujo' in get_perms(self.request.user, proyecto):
+            return super(UpdateFlujo, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:flujo_detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+        :param form: formulario recibido
+        :param actividad_form: formulario recibido de actividad
+        :return: URL de redireccion
+        """
+        self.object = form.save()
+        actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
+        if actividad_form.is_valid():
+            actividad_form.save()
+            order = [form.instance.id for form in actividad_form.ordered_forms]
+            self.object.set_actividad_order(order)
+
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render(self.request, self.get_template_names(), {'form': form,
+                                                                     'actividad_form': actividad_form},
+                           context_instance=RequestContext(self.request))
+
+
+class DeleteFlujo(LoginRequiredMixin, generic.DeleteView):
+    """
+    Vista de Eliminacion de Flujos
+    """
+    model = Flujo
+    template_name = 'project/flujo/flujo_delete.html'
+    context_object_name = 'flujo'
+
+    def dispatch(self, request, *args, **kwargs):
+        proyecto = self.get_object().proyecto
+        if 'remove_flujo' in get_perms(self.request.user, proyecto):
+            return super(DeleteFlujo, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
+
+    def get_success_url(self):
+        return reverse_lazy('project:flujo_list', kwargs={'project_pk': self.get_object().proyecto.id})
+
+class CreateFromPlantilla(LoginRequiredMixin, PermissionRequiredMixin, generic.FormView):
+    '''
+    Vista de creación a partir de plantillas
+    '''
+    template_name = 'project/flujo/flujo_createcopy.html'
+    form_class = CreateFromPlantillaForm
+    permission_required = 'project.create_flujo'
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del flujo agregado.
+        """
+        return reverse('project:flujo_detail', kwargs={'pk': self.flujo.id})
+
+    def form_valid(self, form):
+        new_flujo = form.cleaned_data['plantilla']
+        proyecto = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        acti_set = new_flujo.actividad_set.all()
+        new_flujo.pk = None
+        new_flujo.proyecto = proyecto
+        new_flujo.save()
+        self.flujo = new_flujo
+        for actividad in acti_set:
+            actividad.pk = None
+            actividad.flujo = new_flujo
+            actividad.save()
+
+        return HttpResponseRedirect(self.get_success_url())
