@@ -168,7 +168,7 @@ class DeleteFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Del
     def get_success_url(self):
         return reverse_lazy('project:flujo_list', kwargs={'project_pk': self.get_object().proyecto.id})
 
-class CreateFromPlantilla(LoginRequiredMixin, PermissionRequiredMixin, generic.FormView):
+class CreateFromPlantilla(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.FormView):
     '''
     Vista de creación a partir de plantillas
     '''
