@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from guardian.mixins import PermissionRequiredMixin
+from guardian.admin import *;
 from project.models import MiembroEquipo, Proyecto
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):

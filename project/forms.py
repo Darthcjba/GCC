@@ -21,9 +21,6 @@ def general_perms_list():
     return permlist
 
 
-
-
-
 class UserEditForm(UserChangeForm):
     '''
     Formulario para edición de usuarios
@@ -79,7 +76,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username')
+        fields = ['first_name', 'last_name', 'email', 'username']
 
 
 class FlujosCreateForm(forms.ModelForm):
@@ -88,10 +85,10 @@ class FlujosCreateForm(forms.ModelForm):
     """
     class Meta:
         model = Flujo
-        fields = ('nombre',)
+        fields = ['nombre']
 #ActividadFormSet utilizamos este form para agregar la actividad al flujo, extra es la cantidad que aparecera en el formulario, can_order es
 #para poder ordenar(aun a prueba hasta que le encuentre el uso)
-ActividadFormSet = inlineformset_factory(Flujo, Actividad, can_order=True, max_num=None,extra=1)
+ActividadFormSet = inlineformset_factory(Flujo, Actividad, can_order=True, max_num=None, extra=1, fields='__all__')
 
 class PlantillaCreateForm(forms.ModelForm):
     """
@@ -99,7 +96,7 @@ class PlantillaCreateForm(forms.ModelForm):
     """
     class Meta:
         model = Flujo
-        fields = ('nombre',)
+        fields = ['nombre']
 
 class CreateFromPlantillaForm(forms.Form):
     '''
