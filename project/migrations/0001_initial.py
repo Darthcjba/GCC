@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
                 ('equipo', models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='project.MiembroEquipo')),
             ],
             options={
-                'permissions': (('list_all_projects', 'listar los proyectos disponibles'), ('create_miembroequipo', 'agregar miembro del equipo'), ('edit_miembroequipo', 'editar miembro del equipo'), ('remove_miembroequipo', 'eliminar miembro del equipo'), ('create_sprint', 'agregar sprint'), ('edit_sprint', 'editar sprint'), ('remove_sprint', 'eliminar sprint'), ('create_flujo', 'agregar flujo'), ('edit_flujo', 'editar flujo'), ('remove_flujo', 'eliminar flujo'), ('create_actividad', 'agregar actividad'), ('edit_actividad', 'editar actividad'), ('remove_actividad', 'eliminar actividad'), ('create_userstory', 'agregar userstory'), ('edit_userstory', 'editar userstory'), ('remove_userstory', 'eliminar userstory')),
+                'permissions': (('list_all_projects', 'listar los proyectos disponibles'), ('create_sprint', 'agregar sprint'), ('edit_sprint', 'editar sprint'), ('remove_sprint', 'eliminar sprint'), ('create_flujo', 'agregar flujo'), ('edit_flujo', 'editar flujo'), ('remove_flujo', 'eliminar flujo'), ('create_actividad', 'agregar actividad'), ('edit_actividad', 'editar actividad'), ('remove_actividad', 'eliminar actividad'), ('create_userstory', 'agregar userstory'), ('edit_userstory', 'editar userstory'), ('remove_userstory', 'eliminar userstory')),
             },
             bases=(models.Model,),
         ),
@@ -171,7 +171,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='flujo',
             name='proyecto',
-            field=models.ForeignKey(to='project.Proyecto', null=True),
+            field=models.ForeignKey(blank=True, to='project.Proyecto', null=True),
             preserve_default=True,
         ),
         migrations.AddField(

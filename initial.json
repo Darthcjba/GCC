@@ -1,0 +1,657 @@
+[
+{
+  "fields": {
+    "name": "Scrum Master",
+    "permissions": []
+  },
+  "model": "auth.group",
+  "pk": 7
+},
+{
+  "fields": {
+    "name": "Product Owner",
+    "permissions": []
+  },
+  "model": "auth.group",
+  "pk": 8
+},
+{
+  "fields": {
+    "name": "Developer",
+    "permissions": []
+  },
+  "model": "auth.group",
+  "pk": 9
+},
+{
+  "fields": {
+    "nombre": "Sprint 1",
+    "proyecto": 7,
+    "fin": "2015-05-19T16:34:33Z",
+    "inicio": "2015-04-19T16:34:32Z"
+  },
+  "model": "project.sprint",
+  "pk": 1
+},
+{
+  "fields": {
+    "nombre": "Sprint 2",
+    "proyecto": 7,
+    "fin": "2015-04-19T16:34:49Z",
+    "inicio": "2015-04-19T16:34:47Z"
+  },
+  "model": "project.sprint",
+  "pk": 2
+},
+{
+  "fields": {
+    "nombre": "Sprint 3",
+    "proyecto": 7,
+    "fin": "2015-04-19T16:34:58Z",
+    "inicio": "2015-04-19T16:34:57Z"
+  },
+  "model": "project.sprint",
+  "pk": 3
+},
+{
+  "fields": {
+    "nombre": "Desarrollo",
+    "proyecto": 7
+  },
+  "model": "project.flujo",
+  "pk": 1
+},
+{
+  "fields": {
+    "nombre": "Mantenimiento",
+    "proyecto": 7
+  },
+  "model": "project.flujo",
+  "pk": 2
+},
+{
+  "fields": {
+    "nombre": "Desarrollo",
+    "proyecto": null
+  },
+  "model": "project.flujo",
+  "pk": 3
+},
+{
+  "fields": {
+    "_order": 0,
+    "name": "Analisis",
+    "flujo": 1
+  },
+  "model": "project.actividad",
+  "pk": 1
+},
+{
+  "fields": {
+    "_order": 1,
+    "name": "Dise\u00f1o",
+    "flujo": 1
+  },
+  "model": "project.actividad",
+  "pk": 2
+},
+{
+  "fields": {
+    "_order": 2,
+    "name": "Mantenimiento",
+    "flujo": 1
+  },
+  "model": "project.actividad",
+  "pk": 3
+},
+{
+  "fields": {
+    "_order": 3,
+    "name": "Implementacion",
+    "flujo": 1
+  },
+  "model": "project.actividad",
+  "pk": 4
+},
+{
+  "fields": {
+    "_order": 0,
+    "name": "A",
+    "flujo": 2
+  },
+  "model": "project.actividad",
+  "pk": 5
+},
+{
+  "fields": {
+    "_order": 1,
+    "name": "B",
+    "flujo": 2
+  },
+  "model": "project.actividad",
+  "pk": 6
+},
+{
+  "fields": {
+    "_order": 2,
+    "name": "C",
+    "flujo": 2
+  },
+  "model": "project.actividad",
+  "pk": 7
+},
+{
+  "fields": {
+    "_order": 0,
+    "name": "Analisis",
+    "flujo": 3
+  },
+  "model": "project.actividad",
+  "pk": 8
+},
+{
+  "fields": {
+    "_order": 1,
+    "name": "Dise\u00f1o",
+    "flujo": 3
+  },
+  "model": "project.actividad",
+  "pk": 9
+},
+{
+  "fields": {
+    "_order": 2,
+    "name": "Implementacion",
+    "flujo": 3
+  },
+  "model": "project.actividad",
+  "pk": 10
+},
+{
+  "fields": {
+    "username": "AnonymousUser",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:39:08.389Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "",
+    "email": "",
+    "date_joined": "2015-04-19T15:39:08.389Z"
+  },
+  "model": "auth.user",
+  "pk": -1
+},
+{
+  "fields": {
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "is_active": true,
+    "is_superuser": true,
+    "is_staff": true,
+    "last_login": "2015-04-19T16:40:59.117Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$4SDy4qfSVTXt$44S7wV0mua/jjftwpEZ9oF+BhpAA2BtMNWRhZan8eWY=",
+    "email": "admin@admin.com",
+    "date_joined": "2015-04-19T15:39:27.007Z"
+  },
+  "model": "auth.user",
+  "pk": 1
+},
+{
+  "fields": {
+    "username": "jordan",
+    "first_name": "Jordan",
+    "last_name": "Ayala",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "last_login": "2015-04-19T15:39:41Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$av8xzAiXWYJW$bRBqHfoGcwid6Z7PT9pH8O7XpV6gPWHgwBHPIJsKWFA=",
+    "email": "jayala1993@outlook.com",
+    "date_joined": "2015-04-19T15:39:41Z"
+  },
+  "model": "auth.user",
+  "pk": 2
+},
+{
+  "fields": {
+    "username": "santi",
+    "first_name": "Santiago",
+    "last_name": "Ortiz",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "last_login": "2015-04-19T15:40:08Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$5dtswdumbwQa$KsUeqwv39DEyrPluVvYQ4E1OuMoUjVtss0/4IK+Uwb8=",
+    "email": "sanmiorto@gmail.com",
+    "date_joined": "2015-04-19T15:40:08Z"
+  },
+  "model": "auth.user",
+  "pk": 3
+},
+{
+  "fields": {
+    "username": "guille",
+    "first_name": "Guillermo",
+    "last_name": "Peralta",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "last_login": "2015-04-19T15:40:29Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$dpWPa8lOE43m$lOr8rMNpMMIkNiW5mZxrJO78xdiAiRBjYkUK9lvKy7c=",
+    "email": "gperaltascura@gmail.com",
+    "date_joined": "2015-04-19T15:40:29Z"
+  },
+  "model": "auth.user",
+  "pk": 4
+},
+{
+  "fields": {
+    "username": "bgates",
+    "first_name": "Bill",
+    "last_name": "Gates",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:40:52Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$8dScKaqIPH7m$ZfSO9iJrXNjSAq6R0+qNlFXsjclu3ib+qiH0q5eJWlA=",
+    "email": "bgates@hotmail.com",
+    "date_joined": "2015-04-19T15:40:52Z"
+  },
+  "model": "auth.user",
+  "pk": 5
+},
+{
+  "fields": {
+    "username": "emusk",
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:41:15Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$uskKZUxV9vKE$dO97sQ2Cxd+gJZeDWEAqbOYwRz/QYRSojPGqXgLByqo=",
+    "email": "emusk@tesla.com",
+    "date_joined": "2015-04-19T15:41:15Z"
+  },
+  "model": "auth.user",
+  "pk": 6
+},
+{
+  "fields": {
+    "username": "lpage",
+    "first_name": "Larry",
+    "last_name": "Page",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:41:32Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$olAZYy39FUBv$hXMNYvjDUNPEPqoxcvzg+oNBl3bPFc1grbKjynq78Qc=",
+    "email": "lpage@gmail.com",
+    "date_joined": "2015-04-19T15:41:32Z"
+  },
+  "model": "auth.user",
+  "pk": 7
+},
+{
+  "fields": {
+    "username": "wwallace",
+    "first_name": "William",
+    "last_name": "Wallace",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:41:55Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$tSatv0XTlgEa$eCFAImLACxKszEvnUU8cJO1DR0rxHrizKK8vXwrJtGQ=",
+    "email": "wwallace@gmail.com",
+    "date_joined": "2015-04-19T15:41:55Z"
+  },
+  "model": "auth.user",
+  "pk": 8
+},
+{
+  "fields": {
+    "username": "aturing",
+    "first_name": "Alan",
+    "last_name": "Turing",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:42:18Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$61LIgHrz8hUW$XC92pFNsnxSQZGz8RyCXrV/XKoBgUTvcT+qezjahh+k=",
+    "email": "aturing@gmail.com",
+    "date_joined": "2015-04-19T15:42:18Z"
+  },
+  "model": "auth.user",
+  "pk": 9
+},
+{
+  "fields": {
+    "username": "edijkstra",
+    "first_name": "Esdger",
+    "last_name": "Dijkstra",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:43:13Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$vMHChf9rqhaV$N4qA/hFWY5tcTtpQixfnOTi730OSZZKIY/b5Uj3N3fM=",
+    "email": "edijkstra@gmail.com",
+    "date_joined": "2015-04-19T15:43:13Z"
+  },
+  "model": "auth.user",
+  "pk": 10
+},
+{
+  "fields": {
+    "username": "shigmiya",
+    "first_name": "Shigeru",
+    "last_name": "Miyamoto",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:43:58Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$nKEB4RXA4yfg$Srqo+ip3ZrjgHudRux8Cx6rwKGwcmKFbbmwbNZ/6ROI=",
+    "email": "shigmiya@nintendo.com",
+    "date_joined": "2015-04-19T15:43:58Z"
+  },
+  "model": "auth.user",
+  "pk": 11
+},
+{
+  "fields": {
+    "username": "atoriyama",
+    "first_name": "Akira",
+    "last_name": "Toriyama",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:44:30Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$gPHAc5FKQRzn$Ec7XV51LfXR4UJzEO7vdKUSQXCYEewJxzRsGzwsIqjA=",
+    "email": "atoriyama@gmail.com",
+    "date_joined": "2015-04-19T15:44:30Z"
+  },
+  "model": "auth.user",
+  "pk": 12
+},
+{
+  "fields": {
+    "username": "jcarmack",
+    "first_name": "John",
+    "last_name": "Carmack",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:45:22Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$Ba2jp5pFDiEf$DlI60crkX3Bk1xRV1XSmm6bdxYdvK/m5oO9wUHHbL94=",
+    "email": "jcarmack@idsoft.com",
+    "date_joined": "2015-04-19T15:45:22Z"
+  },
+  "model": "auth.user",
+  "pk": 13
+},
+{
+  "fields": {
+    "username": "cliffyb",
+    "first_name": "Cliff",
+    "last_name": "bleszinski",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:46:08Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$1szrM7LcLDWn$FASV0cDRO65zY8+syJMfBJz9nShPScM+1HVGyXf6p/c=",
+    "email": "cliffyb@gmail.com",
+    "date_joined": "2015-04-19T15:46:08Z"
+  },
+  "model": "auth.user",
+  "pk": 14
+},
+{
+  "fields": {
+    "username": "matz",
+    "first_name": "Yukihiro",
+    "last_name": "Matsumoto",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2015-04-19T15:47:04Z",
+    "groups": [],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$dPOhj7OoKupC$KUKqiih+T+ZypOeNVgr7q5QUD9YimqWdcOIvdSCSjiY=",
+    "email": "matz@ruby.com",
+    "date_joined": "2015-04-19T15:47:04Z"
+  },
+  "model": "auth.user",
+  "pk": 15
+},
+{
+  "fields": {
+    "nombre_corto": "Spartan",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T15:59:03.237Z",
+    "inicio": "2015-04-19T15:55:18Z",
+    "descripcion": "Designed to be a lightweight web browser with an engine built around web standards that is \"designed for interoperability with the modern web\". It removes support for legacy technologies such as ActiveX in favor of extensions and integration with other Microsoft services, such as the Cortana assistant and OneDrive, and will also offer annotation tools and a reading mode.",
+    "fin": "2015-08-19T15:55:22Z",
+    "nombre_largo": "Spartan Internet Browser"
+  },
+  "model": "project.proyecto",
+  "pk": 1
+},
+{
+  "fields": {
+    "nombre_corto": "SpaceX",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T15:59:53.858Z",
+    "inicio": "2015-04-19T15:59:33Z",
+    "descripcion": "An American aerospace manufacturer and space transport services company headquartered in Hawthorne, California, USA. It was founded in 2002 by former PayPal entrepreneur and Tesla Motors CEO Elon Musk with the goal of reducing space transportation costs to enable the colonization of Mars. It has developed the Falcon 1 and Falcon 9 launch vehicles, both of which were designed from conception to eventually become reusable, and the Dragon spacecraft which is flown into orbit by the Falcon 9 launch vehicle to supply the International Space Station with cargo. A manned version of Dragon is in development.",
+    "fin": "2015-05-19T15:59:35Z",
+    "nombre_largo": "Space Exploration Project"
+  },
+  "model": "project.proyecto",
+  "pk": 2
+},
+{
+  "fields": {
+    "nombre_corto": "Durango",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:01:15.409Z",
+    "inicio": "2015-04-19T16:00:57Z",
+    "descripcion": "Xbox One is a home video game console developed and marketed by Microsoft. Announced on May 21, 2013, it is the successor to the Xbox 360 and is the third console in the Xbox family.",
+    "fin": "2015-07-19T16:00:58Z",
+    "nombre_largo": "Xbox One"
+  },
+  "model": "project.proyecto",
+  "pk": 3
+},
+{
+  "fields": {
+    "nombre_corto": "Xenon",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:01:46.836Z",
+    "inicio": "2015-04-19T16:01:36Z",
+    "descripcion": "The Xbox 360 is a home video game console developed by Microsoft. As the successor to the original Xbox, it is the second console in the Xbox series. The Xbox 360 competes with Sony's PlayStation 3 and Nintendo's Wii as part of the seventh generation of video game consoles. The Xbox 360 was officially unveiled on MTV on May 12, 2005, with detailed launch and game information divulged later that month at the Electronic Entertainment Expo (E3).",
+    "fin": "2015-05-19T16:01:40Z",
+    "nombre_largo": "Xbox 360"
+  },
+  "model": "project.proyecto",
+  "pk": 4
+},
+{
+  "fields": {
+    "nombre_corto": "Natal",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:02:29.317Z",
+    "inicio": "2015-04-19T16:02:04Z",
+    "descripcion": "A line of motion sensing input devices by Microsoft for Xbox 360 and Xbox One video game consoles and Windows PCs. Based around a webcam-style add-on peripheral, it enables users to control and interact with their console/computer without the need for a game controller, through a natural user interface using gestures and spoken commands.",
+    "fin": "2015-07-19T16:02:05Z",
+    "nombre_largo": "Kinect"
+  },
+  "model": "project.proyecto",
+  "pk": 5
+},
+{
+  "fields": {
+    "nombre_corto": "Revolution",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:03:21.479Z",
+    "inicio": "2015-04-19T16:03:04Z",
+    "descripcion": "A home video game console released by Nintendo on November 19, 2006. As a seventh-generation console, the Wii competes with Microsoft's Xbox 360 and Sony's PlayStation 3. Nintendo states that its console targets a broader demographic than that of the two others.",
+    "fin": "2015-05-19T16:03:05Z",
+    "nombre_largo": "Wii"
+  },
+  "model": "project.proyecto",
+  "pk": 6
+},
+{
+  "fields": {
+    "nombre_corto": "Doom",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:04:11.492Z",
+    "inicio": "2015-04-19T00:00:00Z",
+    "descripcion": "Upcoming reboot of the Doom series by id Software following the release of its last title, Doom 3, in 2004. It is slated for simultaneous release on Microsoft Windows, PlayStation 4, and Xbox One with no confirmed release date. After years in development with almost no news from id Software, it was restarted completely in 2011 with Bethesda Softworks as publisher for the game.",
+    "fin": "2015-05-19T00:00:00Z",
+    "nombre_largo": "Doom 4"
+  },
+  "model": "project.proyecto",
+  "pk": 7
+},
+{
+  "fields": {
+    "nombre_corto": "GOW",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:04:56.728Z",
+    "inicio": "2015-04-19T16:04:37Z",
+    "descripcion": "The game focuses on the troops of Delta Squad as they wield a desperate, last-ditch attempt to save the remaining human inhabitants of the fictional planet Sera from a relentless and seemingly unstoppable subterranean enemy known as the Locust Horde. The player assumes the role of Marcus Fenix (but can also play as Dominic Santiago), a former prisoner and war-hardened soldier. The game is based on the use of cover and strategic fire for the player to advance through the scenarios; a second player can play cooperatively through the main campaign to assist. The game also features several online multiplayer game modes for up to eight players.",
+    "fin": "2015-05-19T16:04:42Z",
+    "nombre_largo": "Gears of War"
+  },
+  "model": "project.proyecto",
+  "pk": 8
+},
+{
+  "fields": {
+    "nombre_corto": "SMB3",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:06:00.675Z",
+    "inicio": "2015-04-19T16:05:23Z",
+    "descripcion": "Super Mario Bros. 3 centers on plumbers Mario and Luigi who embark on a quest to save Princess Toadstool and the rulers of seven different kingdoms from the antagonist Bowser and his children, the Koopalings. The player, as Mario or Luigi, is able to defeat enemies by stomping them or using items that bestow magical powers. Mario and Luigi are given a wider range of abilities than in previous Super Mario games, including flying or sliding down slopes. In addition, Super Mario Bros. 3 introduces numerous elements, such as new enemy characters and the use of a world map to transition between levels, that have reappeared in or have influenced subsequent Mario games.",
+    "fin": "2015-08-19T16:05:28Z",
+    "nombre_largo": "Super Mario Bros. 3"
+  },
+  "model": "project.proyecto",
+  "pk": 9
+},
+{
+  "fields": {
+    "nombre_corto": "Smoothsort",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:08:55.202Z",
+    "inicio": "2015-04-19T16:08:41Z",
+    "descripcion": "A comparison-based sorting algorithm. It is a variation of heapsort developed by Edsger Dijkstra in 1981. Like heapsort, smoothsort's upper bound is O(n log n). The advantage of smoothsort is that it comes closer to O(n) time if the input is already sorted to some degree, whereas heapsort averages O(n log n) regardless of the initial sorted state.",
+    "fin": "2015-08-19T16:08:42Z",
+    "nombre_largo": "Smoothsort"
+  },
+  "model": "project.proyecto",
+  "pk": 10
+},
+{
+  "fields": {
+    "nombre_corto": "Resurrection F",
+    "estado": "IN",
+    "duracion_sprint": 30,
+    "creacion": "2015-04-19T16:10:17.716Z",
+    "inicio": "2015-04-19T16:09:50Z",
+    "descripcion": "Is the nineteenth Japanese animated feature film based on the Dragon Ball series, and the fifteenth to carry the Dragon Ball Z branding, set to be released in theaters on April 18, 2015. It will be the first ever Japanese film to be screened in IMAX 3D, and will also receive screenings at 4DX theaters.",
+    "fin": "2015-05-19T16:09:51Z",
+    "nombre_largo": "Dragon Ball Resurrection 'F'"
+  },
+  "model": "project.proyecto",
+  "pk": 11
+},
+{
+  "fields": {
+    "proyecto": 7,
+    "roles": [
+      7,
+      8
+    ],
+    "usuario": 13
+  },
+  "model": "project.miembroequipo",
+  "pk": 3
+},
+{
+  "fields": {
+    "proyecto": 7,
+    "roles": [
+      9
+    ],
+    "usuario": 4
+  },
+  "model": "project.miembroequipo",
+  "pk": 6
+},
+{
+  "fields": {
+    "proyecto": 7,
+    "roles": [
+      9
+    ],
+    "usuario": 2
+  },
+  "model": "project.miembroequipo",
+  "pk": 7
+},
+{
+  "fields": {
+    "proyecto": 7,
+    "roles": [
+      9
+    ],
+    "usuario": 3
+  },
+  "model": "project.miembroequipo",
+  "pk": 8
+}
+]
