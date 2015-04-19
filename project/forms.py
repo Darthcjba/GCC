@@ -65,6 +65,8 @@ class UserCreateForm(UserCreationForm):
     '''
     Formulario para la creación de usuarios
     '''
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
 
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
