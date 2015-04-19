@@ -47,10 +47,6 @@ class Proyecto(models.Model):
             ('edit_flujo', 'editar flujo'),
             ('remove_flujo', 'eliminar flujo'),
 
-            ('create_actividad', 'agregar actividad'),
-            ('edit_actividad', 'editar actividad'),
-            ('remove_actividad', 'eliminar actividad'),
-
             ('create_userstory', 'agregar userstory'),
             ('edit_userstory', 'editar userstory'),
             ('remove_userstory', 'eliminar userstory'),

@@ -39,7 +39,6 @@ def get_selected_perms(POST):
     current_list.extend(POST.getlist('perms_userstory'))
     current_list.extend(POST.getlist('perms_flujo'))
     current_list.extend(POST.getlist('perms_sprint'))
-    current_list.extend(POST.getlist('perms_actividad'))
     return current_list
 
 
