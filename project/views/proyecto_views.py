@@ -67,7 +67,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     permission_required = 'project.add_proyecto'
     form_class = modelform_factory(Proyecto,
                                    widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
-                                   fields=('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint',
+                                   fields=('nombre_corto', 'nombre_largo', 'inicio', 'fin', 'duracion_sprint',
                                            'descripcion'))
     template_name = 'project/proyecto/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
