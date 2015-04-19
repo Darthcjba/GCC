@@ -1,52 +1,24 @@
-{% extends 'project/base.html' %}
-{% load staticfiles %}
+{% extends 'project/base_table.html' %}
 {% block title %}Roles{% endblock %}
 {% block header %}Roles{% endblock %}
-{% block content %}
-
-
+{% block before_table %}
     {% if perms.auth.add_group %}<p><a href="{% url 'project:rol_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}
-
-    <div class="dataTable_wrapper">
-    <table class="table table-bordered table-striped table-hover" id="myTable">
-        <thead>
-            <tr>
-                <th width="70%">Nombre</th>
-                <th>Ver</th>
-                {% if perms.auth.change_group %}<th>Editar</th>{% endif %}
-                {% if perms.auth.delete_group %}<th>Eliminar</th>{% endif %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for r in roles %}
-            <tr class="odd gradeX">
-                <td>{{ r.name }}</td>
-                <td ><a href="{% url 'project:rol_detail' r.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
-                {% if perms.auth.change_group %}<td><a href="{% url 'project:rol_update' r.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
-                {% if perms.auth.delete_group %}<td><a href="{% url 'project:rol_delete' r.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-<!-- /.table-responsive -->
-
 {% endblock %}
-
-{% block extra_js %}
-
-    <!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-
-<!-- DataTables -->
-<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js' %}"></script>
-
-<script>
-$(document).ready(function() {
-    $('#myTable').DataTable({
-            responsive: true
-    });
-});
-</script>
+{% block thead %}
+        <tr>
+            <th width="70%">Nombre</th>
+            <th>Ver</th>
+            {% if perms.auth.change_group %}<th>Editar</th>{% endif %}
+            {% if perms.auth.delete_group %}<th>Eliminar</th>{% endif %}
+        </tr>
+{% endblock %}
+{% block tbody %}
+        {% for r in roles %}
+        <tr class="odd gradeX">
+            <td>{{ r.name }}</td>
+            <td ><a href="{% url 'project:rol_detail' r.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
+            {% if perms.auth.change_group %}<td><a href="{% url 'project:rol_update' r.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
+            {% if perms.auth.delete_group %}<td><a href="{% url 'project:rol_delete' r.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
+        </tr>
+        {% endfor %}
 {% endblock %}

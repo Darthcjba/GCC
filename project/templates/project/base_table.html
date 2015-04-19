@@ -1,0 +1,27 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+    <!-- DataTables CSS -->
+    <link href="{% static 'bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css' %}"
+          rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="{% static 'bower_components/datatables-responsive/css/dataTables.responsive.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% block before_table %}{% endblock %}
+
+    <div class="dataTable_wrapper">
+        <table class="table table-striped table-bordered table-hover" id="myTable">
+            <thead>
+                {% block thead %}{% endblock %}
+            </thead>
+            <tbody>
+                {% block tbody %}{% endblock %}
+            </tbody>
+        </table>
+    </div>
+    <!-- /.table-responsive -->
+    {% block after_table %}{% endblock %}
+{% endblock %}

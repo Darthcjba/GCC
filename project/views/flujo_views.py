@@ -11,7 +11,6 @@ from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantill
 from project.models import Flujo, Proyecto
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
-
 class FlujoList(LoginRequiredMixin, generic.ListView):
     """
     Vista de Listado de Flujos en el sistema
@@ -19,11 +18,17 @@ class FlujoList(LoginRequiredMixin, generic.ListView):
     model = Flujo
     template_name = 'project/flujo/flujo_list.html'
     context_object_name = 'flujos'
+    project = None
+
+    def get_context_data(self, **kwargs):
+        context = super(FlujoList, self).get_context_data(**kwargs)
+        context['proyecto_perms'] = get_perms(self.request.user, self.project)
+        return context
 
     def get_queryset(self):
         project_pk = self.kwargs['project_pk']
-        project = get_object_or_404(Proyecto, pk=project_pk)
-        return Flujo.objects.filter(proyecto=project)
+        self.project = get_object_or_404(Proyecto, pk=project_pk)
+        return Flujo.objects.filter(proyecto=self.project)
 
 
 class FlujoDetail(LoginRequiredMixin, generic.DetailView):

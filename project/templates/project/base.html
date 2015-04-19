@@ -292,8 +292,14 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            {% block content %}
-            {% endblock %}
+            <div id="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                    {% block content %}
+                    {% endblock %}
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /#page-wrapper -->
     </div>
