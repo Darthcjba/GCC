@@ -94,6 +94,7 @@ class MiembroEquipo(models.Model):
     class Meta:
         default_permissions = ()
         verbose_name_plural = 'miembros equipo'
+        unique_together = ('usuario', 'proyecto')
 
 m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through, dispatch_uid='add_permissions_signal')
 

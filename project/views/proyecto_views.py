@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.forms import CheckboxSelectMultiple
 from django.forms import inlineformset_factory
 from django.forms.extras import SelectDateWidget
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 from django.views import generic
 from django.views.generic import DetailView
@@ -111,7 +112,7 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
                                                     widgets={'roles': CheckboxSelectMultiple})
     form_class = modelform_factory(Proyecto,
                                    widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
-                                   fields=('nombre_corto', 'nombre_largo', 'estado', 'inicio', 'fin', 'duracion_sprint',
+                                   fields=('nombre_corto', 'nombre_largo', 'inicio', 'fin', 'duracion_sprint',
                                            'descripcion'))
 
 
@@ -129,8 +130,13 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
             for form in formset:
                 if form.has_changed():  #solo los formularios con cambios efectuados
                     user = form.cleaned_data['usuario']
-                    for perm in get_perms(user, project):
-                        remove_perm(perm, user, project)
+                    if('usuario' in form.changed_data and 'usuario' in form.initial): #si se cambia el usuario, borrar permisos del usuario anterior
+                        original_user = get_object_or_404(User, pk=form.initial['usuario'])
+                        for perm in get_perms(original_user, project):
+                            remove_perm(perm, original_user, project)
+                    else:
+                        for perm in get_perms(user, project):
+                            remove_perm(perm, user, project)
 
             formset.save()
             return HttpResponseRedirect(self.get_success_url())
