@@ -14,6 +14,7 @@ def general_perms_list():
     :rtype: list
     '''
     permlist = []
+
     permlist.append(Permission.objects.get(codename="list_all_projects"))
     permlist.append(Permission.objects.get(codename="add_flow_template"))
     permlist.append(Permission.objects.get(codename="change_flow_template"))

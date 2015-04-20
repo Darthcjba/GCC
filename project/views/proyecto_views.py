@@ -69,7 +69,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     form_class = modelform_factory(Proyecto,
                                    widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
                                    fields=('nombre_corto', 'nombre_largo', 'inicio', 'fin', 'duracion_sprint',
-                                           'descripcion'))
+                                           'descripcion'),)
     template_name = 'project/proyecto/project_form.html'
     TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
                                                     fields=['usuario', 'roles'],
@@ -113,7 +113,8 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
     form_class = modelform_factory(Proyecto,
                                    widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
                                    fields=('nombre_corto', 'nombre_largo', 'inicio', 'fin', 'duracion_sprint',
-                                           'descripcion'))
+                                           'descripcion'),
+                                   )
 
 
     def form_valid(self, form):

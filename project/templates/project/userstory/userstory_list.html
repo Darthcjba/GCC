@@ -1,0 +1,26 @@
+{% extends 'project/base_table.html' %}
+{% load staticfiles %}
+{% block title %}{{ view.project }} - Product Backlog{% endblock %}
+{% block header %}Product Backlog{% endblock %}
+{% block before_table %}
+    <h4><strong>Proyecto: </strong><td>{{ view.project }}</td></h4>
+    {% if "create_userstory" in proyecto_perms %}<p><a href="{% url 'project:userstory_add' view.kwargs.project_pk %}" class="fa fa-plus-circle"> Agregar</a></p>{% endif %}
+{% endblock %}
+{% block thead %}
+    <tr>
+        <th>Nombre</th>
+        <th>Ver</th>
+        {% if "edit_userstory" in proyecto_perms %}<th>Editar</th>{% endif %}
+        {% if "remove_userstory" in proyecto_perms %}<th>Eliminar</th>{% endif %}
+    </tr>
+{% endblock %}
+{% block tbody %}
+    {% for us in userstories %}
+    <tr class="odd gradeX">
+        <td>{{ us.nombre }}</td>
+        <td ><a href="{% url 'project:userstory_detail' us.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
+        {% if "edit_userstory" in proyecto_perms %}<td><a href="{% url 'project:userstory_update' us.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
+        {% if "remove_userstory" in proyecto_perms %}<td><a href="{% url 'project:userstory_delete' us.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
+    </tr>
+    {% endfor %}
+{% endblock %}

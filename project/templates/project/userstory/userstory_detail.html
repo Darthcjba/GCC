@@ -1,0 +1,32 @@
+{% extends 'project/base.html' %}
+{% load guardian_tags %}
+{% block title %}{{ userstory }}{% endblock %}
+{% block header %}{{ userstory.nombre | title}} {% endblock %}
+{% block content %}
+    <ul class="list-inline">
+        {% get_obj_perms user for userstory.proyecto as "proyecto_perms" %}
+        {% if "edit_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_update'  userstory.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+        {% if "remove_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_delete'  userstory.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
+    </ul>
+    <p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
+
+    <div class="dataTable_wrapper">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <thead>
+            <tr>
+                {% for a in actividad %}
+                <th>{{ a.name }}</th>
+             {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="odd gradeX">
+             {% for a in actividad %}
+                <td></td>
+             {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <p><a class="fa fa-step-backward" href="{% url 'project:userstory_list' userstory.proyecto.id %}"> Volver a User Stories</a></p>
+</div>
+{% endblock %}

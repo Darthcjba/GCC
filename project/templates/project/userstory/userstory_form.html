@@ -1,0 +1,21 @@
+{% extends "project/base.html" %}
+{% load bootstrap3 %}
+{% block title %}Formulario User Story{% endblock %}
+{% block header %}User Story{% endblock %}
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>
+            {% bootstrap_form form %}
+        </div>
+        {% buttons submit='Guardar' reset="Reset" %}
+            <a href="javascript:history.back()">
+                <button type="button" class="btn btn-danger">Cancelar</button>
+            </a>
+        {% endbuttons %}
+    </form>
+
+{% endblock %}
+
+

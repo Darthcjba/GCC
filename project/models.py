@@ -163,14 +163,17 @@ class UserStory(models.Model):
     prioridad = models.IntegerField(choices=((i, i) for i in range(1, 11)), default=1)
     valor_negocio = models.IntegerField()
     valor_tecnico = models.IntegerField()
-    tiempo_estimado = models.TimeField()
-    tiempo_registrado = models.TimeField()
+    tiempo_estimado = models.PositiveIntegerField()
+    tiempo_registrado = models.PositiveIntegerField(default=0)
     ultimo_cambio = models.DateTimeField(auto_now=True)
     estado = models.IntegerField(choices=estado_choices, default=0)
     proyecto = models.ForeignKey(Proyecto)
-    desarrollador = models.ForeignKey(User, null=True)
-    sprint = models.ForeignKey(Sprint, null=True)
-    actividad = models.ForeignKey(Actividad, null=True)
+    desarrollador = models.ForeignKey(User, null=True, blank=True)
+    sprint = models.ForeignKey(Sprint, null=True, blank=True)
+    actividad = models.ForeignKey(Actividad, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.nombre
 
     class Meta:
         verbose_name_plural = 'user stories'
