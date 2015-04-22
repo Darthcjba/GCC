@@ -1,26 +1,44 @@
 {% extends "project/base.html" %}
+{% load static %}
 {% load bootstrap3 %}
 {% block title %}Formulario Sprint{% endblock %}
-{% block header %}Sprint{% endblock %}
+{% block extrahead %}
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.activity').formset({
+            prefix: '{{ actividad_form.prefix }}',
+            addText: 'Agregar actividad',
+            deleteText: 'Eliminar'
+        });
+    })
+    </script>
+{% endblock %}
+{% block header %}Flujo{% endblock %}
 {% block content %}
 
     <form action="" method="post">
         {% csrf_token %}
-    <div class="row">
-        <div class="col-lg-6">
-            {% bootstrap_field form.nombre %}
-            {% bootstrap_field form.inicio %}
-            {% bootstrap_field form.fin %}
-            {% bootstrap_field form.flujo%}
-            {% bootstrap_field form.userStory %}
-            {% bootstrap_field form.desarrollador %}
-
-
-        {% buttons submit='Guardar' reset="Reset" %}
-            <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
-            {% endbuttons %}
+        <div>
+            {{ form.as_p }}
         </div>
-    </div>
+        <fieldset>
+            <legend> Agregar UserStory, Desarrollador y flujo</legend>
+            {{ actividad_form.management_form }}
+            {{ actividad_form.non_form_errors }}
+
+            {%for form in formset%}
+                {{ form.id }}
+                <div  class="form-group activity">
+                    {% bootstrap_form form %}
+
+            </div>
+
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="{{ current_action }}" class="btn btn-default"/>
     </form>
 
 {% endblock %}
+
+

@@ -107,13 +107,11 @@ class CreateFromPlantillaForm(forms.Form):
     plantilla = forms.ModelChoiceField(queryset=Flujo.objects.filter(proyecto=None), empty_label=None)
 
 
-class CreateSprintForm(forms.Form):
+class AddToSprintForm(forms.Form):
     """
-    formulario para la creacion de sprints y asociacion con userStories, desarrolador y flujo
+    formulario para la agregacion de userStory, desarrollador y flujo a un Sprint
     """
-    nombre= forms.CharField(max_length=20)
-    inicio= forms.DateTimeField()
-    fin= forms.DateTimeField()
     userStory =forms.ModelChoiceField(queryset=UserStory.objects.all())
     desarrolador=forms.ModelChoiceField(queryset=User.objects.all())
     flujo = forms.ModelChoiceField(queryset=Flujo.objects.all())
+
