@@ -45,15 +45,9 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
     model = UserStory
     form_class = modelform_factory(UserStory,
                                    fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado', 'desarrollador', 'sprint'))
+                                           'tiempo_estimado'))
     template_name = 'project/userstory/userstory_form.html'
     permission_required = 'project.create_userstory'
-
-    def get_form(self, form_class):
-        form = super(AddUserStory, self).get_form(form_class)
-        project = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
-        form.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=project)
-        return form
 
     def get_permission_object(self):
         '''
@@ -86,15 +80,10 @@ class UpdateUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
     model = UserStory
     form_class = modelform_factory(UserStory,
                                    fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado', 'desarrollador', 'sprint'))
+                                           'tiempo_estimado'))
     template_name = 'project/userstory/userstory_form.html'
     permission_required = 'project.edit_userstory'
 
-    def get_form(self, form_class):
-        form = super(UpdateUserStory, self).get_form(form_class)
-        project = self.object.proyecto
-        form.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=project)
-        return form
 
     def get_permission_object(self):
         return self.get_object().proyecto

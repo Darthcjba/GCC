@@ -14,11 +14,12 @@ def general_perms_list():
     :rtype: list
     '''
     permlist = []
-
+    '''
     permlist.append(Permission.objects.get(codename="list_all_projects"))
     permlist.append(Permission.objects.get(codename="add_flow_template"))
     permlist.append(Permission.objects.get(codename="change_flow_template"))
     permlist.append(Permission.objects.get(codename="delete_flow_template"))
+    '''
     return permlist
 
 
@@ -29,20 +30,21 @@ class UserEditForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(label=("Password"),
         help_text=("Solo se almacena un hash del password, no hay manera de verla. "
                    "Para modificarla seleccionar la opcion <strong>Cambiar Password</strong>"))
-
+    '''
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
     perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
     general_perms_list.extend(perms_user_list)
     general_perms_list.extend(perms_group_list)
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
-
+    '''
 
 class RolForm(forms.ModelForm):
     '''
     Formulario para el manejo de roles
     '''
 
+    '''
     perms_proyecto_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'proyecto' in perm.codename]
     perms_userstories_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'userstory' in perm.codename]
     perms_flujo_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'flujo' in perm.codename and not('template' in perm.codename)]
@@ -55,7 +57,7 @@ class RolForm(forms.ModelForm):
     perms_flujo = forms.MultipleChoiceField(perms_flujo_list, widget=forms.CheckboxSelectMultiple, label=Flujo._meta.verbose_name_plural.title(), required=False)
     perms_sprint = forms.MultipleChoiceField(perms_sprint_list, widget=forms.CheckboxSelectMultiple, label=Sprint._meta.verbose_name_plural.title(), required=False)
     #perms = forms.MultipleChoiceField(perms_list, widget=forms.CheckboxSelectMultiple, label="Permisos", required=False)
-
+    '''
     class Meta:
         model = Group
         fields = ["name"]
@@ -67,14 +69,14 @@ class UserCreateForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
-
+    '''
     general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
     perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
     perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
     general_perms_list.extend(perms_user_list)
     general_perms_list.extend(perms_group_list)
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
-
+    '''
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'username']
