@@ -170,5 +170,4 @@ class UpdateVersion(UpdateUserStory):
         version_pk = self.kwargs['version_pk']
         self.version = get_object_or_404(reversion.models.Version, pk=version_pk)
         initial = self.version.field_dict
-        initial.update({'desarrollador': self.object.desarrollador, 'sprint': self.object.sprint})
         return initial
