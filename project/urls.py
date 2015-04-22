@@ -25,12 +25,13 @@ urlpatterns = patterns('',
                        url(r'^projects/(?P<project_pk>\d+)/userstories/add/$', views.AddUserStory.as_view(), name="userstory_add"),
                        url(r'^userstory/(?P<pk>\d+)/edit/$', views.UpdateUserStory.as_view(), name="userstory_update"),
                        url(r'^userstory/(?P<pk>\d+)/delete/$', views.DeleteUserStory.as_view(), name="userstory_delete"),
-                       url('^roles/$', views.RolList.as_view(), name='rol_list'),
+                       url(r'^userstory/(?P<pk>\d+)/version/$', views.version_list, name="version_list"),
+                       url(r'^userstory/\d+/version/(?P<pk>\d+)/$', views.VersionDetail.as_view(), name="version_detail"),
+                       url(r'^roles/$', views.RolList.as_view(), name='rol_list'),
                        url(r'^roles/(?P<pk>\d+)/$', views.RolDetail.as_view(), name='rol_detail'),
                        url(r'^roles/add/$', views.AddRolView.as_view(), name="rol_add"),
                        url(r'^roles/(?P<pk>\d+)/edit/$', views.UpdateRolView.as_view(), name="rol_update"),
                        url(r'^roles/(?P<pk>\d+)/delete/$', views.DeleteRolView.as_view(), name="rol_delete"),
-
 
                        #TODO: mover la logica de autenticacion
                        url('^login/$', 'django.contrib.auth.views.login',

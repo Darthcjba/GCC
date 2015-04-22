@@ -6,7 +6,7 @@ from django.db.models.signals import m2m_changed, post_save
 from guardian.shortcuts import assign_perm, remove_perm
 from project.signals import add_permissions_team_member
 from django.core.urlresolvers import reverse_lazy
-
+import reversion
 
 def validate_dates(start, end):
     if start > end:
@@ -151,7 +151,6 @@ class Actividad(models.Model):
         order_with_respect_to = 'flujo'
         verbose_name_plural = 'actividades'
 
-
 class UserStory(models.Model):
     """
     Manejo de los User Stories. Los User Stories representan a cada
@@ -178,6 +177,7 @@ class UserStory(models.Model):
     class Meta:
         verbose_name_plural = 'user stories'
         default_permissions = ()
+reversion.register(UserStory, fields=['nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico', 'tiempo_estimado'])
 
 
 class Version(models.Model):

@@ -1,0 +1,7 @@
+{% extends 'project/base.html' %}
+{% block title %}{{ userstory.nombre }}{% endblock %}
+{% block header %}{{ userstory.nombre | title}} {% endblock %}
+{% block content %}
+    <p><strong>Nombre: </strong>{{ userstory.nombre }}</p>
+    <p><strong>Descripcion: </strong>{{ userstory.descripcion }}</p>
+{% endblock %}
