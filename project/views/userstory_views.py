@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.views import generic
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms
+import reversion
 from project.models import UserStory, Proyecto, MiembroEquipo
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
@@ -140,3 +141,31 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
     def get_success_url(self):
         return reverse_lazy('project:userstory_list', kwargs={'project_pk': self.get_object().proyecto.id})
+
+class VersionList(generic.ListView):
+    context_object_name = 'versions'
+    template_name = 'project/version/version_list.html'
+    us = None
+
+    def get_queryset(self):
+        us_pk = self.kwargs['pk']
+        self.us = get_object_or_404(UserStory, pk=us_pk)
+        return reversion.get_for_object_reference(UserStory, us_pk)
+
+    def get_context_data(self, **kwargs):
+        context = super(VersionList, self).get_context_data(**kwargs)
+        context['userstory'] = self.us
+        return context
+
+class UpdateVersion(UpdateUserStory):
+    """
+    View que actualiza un user story del sistema
+    """
+    version = None
+
+    def get_initial(self):
+        version_pk = self.kwargs['version_pk']
+        self.version = get_object_or_404(reversion.models.Version, pk=version_pk)
+        initial = self.version.field_dict
+        initial.update({'desarrollador': self.object.desarrollador, 'sprint': self.object.sprint})
+        return initial
