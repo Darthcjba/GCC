@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.forms.models import modelform_factory
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
-from guardian.mixins import PermissionRequiredMixin
+from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
 import reversion
 from project.models import MiembroEquipo, Proyecto, UserStory
@@ -69,6 +71,35 @@ class VersionDetail(generic.DetailView):
         context['userstory'] = self.object.field_dict
         return context
 
-def version_detail(request, pk):
-    us = get_object_or_404(reversion.models.Version, pk=pk)
-    return render(request, 'project/version/version_detail.html', {'userstory': us.field_dict})
+class UpdateVersion(LoginRequiredMixin, generic.UpdateView):
+    """
+    View que actualiza un user story del sistema
+    """
+    model = UserStory
+    form_class = modelform_factory(UserStory,
+                                   fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
+                                           'tiempo_estimado'))
+    template_name = 'project/version/version_form.html'
+    version = None
+
+    def get_initial(self):
+        version_pk = self.kwargs['version_pk']
+        self.version = get_object_or_404(reversion.models.Version, pk=version_pk)
+        return self.version.field_dict
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del user story agregado.
+        """
+        return reverse('project:userstory_detail', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de user story
+        :param form: formulario recibido
+        :return: URL de redireccion
+        """
+        self.object = form.save()
+        #self.version.revert()
+
+        return HttpResponseRedirect(self.get_success_url())

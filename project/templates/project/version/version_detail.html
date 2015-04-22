@@ -22,6 +22,6 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-success">Revertir</button>
+    <a href="{% url 'project:version_revert' version.object_id_int %}">Revertir</a>
     <a href="javascript:history.back()"><button type="button" class="btn btn-danger">Cancelar</button></a>
 {% endblock %}

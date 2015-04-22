@@ -10,7 +10,8 @@
         <li><a href="{% url 'project:version_list' userstory.id %}" class="fa fa-clock-o"> Historial</a></li>
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
-
+    <p><strong>Desarrollador: </strong>{{ userstory.desarrollador }}</p>
+    <p><strong>Sprint: </strong>{{ userstory.sprint }}</p>
     <div class="dataTable_wrapper">
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>
