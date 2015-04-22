@@ -11,7 +11,6 @@
         <th>Fecha de Modificacion</th>
         <th>Nombre</th>
         <th>Usuario</th>
-        <th>Ver</th>
         <th>Revertir</th>
     </tr>
 {% endblock %}
@@ -21,7 +20,6 @@
         <td>{{ v.revision.date_created }}</td>
         <td>{{ v }}</td>
         <td>{{ v.revision.user }}</td>
-        <td><a href="{% url 'project:version_detail' v.pk %}" class="fa fa-eye"></a></td>
         <th><a href="{% url 'project:version_revert' v.object_id v.id %}" class="fa fa-undo"></a></th>
     </tr>
     {% endfor %}
