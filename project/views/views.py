@@ -44,12 +44,20 @@ def get_selected_perms(POST):
     current_list.extend(POST.getlist('perms_sprint'))
     return current_list
 
-def version_list(request, pk):
-    us = get_object_or_404(UserStory, pk=pk)
-    versions = reversion.get_for_object(us)
-    context = {'user_story': us, 'versions': versions}
-    return render(request, 'project/version/version_list.html', context)
+class VersionList(generic.ListView):
+    context_object_name = 'versions'
+    template_name = 'project/version/version_list.html'
+    us = None
 
+    def get_queryset(self):
+        us_pk = self.kwargs['pk']
+        self.us = get_object_or_404(UserStory, pk=us_pk)
+        return reversion.get_for_object_reference(UserStory, us_pk)
+
+    def get_context_data(self, **kwargs):
+        context = super(VersionList, self).get_context_data(**kwargs)
+        context['userstory'] = self.us
+        return context
 
 class VersionDetail(generic.DetailView):
     model = reversion.models.Version

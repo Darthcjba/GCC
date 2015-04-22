@@ -1,8 +1,11 @@
-{% extends 'project/base_table.html' %}
+{% extends 'project/base_table_js.html' %}
 
-{% block title %}Version{% endblock %}
-{% block header %}Version{% endblock %}
+{% block title %}{{ userstory.nombre|title }}{% endblock %}
+{% block header %}{{ userstory.nombre|title }}{% endblock %}
 
+{% block before_table %}
+    <h3>Versiones</h3>
+{% endblock %}
 {% block thead %}
     <tr>
         <th>Nombre</th>
@@ -14,10 +17,14 @@
 {% block tbody %}
     {% for v in versions %}
     <tr>
-        <td>{{ v }}</td>
         <td>{{ v.revision.date_created }}</td>
+        <td>{{ v }}</td>
         <td>{{ v.revision.user }}</td>
         <td><a href="{% url 'project:version_detail' v.pk %}" class="fa fa-eye"></a></td>
     </tr>
     {% endfor %}
+{% endblock %}
+
+{% block after_table %}
+    <p><a class="fa fa-step-backward" href="{% url 'project:userstory_detail' userstory.id %}"> Volver a User Story</a></p>
 {% endblock %}
