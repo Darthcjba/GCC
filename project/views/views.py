@@ -61,16 +61,6 @@ class VersionList(generic.ListView):
         context['userstory'] = self.us
         return context
 
-class VersionDetail(generic.DetailView):
-    model = reversion.models.Version
-    context_object_name = 'version'
-    template_name = 'project/version/version_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(VersionDetail, self).get_context_data(**kwargs)
-        context['userstory'] = self.object.field_dict
-        return context
-
 class UpdateVersion(LoginRequiredMixin, generic.UpdateView):
     """
     View que actualiza un user story del sistema
