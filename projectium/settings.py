@@ -117,3 +117,14 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'projectium15@gmail.com'
 EMAIL_HOST_PASSWORD = 'projectium123'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "project.context_processors.nav_context_processor",
+)

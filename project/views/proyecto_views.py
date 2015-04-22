@@ -38,7 +38,7 @@ class ProjectList(LoginRequiredMixin, ListView):
             proyectos = Proyecto.objects
             return proyectos.filter(estado='CA') if self.show_cancelled else proyectos.exclude(estado='CA')
         else:
-            proyectos = self.request.user.miembroequipo_set
+            proyectos = self.request.user.proyecto_set
             return [x.proyecto for x in (proyectos.filter(proyecto__estado='CA') if self.show_cancelled
                                          else proyectos.exclude(proyecto__estado='CA'))]
 
