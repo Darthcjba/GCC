@@ -72,12 +72,14 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
             for subform in formsetb :
                 new_flujo = subform.cleaned_data['flujo']
                 self.flujo = new_flujo
+
                 new_userStory = subform.cleaned_data['userStory']
                 print(new_userStory)
                 new_desarrollador = subform.cleaned_data['desarrollador']
                 new_userStory.desarrollador= new_desarrollador
                 new_userStory.sprint= self.object
-                 #new_userStory.actividad= self.flujo.actividad_set.get(id=1)
+                #No encuentro la manera de seleccionar la primera actividad para que guarde en el userStory
+                 #new_userStory.actividad= self.flujo.actividad_set.get(flujo=new_flujo)
                 new_userStory.save()
             return HttpResponseRedirect(self.get_success_url())
         return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
