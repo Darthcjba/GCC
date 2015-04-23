@@ -8,7 +8,7 @@ from django.views import generic
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms
 import reversion
-from project.models import UserStory, Proyecto, MiembroEquipo
+from project.models import UserStory, Proyecto, MiembroEquipo, Sprint
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 
@@ -21,10 +21,17 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
     permission_required = 'project.view_project'
     context_object_name = 'userstories'
     project = None
+    sprint = None
+    sprint_backlog=False
 
     def get_permission_object(self):
-        if not self.project:
-            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        if not self.sprint_backlog:
+            if not self.project:
+                self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        else:
+            if not self.project:
+                self.sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_pk'])
+                self.project = self.sprint.proyecto
         return self.project
 
     def get_context_data(self, **kwargs):
@@ -33,9 +40,15 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         return context
 
     def get_queryset(self):
-        if not self.project:
-            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
-        return UserStory.objects.filter(proyecto=self.project)
+        manager = UserStory.objects
+        if not self.sprint_backlog:
+            if not self.project:
+                self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+            return manager.filter(proyecto=self.project)
+        else:
+            if not self.sprint:
+                self.sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_pk'])
+            return manager.filter(sprint=self.sprint)
 
 class UserStoryDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
@@ -142,7 +155,7 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         return self.get_object().proyecto
 
     def get_success_url(self):
-        return reverse_lazy('project:userstory_list', kwargs={'project_pk': self.get_object().proyecto.id})
+        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
 
 class VersionList(generic.ListView):
     """
