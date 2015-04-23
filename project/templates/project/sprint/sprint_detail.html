@@ -8,8 +8,16 @@
         {% if "remove_sprint" in proyecto_perms %}<li><a href="#" class="fa fa-eraser"> Delete</a></li>{% endif %}
     </ul>
     <p><strong>Nombre:</strong> {{ sprint.nombre }}</p>
+    <p><strong>Fecha Inicio:</strong>{{ sprint.inicio }}</p>
+    <p><strong>Fecha fin:</strong>{{ sprint.fin }}</p>
     <p><strong>Proyecto Asociado:</strong> {{ sprint.proyecto }}</p>
 
+    <h3>User Story</h3>
+    <ul>
+        {% for s in userStory %}
+        <li><a href="#">{{ s.nombre }} </a></li>
+        {% endfor %}
+    </ul>
 
 
 {% endblock %}
