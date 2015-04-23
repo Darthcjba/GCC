@@ -94,7 +94,7 @@ class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
         initial = {'perms_proyecto': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
-                   'perms_flujo': perm_list, 'perms_actividad': perm_list}
+                   'perms_flujo': perm_list}
         return initial
 
 

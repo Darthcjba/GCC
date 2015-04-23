@@ -14,10 +14,12 @@ def general_perms_list():
     :rtype: list
     '''
     permlist = []
+
     permlist.append(Permission.objects.get(codename="list_all_projects"))
     permlist.append(Permission.objects.get(codename="add_flow_template"))
     permlist.append(Permission.objects.get(codename="change_flow_template"))
     permlist.append(Permission.objects.get(codename="delete_flow_template"))
+
     return permlist
 
 
@@ -42,11 +44,11 @@ class RolForm(forms.ModelForm):
     Formulario para el manejo de roles
     '''
 
+
     perms_proyecto_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'proyecto' in perm.codename]
     perms_userstories_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'userstory' in perm.codename]
     perms_flujo_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'flujo' in perm.codename and not('template' in perm.codename)]
     perms_sprint_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'sprint' in perm.codename]
-    perms_actividad_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'actividad' in perm.codename]
 
     #perms_list = [(perm.codename, perm.name) for perm in Permission.objects.all()] #alternativa con una sola lista
 
@@ -54,7 +56,6 @@ class RolForm(forms.ModelForm):
     perms_userstory = forms.MultipleChoiceField(perms_userstories_list, widget=forms.CheckboxSelectMultiple, label=UserStory._meta.verbose_name_plural.title(), required=False)
     perms_flujo = forms.MultipleChoiceField(perms_flujo_list, widget=forms.CheckboxSelectMultiple, label=Flujo._meta.verbose_name_plural.title(), required=False)
     perms_sprint = forms.MultipleChoiceField(perms_sprint_list, widget=forms.CheckboxSelectMultiple, label=Sprint._meta.verbose_name_plural.title(), required=False)
-    perms_actividad = forms.MultipleChoiceField(perms_actividad_list, widget=forms.CheckboxSelectMultiple, label=Actividad._meta.verbose_name_plural.title(), required=False)
     #perms = forms.MultipleChoiceField(perms_list, widget=forms.CheckboxSelectMultiple, label="Permisos", required=False)
 
     class Meta:
