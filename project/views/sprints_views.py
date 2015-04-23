@@ -12,6 +12,8 @@ from project.models import Sprint, Proyecto, Actividad, Flujo, UserStory
 from project.views import CreateViewPermissionRequiredMixin
 from django.views import generic
 from django.core.urlresolvers import reverse
+from django.utils import timezone
+import datetime
 
 __author__ = 'santiortizpy'
 
@@ -32,8 +34,8 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     template_name = 'project/sprint/sprint_form.html'
     permission_required = 'project.create_sprint'
     form_class = modelform_factory(Sprint,
-                                   widgets={'inicio': SelectDateWidget, 'fin': SelectDateWidget},
-                                   fields={'nombre', 'inicio', 'fin'})
+                                   widgets={'inicio': SelectDateWidget},
+                                   fields={'nombre', 'inicio'})
     formset = formset_factory(AddToSprintForm, extra=1)
 
     proyecto = None
@@ -62,17 +64,19 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
         self.object= form.save(commit=False)
         self.object.proyecto= self.proyecto
+        self.object.fin= self.object.inicio + datetime.timedelta(days=self.proyecto.duracion_sprint)
         self.object.save()
         formsetb= self.formset(self.request.POST)
         if formsetb.is_valid():
             for subform in formsetb :
                 new_flujo = subform.cleaned_data['flujo']
+                self.flujo = new_flujo
                 new_userStory = subform.cleaned_data['userStory']
                 print(new_userStory)
                 new_desarrollador = subform.cleaned_data['desarrollador']
                 new_userStory.desarrollador= new_desarrollador
                 new_userStory.sprint= self.object
-                new_userStory.actividad= new_flujo.actividad_set.get(id=1)
+                new_userStory.actividad= self.flujo.actividad_set.get(id=1)
                 new_userStory.save()
             return HttpResponseRedirect(self.get_success_url())
         return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
