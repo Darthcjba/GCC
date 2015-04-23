@@ -86,7 +86,11 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                 new_userStory.desarrollador= new_desarrollador
                 new_userStory.sprint= self.object
                 #No encuentro la manera de seleccionar la primera actividad para que guarde en el userStory
-                 #new_userStory.actividad= self.flujo.actividad_set.get(flujo=new_flujo)
+                acti_set=self.flujo.actividad_set.filter(flujo=new_flujo)
+                if acti_set>0:
+                    new_userStory.actividad=acti_set[0]
+                else:
+                    new_userStory.actividad= acti_set
                 new_userStory.save()
             return HttpResponseRedirect(self.get_success_url())
         return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
