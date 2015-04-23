@@ -113,6 +113,20 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                                    fields={'nombre', 'inicio'})
     formset = formset_factory(AddToSprintForm, extra=1)
 
+    def get_permission_object(self):
+        """
+        permiso para add, edit o delete
+        :return: los permisos
+        """
+        return self.get_object().proyecto
+
+
+    def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del sprint agregado.
+        """
+        return reverse('project:sprint_detail', kwargs={'pk': self.object.id})
+
     def get_context_data(self, **kwargs):
         """
         Especifica los datos de contexto a pasar al template
@@ -120,13 +134,13 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         :return: los datos de contexto
         """
         context=super(UpdateSprintView,self).get_context_data(**kwargs)
-        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+
         if self.request.method == 'GET':
             formset=self.formset()
             for userformset in formset.forms:
-                userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
-                userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
-                userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.proyecto)
+                userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.object.proyecto)
+                userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.object.proyecto)
+                userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.object.proyecto)
             context['formset'] = formset
         return context
 
@@ -136,10 +150,9 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         :param form: formulario del sprint
         :return: vuelve a la pagina de detalle del sprint
         """
-        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+
         self.object= form.save(commit=False)
-        self.object.proyecto= self.proyecto
-        self.object.fin= self.object.inicio + datetime.timedelta(days=self.proyecto.duracion_sprint)
+        self.object.fin= self.object.inicio + datetime.timedelta(days=self.object.proyecto.duracion_sprint)
         self.object.save()
         formsetb= self.formset(self.request.POST)
         if formsetb.is_valid():

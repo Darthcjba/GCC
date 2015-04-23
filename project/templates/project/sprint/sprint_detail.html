@@ -4,7 +4,7 @@
 {% block header %}{{ sprint.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline">
-        {% if "edit_sprint" in proyecto_perms %}<li><a href="{% url 'project:sprint_update' sprint.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+        {% if "edit_sprint" in proyecto_perms %}  <li><a href="{% url 'project:sprint_update'  sprint.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
 
     </ul>
     <p><strong>Nombre:</strong> {{ sprint.nombre }}</p>
