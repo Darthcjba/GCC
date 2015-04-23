@@ -59,19 +59,19 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
 
 
     def form_valid(self, form):
-
+        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
         self.object= form.save(commit=False)
         self.object.proyecto= self.proyecto
         self.object.save()
-        formset= self.formset(self.request.POST, instance=self.object)
-        if formset.is_valid():
-            new_flujo = formset.cleaned_data['flujo']
-            new_userStory = form.cleaned_data['userStory']
-            new_desarrollador = form.cleaned_data['desarrollador']
+        formsetb= self.formset(self.request.POST)
+        if formsetb.is_valid():
+            new_flujo = formsetb.cleaned_data['flujo']
+            new_userStory = formsetb.cleaned_data['userStory']
+            new_desarrollador = formsetb.cleaned_data['desarrollador']
             new_userStory.desarrollador= new_desarrollador
             new_userStory.proyecto= self.proyecto
             new_userStory.sprint= self.object
-            new_userStory.actividad= new_flujo.actividad_set.all().get(id=1)
+            new_userStory.actividad= new_flujo.actividad_set.get(id=1)
             new_userStory.save()
             self.userstory = new_userStory
             return HttpResponseRedirect(self.get_success_url())
