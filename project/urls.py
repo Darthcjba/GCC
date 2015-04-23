@@ -28,6 +28,7 @@ urlpatterns = patterns('',
                        url(r'^projects/(?P<project_pk>\d+)/sprint/add/$', views.AddSprintView.as_view(), name="sprint_add"),
                        url(r'^sprint/(?P<pk>\d+)/$', views.SprintDetail.as_view(), name='sprint_detail'),
                        url(r'^projects/(?P<project_pk>\d+)/sprint/$', views.SprintList.as_view(),name="sprint_list"),
+                       url(r'^sprint/(?P<pk>\d+)/edit/$', views.UpdateSprintView.as_view(), name="sprint_update"),
 
                        #TODO: mover la logica de autenticacion
                        url('^login/$', 'django.contrib.auth.views.login',

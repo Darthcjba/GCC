@@ -51,10 +51,10 @@
         </div>
 
         <div class="col-lg-4">
-            <h4 class="list-group-item-heading"><a href="#">Sprints</a></h4>
+            <h4 class="list-group-item-heading"><a href="{% url 'project:sprint_list' project.id %}">Sprints</a></h4>
             <div class="list-group">
                 {% for s in sprints %}
-                    <a href="#" class="list-group-item">{{ s.nombre }}
+                    <a href="{% url 'project:sprint_detail' s.id %}" class="list-group-item">{{ s.nombre }}
                         <span class="badge" data-toggle="tooltip" data-placement="right"
                               title="Fecha de Inicio">{{ s.inicio }}</span>
                     </a>

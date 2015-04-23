@@ -11,7 +11,6 @@
         <th>Nombre</th>
         <th>UserStories</th>
         <th>Ver</th>
-        {% if "remove_sprint" in proyecto_perms %}<th>Eliminar</th>{% endif %}
         {% if "edit_sprint" in proyecto_perms %}<th>Editar</th>{% endif %}
     </tr>
 {% endblock %}
@@ -21,8 +20,8 @@
         <td>{{ s.nombre }}</td>
         <td>{{ s.userstory_set.count }}</td>
         <td ><a href="{% url 'project:sprint_detail' s.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
-        {% if "edit_sprint" in proyecto_perms %}<td><a href="#"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
-        {% if "remove_sprint" in proyecto_perms %}<td><a href="#"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
+        {% if "edit_sprint" in proyecto_perms %}<td><a href="{% url 'project:sprint_update' s.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
+
     </tr>
     {% endfor %}
 {% endblock %}
