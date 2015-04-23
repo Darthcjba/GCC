@@ -75,5 +75,5 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
             new_userStory.save()
             self.userstory = new_userStory
             return HttpResponseRedirect(self.get_success_url())
-        return render(self.request, self.get_template_names(), {'form': form, 'formset': formset},
+        return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
                       context_instance=RequestContext(self.request))
