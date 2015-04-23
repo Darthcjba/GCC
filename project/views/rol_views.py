@@ -94,7 +94,7 @@ class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
         perm_list = [perm.codename for perm in list(modelo.permissions.all())]
 
         initial = {'perms_proyecto': perm_list, 'perms_sprint': perm_list, 'perms_userstory': perm_list,
-                   'perms_flujo': perm_list, 'perms_actividad': perm_list}
+                   'perms_flujo': perm_list}
         return initial
 
 
@@ -119,7 +119,9 @@ class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
             project = team_member.proyecto
             # borramos todos los permisos que tiene asociado el usuario en el proyecto
             for perm in get_perms(user, project):
-                remove_perm(perm, user, project)
+                if perm!='view_project': #cuidamos de no eliminar permiso de ver proyecto
+                    remove_perm(perm, user, project)
+
             all_roles = team_member.roles.all()
             for role in all_roles:
                 team_member.roles.remove(

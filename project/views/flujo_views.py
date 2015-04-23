@@ -11,14 +11,20 @@ from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantill
 from project.models import Flujo, Proyecto
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
-class FlujoList(LoginRequiredMixin, generic.ListView):
+class FlujoList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     """
     Vista de Listado de Flujos en el sistema
     """
     model = Flujo
     template_name = 'project/flujo/flujo_list.html'
+    permission_required = 'project.view_project'
     context_object_name = 'flujos'
     project = None
+
+    def get_permission_object(self):
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return self.project
 
     def get_context_data(self, **kwargs):
         context = super(FlujoList, self).get_context_data(**kwargs)
@@ -26,18 +32,26 @@ class FlujoList(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        project_pk = self.kwargs['project_pk']
-        self.project = get_object_or_404(Proyecto, pk=project_pk)
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
         return Flujo.objects.filter(proyecto=self.project)
 
 
-class FlujoDetail(LoginRequiredMixin, generic.DetailView):
+class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
     Vista de Detalles de un flujo
     """
     model = Flujo
     template_name = 'project/flujo/flujo_detail.html'
+    permission_required = 'project.view_project'
     context_object_name = 'flujo'
+
+    def get_permission_object(self):
+        '''
+        Objeto por el cual comprobar el permiso
+        '''
+        return self.get_object().proyecto
+
 
     def get_context_data(self, **kwargs):
         """

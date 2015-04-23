@@ -14,30 +14,36 @@
 
         </div>
         <h3>Permissions</h3>
-        <div class="row">
-            <div class="form-group">
-                <div class="col-lg-4">
-                    {% bootstrap_field form.perms_proyecto %}
-                </div>
-                <div class="col-lg-4">
-                    {% bootstrap_field form.perms_flujo %}
-                </div>
-                <div class="col-lg-4">
-                    {% bootstrap_field form.perms_actividad %}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <div class="col-lg-4">
-                    {% bootstrap_field form.perms_userstory %}
-                </div>
+        <div class="checkbox">
+                     <label for="checkboxall">
+                         <input id="checkboxall" type="checkbox">
+                         </input>
+                         Seleccionar todos
+                     </label>
+                 </div>
+            <div class="row">
 
-                <div class="col-lg-4">
-                    {% bootstrap_field form.perms_sprint %}
+                <div class="form-group">
+                    <div class="col-lg-6 permisos-checkboxes">
+                        {% bootstrap_field form.perms_proyecto %}
+                    </div>
+                    <div class="col-lg-6 permisos-checkboxes">
+                        {% bootstrap_field form.perms_flujo %}
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-lg-6 permisos-checkboxes">
+                        {% bootstrap_field form.perms_userstory %}
+                    </div>
+
+                    <div class="col-lg-6 permisos-checkboxes">
+                        {% bootstrap_field form.perms_sprint %}
+                    </div>
+                </div>
+            </div>
+
         <div class="row">
              <div class="form-group">
                 <div class="col-lg-4">
@@ -56,3 +62,26 @@
     </form>
 
 {% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+    $(function() {
+
+  var masterCheckbox = $('#checkboxall');
+    var slaveCheckboxes = $('.permisos-checkboxes').find(':input');
+  masterCheckbox.click(function() {
+      console.log(slaveCheckboxes.length);
+
+    slaveCheckboxes.prop('checked', masterCheckbox.prop('checked'));
+  });
+
+  slaveCheckboxes.click(function() {
+      // Check all slave checkboxes selections: in case all are checked - check the master checkbox as well
+      masterCheckbox.prop('checked', $.grep(slaveCheckboxes, function(e) {
+          return $(e).prop('checked');
+      }).length == slaveCheckboxes.length);
+  });
+
+});
+    </script>
+{%  endblock %}

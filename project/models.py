@@ -6,7 +6,7 @@ from django.db.models.signals import m2m_changed, post_save
 from guardian.shortcuts import assign_perm, remove_perm
 from project.signals import add_permissions_team_member
 from django.core.urlresolvers import reverse_lazy
-
+import reversion
 
 def validate_dates(start, end):
     if start > end:
@@ -38,6 +38,7 @@ class Proyecto(models.Model):
 
         permissions = (
             ('list_all_projects', 'listar los proyectos disponibles'),
+            ('view_project', 'ver el proyecto'),
 
             ('create_sprint', 'agregar sprint'),
             ('edit_sprint', 'editar sprint'),
@@ -46,10 +47,6 @@ class Proyecto(models.Model):
             ('create_flujo', 'agregar flujo'),
             ('edit_flujo', 'editar flujo'),
             ('remove_flujo', 'eliminar flujo'),
-
-            ('create_actividad', 'agregar actividad'),
-            ('edit_actividad', 'editar actividad'),
-            ('remove_actividad', 'eliminar actividad'),
 
             ('create_userstory', 'agregar userstory'),
             ('edit_userstory', 'editar userstory'),
@@ -83,6 +80,14 @@ class MiembroEquipo(models.Model):
     def __unicode__(self):
         return "{} - {}:{}".format(self.proyecto, self.usuario, self.roles.all())
     '''
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        super(MiembroEquipo, self).save(force_insert, force_update, using, update_fields)
+        #Agregamos el permiso view_proyect al usuario
+        assign_perm('view_project', self.usuario, self.proyecto)
+
+
     #nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
     #llamar al delete de cada objeto para remover los permisos
     def delete(self, using=None):
@@ -94,6 +99,7 @@ class MiembroEquipo(models.Model):
     class Meta:
         default_permissions = ()
         verbose_name_plural = 'miembros equipo'
+        unique_together = ('usuario', 'proyecto')
 
 m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through, dispatch_uid='add_permissions_signal')
 
@@ -154,7 +160,6 @@ class Actividad(models.Model):
         order_with_respect_to = 'flujo'
         verbose_name_plural = 'actividades'
 
-
 class UserStory(models.Model):
     """
     Manejo de los User Stories. Los User Stories representan a cada
@@ -166,18 +171,22 @@ class UserStory(models.Model):
     prioridad = models.IntegerField(choices=((i, i) for i in range(1, 11)), default=1)
     valor_negocio = models.IntegerField()
     valor_tecnico = models.IntegerField()
-    tiempo_estimado = models.TimeField()
-    tiempo_registrado = models.TimeField()
+    tiempo_estimado = models.PositiveIntegerField()
+    tiempo_registrado = models.PositiveIntegerField(default=0)
     ultimo_cambio = models.DateTimeField(auto_now=True)
     estado = models.IntegerField(choices=estado_choices, default=0)
     proyecto = models.ForeignKey(Proyecto)
-    desarrollador = models.ForeignKey(User, null=True)
-    sprint = models.ForeignKey(Sprint, null=True)
-    actividad = models.ForeignKey(Actividad, null=True)
+    desarrollador = models.ForeignKey(User, null=True, blank=True)
+    sprint = models.ForeignKey(Sprint, null=True, blank=True)
+    actividad = models.ForeignKey(Actividad, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.nombre
 
     class Meta:
         verbose_name_plural = 'user stories'
         default_permissions = ()
+reversion.register(UserStory, fields=['nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico', 'tiempo_estimado'])
 
 
 class Version(models.Model):
