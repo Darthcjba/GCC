@@ -119,7 +119,9 @@ class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
             project = team_member.proyecto
             # borramos todos los permisos que tiene asociado el usuario en el proyecto
             for perm in get_perms(user, project):
-                remove_perm(perm, user, project)
+                if perm!='view_project': #cuidamos de no eliminar permiso de ver proyecto
+                    remove_perm(perm, user, project)
+
             all_roles = team_member.roles.all()
             for role in all_roles:
                 team_member.roles.remove(

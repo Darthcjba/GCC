@@ -12,14 +12,20 @@ from project.models import UserStory, Proyecto, MiembroEquipo
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 
-class UserStoriesList(LoginRequiredMixin, generic.ListView):
+class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     '''
     Lista de User Stories del proyecto
     '''
     model = UserStory
     template_name = 'project/userstory/userstory_list.html'
+    permission_required = 'project.view_project'
     context_object_name = 'userstories'
     project = None
+
+    def get_permission_object(self):
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return self.project
 
     def get_context_data(self, **kwargs):
         context = super(UserStoriesList, self).get_context_data(**kwargs)
@@ -27,17 +33,24 @@ class UserStoriesList(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        project_pk = self.kwargs['project_pk']
-        self.project = get_object_or_404(Proyecto, pk=project_pk)
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
         return UserStory.objects.filter(proyecto=self.project)
 
-class UserStoryDetail(LoginRequiredMixin, generic.DetailView):
+class UserStoryDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
     Vista de Detalles de un user story
     """
     model = UserStory
+    permission_required = 'project.view_project'
     template_name = 'project/userstory/userstory_detail.html'
     context_object_name = 'userstory'
+
+    def get_permission_object(self):
+        '''
+        Retorna el objeto al cual corresponde el permiso
+        '''
+        return self.get_object().proyecto
 
 class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """

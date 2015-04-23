@@ -41,13 +41,15 @@ class ProjectList(LoginRequiredMixin, ListView):
             proyectos = self.request.user.proyecto_set
         return proyectos.filter(estado='CA') if self.show_cancelled else proyectos.exclude(estado='CA')
 
-class ProjectDetail(LoginRequiredMixin, DetailView):
+class ProjectDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, DetailView):
     """
     Vista de Detalles de Proyecto
     """
     model = Proyecto
     context_object_name = 'project'
+    permission_required = 'project.view_project'
     template_name = 'project/proyecto/project_detail.html'
+
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetail, self).get_context_data(**kwargs)

@@ -38,6 +38,7 @@ class Proyecto(models.Model):
 
         permissions = (
             ('list_all_projects', 'listar los proyectos disponibles'),
+            ('view_project', 'ver el proyecto'),
 
             ('create_sprint', 'agregar sprint'),
             ('edit_sprint', 'editar sprint'),
@@ -79,6 +80,14 @@ class MiembroEquipo(models.Model):
     def __unicode__(self):
         return "{} - {}:{}".format(self.proyecto, self.usuario, self.roles.all())
     '''
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        super(MiembroEquipo, self).save(force_insert, force_update, using, update_fields)
+        #Agregamos el permiso view_proyect al usuario
+        assign_perm('view_project', self.usuario, self.proyecto)
+
+
     #nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
     #llamar al delete de cada objeto para remover los permisos
     def delete(self, using=None):
