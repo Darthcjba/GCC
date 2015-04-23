@@ -4,29 +4,12 @@
 {% block header %}{{ sprint.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline">
-        {% get_obj_perms user for sprint.proyecto as "proyecto_perms" %}
         {% if "edit_sprint" in proyecto_perms %}<li><a href="#" class="fa fa-pencil"> Edit</a></li>{% endif %}
         {% if "remove_sprint" in proyecto_perms %}<li><a href="#" class="fa fa-eraser"> Delete</a></li>{% endif %}
     </ul>
+    <p><strong>Nombre:</strong> {{ sprint.nombre }}</p>
     <p><strong>Proyecto Asociado:</strong> {{ sprint.proyecto }}</p>
 
-    <div class="dataTable_wrapper">
-    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-        <thead>
-            <tr>
-                {% for a in userStory %}
-                <th>{{ a.nombre }}</th>
-             {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-        <tr class="odd gradeX">
-             {% for a in userStory %}
-                <td></td>
-             {% endfor %}
-            </tr>
-        </tbody>
-    </table>
-    <p><a class="fa fa-step-backward" href="#"> Volver a Flujos</a></p>
-</div>
+
+
 {% endblock %}

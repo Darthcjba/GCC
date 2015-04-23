@@ -25,6 +25,7 @@ class SprintDetail(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context= super(SprintDetail, self).get_context_data(**kwargs)
         context['userStory']= self.object.userstory_set.all()
+        conte
 
 
 
@@ -44,7 +45,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
 
     def get_success_url(self):
-        return reverse('project:sprint_detail', kwargs={'pk': self.sprint.id})
+        return reverse('project:sprint_detail', kwargs={'pk': self.object.id})
 
     def get_context_data(self, **kwargs):
         context=super(AddSprintView,self).get_context_data(**kwargs)
@@ -76,7 +77,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                 new_desarrollador = subform.cleaned_data['desarrollador']
                 new_userStory.desarrollador= new_desarrollador
                 new_userStory.sprint= self.object
-                new_userStory.actividad= self.flujo.actividad_set.get(id=1)
+                 #new_userStory.actividad= self.flujo.actividad_set.get(id=1)
                 new_userStory.save()
             return HttpResponseRedirect(self.get_success_url())
         return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
