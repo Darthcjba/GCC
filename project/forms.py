@@ -7,7 +7,7 @@ from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
 from project.models import UserStory
 from django.forms.models import inlineformset_factory
 
-def general_perms_list():
+def __general_perms_list__():
     '''
 
     :return: lista con los permisos que pueden asignarse a nivel general
@@ -19,9 +19,32 @@ def general_perms_list():
     permlist.append(Permission.objects.get(codename="add_flow_template"))
     permlist.append(Permission.objects.get(codename="change_flow_template"))
     permlist.append(Permission.objects.get(codename="delete_flow_template"))
-
+    permlist.append(Permission.objects.get(codename="add_proyecto"))
     return permlist
 
+def __user_and_group_permissions__():
+    perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
+    perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
+    perms = []
+    perms.extend(perms_user_list)
+    perms.extend(perms_group_list)
+    return perms
+
+class UserCreateForm(UserCreationForm):
+    '''
+    Formulario para la creación de usuarios
+    '''
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    general_perms_list = [(perm.codename, perm.name) for perm in __general_perms_list__()]
+    general_perms_list.extend(__user_and_group_permissions__())
+    general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username']
 
 class UserEditForm(UserChangeForm):
     '''
@@ -31,11 +54,8 @@ class UserEditForm(UserChangeForm):
         help_text=("Solo se almacena un hash del password, no hay manera de verla. "
                    "Para modificarla seleccionar la opcion <strong>Cambiar Password</strong>"))
 
-    general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
-    perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
-    perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
-    general_perms_list.extend(perms_user_list)
-    general_perms_list.extend(perms_group_list)
+    general_perms_list = [(perm.codename, perm.name) for perm in __general_perms_list__()]
+    general_perms_list.extend(__user_and_group_permissions__())
     general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
 
 
@@ -61,26 +81,6 @@ class RolForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ["name"]
-
-class UserCreateForm(UserCreationForm):
-    '''
-    Formulario para la creación de usuarios
-    '''
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-
-    general_perms_list = [(perm.codename, perm.name) for perm in general_perms_list()]
-    perms_user_list = [(perm.codename, perm.name) for perm in get_perms_for_model(User)]
-    perms_group_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Group)]
-    general_perms_list.extend(perms_user_list)
-    general_perms_list.extend(perms_group_list)
-    general_perms = forms.MultipleChoiceField(general_perms_list, widget=forms.CheckboxSelectMultiple, label="General permissions", required=False)
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email', 'username']
-
 
 class FlujosCreateForm(forms.ModelForm):
     """

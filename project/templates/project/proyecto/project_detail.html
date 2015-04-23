@@ -1,12 +1,14 @@
 {% extends 'project/base.html' %}
+{% load guardian_tags %}
 {% block title %}{{ project.nombre_corto }}{% endblock %}
 
 {% block header %}{{ project.nombre_corto }}{% endblock %}
 {% block content %}
+    {% get_obj_perms user for project as "proyecto_perms" %}
     <h3>{{ project.nombre_largo }}</h3>
     <ul class="list-inline">
-        {% if perms.project.change_proyecto %}<li><a href="{% url 'project:project_update' project.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
-        {% if perms.project.delete_proyecto %}<li><a href="{% url 'project:project_delete' project.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
+        {% if 'change_proyecto' in proyecto_perms %}<li><a href="{% url 'project:project_update' project.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+        {% if 'delete_proyecto' in proyecto_perms %}<li><a href="{% url 'project:project_delete' project.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
         <a href="{% url 'project:userstory_list' project.id %}"><i class="fa fa-file fa-fw"></i> Ver Product Backlog</a>
     </ul>
 
