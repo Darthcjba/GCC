@@ -25,7 +25,7 @@ class SprintDetail(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context= super(SprintDetail, self).get_context_data(**kwargs)
         context['userStory']= self.object.userstory_set.all()
-        conte
+
 
 
 
