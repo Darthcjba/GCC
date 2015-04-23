@@ -1,31 +1,49 @@
-{% extends 'authentication/base.html' %}
+{% extends "authentication/base.html" %}
+{% load i18n bootstrap3 %}
 
 {% block content %}
-
     <div class="panel-heading">
         <h3 class="panel-title">Ingresar a Projectium</h3>
     </div>
     <div class="panel-body">
-        {% if form.errors %}
-            <p>Su username y password no coinciden. Vuelva a intentar.</p>
+        {% if form.errors and not form.non_field_errors %}
+            <p class="errornote">
+                {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}
+                    {% trans "Please correct the errors below." %}{% endif %}
+            </p>
         {% endif %}
-        <form role="form" method="post" action="{% url 'project:login' %}">
-            {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="errornote">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        {% endif %}
+
+        <form role="form" action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
             <fieldset>
                 <div class="form-group">
-                    <input class="form-control" placeholder="Username" id="id_username" name="username" autofocus
-                           type="text">
+                    {{ form.username.errors }}
+                    {% bootstrap_field form.username layout='inline' %}
                 </div>
                 <div class="form-group">
-                    <input class="form-control" placeholder="Password" id="id_password" name="password" type="password"
-                           value="">
+                    {{ form.password.errors }}
+                    {% bootstrap_field form.password layout='inline' %}
+                    <input type="hidden" name="next" value="{{ next }}"/>
                 </div>
-                <!-- Change this to a button or input when using this as a form -->
+                {% url 'admin_password_reset' as password_reset_url %}
+                {% if password_reset_url %}
+                    <div class="password-reset-link">
+                        <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+                    </div>
+                {% endif %}
                 <a href="{% url 'project:password_reset' %}">Olvido su password?</a>
                 <input type="submit" value="Login" class="btn btn-lg btn-success btn-block"/>
-                <input type="hidden" name="next" value=""/>
             </fieldset>
         </form>
     </div>
-
+    <script type="text/javascript">
+        document.getElementById('id_username').focus()
+    </script>
 {% endblock %}
