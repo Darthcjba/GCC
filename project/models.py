@@ -109,6 +109,8 @@ class Sprint(models.Model):
 
     class Meta:
         default_permissions = ()
+        verbose_name = 'sprint'
+        verbose_name_plural = 'sprints'
 
     def __unicode__(self):
         return self.nombre
