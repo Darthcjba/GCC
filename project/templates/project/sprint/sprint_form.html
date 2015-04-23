@@ -7,7 +7,7 @@
     <script type="text/javascript">
     $(function() {
         $('.activity').formset({
-            prefix: '{{ actividad_form.prefix }}',
+            prefix: '{{ formset.prefix }}',
             addText: 'Agregar actividad',
             deleteText: 'Eliminar'
         });
@@ -24,8 +24,8 @@
         </div>
         <fieldset>
             <legend> Agregar UserStory, Desarrollador y flujo</legend>
-            {{ actividad_form.management_form }}
-            {{ actividad_form.non_form_errors }}
+            {{ formset.management_form }}
+            {{ formset.non_form_errors }}
 
             {%for form in formset%}
                 {{ form.id }}
