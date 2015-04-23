@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth.models import User
 from django.forms import formset_factory
 from django.forms.extras import SelectDateWidget
 from django.forms.models import modelform_factory, modelformset_factory, inlineformset_factory
@@ -7,7 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from guardian.mixins import LoginRequiredMixin
 from project.forms import AddToSprintForm
-from project.models import Sprint, Proyecto, Actividad
+from project.models import Sprint, Proyecto, Actividad, Flujo, UserStory
 from project.views import CreateViewPermissionRequiredMixin
 from django.views import generic
 from django.core.urlresolvers import reverse
@@ -35,6 +36,8 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                                    fields={'nombre', 'inicio', 'fin'})
     formset = formset_factory(AddToSprintForm, extra=1)
 
+    proyecto = None
+
     def get_permission_object(self):
         return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
 
@@ -43,16 +46,22 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
 
     def get_context_data(self, **kwargs):
         context=super(AddSprintView,self).get_context_data(**kwargs)
+        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        context['current_action'] = "Agregar"
         if self.request.method == 'GET':
-            context['formset']= self.formset()
+            formset=self.formset()
+            for userformset in formset.forms:
+                userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
+                userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
+                userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.proyecto)
+            context['formset']= formset
         return context
 
 
     def form_valid(self, form):
 
-        proyecto = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
         self.object= form.save(commit=False)
-        self.object.proyecto= proyecto
+        self.object.proyecto= self.proyecto
         self.object.save()
         formset= self.formset(self.request.POST, instance=self.object)
         if formset.is_valid():
@@ -60,7 +69,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
             new_userStory = form.cleaned_data['userStory']
             new_desarrollador = form.cleaned_data['desarrollador']
             new_userStory.desarrollador= new_desarrollador
-            new_userStory.proyecto= proyecto
+            new_userStory.proyecto= self.proyecto
             new_userStory.sprint= self.object
             new_userStory.actividad= new_flujo.actividad_set.all().get(id=1)
             new_userStory.save()

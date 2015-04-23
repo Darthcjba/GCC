@@ -111,7 +111,7 @@ class AddToSprintForm(forms.Form):
     """
     formulario para la agregacion de userStory, desarrollador y flujo a un Sprint
     """
-    userStory =forms.ModelChoiceField(queryset=UserStory.objects.all())
-    desarrolador=forms.ModelChoiceField(queryset=User.objects.all())
-    flujo = forms.ModelChoiceField(queryset=Flujo.objects.all())
+    userStory =forms.ModelChoiceField(queryset=UserStory.objects.none())
+    desarrollador=forms.ModelChoiceField(queryset=User.objects.none())
+    flujo = forms.ModelChoiceField(queryset=Flujo.objects.none())
 
