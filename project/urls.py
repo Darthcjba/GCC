@@ -25,7 +25,9 @@ urlpatterns = patterns('',
                        url(r'^roles/add/$', views.AddRolView.as_view(), name="rol_add"),
                        url(r'^roles/(?P<pk>\d+)/edit/$', views.UpdateRolView.as_view(), name="rol_update"),
                        url(r'^roles/(?P<pk>\d+)/delete/$', views.DeleteRolView.as_view(), name="rol_delete"),
-
+                       url(r'^projects/(?P<project_pk>\d+)/sprint/add/$', views.AddSprintView.as_view(), name="sprint_add"),
+                       url(r'^sprint/(?P<pk>\d+)/$', views.SprintDetail.as_view(), name='sprint_detail'),
+                       url(r'^projects/(?P<project_pk>\d+)/sprint/$', views.SprintList.as_view(),name="sprint_list"),
 
                        #TODO: mover la logica de autenticacion
                        url('^login/$', 'django.contrib.auth.views.login',
@@ -51,6 +53,5 @@ urlpatterns = patterns('',
                        url(r'^plantilla/add/$', views.AddPlantilla.as_view(), name="plantilla_add"),
                        url(r'^plantilla/(?P<pk>\d+)/delete/$', views.DeletePlantilla.as_view(), name="plantilla_delete"),
                        url(r'^plantilla/(?P<pk>\d+)/edit/$', views.UpdatePlantilla.as_view(), name="plantilla_update"),
-                       url(r'^projects/(?P<project_pk>\d+)/sprint/add/$', views.AddSprintView.as_view(), name="sprint_add"),
-                       url(r'^sprint/(?P<pk>\d+)/$', views.SprintDetail.as_view(), name='sprint_detail'),
+
                        )

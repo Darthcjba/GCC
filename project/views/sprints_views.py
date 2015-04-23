@@ -15,7 +15,14 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 import datetime
 
-__author__ = 'santiortizpy'
+
+class SprintList(LoginRequiredMixin, generic.ListView):
+    """
+    Vista de Listado de Sprint en el sistema
+    """
+    model = Sprint
+    template_name = 'project/sprint/sprint_list.html'
+    context_object_name = 'sprint'
 
 class SprintDetail(LoginRequiredMixin, generic.DetailView):
     model = Sprint
