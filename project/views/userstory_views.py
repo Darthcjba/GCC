@@ -158,22 +158,25 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
     def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
 
-class VersionList(generic.ListView):
+class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     """
     Vista que devuelve una lista de versiones del User Story deseado.
     """
-
     context_object_name = 'versions'
     template_name = 'project/version/version_list.html'
     us = None
+    permission_required = 'project.edit_userstory'
+
+    def get_permission_object(self):
+        us_pk = self.kwargs['pk']
+        self.us = get_object_or_404(UserStory, pk=us_pk)
+        return self.us.proyecto
 
     def get_queryset(self):
         """
         Obtiene el user story y sus versiones
         """
-        us_pk = self.kwargs['pk']
-        self.us = get_object_or_404(UserStory, pk=us_pk)
-        return reversion.get_for_object_reference(UserStory, us_pk)
+        return reversion.get_for_object(self.us)
 
     def get_context_data(self, **kwargs):
         """
