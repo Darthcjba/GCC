@@ -99,16 +99,16 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         formsetb= self.formset(self.request.POST)
         if formsetb.is_valid():
             for subform in formsetb :
-                new_flujo = subform.cleaned_data['flujo']
-                self.flujo = new_flujo
-                new_userStory = subform.cleaned_data['userStory']
-                print(new_userStory)
-                new_desarrollador = subform.cleaned_data['desarrollador']
-                new_userStory.desarrollador= new_desarrollador
-                new_userStory.sprint= self.object
-                new_userStory.actividad=self.flujo.actividad_set.first()
-                new_userStory.save()
-            return HttpResponseRedirect(self.get_success_url())
+                if 'UserStory' in subform.cleaned_data:
+                    new_userStory = subform.cleaned_data['userStory']
+                    new_flujo = subform.cleaned_data['flujo']
+                    self.flujo = new_flujo
+                    new_desarrollador = subform.cleaned_data['desarrollador']
+                    new_userStory.desarrollador= new_desarrollador
+                    new_userStory.sprint= self.object
+                    new_userStory.actividad=self.flujo.actividad_set.first()
+                    new_userStory.save()
+                    return HttpResponseRedirect(self.get_success_url())
         return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
                       context_instance=RequestContext(self.request))
 
@@ -166,18 +166,16 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.object.proyecto.duracion_sprint)
         self.object.save()
         formsetb= self.formset(self.request.POST)
-        if formsetb.is_valid():
+        if formsetb.has_changed():
             for subform in formsetb :
-                if subform.has_changed:
-                    new_flujo = subform.cleaned_data['flujo']
-                    self.flujo = new_flujo
-                    new_userStory = subform.cleaned_data['userStory']
-                    print(new_userStory)
-                    new_desarrollador = subform.cleaned_data['desarrollador']
-                    new_userStory.desarrollador= new_desarrollador
-                    new_userStory.sprint= self.object
-                    new_userStory.actividad=self.flujo.actividad_set.first()
-                    new_userStory.save()
+                new_userStory = subform.cleaned_data['userStory']
+                new_flujo = subform.cleaned_data['flujo']
+                self.flujo = new_flujo
+                new_desarrollador = subform.cleaned_data['desarrollador']
+                new_userStory.desarrollador= new_desarrollador
+                new_userStory.sprint= self.object
+                new_userStory.actividad=self.flujo.actividad_set.first()
+                new_userStory.save()
             return HttpResponseRedirect(self.get_success_url())
-        return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
-                      context_instance=RequestContext(self.request))
+        else:
+           return HttpResponseRedirect(self.get_success_url())
