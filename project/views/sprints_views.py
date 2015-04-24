@@ -72,15 +72,14 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     def get_context_data(self, **kwargs):
         context = super(AddSprintView, self).get_context_data(**kwargs)
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
-
-        if self.request.method == 'GET':
-            formset=self.formset()
-            for userformset in formset.forms:
-                userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
-                userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
-                userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.proyecto)
-            context['formset'] = formset
+        formset=self.formset()
+        for userformset in formset.forms:
+            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
+            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
+            userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.proyecto)
+        context['formset'] = formset
         return context
+
 
 
     def form_valid(self, form):
@@ -126,7 +125,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                                    widgets={'inicio': SelectDateWidget},
                                    fields={'nombre', 'inicio'})
     UserStoryFormset = formset_factory(AddToSprintForm, extra=0)
-    formset = None
+
 
     def get_permission_object(self):
         """
@@ -148,16 +147,12 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         :return: los datos de contexto
         """
         context= super(UpdateSprintView,self).get_context_data(**kwargs)
-
-        if self.request.method == 'GET':
-            us = self.object.userstory_set.all()
-            initial = [{'userStory': u, 'desarrollador': u.desarrollador, 'flujo': u.actividad.flujo} for u in us]
-            self.formset = self.UserStoryFormset(initial=initial)
-            for userformset in self.formset.forms:
-                userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.object.proyecto)
-                userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.object.proyecto)
-                userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.object.proyecto)
-            context['formset'] = self.formset
+        formset=self.UserStoryFormset()
+        for userformset in formset.forms:
+            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.object.proyecto)
+            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.object.proyecto)
+            userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.object.proyecto)
+        context['formset'] = formset
         return context
 
     def form_valid(self, form):
@@ -170,7 +165,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         self.object= form.save(commit=False)
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.object.proyecto.duracion_sprint)
         self.object.save()
-        formsetb= self.formset(self.request.POST)
+        formsetb= self.UserStoryFormset(self.request.POST)
         if formsetb.has_changed():
             if formsetb.is_valid():
                 for subform in formsetb :
