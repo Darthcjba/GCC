@@ -2,18 +2,7 @@
 {% load static %}
 {% load bootstrap3 %}
 {% block title %}Formulario Sprint{% endblock %}
-{% block extrahead %}
-    <script src="{% static 'js/jquery.formset.js' %}"></script>
-    <script type="text/javascript">
-    $(function() {
-        $('.activity').formset({
-            prefix: '{{ formset.prefix }}',
-            addText: 'Agregar sprint',
-            deleteText: 'Eliminar'
-        });
-    })
-    </script>
-{% endblock %}
+
 {% block header %}Sprint{% endblock %}
 {% block content %}
 
@@ -23,7 +12,7 @@
             {{ form.as_p }}
         </div>
         <fieldset>
-            <legend> Agregar UserStory, Desarrollador y flujo</legend>
+            <legend> Agregar UserStory</legend>
             {{ formset.management_form }}
             {{ formset.non_form_errors }}
 
