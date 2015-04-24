@@ -125,7 +125,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                                    widgets={'inicio': SelectDateWidget},
                                    fields={'nombre', 'inicio'})
     UserStoryFormset = formset_factory(AddToSprintForm, extra=0)
-
+    formset = None
 
     def get_permission_object(self):
         """
@@ -147,7 +147,8 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         :return: los datos de contexto
         """
         context= super(UpdateSprintView,self).get_context_data(**kwargs)
-        formset=self.UserStoryFormset()
+        current_us = self.get_object().userstory_set.all()
+        formset= self.UserStoryFormset(initial=[{'userStory':us, 'flujo':us.actividad.flujo, 'desarrollador':us.desarrollador} for us in current_us])
         for userformset in formset.forms:
             userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.object.proyecto)
             userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.object.proyecto)
