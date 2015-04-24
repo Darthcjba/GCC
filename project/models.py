@@ -168,9 +168,12 @@ class UserStory(models.Model):
     ultimo_cambio = models.DateTimeField(auto_now=True)
     estado = models.IntegerField(choices=estado_choices, default=0)
     proyecto = models.ForeignKey(Proyecto)
-    desarrollador = models.ForeignKey(User, null=True)
+    desarrollador = models.ForeignKey(User, null=True, blank=True)
     sprint = models.ForeignKey(Sprint, null=True)
-    actividad = models.ForeignKey(Actividad, null=True)
+    actividad = models.ForeignKey(Actividad, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.nombre
 
     class Meta:
         verbose_name_plural = 'user stories'
