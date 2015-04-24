@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.forms.models import modelform_factory
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from guardian.mixins import PermissionRequiredMixin
+from django.views import generic
+from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
-from project.models import MiembroEquipo, Proyecto
+import reversion
+from project.models import MiembroEquipo, Proyecto, UserStory
+
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     accept_global_perms = True
@@ -39,13 +44,4 @@ def get_selected_perms(POST):
     current_list.extend(POST.getlist('perms_userstory'))
     current_list.extend(POST.getlist('perms_flujo'))
     current_list.extend(POST.getlist('perms_sprint'))
-    current_list.extend(POST.getlist('perms_actividad'))
     return current_list
-
-
-
-
-
-
-
-

@@ -40,10 +40,12 @@ INSTALLED_APPS = (
     'guardian',
     'django.contrib.admindocs',
     'bootstrap3',
-    'debug_toolbar',
+    #'debug_toolbar',
+    'reversion',
 )
 
 MIDDLEWARE_CLASSES = (
+    'reversion.middleware.RevisionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,16 +79,12 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-US'
 
 TIME_ZONE = 'UTC'
 
@@ -117,3 +115,14 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'projectium15@gmail.com'
 EMAIL_HOST_PASSWORD = 'projectium123'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "project.context_processors.nav_context_processor",
+)
