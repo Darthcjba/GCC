@@ -16,7 +16,6 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 import datetime
 
-
 class SprintList(LoginRequiredMixin, generic.ListView):
     """
     Vista de Listado de Sprint en el sistema
@@ -122,7 +121,8 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
     form_class = modelform_factory(Sprint,
                                    widgets={'inicio': SelectDateWidget},
                                    fields={'nombre', 'inicio'})
-    formset = formset_factory(AddToSprintForm, extra=1)
+    UserStoryFormset = formset_factory(AddToSprintForm, extra=0)
+    formset = None
 
     def get_permission_object(self):
         """
@@ -130,7 +130,6 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         :return: los permisos
         """
         return self.get_object().proyecto
-
 
     def get_success_url(self):
         """
@@ -144,15 +143,17 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         :param kwargs: Diccionario con parametros con nombres clave
         :return: los datos de contexto
         """
-        context=super(UpdateSprintView,self).get_context_data(**kwargs)
+        context= super(UpdateSprintView,self).get_context_data(**kwargs)
 
         if self.request.method == 'GET':
-            formset=self.formset()
-            for userformset in formset.forms:
+            us = self.object.userstory_set.all()
+            initial = [{'userStory': u, 'desarrollador': u.desarrollador, 'flujo': u.actividad.flujo} for u in us]
+            self.formset = self.UserStoryFormset(initial=initial)
+            for userformset in self.formset.forms:
                 userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.object.proyecto)
                 userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.object.proyecto)
                 userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.object.proyecto)
-            context['formset'] = formset
+            context['formset'] = self.formset
         return context
 
     def form_valid(self, form):
