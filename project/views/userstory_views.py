@@ -21,17 +21,10 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
     permission_required = 'project.view_project'
     context_object_name = 'userstories'
     project = None
-    sprint = None
-    sprint_backlog=False
 
     def get_permission_object(self):
-        if not self.sprint_backlog:
-            if not self.project:
-                self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
-        else:
-            if not self.project:
-                self.sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_pk'])
-                self.project = self.sprint.proyecto
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
         return self.project
 
     def get_context_data(self, **kwargs):
@@ -41,15 +34,9 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
     def get_queryset(self):
         manager = UserStory.objects
-        if not self.sprint_backlog:
-            if not self.project:
-                self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
-            return manager.filter(proyecto=self.project)
-        else:
-            if not self.sprint:
-                self.sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_pk'])
-                self.project = self.sprint.proyecto
-            return manager.filter(sprint=self.sprint)
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return manager.filter(proyecto=self.project)
 
 class UserStoryDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
