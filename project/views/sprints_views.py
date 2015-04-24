@@ -124,7 +124,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
     form_class = modelform_factory(Sprint,
                                    widgets={'inicio': SelectDateWidget},
                                    fields={'nombre', 'inicio'})
-    UserStoryFormset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, extra=1)
+    UserStoryFormset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, can_delete=True, extra=1)
     formset = None
 
     def get_permission_object(self):
@@ -168,17 +168,22 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         self.object.save()
         formsetb= self.UserStoryFormset(self.request.POST)
         if formsetb.is_valid():
-
-                for subform in formsetb :
-                    new_userStory = subform.cleaned_data['userStory']
+            for subform in formsetb:
+                new_userStory = subform.cleaned_data['userStory']
+                if subform in formsetb.deleted_forms:
+                    # desaciamos los user story que se eliminaron del form
+                    new_userStory.desarrollador = None
+                    new_userStory.sprint = None
+                    new_userStory.actividad = None
+                else:
                     new_flujo = subform.cleaned_data['flujo']
                     self.flujo = new_flujo
                     new_desarrollador = subform.cleaned_data['desarrollador']
-                    new_userStory.desarrollador= new_desarrollador
-                    new_userStory.sprint= self.object
-                    new_userStory.actividad=self.flujo.actividad_set.first()
-                    new_userStory.save()
-                return HttpResponseRedirect(self.get_success_url())
+                    new_userStory.desarrollador = new_desarrollador
+                    new_userStory.sprint = self.object
+                    new_userStory.actividad = self.flujo.actividad_set.first()
+                new_userStory.save()
+            return HttpResponseRedirect(self.get_success_url())
 
         return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
                       context_instance=RequestContext(self.request))

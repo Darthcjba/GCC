@@ -34,6 +34,7 @@
             {%for form in formset%}
                 {{ form.id }}
                 <div class="teammember" id="teammember-{{ forloop.counter0 }}">
+                    {{ form.DELETE }}
                     {% bootstrap_form form %}
 
             </div>
