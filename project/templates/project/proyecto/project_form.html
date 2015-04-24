@@ -60,14 +60,3 @@
     </form>
 {% endblock %}
 
-{% block extra_js %}
-    <script type="text/javascript">
-        $('.adder').click(function (ev) {
-            var formset = $('.team-members').children('div').djangoFormset({
-                deleteButtonText: 'Borrar'
-            });
-            formset.addForm();
-        });
-    </script>
-
-{% endblock %}

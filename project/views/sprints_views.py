@@ -106,7 +106,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                     new_userStory.sprint= self.object
                     new_userStory.actividad=self.flujo.actividad_set.first()
                     new_userStory.save()
-                    return HttpResponseRedirect(self.get_success_url())
+                return HttpResponseRedirect(self.get_success_url())
             else:
                 return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
                       context_instance=RequestContext(self.request))
@@ -167,8 +167,8 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.object.proyecto.duracion_sprint)
         self.object.save()
         formsetb= self.UserStoryFormset(self.request.POST)
-        if formsetb.has_changed():
-            if formsetb.is_valid():
+        if formsetb.is_valid():
+
                 for subform in formsetb :
                     new_userStory = subform.cleaned_data['userStory']
                     new_flujo = subform.cleaned_data['flujo']
@@ -178,9 +178,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                     new_userStory.sprint= self.object
                     new_userStory.actividad=self.flujo.actividad_set.first()
                     new_userStory.save()
-                    return HttpResponseRedirect(self.get_success_url())
-            else:
-                return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
+                return HttpResponseRedirect(self.get_success_url())
+
+        return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
                       context_instance=RequestContext(self.request))
-        else:
-            return HttpResponseRedirect(self.get_success_url())

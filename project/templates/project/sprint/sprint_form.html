@@ -2,10 +2,25 @@
 {% load static %}
 {% load bootstrap3 %}
 {% block title %}Formulario Sprint{% endblock %}
-
 {% block header %}Sprint{% endblock %}
+{% block extrahead %}
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.teammember').formset({
+                prefix: '{{ formset.prefix }}',
+                addText: 'Agregar UserStory',
+                deleteText: 'Eliminar'
+            });
+        })
+    </script>
+{% endblock %}
 {% block content %}
-
+    <style>
+        .empty-form {
+            display: none;
+        }
+    </style>
     <form action="" method="post">
         {% csrf_token %}
         <div>
@@ -15,15 +30,16 @@
             <legend> Agregar UserStory</legend>
             {{ formset.management_form }}
             {{ formset.non_form_errors }}
-
+            <div class="row top-buffer team-members">
             {%for form in formset%}
                 {{ form.id }}
-                <div  class="form-group activity">
+                <div class="teammember" id="teammember-{{ forloop.counter0 }}">
                     {% bootstrap_form form %}
 
             </div>
 
             {% endfor %}
+            </div>
         </fieldset>
         <input type="submit" value="Agregar" class="btn btn-default"/>
     </form>
