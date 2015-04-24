@@ -187,15 +187,15 @@ class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Lis
         return context
 
 class UpdateVersion(UpdateUserStory):
-    """
+    '''
     Vista que permite revertir un User Story a una version anterior.
-    """
+    '''
     version = None
 
     def get_initial(self):
         """
         Obtiene la version deseada del User Story.
-        :return:
+        :return: diccionarnio con los datos de la version anterior.
         """
         version_pk = self.kwargs['version_pk']
         self.version = get_object_or_404(reversion.models.Version, pk=version_pk)
