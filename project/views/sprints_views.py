@@ -33,7 +33,7 @@ class SprintList(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         project_pk = self.kwargs['project_pk']
         self.project = get_object_or_404(Proyecto, pk=project_pk)
-        return Flujo.objects.filter(proyecto=self.project)
+        return Sprint.objects.filter(proyecto=self.project)
 
 class SprintDetail(LoginRequiredMixin, generic.DetailView):
     """
