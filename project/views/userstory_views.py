@@ -48,6 +48,7 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         else:
             if not self.sprint:
                 self.sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_pk'])
+                self.project = self.sprint.proyecto
             return manager.filter(sprint=self.sprint)
 
 class UserStoryDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
