@@ -166,16 +166,15 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.object.proyecto.duracion_sprint)
         self.object.save()
         formsetb= self.formset(self.request.POST)
-        if formsetb.has_changed():
+        if formsetb.is_valid():
             for subform in formsetb :
-                new_userStory = subform.cleaned_data['userStory']
-                new_flujo = subform.cleaned_data['flujo']
-                self.flujo = new_flujo
-                new_desarrollador = subform.cleaned_data['desarrollador']
-                new_userStory.desarrollador= new_desarrollador
-                new_userStory.sprint= self.object
-                new_userStory.actividad=self.flujo.actividad_set.first()
-                new_userStory.save()
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-           return HttpResponseRedirect(self.get_success_url())
+                if 'UserStory' in subform.cleaned_data:
+                    new_userStory = subform.cleaned_data['userStory']
+                    new_flujo = subform.cleaned_data['flujo']
+                    self.flujo = new_flujo
+                    new_desarrollador = subform.cleaned_data['desarrollador']
+                    new_userStory.desarrollador= new_desarrollador
+                    new_userStory.sprint= self.object
+                    new_userStory.actividad=self.flujo.actividad_set.first()
+                    new_userStory.save()
+        return HttpResponseRedirect(self.get_success_url())
