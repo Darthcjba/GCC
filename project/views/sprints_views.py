@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms
-from project.forms import AddToSprintForm
+from project.forms import AddToSprintForm, AddToSprintFormset
 from project.models import Sprint, Proyecto, Actividad, Flujo, UserStory
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 from django.views import generic
@@ -59,7 +59,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     form_class = modelform_factory(Sprint,
                                    widgets={'inicio': SelectDateWidget},
                                    fields={'nombre', 'inicio'})
-    formset = formset_factory(AddToSprintForm, extra=1)
+    formset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, extra=1)
 
     proyecto = None
 
@@ -124,7 +124,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
     form_class = modelform_factory(Sprint,
                                    widgets={'inicio': SelectDateWidget},
                                    fields={'nombre', 'inicio'})
-    UserStoryFormset = formset_factory(AddToSprintForm, extra=0)
+    UserStoryFormset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, extra=1)
     formset = None
 
     def get_permission_object(self):
