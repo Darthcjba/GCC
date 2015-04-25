@@ -444,7 +444,7 @@ class PlantillaTest(TestCase):
         response = c.get('/plantilla/1/delete/')
         self.assertEquals(response.status_code, 403)
 
-class UserStory(TestCase):
+class UserStoryTest(TestCase):
     def setUp(self):
         u = User.objects.create_superuser('test', 'test@test.com', 'test') #Superusuario con todos los permisos
         u2 = User.objects.create_user('none', 'none@none.com', 'none') #Usuario sin permisos
@@ -593,7 +593,7 @@ class SprintTest(TestCase):
                            valor_negocio= 10, valor_tecnico= 10, tiempo_estimado =10, proyecto = pro)
             f=Flujo.objects.create(nombre ='flujo_test', proyecto= pro)
             Actividad.objects.create(name='actividad_test', flujo=f)
-            Sprint.objects.create(nombre='sprint_test', proyecto=pro)
+            Sprint.objects.create(nombre='sprint_test',inicio=timezone.now(),fin=timezone.now(), proyecto=pro)
 
         def test_to_create_sprint(self):
             c = self.client
