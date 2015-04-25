@@ -127,7 +127,7 @@ class AddToSprintFormset(BaseFormSet):
 
         userstories = []
         for form in self.forms:
-            if 'userStory' in form.cleaned_data:
+            if 'userStory' in form.cleaned_data and not form in self.deleted_forms:
                 us = form.cleaned_data['userStory']
                 if us in userstories:
                     raise forms.ValidationError("Un mismo User Story puede aparecer sólo una vez en el sprint.")
