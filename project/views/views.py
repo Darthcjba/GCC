@@ -12,11 +12,17 @@ from project.models import MiembroEquipo, Proyecto, UserStory
 
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
+    '''
+    Mixin que permite requerir un permiso
+    '''
     accept_global_perms = True
     return_403 = True
     raise_exception = True
 
 class CreateViewPermissionRequiredMixin(GlobalPermissionRequiredMixin):
+    '''
+    Mixin que permite requerir un permiso
+    '''
     def get_object(self):
         return None
 

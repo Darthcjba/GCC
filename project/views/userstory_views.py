@@ -168,6 +168,9 @@ class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Lis
     permission_required = 'project.edit_userstory'
 
     def get_permission_object(self):
+        '''
+        Obtiene el user story
+        '''
         us_pk = self.kwargs['pk']
         self.us = get_object_or_404(UserStory, pk=us_pk)
         return self.us.proyecto
