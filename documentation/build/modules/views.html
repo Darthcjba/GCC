@@ -103,8 +103,1728 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="module-project.views">
-<span id="views"></span><h1>Views<a class="headerlink" href="#module-project.views" title="Enlazar permanentemente con este título">¶</a></h1>
+  <div class="section" id="module-project.views.flujo_views">
+<span id="views"></span><h1>Views<a class="headerlink" href="#module-project.views.flujo_views" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="class">
+<dt id="project.views.flujo_views.AddFlujo">
+<em class="property">class </em><code class="descclassname">project.views.flujo_views.</code><code class="descname">AddFlujo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#AddFlujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.AddFlujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="attribute">
+<dt id="project.views.flujo_views.AddFlujo.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.flujo_views.AddFlujo.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">FlujosCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.AddFlujo.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#AddFlujo.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.AddFlujo.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.AddFlujo.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#AddFlujo.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.AddFlujo.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.AddFlujo.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#AddFlujo.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.AddFlujo.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Objeto por el cual comprobar el permiso</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.AddFlujo.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#AddFlujo.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.AddFlujo.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.AddFlujo.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.flujo_views.AddFlujo.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.AddFlujo.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.create_flujo'</em><a class="headerlink" href="#project.views.flujo_views.AddFlujo.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.AddFlujo.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo/flujo_form.html'</em><a class="headerlink" href="#project.views.flujo_views.AddFlujo.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.flujo_views.CreateFromPlantilla">
+<em class="property">class </em><code class="descclassname">project.views.flujo_views.</code><code class="descname">CreateFromPlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#CreateFromPlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.CreateFromPlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.FormView</span></code></p>
+<p>Vista de creación a partir de plantillas</p>
+<dl class="attribute">
+<dt id="project.views.flujo_views.CreateFromPlantilla.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.flujo_views.CreateFromPlantilla.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">CreateFromPlantillaForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.CreateFromPlantilla.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#CreateFromPlantilla.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.CreateFromPlantilla.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.CreateFromPlantilla.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#CreateFromPlantilla.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.CreateFromPlantilla.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.CreateFromPlantilla.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#CreateFromPlantilla.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.CreateFromPlantilla.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.CreateFromPlantilla.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.create_flujo'</em><a class="headerlink" href="#project.views.flujo_views.CreateFromPlantilla.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.CreateFromPlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo/flujo_createcopy.html'</em><a class="headerlink" href="#project.views.flujo_views.CreateFromPlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.flujo_views.DeleteFlujo">
+<em class="property">class </em><code class="descclassname">project.views.flujo_views.</code><code class="descname">DeleteFlujo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#DeleteFlujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.DeleteFlujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista de Eliminacion de Flujos</p>
+<dl class="attribute">
+<dt id="project.views.flujo_views.DeleteFlujo.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'flujo'</em><a class="headerlink" href="#project.views.flujo_views.DeleteFlujo.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.DeleteFlujo.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#DeleteFlujo.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.DeleteFlujo.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.DeleteFlujo.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#DeleteFlujo.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.DeleteFlujo.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.DeleteFlujo.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.flujo_views.DeleteFlujo.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.DeleteFlujo.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.delete_flujo'</em><a class="headerlink" href="#project.views.flujo_views.DeleteFlujo.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.DeleteFlujo.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo/flujo_delete.html'</em><a class="headerlink" href="#project.views.flujo_views.DeleteFlujo.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.flujo_views.FlujoDetail">
+<em class="property">class </em><code class="descclassname">project.views.flujo_views.</code><code class="descname">FlujoDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#FlujoDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.FlujoDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de un flujo</p>
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'flujo'</em><a class="headerlink" href="#project.views.flujo_views.FlujoDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.FlujoDetail.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#FlujoDetail.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.FlujoDetail.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar lista de actividades al contexto
+:param kwargs: diccionario de argumentos claves
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.FlujoDetail.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#FlujoDetail.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.FlujoDetail.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Objeto por el cual comprobar el permiso</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.flujo_views.FlujoDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoDetail.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.view_project'</em><a class="headerlink" href="#project.views.flujo_views.FlujoDetail.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo/flujo_detail.html'</em><a class="headerlink" href="#project.views.flujo_views.FlujoDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.flujo_views.FlujoList">
+<em class="property">class </em><code class="descclassname">project.views.flujo_views.</code><code class="descname">FlujoList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#FlujoList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.FlujoList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista de Listado de Flujos en el sistema</p>
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'flujos'</em><a class="headerlink" href="#project.views.flujo_views.FlujoList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.FlujoList.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#FlujoList.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.FlujoList.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.FlujoList.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#FlujoList.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.FlujoList.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.FlujoList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#FlujoList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.FlujoList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.flujo_views.FlujoList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoList.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.view_project'</em><a class="headerlink" href="#project.views.flujo_views.FlujoList.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoList.project">
+<code class="descname">project</code><em class="property"> = None</em><a class="headerlink" href="#project.views.flujo_views.FlujoList.project" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.FlujoList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo/flujo_list.html'</em><a class="headerlink" href="#project.views.flujo_views.FlujoList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.flujo_views.UpdateFlujo">
+<em class="property">class </em><code class="descclassname">project.views.flujo_views.</code><code class="descname">UpdateFlujo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#UpdateFlujo"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="attribute">
+<dt id="project.views.flujo_views.UpdateFlujo.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">FlujosCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.UpdateFlujo.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#UpdateFlujo.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.UpdateFlujo.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#UpdateFlujo.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.UpdateFlujo.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#UpdateFlujo.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.flujo_views.UpdateFlujo.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/flujo_views.html#UpdateFlujo.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.UpdateFlujo.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.UpdateFlujo.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.edit_flujo'</em><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.flujo_views.UpdateFlujo.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/flujo/flujo_form.html'</em><a class="headerlink" href="#project.views.flujo_views.UpdateFlujo.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-project.views.plantilla_views"></span><dl class="class">
+<dt id="project.views.plantilla_views.AddPlantilla">
+<em class="property">class </em><code class="descclassname">project.views.plantilla_views.</code><code class="descname">AddPlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#AddPlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="attribute">
+<dt id="project.views.plantilla_views.AddPlantilla.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">PlantillaCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.plantilla_views.AddPlantilla.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#AddPlantilla.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.plantilla_views.AddPlantilla.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#AddPlantilla.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.plantilla_views.AddPlantilla.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#AddPlantilla.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.AddPlantilla.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.AddPlantilla.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.add_flow_template'</em><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.AddPlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_form.html'</em><a class="headerlink" href="#project.views.plantilla_views.AddPlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.plantilla_views.DeletePlantilla">
+<em class="property">class </em><code class="descclassname">project.views.plantilla_views.</code><code class="descname">DeletePlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#DeletePlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.DeletePlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista de Eliminacion de Plantillas</p>
+<dl class="attribute">
+<dt id="project.views.plantilla_views.DeletePlantilla.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'plantilla'</em><a class="headerlink" href="#project.views.plantilla_views.DeletePlantilla.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.DeletePlantilla.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.plantilla_views.DeletePlantilla.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.DeletePlantilla.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.delete_flow_template'</em><a class="headerlink" href="#project.views.plantilla_views.DeletePlantilla.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.DeletePlantilla.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.plantilla_views.DeletePlantilla.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.DeletePlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_delete.html'</em><a class="headerlink" href="#project.views.plantilla_views.DeletePlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.plantilla_views.PlantillaDetail">
+<em class="property">class </em><code class="descclassname">project.views.plantilla_views.</code><code class="descname">PlantillaDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#PlantillaDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.PlantillaDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de una Plantilla</p>
+<dl class="attribute">
+<dt id="project.views.plantilla_views.PlantillaDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'plantilla'</em><a class="headerlink" href="#project.views.plantilla_views.PlantillaDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.PlantillaDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.plantilla_views.PlantillaDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.PlantillaDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_detail.html'</em><a class="headerlink" href="#project.views.plantilla_views.PlantillaDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.plantilla_views.PlantillaList">
+<em class="property">class </em><code class="descclassname">project.views.plantilla_views.</code><code class="descname">PlantillaList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#PlantillaList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.PlantillaList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista de Listado de Plantillas en el sistema</p>
+<dl class="attribute">
+<dt id="project.views.plantilla_views.PlantillaList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'plantillas'</em><a class="headerlink" href="#project.views.plantilla_views.PlantillaList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.PlantillaList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.plantilla_views.PlantillaList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.PlantillaList.queryset">
+<code class="descname">queryset</code><em class="property"> = [&lt;Flujo: Desarrollo&gt;]</em><a class="headerlink" href="#project.views.plantilla_views.PlantillaList.queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.PlantillaList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_list.html'</em><a class="headerlink" href="#project.views.plantilla_views.PlantillaList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.plantilla_views.UpdatePlantilla">
+<em class="property">class </em><code class="descclassname">project.views.plantilla_views.</code><code class="descname">UpdatePlantilla</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#UpdatePlantilla"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>View que agrega un flujo al sistema</p>
+<dl class="attribute">
+<dt id="project.views.plantilla_views.UpdatePlantilla.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">PlantillaCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.plantilla_views.UpdatePlantilla.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#UpdatePlantilla.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de flujo para asociar con la actividad
+:param form: formulario recibido
+:param actividad_form: formulario recibido de actividad
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.plantilla_views.UpdatePlantilla.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#UpdatePlantilla.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.plantilla_views.UpdatePlantilla.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/plantilla_views.html#UpdatePlantilla.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del flujo agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.UpdatePlantilla.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Flujo</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.UpdatePlantilla.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.change_flow_template'</em><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.plantilla_views.UpdatePlantilla.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/plantilla/plantilla_form.html'</em><a class="headerlink" href="#project.views.plantilla_views.UpdatePlantilla.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-project.views.proyecto_views"></span><dl class="class">
+<dt id="project.views.proyecto_views.ProjectCreate">
+<em class="property">class </em><code class="descclassname">project.views.proyecto_views.</code><code class="descname">ProjectCreate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectCreate"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>Permite la creacion de Proyectos</p>
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectCreate.TeamMemberInlineFormSet">
+<code class="descname">TeamMemberInlineFormSet</code><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate.TeamMemberInlineFormSet" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">MiembroEquipoFormFormSet</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectCreate.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">ProyectoForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.proyecto_views.ProjectCreate.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectCreate.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda los miembros de equipo especificados asociados al proyecto.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario del proyecto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.proyecto_views.ProjectCreate.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectCreate.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectCreate.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectCreate.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.add_proyecto'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectCreate.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/proyecto/project_form.html'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectCreate.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.proyecto_views.ProjectDelete">
+<em class="property">class </em><code class="descclassname">project.views.proyecto_views.</code><code class="descname">ProjectDelete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectDelete"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectDelete" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista para la cancelacion de proyectos</p>
+<dl class="method">
+<dt id="project.views.proyecto_views.ProjectDelete.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectDelete.delete"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectDelete.delete" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Llama al metodo delete() del objeto
+y luego redirige a la url exitosa.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDelete.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.proyecto_views.ProjectDelete.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDelete.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.delete_proyecto'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectDelete.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDelete.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.proyecto_views.ProjectDelete.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDelete.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/proyecto/proyect_delete.html'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectDelete.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.proyecto_views.ProjectDetail">
+<em class="property">class </em><code class="descclassname">project.views.proyecto_views.</code><code class="descname">ProjectDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de Proyecto</p>
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'project'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.proyecto_views.ProjectDetail.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectDetail.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectDetail.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.proyecto_views.ProjectDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDetail.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.view_project'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectDetail.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/proyecto/project_detail.html'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.proyecto_views.ProjectList">
+<em class="property">class </em><code class="descclassname">project.views.proyecto_views.</code><code class="descname">ProjectList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Listado de Proyectos</p>
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'projects'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.proyecto_views.ProjectList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener proyectos del Sistema.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">lista de proyectos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.proyecto_views.ProjectList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectList.show_cancelled">
+<code class="descname">show_cancelled</code><em class="property"> = False</em><a class="headerlink" href="#project.views.proyecto_views.ProjectList.show_cancelled" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/proyecto/project_list.html'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.proyecto_views.ProjectUpdate">
+<em class="property">class </em><code class="descclassname">project.views.proyecto_views.</code><code class="descname">ProjectUpdate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectUpdate"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>Permite la Edicion de Proyectos</p>
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectUpdate.TeamMemberInlineFormSet">
+<code class="descname">TeamMemberInlineFormSet</code><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate.TeamMemberInlineFormSet" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">MiembroEquipoFormFormSet</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectUpdate.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">ProyectoForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.proyecto_views.ProjectUpdate.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectUpdate.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>actualiza los miembros del equipo del proyecto que se hayan especifico</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario de edición del proyecto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.proyecto_views.ProjectUpdate.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/proyecto_views.html#ProjectUpdate.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Especifica los datos de contexto a pasar al template
+:param kwargs: Diccionario con parametros con nombres clave</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectUpdate.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Proyecto</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectUpdate.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.change_proyecto'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.proyecto_views.ProjectUpdate.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/proyecto/project_form.html'</em><a class="headerlink" href="#project.views.proyecto_views.ProjectUpdate.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-project.views.rol_views"></span><dl class="class">
+<dt id="project.views.rol_views.AddRolView">
+<em class="property">class </em><code class="descclassname">project.views.rol_views.</code><code class="descname">AddRolView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#AddRolView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.AddRolView" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>View que agrega un rol al sistema</p>
+<dl class="attribute">
+<dt id="project.views.rol_views.AddRolView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.rol_views.AddRolView.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">RolForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.rol_views.AddRolView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#AddRolView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.AddRolView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario recibido</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">URL de redireccion</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.rol_views.AddRolView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#AddRolView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.AddRolView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>kwargs</strong> &#8211; argumentos clave</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">contexto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.rol_views.AddRolView.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#AddRolView.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.AddRolView.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del rol editado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.AddRolView.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.rol_views.AddRolView.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Group</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.AddRolView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'auth.add_group'</em><a class="headerlink" href="#project.views.rol_views.AddRolView.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.AddRolView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/rol/rol_form.html'</em><a class="headerlink" href="#project.views.rol_views.AddRolView.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.rol_views.DeleteRolView">
+<em class="property">class </em><code class="descclassname">project.views.rol_views.</code><code class="descname">DeleteRolView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#DeleteRolView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.DeleteRolView" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista de Eliminacion de Roles</p>
+<dl class="method">
+<dt id="project.views.rol_views.DeleteRolView.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#DeleteRolView.delete"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.DeleteRolView.delete" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Borrar permisos en miembros que hayan tenido este rol asignado luego de eliminar el rol</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><ul class="first simple">
+<li><strong>request</strong> &#8211; request del cliente</li>
+<li><strong>args</strong> &#8211; lista de argumentos</li>
+<li><strong>kwargs</strong> &#8211; lista de argumentos con palabras claves</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body"><p class="first last">HttpResponseRedirect a la nueva URL</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.DeleteRolView.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.rol_views.DeleteRolView.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Group</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.DeleteRolView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'auth.delete_group'</em><a class="headerlink" href="#project.views.rol_views.DeleteRolView.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.DeleteRolView.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.rol_views.DeleteRolView.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.DeleteRolView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/rol/rol_delete.html'</em><a class="headerlink" href="#project.views.rol_views.DeleteRolView.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.rol_views.RolDetail">
+<em class="property">class </em><code class="descclassname">project.views.rol_views.</code><code class="descname">RolDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#RolDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.RolDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de Rol</p>
+<dl class="attribute">
+<dt id="project.views.rol_views.RolDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'rol'</em><a class="headerlink" href="#project.views.rol_views.RolDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.RolDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.rol_views.RolDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Group</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.RolDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/rol/rol_detail.html'</em><a class="headerlink" href="#project.views.rol_views.RolDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.rol_views.RolList">
+<em class="property">class </em><code class="descclassname">project.views.rol_views.</code><code class="descname">RolList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#RolList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.RolList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista de Listado de Roles</p>
+<dl class="attribute">
+<dt id="project.views.rol_views.RolList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'roles'</em><a class="headerlink" href="#project.views.rol_views.RolList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.RolList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.rol_views.RolList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Group</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.RolList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/rol/rol_list.html'</em><a class="headerlink" href="#project.views.rol_views.RolList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.rol_views.UpdateRolView">
+<em class="property">class </em><code class="descclassname">project.views.rol_views.</code><code class="descname">UpdateRolView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#UpdateRolView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.UpdateRolView" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>Vista de Actualizacion de Roles</p>
+<dl class="attribute">
+<dt id="project.views.rol_views.UpdateRolView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.rol_views.UpdateRolView.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">RolForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.rol_views.UpdateRolView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#UpdateRolView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.UpdateRolView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario recibido</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">URL de redireccion correcta</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.rol_views.UpdateRolView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#UpdateRolView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.UpdateRolView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos adicionales al contexto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>kwargs</strong> &#8211; argumentos clave</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">contexto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.rol_views.UpdateRolView.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#UpdateRolView.get_initial"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.UpdateRolView.get_initial" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener datos iniciales para el formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">diccionario de datos iniciales</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.rol_views.UpdateRolView.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/rol_views.html#UpdateRolView.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.rol_views.UpdateRolView.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">URL de redireccion correcta a UserDetail</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.UpdateRolView.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.rol_views.UpdateRolView.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Group</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.UpdateRolView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'auth.change_group'</em><a class="headerlink" href="#project.views.rol_views.UpdateRolView.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.rol_views.UpdateRolView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/rol/rol_form.html'</em><a class="headerlink" href="#project.views.rol_views.UpdateRolView.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-project.views.sprints_views"></span><dl class="class">
+<dt id="project.views.sprints_views.AddSprintView">
+<em class="property">class </em><code class="descclassname">project.views.sprints_views.</code><code class="descname">AddSprintView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#AddSprintView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.AddSprintView" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>Vista para agregar un Sprint en el sistema y añadir este sprint, un desarrollador y una actividad al user Story</p>
+<dl class="attribute">
+<dt id="project.views.sprints_views.AddSprintView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.sprints_views.AddSprintView.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">SprintForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.AddSprintView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#AddSprintView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.AddSprintView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda el desarrollador, actividad y sprint asociado al un projecto dentro de un User Story
+:param form: formulario del sprint
+:return: vuelve a la pagina de detalle del sprint</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.AddSprintView.formset">
+<code class="descname">formset</code><a class="headerlink" href="#project.views.sprints_views.AddSprintView.formset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">AddToSprintFormFormSet</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.AddSprintView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#AddSprintView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.AddSprintView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.AddSprintView.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#AddSprintView.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.AddSprintView.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.AddSprintView.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#AddSprintView.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.AddSprintView.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.AddSprintView.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.sprints_views.AddSprintView.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Sprint</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.AddSprintView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.create_sprint'</em><a class="headerlink" href="#project.views.sprints_views.AddSprintView.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.AddSprintView.proyecto">
+<code class="descname">proyecto</code><em class="property"> = None</em><a class="headerlink" href="#project.views.sprints_views.AddSprintView.proyecto" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.AddSprintView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/sprint/sprint_form.html'</em><a class="headerlink" href="#project.views.sprints_views.AddSprintView.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.sprints_views.SprintDetail">
+<em class="property">class </em><code class="descclassname">project.views.sprints_views.</code><code class="descname">SprintDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#SprintDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.SprintDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista del detalle de un Sprint en el sistema</p>
+<dl class="attribute">
+<dt id="project.views.sprints_views.SprintDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'sprint'</em><a class="headerlink" href="#project.views.sprints_views.SprintDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.SprintDetail.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#SprintDetail.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.SprintDetail.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.SprintDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.sprints_views.SprintDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Sprint</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.SprintDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/sprint/sprint_detail.html'</em><a class="headerlink" href="#project.views.sprints_views.SprintDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.sprints_views.SprintList">
+<em class="property">class </em><code class="descclassname">project.views.sprints_views.</code><code class="descname">SprintList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#SprintList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.SprintList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista de Listado de Sprint en el sistema</p>
+<dl class="attribute">
+<dt id="project.views.sprints_views.SprintList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'sprint'</em><a class="headerlink" href="#project.views.sprints_views.SprintList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.SprintList.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#SprintList.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.SprintList.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.SprintList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#SprintList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.SprintList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.SprintList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.sprints_views.SprintList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Sprint</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.SprintList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/sprint/sprint_list.html'</em><a class="headerlink" href="#project.views.sprints_views.SprintList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.sprints_views.UpdateSprintView">
+<em class="property">class </em><code class="descclassname">project.views.sprints_views.</code><code class="descname">UpdateSprintView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#UpdateSprintView"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>Vista para actualizar los datos del Sprint y  del UserStory que son el desarrollador, la actividad y el Sprint</p>
+<dl class="attribute">
+<dt id="project.views.sprints_views.UpdateSprintView.UserStoryFormset">
+<code class="descname">UserStoryFormset</code><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.UserStoryFormset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">AddToSprintFormFormSet</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.UpdateSprintView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">SprintForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.UpdateSprintView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#UpdateSprintView.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Guarda el desarrollador, actividad y sprint asociado al un projecto dentro de un User Story
+:param form: formulario del sprint
+:return: vuelve a la pagina de detalle del sprint</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.UpdateSprintView.formset">
+<code class="descname">formset</code><em class="property"> = None</em><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.formset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.UpdateSprintView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#UpdateSprintView.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Especifica los datos de contexto a pasar al template
+:param kwargs: Diccionario con parametros con nombres clave
+:return: los datos de contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.UpdateSprintView.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#UpdateSprintView.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>permiso para add, edit o delete
+:return: los permisos</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.sprints_views.UpdateSprintView.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/sprints_views.html#UpdateSprintView.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del sprint agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.UpdateSprintView.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">Sprint</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.UpdateSprintView.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.edit_sprint'</em><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.sprints_views.UpdateSprintView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/sprint/sprint_form.html'</em><a class="headerlink" href="#project.views.sprints_views.UpdateSprintView.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-project.views.user_views"></span><dl class="class">
+<dt id="project.views.user_views.AddUser">
+<em class="property">class </em><code class="descclassname">project.views.user_views.</code><code class="descname">AddUser</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#AddUser"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.AddUser" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>Agregar un Usuario al Sistema</p>
+<dl class="attribute">
+<dt id="project.views.user_views.AddUser.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.user_views.AddUser.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserCreateForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.user_views.AddUser.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#AddUser.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.AddUser.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Verificar validez del formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; formulario completado</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">Url de Evento Correcto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.user_views.AddUser.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#AddUser.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.AddUser.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Retorna una los usuarios excluyendo el AnonymousUser</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">url del UserDetail</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.AddUser.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.user_views.AddUser.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.AddUser.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'auth.add_user'</em><a class="headerlink" href="#project.views.user_views.AddUser.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.AddUser.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/user/user_form.html'</em><a class="headerlink" href="#project.views.user_views.AddUser.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.user_views.DeleteUser">
+<em class="property">class </em><code class="descclassname">project.views.user_views.</code><code class="descname">DeleteUser</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#DeleteUser"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.DeleteUser" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Eliminar un Usuario del Sistema</p>
+<dl class="attribute">
+<dt id="project.views.user_views.DeleteUser.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'usuario'</em><a class="headerlink" href="#project.views.user_views.DeleteUser.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.DeleteUser.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.user_views.DeleteUser.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.DeleteUser.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'auth.delete_user'</em><a class="headerlink" href="#project.views.user_views.DeleteUser.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.DeleteUser.success_url">
+<code class="descname">success_url</code><em class="property"> = &lt;django.utils.functional.__proxy__ object&gt;</em><a class="headerlink" href="#project.views.user_views.DeleteUser.success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.DeleteUser.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/user/user_delete.html'</em><a class="headerlink" href="#project.views.user_views.DeleteUser.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.user_views.UpdateUser">
+<em class="property">class </em><code class="descclassname">project.views.user_views.</code><code class="descname">UpdateUser</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UpdateUser"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UpdateUser" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>Actualizar un Usuario del Sistema</p>
+<dl class="attribute">
+<dt id="project.views.user_views.UpdateUser.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.user_views.UpdateUser.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.user_views.UpdateUser.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UpdateUser.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UpdateUser.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario recibido</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>form</strong> &#8211; Formulario recibido</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">URL de evento correcto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.user_views.UpdateUser.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UpdateUser.get_initial"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UpdateUser.get_initial" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener datos iniciales para el formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">diccionario con los datos iniciales</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.user_views.UpdateUser.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UpdateUser.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UpdateUser.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener url de evento correcto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">url de UserDetail</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.UpdateUser.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.user_views.UpdateUser.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.UpdateUser.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'auth.change_user'</em><a class="headerlink" href="#project.views.user_views.UpdateUser.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.UpdateUser.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/user/user_form.html'</em><a class="headerlink" href="#project.views.user_views.UpdateUser.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.user_views.UserDetail">
+<em class="property">class </em><code class="descclassname">project.views.user_views.</code><code class="descname">UserDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UserDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UserDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Ver detalles de Usuario</p>
+<dl class="attribute">
+<dt id="project.views.user_views.UserDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'usuario'</em><a class="headerlink" href="#project.views.user_views.UserDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.user_views.UserDetail.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UserDetail.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UserDetail.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar lista de proyectos al contexto</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>kwargs</strong> &#8211; diccionario de argumentos claves</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">contexto</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.UserDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.user_views.UserDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.UserDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/user/user_detail.html'</em><a class="headerlink" href="#project.views.user_views.UserDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.user_views.UserList">
+<em class="property">class </em><code class="descclassname">project.views.user_views.</code><code class="descname">UserList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UserList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UserList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Lista de usuarios.</p>
+<dl class="attribute">
+<dt id="project.views.user_views.UserList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'users'</em><a class="headerlink" href="#project.views.user_views.UserList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.user_views.UserList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/user_views.html#UserList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.user_views.UserList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Retorna una los usuarios excluyendo el AnonymousUser</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">lista de usuarios</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.UserList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.user_views.UserList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">User</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.user_views.UserList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/user/user_list.html'</em><a class="headerlink" href="#project.views.user_views.UserList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-project.views.userstory_views"></span><dl class="class">
+<dt id="project.views.userstory_views.AddUserStory">
+<em class="property">class </em><code class="descclassname">project.views.userstory_views.</code><code class="descname">AddUserStory</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#AddUserStory"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.AddUserStory" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.CreateViewPermissionRequiredMixin" title="project.views.views.CreateViewPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.CreateViewPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>View que agrega un user story al sistema</p>
+<dl class="attribute">
+<dt id="project.views.userstory_views.AddUserStory.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.userstory_views.AddUserStory.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserStoryForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.AddUserStory.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#AddUserStory.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.AddUserStory.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario.
+:param form: formulario recibido
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.AddUserStory.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#AddUserStory.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.AddUserStory.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Objeto por el cual comprobar el permiso</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.AddUserStory.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#AddUserStory.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.AddUserStory.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del user story agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.AddUserStory.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.userstory_views.AddUserStory.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserStory</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.AddUserStory.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.create_userstory'</em><a class="headerlink" href="#project.views.userstory_views.AddUserStory.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.AddUserStory.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/userstory/userstory_form.html'</em><a class="headerlink" href="#project.views.userstory_views.AddUserStory.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.userstory_views.DeleteUserStory">
+<em class="property">class </em><code class="descclassname">project.views.userstory_views.</code><code class="descname">DeleteUserStory</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#DeleteUserStory"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.DeleteUserStory" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.DeleteView</span></code></p>
+<p>Vista de Eliminacion de User Stories</p>
+<dl class="attribute">
+<dt id="project.views.userstory_views.DeleteUserStory.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'userstory'</em><a class="headerlink" href="#project.views.userstory_views.DeleteUserStory.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.DeleteUserStory.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#DeleteUserStory.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.DeleteUserStory.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.DeleteUserStory.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#DeleteUserStory.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.DeleteUserStory.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.DeleteUserStory.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.userstory_views.DeleteUserStory.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserStory</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.DeleteUserStory.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.delete_userstory'</em><a class="headerlink" href="#project.views.userstory_views.DeleteUserStory.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.DeleteUserStory.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/userstory/userstory_delete.html'</em><a class="headerlink" href="#project.views.userstory_views.DeleteUserStory.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.userstory_views.UpdateUserStory">
+<em class="property">class </em><code class="descclassname">project.views.userstory_views.</code><code class="descname">UpdateUserStory</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UpdateUserStory"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.edit.UpdateView</span></code></p>
+<p>View que actualiza un user story del sistema</p>
+<dl class="attribute">
+<dt id="project.views.userstory_views.UpdateUserStory.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.form_class" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserStoryForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UpdateUserStory.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UpdateUserStory.form_valid"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.form_valid" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Comprobar validez del formulario. Crea una instancia de user story
+:param form: formulario recibido
+:return: URL de redireccion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UpdateUserStory.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UpdateUserStory.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agregar datos al contexto
+:param kwargs: argumentos clave
+:return: contexto</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UpdateUserStory.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UpdateUserStory.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UpdateUserStory.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UpdateUserStory.get_success_url"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.get_success_url" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>:return:la url de redireccion a la vista de los detalles del user story agregado.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UpdateUserStory.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserStory</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UpdateUserStory.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.edit_userstory'</em><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UpdateUserStory.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/userstory/userstory_form.html'</em><a class="headerlink" href="#project.views.userstory_views.UpdateUserStory.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.userstory_views.UpdateVersion">
+<em class="property">class </em><code class="descclassname">project.views.userstory_views.</code><code class="descname">UpdateVersion</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UpdateVersion"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UpdateVersion" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.userstory_views.UpdateUserStory" title="project.views.userstory_views.UpdateUserStory"><code class="xref py py-class docutils literal"><span class="pre">project.views.userstory_views.UpdateUserStory</span></code></a></p>
+<p>Vista que permite revertir un User Story a una version anterior.</p>
+<dl class="method">
+<dt id="project.views.userstory_views.UpdateVersion.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UpdateVersion.get_initial"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UpdateVersion.get_initial" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene la version deseada del User Story.
+:return: diccionarnio con los datos de la version anterior.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UpdateVersion.version">
+<code class="descname">version</code><em class="property"> = None</em><a class="headerlink" href="#project.views.userstory_views.UpdateVersion.version" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.userstory_views.UserStoriesList">
+<em class="property">class </em><code class="descclassname">project.views.userstory_views.</code><code class="descname">UserStoriesList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UserStoriesList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UserStoriesList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Lista de User Stories del proyecto</p>
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoriesList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'userstories'</em><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UserStoriesList.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UserStoriesList.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UserStoriesList.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UserStoriesList.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UserStoriesList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UserStoriesList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoriesList.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserStory</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoriesList.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.view_project'</em><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoriesList.project">
+<code class="descname">project</code><em class="property"> = None</em><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.project" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoriesList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/userstory/userstory_list.html'</em><a class="headerlink" href="#project.views.userstory_views.UserStoriesList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.userstory_views.UserStoryDetail">
+<em class="property">class </em><code class="descclassname">project.views.userstory_views.</code><code class="descname">UserStoryDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UserStoryDetail"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UserStoryDetail" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.detail.DetailView</span></code></p>
+<p>Vista de Detalles de un user story</p>
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoryDetail.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'userstory'</em><a class="headerlink" href="#project.views.userstory_views.UserStoryDetail.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.UserStoryDetail.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#UserStoryDetail.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.UserStoryDetail.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Retorna el objeto al cual corresponde el permiso</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoryDetail.model">
+<code class="descname">model</code><a class="headerlink" href="#project.views.userstory_views.UserStoryDetail.model" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>alias de <code class="xref py py-class docutils literal"><span class="pre">UserStory</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoryDetail.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.view_project'</em><a class="headerlink" href="#project.views.userstory_views.UserStoryDetail.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.UserStoryDetail.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/userstory/userstory_detail.html'</em><a class="headerlink" href="#project.views.userstory_views.UserStoryDetail.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.userstory_views.VersionList">
+<em class="property">class </em><code class="descclassname">project.views.userstory_views.</code><code class="descname">VersionList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#VersionList"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.VersionList" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<p>Vista que devuelve una lista de versiones del User Story deseado.</p>
+<dl class="attribute">
+<dt id="project.views.userstory_views.VersionList.context_object_name">
+<code class="descname">context_object_name</code><em class="property"> = 'versions'</em><a class="headerlink" href="#project.views.userstory_views.VersionList.context_object_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.VersionList.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#VersionList.get_context_data"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.VersionList.get_context_data" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Agrega el user story al contexto.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.VersionList.get_permission_object">
+<code class="descname">get_permission_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#VersionList.get_permission_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.VersionList.get_permission_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene el user story</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="project.views.userstory_views.VersionList.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/userstory_views.html#VersionList.get_queryset"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.userstory_views.VersionList.get_queryset" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene el user story y sus versiones</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.VersionList.permission_required">
+<code class="descname">permission_required</code><em class="property"> = 'project.edit_userstory'</em><a class="headerlink" href="#project.views.userstory_views.VersionList.permission_required" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.VersionList.template_name">
+<code class="descname">template_name</code><em class="property"> = 'project/version/version_list.html'</em><a class="headerlink" href="#project.views.userstory_views.VersionList.template_name" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.userstory_views.VersionList.us">
+<code class="descname">us</code><em class="property"> = None</em><a class="headerlink" href="#project.views.userstory_views.VersionList.us" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-project.views.views"></span><dl class="class">
+<dt id="project.views.views.CreateViewPermissionRequiredMixin">
+<em class="property">class </em><code class="descclassname">project.views.views.</code><code class="descname">CreateViewPermissionRequiredMixin</code><a class="reference internal" href="../_modules/project/views/views.html#CreateViewPermissionRequiredMixin"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.views.CreateViewPermissionRequiredMixin" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <a class="reference internal" href="#project.views.views.GlobalPermissionRequiredMixin" title="project.views.views.GlobalPermissionRequiredMixin"><code class="xref py py-class docutils literal"><span class="pre">project.views.views.GlobalPermissionRequiredMixin</span></code></a></p>
+<p>Mixin que permite requerir un permiso</p>
+<dl class="method">
+<dt id="project.views.views.CreateViewPermissionRequiredMixin.get_object">
+<code class="descname">get_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/views.html#CreateViewPermissionRequiredMixin.get_object"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.views.CreateViewPermissionRequiredMixin.get_object" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="project.views.views.GlobalPermissionRequiredMixin">
+<em class="property">class </em><code class="descclassname">project.views.views.</code><code class="descname">GlobalPermissionRequiredMixin</code><a class="reference internal" href="../_modules/project/views/views.html#GlobalPermissionRequiredMixin"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.views.GlobalPermissionRequiredMixin" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clases base: <code class="xref py py-class docutils literal"><span class="pre">guardian.mixins.PermissionRequiredMixin</span></code></p>
+<p>Mixin que permite requerir un permiso</p>
+<dl class="attribute">
+<dt id="project.views.views.GlobalPermissionRequiredMixin.accept_global_perms">
+<code class="descname">accept_global_perms</code><em class="property"> = True</em><a class="headerlink" href="#project.views.views.GlobalPermissionRequiredMixin.accept_global_perms" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.views.GlobalPermissionRequiredMixin.raise_exception">
+<code class="descname">raise_exception</code><em class="property"> = True</em><a class="headerlink" href="#project.views.views.GlobalPermissionRequiredMixin.raise_exception" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.views.views.GlobalPermissionRequiredMixin.return_403">
+<code class="descname">return_403</code><em class="property"> = True</em><a class="headerlink" href="#project.views.views.GlobalPermissionRequiredMixin.return_403" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="project.views.views.get_selected_perms">
+<code class="descclassname">project.views.views.</code><code class="descname">get_selected_perms</code><span class="sig-paren">(</span><em>POST</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/views.html#get_selected_perms"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.views.get_selected_perms" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener los permisos marcados en el formulario</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parámetros:</th><td class="field-body"><strong>POST</strong> &#8211; diccionario con los datos del formulario</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Devuelve:</th><td class="field-body">lista de permisos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="project.views.views.home">
+<code class="descclassname">project.views.views.</code><code class="descname">home</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/views/views.html#home"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#project.views.views.home" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Vista para la pantalla principal.</p>
+</dd></dl>
+
 </div>
 
 
