@@ -444,6 +444,34 @@ class PlantillaTest(TestCase):
         response = c.get('/plantilla/1/delete/')
         self.assertEquals(response.status_code, 403)
 
+class UserStory(TestCase):
+    def setUp(self):
+        u = User.objects.create_superuser('test', 'test@test.com', 'test') #Superusuario con todos los permisos
+        u2 = User.objects.create_user('none', 'none@none.com', 'none') #Usuario sin permisos
+        p = Proyecto.objects.create(nombre_corto='Test Project', nombre_largo='Test Project name', estado='Inactivo',
+                                    inicio=timezone.now(), fin=timezone.now(), creacion='2015-03-10 18:00',
+                                    duracion_sprint='30', descripcion='Test')
+
+    def test_add_userstory_with_permission(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #deberia existir
+        self.assertIsNotNone(p)
+        response = c.get(reverse('project:userstory_add', args=(str(p.id))))
+        self.assertEquals(response.status_code, 200)
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'Test User story', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        #deberia redirigir
+        self.assertRedirects(response, '/userstory/1/')
+        us = UserStory.objects.get(pk=1)
+        self.assertIsNotNone(us)
+        response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
+        self.assertEquals(response.status_code, 200)
+
+
 class VersionTest(TestCase):
     def setUp(self):
         u = User.objects.create_superuser('test', 'test@test.com', 'test')
