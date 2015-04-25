@@ -16,13 +16,20 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 import datetime
 
-class SprintList(LoginRequiredMixin, generic.ListView):
+class SprintList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     """
     Vista de Listado de Sprint en el sistema
     """
     model = Sprint
     template_name = 'project/sprint/sprint_list.html'
+    permission_required = 'project.view_project'
     context_object_name = 'sprint'
+    project = None
+
+    def get_permission_object(self):
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return self.project
 
     def get_context_data(self, **kwargs):
         context = super(SprintList, self).get_context_data(**kwargs)
@@ -34,13 +41,17 @@ class SprintList(LoginRequiredMixin, generic.ListView):
         self.project = get_object_or_404(Proyecto, pk=project_pk)
         return Sprint.objects.filter(proyecto=self.project)
 
-class SprintDetail(LoginRequiredMixin, generic.DetailView):
+class SprintDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
     Vista del detalle de un Sprint en el sistema
     """
     model = Sprint
+    permission_required = 'project.view_project'
     template_name = 'project/sprint/sprint_detail.html'
     context_object_name = 'sprint'
+
+    def get_permission_object(self):
+        return self.get_object().proyecto
 
     def get_context_data(self, **kwargs):
         context = super(SprintDetail, self).get_context_data(**kwargs)
