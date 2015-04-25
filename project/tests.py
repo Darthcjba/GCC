@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import SESSION_KEY
 from django.utils import timezone
 import reversion
-from project.models import Proyecto, models, Flujo, UserStory
+from project.models import Proyecto, models, Flujo, UserStory, Sprint, Actividad
 
 
 class LoginTest(TestCase):
@@ -681,3 +681,53 @@ class VersionTest(TestCase):
         # comprobamos que se volvio a la version inicial
         us = UserStory.objects.get(pk=2)
         self.assertEquals(us.nombre, 'Test_Version_Initial')
+
+class SprintTest(TestCase):
+
+        def setUp(self):
+            u = User.objects.create_superuser('temp','temp@email.com', 'temp')
+            pro= Proyecto.objects.create(nombre_corto='Royecto', nombre_largo='Royecto Largo', estado='IN',inicio=timezone.now(),fin=timezone.now(),creacion=timezone.now(), duracion_sprint='30', descripcion='Prueba numero 800')
+            User.objects.create_user('tempdos', 'tempdos@email.com', 'tempdos')
+            UserStory.objects.create(nombre= 'Test_Version', descripcion= 'Test Description', prioridad= 1,
+                           valor_negocio= 10, valor_tecnico= 10, tiempo_estimado =10, proyecto = pro)
+            f=Flujo.objects.create(nombre ='flujo_test', proyecto= pro)
+            Actividad.objects.create(name='actividad_test', flujo=f)
+            Sprint.objects.create(nombre='sprint_test',inicio=timezone.now(),fin=timezone.now(), proyecto=pro)
+
+        def test_to_create_sprint(self):
+            c = self.client
+            self.assertTrue(c.login(username='temp', password='temp'))
+            p= Proyecto.objects.first()
+            self.assertIsNotNone(p)
+            us=UserStory.objects.first()
+            self.assertIsNotNone(us)
+            u=User.objects.first()
+            self.assertIsNotNone(u)
+            f=User.objects.first()
+            self.assertIsNotNone(f)
+            response = c.get(reverse('project:sprint_add', args=(str(p.id))))
+            self.assertEquals(response.status_code, 200)
+            response = c.post(reverse('project:sprint_add', args=(str(p.id))),
+                          {'nombre': 'Sprint_test', 'inicio': timezone.now(), 'fin':timezone.now(),'userStory':us, 'desarrollador': u, 'flujo':f}, follow=True)
+            self.assertEquals(response.status_code,200)
+            s=Sprint.objects.get(pk=1)
+            self.assertIsNotNone(s)
+            #self.assertRedirects(response, '/sprint/1/')
+
+        def test_to_edit_sprint(self):
+            c = self.client
+            self.assertTrue(c.login(username='temp', password='temp'))
+            p= Proyecto.objects.first()
+            self.assertIsNotNone(p)
+            us=UserStory.objects.first()
+            self.assertIsNotNone(us)
+            u=User.objects.first()
+            self.assertIsNotNone(u)
+            f=Flujo.objects.create(nombre ='flujo_test2', proyecto= p)
+            Actividad.objects.create(name='actividad_test2', flujo=f)
+            self.assertIsNotNone(f)
+            response = c.get(reverse('project:sprint_add', args=(str(p.id))))
+            self.assertEquals(response.status_code, 200)
+            response = c.post(reverse('project:sprint_add', args=(str(p.id))),
+                          {'nombre': 'Sprint_test', 'inicio': timezone.now(), 'fin':timezone.now(),'userStory':us, 'desarrollador': u, 'flujo':f}, follow=True)
+            self.assertEquals(response.status_code,200)
