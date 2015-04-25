@@ -1,13 +1,15 @@
 
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.models import Permission
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import SESSION_KEY
 from django.utils.datetime_safe import datetime
-from project.models import Proyecto, models, Flujo
+from django.utils import timezone
+from project.models import Proyecto, models, Flujo, Sprint, UserStory
 
-
+"""
 class LoginTest(TestCase):
     def setUp(self):
         User.objects.create_user('test', 'test@test.com', 'test')
@@ -207,7 +209,7 @@ class UserTest(TestCase):
         response = c.get('/users/add/')
         self.assertEquals(response.status_code, 200)
         #intentamos crear un rol developer que pueda crear, editar y borrar proyectos, y crear y borrar US
-        response = c.post('/users/add/', {'username':'john', 'email': 'john@doe.com', 'password1': '123', 'password2': '123'}, follow=True)
+        response = c.post('/users/add/', {'first_name': 'John', 'last_name': 'Doe', 'username':'john', 'email': 'john@doe.com', 'password1': '123', 'password2': '123'}, follow=True)
         u = User.objects.get(username='john')
         #comprobamos que exista el usuario
         self.assertIsNotNone(u)
@@ -434,3 +436,40 @@ class PlantillaTest(TestCase):
         self.assertTrue(c.login(username='fulano', password='temp'))
         response = c.get('/plantilla/1/delete/')
         self.assertEquals(response.status_code, 403)
+
+    """
+
+class SprintTest(TestCase):
+    def setUp(self):
+        u = User.objects.create_user('temp','temp@email.com', 'temp')
+        p = Permission.objects.get(codename='create_sprint')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='edit_sprint')
+        u.user_permissions.add(p)
+        p = Permission.objects.get(codename='remove_sprint')
+        u.user_permissions.add(p)
+        pro= Proyecto.objects.create(nombre_corto='Royecto', nombre_largo='Royecto Largo', estado='IN',inicio=timezone.now(),fin=timezone.now(),creacion=timezone.now(), duracion_sprint='30', descripcion='Prueba numero 800')
+        User.objects.create_user('tempdos', 'tempdos@email.com', 'tempdos')
+        UserStory.objects.create(nombre= 'Test_Version', descripcion= 'Test Description', prioridad= 1,
+                           valor_negocio= 10, valor_tecnico= 10, tiempo_estimado =10, proyecto = pro)
+        Flujo.objects.create(nombre ='flujo_test', proyecto= pro)
+
+    def test_to_create_sprint(self):
+        c = self.client
+        self.assertTrue(c.login(username='temp', password='temp'))
+        p= Proyecto.objects.first()
+        us=UserStory.objects.first()
+        u=User.objects.first()
+        f=User.objects.first()
+        self.assertIsNotNone(p)
+        self.assertIsNotNone(us)
+        self.assertIsNotNone(u)
+        self.assertIsNotNone(f)
+        response = c.get(reverse('project:sprint_add', args=(str(p.id))))
+        self.assertEquals(response.status_code, 200)
+        response = c.post(reverse('project:sprint_add', args=(str(p.id))),
+                          {'nombre': 'Sprint_test', 'inicio': timezone.now(), 'fin':timezone.now(),'userStory':us, 'desarrollador': u, 'flujo':f}, follow=True)
+        self.assertEquals(response.status_code,200)
+        s=Sprint.objects.get(pk=1)
+        self.assertIsNotNone(s)
+        self.assertRedirects(response, '/sprint/2/')
