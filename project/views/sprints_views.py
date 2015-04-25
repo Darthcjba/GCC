@@ -176,17 +176,17 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         :param form: formulario del sprint
         :return: vuelve a la pagina de detalle del sprint
         """
-
         self.object= form.save(commit=False)
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.object.proyecto.duracion_sprint)
         self.object.save()
         formsetb= self.UserStoryFormset(self.request.POST)
         if formsetb.is_valid():
+            proccessed_forms = []
             for subform in formsetb:
                 if subform.has_changed() and 'userStory' in subform.cleaned_data:
                     print(subform.cleaned_data)
                     new_userStory = subform.cleaned_data['userStory']
-                    if subform in formsetb.deleted_forms:
+                    if subform in formsetb.deleted_forms and not new_userStory in proccessed_forms:
                         # desaciamos los user story que se eliminaron del form
                         new_userStory.desarrollador = None
                         new_userStory.sprint = None
@@ -199,6 +199,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                         new_userStory.sprint = self.object
                         new_userStory.actividad = self.flujo.actividad_set.first()
                     new_userStory.save()
+                    proccessed_forms.append(new_userStory)
             return HttpResponseRedirect(self.get_success_url())
 
         self.__filtrar_formset__(formsetb)
