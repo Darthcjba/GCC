@@ -207,7 +207,7 @@ class UserTest(TestCase):
         response = c.get('/users/add/')
         self.assertEquals(response.status_code, 200)
         #intentamos crear un rol developer que pueda crear, editar y borrar proyectos, y crear y borrar US
-        response = c.post('/users/add/', {'username':'john', 'email': 'john@doe.com', 'password1': '123', 'password2': '123'}, follow=True)
+        response = c.post('/users/add/', {'first_name': 'John', 'last_name': 'Doe', 'username':'john', 'email': 'john@doe.com', 'password1': '123', 'password2': '123'}, follow=True)
         u = User.objects.get(username='john')
         #comprobamos que exista el usuario
         self.assertIsNotNone(u)
