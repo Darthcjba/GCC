@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
@@ -444,7 +444,7 @@ class PlantillaTest(TestCase):
         response = c.get('/plantilla/1/delete/')
         self.assertEquals(response.status_code, 403)
 
-class UserStory(TestCase):
+class UserStoryTest(TestCase):
     def setUp(self):
         u = User.objects.create_superuser('test', 'test@test.com', 'test') #Superusuario con todos los permisos
         u2 = User.objects.create_user('none', 'none@none.com', 'none') #Usuario sin permisos
@@ -470,6 +470,105 @@ class UserStory(TestCase):
         self.assertIsNotNone(us)
         response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
         self.assertEquals(response.status_code, 200)
+
+    def test_add_userstory_no_permission(self):
+        c = self.client
+        login = c.login(username='none', password='none')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #deberia existir
+        self.assertIsNotNone(p)
+        response = c.get(reverse('project:userstory_add', args=(str(p.id))))
+        #debería rechazar (403 - Permiso denegado)
+        self.assertEquals(response.status_code, 403)
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'Test User story', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        #no debería haber creado user story
+        response = c.get(reverse('project:userstory_detail', args=(str(1))))
+        self.assertEquals(response.status_code, 404)
+
+    def test_update_userstory_with_permission(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+        self.assertEquals(us.nombre, 'First Value US')
+        response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
+        self.assertEquals(response.status_code, 200)
+        #nos vamos a la página de edición de user story
+        response = c.get(reverse('project:userstory_update', args=(str(us.id))))
+        #debería retornar 200
+        self.assertEquals(response.status_code, 200)
+        response = c.post(reverse('project:userstory_update', args=(str(p.id))),
+            {'nombre':'Second Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        self.assertRedirects(response, '/userstory/1/')
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+        #vemos que el nombre ya no es el anterior
+        self.assertNotEquals(us.nombre, 'First Value US')
+        self.assertEquals(us.nombre, 'Second Value US')
+
+    def test_update_userstory_no_permission(self):
+        c = self.client
+        login = c.login(username='none', password='none')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        #No debío haber creado el userstory
+        self.assertEquals(response.status_code, 403)
+        self.assertIsNone(us)
+
+
+    def test_delete_userstory_with_permission(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+        #nos vamos a la página de borrado de user story
+        response = c.get(reverse('project:userstory_delete', args=(str(us.id))))
+        #debería retornar 200
+        self.assertEquals(response.status_code, 200)
+        response = c.post(reverse('project:userstory_delete', args=(str(p.id))),
+            {'Confirmar':True}, follow=True)
+        us = UserStory.objects.first()
+        #No debería existir
+        self.assertIsNone(us)
+
+    def test_list_userstories_with_permission(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #listamos user stories del proyecto
+        response = c.get(reverse('project:product_backlog', args=(str(p.id))))
+        self.assertEquals(response.status_code, 200)
+
+    def test_list_userstories_no_permission(self):
+        c = self.client
+        login = c.login(username='none', password='none')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #listamos user stories del proyecto
+        response = c.get(reverse('project:product_backlog', args=(str(p.id))))
+        self.assertEquals(response.status_code, 403)
 
 
 class VersionTest(TestCase):
