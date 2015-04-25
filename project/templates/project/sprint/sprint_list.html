@@ -3,7 +3,7 @@
 {% block title %}Sprint{% endblock %}
 {% block header %}Sprint{% endblock %}
 {% block before_table %}
-    <h4><strong>Proyecto: </strong><td>{{ sprint.proyecto}}</td></h4>
+    <h4><strong>Proyecto: </strong><td>{{ view.project }}</td></h4>
    {% if "create_sprint" in proyecto_perms %} <p><a href="{% url 'project:sprint_add' view.kwargs.project_pk %}" class="fa fa-plus-circle"> Agregar</a></p>{% endif %}
 {% endblock %}
 {% block thead %}
