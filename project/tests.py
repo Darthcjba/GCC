@@ -627,8 +627,44 @@ class SprintTest(TestCase):
             f=Flujo.objects.create(nombre ='flujo_test2', proyecto= p)
             Actividad.objects.create(name='actividad_test2', flujo=f)
             self.assertIsNotNone(f)
-            response = c.get(reverse('project:sprint_add', args=(str(p.id))))
+            s=Sprint.objects.get(pk=1)
+            response = c.get(reverse('project:sprint_add', args=(str(s.id))))
             self.assertEquals(response.status_code, 200)
-            response = c.post(reverse('project:sprint_add', args=(str(p.id))),
+            response = c.post(reverse('project:sprint_update',args=(str(s.id))),
                           {'nombre': 'Sprint_test', 'inicio': timezone.now(), 'fin':timezone.now(),'userStory':us, 'desarrollador': u, 'flujo':f}, follow=True)
             self.assertEquals(response.status_code,200)
+
+
+        def test_permission_to_create_sprint(self):
+            c = self.client
+            self.assertTrue(c.login(username='temp', password='temp'))
+            p= Proyecto.objects.first()
+            self.assertIsNotNone(p)
+            response = c.get(reverse('project:sprint_add', args=(str(p.id))))
+            self.assertEquals(response.status_code, 200)
+
+        def test_permission_to_no_create_sprint(self):
+            c = self.client
+            self.assertTrue(c.login(username='tempdos', password='tempdos'))
+            p= Proyecto.objects.first()
+            self.assertIsNotNone(p)
+            response = c.get(reverse('project:sprint_add', args=(str(p.id))))
+            self.assertEquals(response.status_code, 403)
+
+        def test_permission_to_edit_sprint(self):
+            c = self.client
+            self.assertTrue(c.login(username='temp', password='temp'))
+            p= Proyecto.objects.first()
+            self.assertIsNotNone(p)
+            s=Sprint.objects.first()
+            response = c.get(reverse('project:sprint_update', args=(str(s.id))))
+            self.assertEquals(response.status_code, 200)
+
+        def test_permission_to_no_edit_sprint(self):
+            c = self.client
+            self.assertTrue(c.login(username='tempdos', password='tempdos'))
+            p= Proyecto.objects.first()
+            self.assertIsNotNone(p)
+            s=Sprint.objects.first()
+            response = c.get(reverse('project:sprint_update', args=(str(s.id))))
+            self.assertEquals(response.status_code, 403)
