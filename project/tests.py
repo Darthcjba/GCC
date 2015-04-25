@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import SESSION_KEY
 from django.utils.datetime_safe import datetime
-from project.models import Proyecto, models, Flujo
+from project.models import Proyecto, models, Flujo, UserStory
 
 
 class LoginTest(TestCase):
@@ -434,3 +434,34 @@ class PlantillaTest(TestCase):
         self.assertTrue(c.login(username='fulano', password='temp'))
         response = c.get('/plantilla/1/delete/')
         self.assertEquals(response.status_code, 403)
+
+class VersionTest(TestCase):
+    def setUp(self):
+        us = UserStory.objects.create(nombre='User Story', descripcion='Test Description', prioridad=1,
+                                      valor_negocio=10, valor_tecnico=10, tiempo_estimado=10)
+        u = User.objects.create_user('test', 'test@test.com', 'test', is_superuser=True)
+        p = Proyecto.objects.create(nombre_corto='Project', nombre_largo='Project name', estado='Inactivo',
+                                    inicio=datetime.now(), fin=datetime.now(), creacion='2015-03-10 18:00',
+                                    duracion_sprint='30', descripcion='Test')
+        # g = Group.objects.create()
+
+
+    def test_initial_version(self):
+        u = User.objects.get(username='test')
+        self.assertIsNotNone(u)
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+
+    def test_version(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        response = c.get('/projects/1/userstories/add/')
+        self.assertEquals(response.status_code, 200)
+        # intentamos crear un rol developer que pueda crear, editar y borrar proyectos, y crear y borrar US
+        response = c.post('/projects/1/userstories/add/',
+                          {'nombre': 'Test_Version', 'descripcion': 'Test Description', 'prioridad': 1,
+                           'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        # deberia redirigir
+        self.assertRedirects(response, '/userstory/2/')
