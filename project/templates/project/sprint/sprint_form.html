@@ -34,7 +34,7 @@
             {%for form in formset%}
                 {{ form.id }}
                 <div class="teammember" id="teammember-{{ forloop.counter0 }}">
-                    {{ form.DELETE }}
+                    {% if form.instance.pk %}{% bootstrap_field form.DELETE %}{% endif %}
                     {% bootstrap_form form %}
 
             </div>
