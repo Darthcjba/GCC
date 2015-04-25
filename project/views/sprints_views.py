@@ -151,6 +151,12 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         """
         return reverse('project:sprint_detail', kwargs={'pk': self.object.id})
 
+    def __filtrar_formset__(self, formset):
+        for userformset in formset.forms:
+            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.object.proyecto)
+            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.object.proyecto)
+            userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.object.proyecto)
+
     def get_context_data(self, **kwargs):
         """
         Especifica los datos de contexto a pasar al template
@@ -160,10 +166,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         context= super(UpdateSprintView,self).get_context_data(**kwargs)
         current_us = self.get_object().userstory_set.all()
         formset= self.UserStoryFormset(initial=[{'userStory':us, 'flujo':us.actividad.flujo, 'desarrollador':us.desarrollador} for us in current_us])
-        for userformset in formset.forms:
-            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.object.proyecto)
-            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.object.proyecto)
-            userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.object.proyecto)
+        self.__filtrar_formset__(formset)
         context['formset'] = formset
         return context
 
@@ -198,5 +201,6 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                     new_userStory.save()
             return HttpResponseRedirect(self.get_success_url())
 
+        self.__filtrar_formset__(formsetb)
         return render(self.request, self.get_template_names(), {'form': form, 'formset': formsetb},
                       context_instance=RequestContext(self.request))
