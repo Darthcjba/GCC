@@ -169,7 +169,8 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
         formsetb= self.UserStoryFormset(self.request.POST)
         if formsetb.is_valid():
             for subform in formsetb:
-                if subform.has_changed():
+                if subform.has_changed() and 'userStory' in subform.cleaned_data:
+                    print(subform.cleaned_data)
                     new_userStory = subform.cleaned_data['userStory']
                     if subform in formsetb.deleted_forms:
                         # desaciamos los user story que se eliminaron del form
