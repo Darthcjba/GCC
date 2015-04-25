@@ -12,8 +12,8 @@
         <th>Nombre</th>
         <th>Actividades</th>
         <th>Ver</th>
-        {% if "remove_flujo" in proyecto_perms %}<th>Eliminar</th>{% endif %}
         {% if "edit_flujo" in proyecto_perms %}<th>Editar</th>{% endif %}
+        {% if "remove_flujo" in proyecto_perms %}<th>Eliminar</th>{% endif %}
     </tr>
 {% endblock %}
 {% block tbody %}

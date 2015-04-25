@@ -108,18 +108,15 @@ class Sprint(models.Model):
     """
     Manejo de los sprints del proyecto
     """
-    nombre = models.CharField(max_length=20, blank=True, default='')
+    nombre = models.CharField(max_length=20)
     inicio = models.DateTimeField()
     fin = models.DateTimeField()
     proyecto = models.ForeignKey(Proyecto, null=False)
 
     class Meta:
         default_permissions = ()
-        
-    def save(self, *args, **kwargs):
-        if self.nombre == '':
-            self.nombre = "Sprint %d" % self.proyecto.sprint_set.count() + 1
-        super(Sprint, self).save(*args, **kwargs)
+        verbose_name = 'sprint'
+        verbose_name_plural = 'sprints'
 
     def __unicode__(self):
         return self.nombre

@@ -2,6 +2,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group, Permission, User
 from django import forms
+from django.forms import BaseFormSet
 from guardian.shortcuts import get_perms_for_model
 from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
 from project.models import UserStory
@@ -106,3 +107,28 @@ class CreateFromPlantillaForm(forms.Form):
     Formulario para la creacion de copias de plantilla
     '''
     plantilla = forms.ModelChoiceField(queryset=Flujo.objects.filter(proyecto=None), empty_label=None)
+
+
+class AddToSprintForm(forms.Form):
+    """
+    formulario para la agregacion de userStory, desarrollador y flujo a un Sprint
+    """
+    userStory =forms.ModelChoiceField(queryset=UserStory.objects.all())
+    desarrollador=forms.ModelChoiceField(queryset=User.objects.all())
+    flujo = forms.ModelChoiceField(queryset=Flujo.objects.all())
+
+class AddToSprintFormset(BaseFormSet):
+    def clean(self):
+        """
+        Chequea que no se incluye el mismo user story más de una vez en el sprint
+        """
+        if any(self.errors):
+            return #si algún form del formset tiene errores, no se hace la validación
+
+        userstories = []
+        for form in self.forms:
+            if 'userStory' in form.cleaned_data:
+                us = form.cleaned_data['userStory']
+                if us in userstories:
+                    raise forms.ValidationError("Un mismo User Story puede aparecer sólo una vez en el sprint.")
+                userstories.append(us)

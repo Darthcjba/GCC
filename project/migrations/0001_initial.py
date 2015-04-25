@@ -94,13 +94,15 @@ class Migration(migrations.Migration):
             name='Sprint',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('nombre', models.CharField(default=b'', max_length=20, blank=True)),
+                ('nombre', models.CharField(max_length=20)),
                 ('inicio', models.DateTimeField()),
                 ('fin', models.DateTimeField()),
                 ('proyecto', models.ForeignKey(to='project.Proyecto')),
             ],
             options={
                 'default_permissions': (),
+                'verbose_name': 'sprint',
+                'verbose_name_plural': 'sprints',
             },
             bases=(models.Model,),
         ),

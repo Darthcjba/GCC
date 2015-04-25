@@ -1,0 +1,24 @@
+{% extends 'project/base.html' %}
+{% load guardian_tags %}
+{% block title %}{{ sprint }}{% endblock %}
+{% block header %}{{ sprint.nombre | title}} {% endblock %}
+{% block content %}
+    <ul class="list-inline">
+        {% get_obj_perms user for sprint.proyecto as "proyecto_perms" %}
+        {% if "edit_sprint" in proyecto_perms %}  <li><a href="{% url 'project:sprint_update'  sprint.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
+
+    </ul>
+    <p><strong>Nombre:</strong> {{ sprint.nombre }}</p>
+    <p><strong>Fecha Inicio:</strong>{{ sprint.inicio }}</p>
+    <p><strong>Fecha fin:</strong>{{ sprint.fin }}</p>
+    <p><strong>Proyecto Asociado:</strong> {{ sprint.proyecto }}</p>
+
+    <h3>User Story</h3>
+    <ul>
+        {% for s in userStory %}
+        <li><a href="#">{{ s.nombre }} </a></li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}
