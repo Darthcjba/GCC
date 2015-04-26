@@ -27,16 +27,30 @@ class SprintList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.List
     project = None
 
     def get_permission_object(self):
+        """
+        Obtener el permiso de un objeto
+        :param: self
+        :return: retorna el objeto proyecto donde se comprueba el permiso
+        """
         if not self.project:
             self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
         return self.project
 
     def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param:**kwargs : argumentos clave
+        :return: retorna el contexto
+        """
         context = super(SprintList, self).get_context_data(**kwargs)
         context['proyecto_perms'] = get_perms(self.request.user, self.project)
         return context
 
     def get_queryset(self):
+        """
+        obtiene el projecto correspondiente al seleccionado previamente
+        :return: Los objetos Spritn del proyecto previamente seleccionado
+        """
         project_pk = self.kwargs['project_pk']
         self.project = get_object_or_404(Proyecto, pk=project_pk)
         return Sprint.objects.filter(proyecto=self.project)
@@ -51,9 +65,19 @@ class SprintDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.De
     context_object_name = 'sprint'
 
     def get_permission_object(self):
+        """
+        Obtener el permiso de un objeto
+        :param: self
+        :return: retorna el objeto proyecto donde se comprueba el permiso
+        """
         return self.get_object().proyecto
 
     def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto
+        :param:**kwargs : argumentos clave
+        :return: retorna el contexto
+        """
         context = super(SprintDetail, self).get_context_data(**kwargs)
         context['userStory'] = self.object.userstory_set.all()
         return context
@@ -75,12 +99,25 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     proyecto = None
 
     def get_permission_object(self):
+        """
+        Obtener el permiso de un objeto
+        :param: self
+        :return: retorna el objeto proyecto donde se comprueba el permiso
+        """
         return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
 
     def get_success_url(self):
+        """
+        :return:la url de redireccion a la vista de los detalles del sprint agregado.
+        """
         return reverse('project:sprint_detail', kwargs={'pk': self.object.id})
 
     def get_context_data(self, **kwargs):
+        """
+        Agregar datos al contexto como los desarrolladores del projecto, el flujo y los userStory
+        :param:**kwargs : argumentos clave
+        :return: retorna el contexto
+        """
         context = super(AddSprintView, self).get_context_data(**kwargs)
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
         formset=self.formset()
@@ -97,7 +134,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         """
         Guarda el desarrollador, actividad y sprint asociado al un projecto dentro de un User Story
         :param form: formulario del sprint
-        :return: vuelve a la pagina de detalle del sprint
+        :return: vuelve a la pagina de detalle del sprint o renderea la pagina marcando los errores para volver a enviar sin errores
         """
 
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
@@ -147,7 +184,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
 
     def get_success_url(self):
         """
-        :return:la url de redireccion a la vista de los detalles del sprint agregado.
+        :return:la url de redireccion a la vista de los detalles del sprint modificado.
         """
         return reverse('project:sprint_detail', kwargs={'pk': self.object.id})
 
@@ -184,7 +221,6 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
             proccessed_forms = []
             for subform in formsetb:
                 if subform.has_changed() and 'userStory' in subform.cleaned_data:
-                    print(subform.cleaned_data)
                     new_userStory = subform.cleaned_data['userStory']
                     if subform in formsetb.deleted_forms and not new_userStory in proccessed_forms:
                         # desaciamos los user story que se eliminaron del form
