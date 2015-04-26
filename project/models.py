@@ -163,9 +163,10 @@ class UserStory(models.Model):
     funcionalidad desde la perspectiva del cliente que debe realizar el sistema.
     """
     estado_choices = ((0, 'ToDo'), (1, 'Doing'), (2, 'Done'), (3, 'Pendiente Aprobacion'), (4, 'Aprobado'))
+    prioridad_choices = ((0, 'Baja'), (1, 'Media'), (2, 'Alta'))
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
-    prioridad = models.IntegerField(choices=((i, i) for i in range(1, 11)), default=1)
+    prioridad = models.IntegerField(choices=prioridad_choices, default=0)
     valor_negocio = models.IntegerField()
     valor_tecnico = models.IntegerField()
     tiempo_estimado = models.PositiveIntegerField()
