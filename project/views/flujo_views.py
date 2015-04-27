@@ -87,8 +87,8 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
         """
         context = super(AddFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
-        if (self.request.method == 'GET'):
-            context['actividad_form'] = ActividadFormSet()
+
+        context['actividad_form'] = ActividadFormSet()
         return context
 
     def get_success_url(self):
