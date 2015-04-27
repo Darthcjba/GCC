@@ -10,4 +10,4 @@ def nav_context_processor(request):
             nav_projects = user.proyecto_set.all()[:5]
         return {'nav_projects': nav_projects}
     except AttributeError:
-        return {}
+        return {'nav_projects': []}
