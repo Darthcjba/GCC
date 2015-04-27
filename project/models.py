@@ -8,10 +8,6 @@ from project.signals import add_permissions_team_member
 from django.core.urlresolvers import reverse_lazy
 import reversion
 
-def validate_dates(start, end):
-    if start > end:
-        raise ValidationError('La fecha de inicio no puede ser mayor que la de fin')
-
 
 class Proyecto(models.Model):
     """
@@ -31,7 +27,7 @@ class Proyecto(models.Model):
     equipo = models.ManyToManyField(User, through='MiembroEquipo')
 
     class Meta:
-        #Los permisos estaran asociados a los proyectos, por lo que todos los permisos de ABM de las entidades
+        # Los permisos estaran asociados a los proyectos, por lo que todos los permisos de ABM de las entidades
         #dependientes del proyecto, deben crearse como permisos de proyecto
         #en vez de 'add', 'change' y 'delete', los permisos personalizados seran 'create', 'edit' y 'remove' para
         #evitar confusiones con los por defecto.
@@ -84,11 +80,11 @@ class MiembroEquipo(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         super(MiembroEquipo, self).save(force_insert, force_update, using, update_fields)
-        #Agregamos el permiso view_proyect al usuario
+        # Agregamos el permiso view_proyect al usuario
         assign_perm('view_project', self.usuario, self.proyecto)
 
 
-    #nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
+    # nota: si se quiere hacer un bulk delete a través de un queryset no hacerlo directamente
     #llamar al delete de cada objeto para remover los permisos
     def delete(self, using=None):
         for role in self.roles.all():
@@ -101,7 +97,9 @@ class MiembroEquipo(models.Model):
         verbose_name_plural = 'miembros equipo'
         unique_together = ('usuario', 'proyecto')
 
-m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through, dispatch_uid='add_permissions_signal')
+
+m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through,
+                    dispatch_uid='add_permissions_signal')
 
 
 class Sprint(models.Model):
@@ -120,6 +118,9 @@ class Sprint(models.Model):
 
     def __unicode__(self):
         return self.nombre
+
+    def get_absolute_url(self):
+        return reverse_lazy('project:sprint_detail', args=[self.pk])
 
 
 class Flujo(models.Model):
@@ -140,7 +141,10 @@ class Flujo(models.Model):
             ('add_flow_template', 'agregar plantilla de flujo'),
             ('change_flow_template', 'editar plantilla de flujo'),
             ('delete_flow_template', 'eliminar plantilla de flujo'),
-            )
+        )
+
+    def get_absolute_url(self):
+        return reverse_lazy('project:flujo_detail', args=[self.pk])
 
 
 class Actividad(models.Model):
@@ -156,6 +160,7 @@ class Actividad(models.Model):
     class Meta:
         order_with_respect_to = 'flujo'
         verbose_name_plural = 'actividades'
+
 
 class UserStory(models.Model):
     """
@@ -181,24 +186,16 @@ class UserStory(models.Model):
     def __unicode__(self):
         return self.nombre
 
+    def get_absolute_url(self):
+        return reverse_lazy('project:userstory_detail', args=[self.pk])
+
     class Meta:
         verbose_name_plural = 'user stories'
         default_permissions = ()
-reversion.register(UserStory, fields=['nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico', 'tiempo_estimado'])
 
 
-class Version(models.Model):
-    """
-    Modelo para el versionado de los User Stories.
-    Con esta entidad se puede volver atrás a un estado anterior del User Story.
-    """
-    nombre = models.CharField(max_length=20)
-    descripcion = models.TextField()
-    valor_negocio = models.IntegerField()
-    valor_tecnico = models.IntegerField()
-    tiempo_estimado = models.TimeField()
-    modificacion = models.DateTimeField(auto_now_add=True)
-    user_story = models.ForeignKey(UserStory)
+reversion.register(UserStory,
+                   fields=['nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico', 'tiempo_estimado'])
 
 
 class Nota(models.Model):
