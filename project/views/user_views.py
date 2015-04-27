@@ -121,11 +121,16 @@ class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upda
 
         :return: diccionario con los datos iniciales
         """
-        modelo = self.get_object()
 
+        modelo = self.get_object()
+        first_name= self.object.first_name
+        last_name= self.object.last_name
+        email=self.object.email
+        username=self.object.username
+        password=self.object.password
         perm_list = [perm.codename for perm in list(modelo.user_permissions.all())]
 
-        initial = {'general_perms': perm_list}
+        initial = {'general_perms': perm_list , 'first_name':first_name, 'last_name':last_name, 'email':email, 'username':username, 'password':password}
 
         return initial
 
