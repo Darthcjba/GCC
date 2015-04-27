@@ -37,7 +37,7 @@
         <div class="col-lg-4">
             <h4 class="list-group-item-heading">
                 <a href="{% if perms.project.change_proyecto %}
-                {% url 'project:project_update' project.id %}
+                {% url 'project:project_update' project.id %}#equipo
                 {% else %}#{% endif %}">Equipo</a>
             </h4>
             <div class="list-group">
@@ -59,7 +59,7 @@
                 {% for s in sprints %}
                     <a href="{% url 'project:sprint_detail' s.id %}" class="list-group-item">{{ s.nombre }}
                         <span class="badge" data-toggle="tooltip" data-placement="right"
-                              title="Fecha de Inicio">{{ s.inicio }}</span>
+                              title="Fecha de Inicio">{{ s.userstory_set.count }}</span>
                     </a>
                 {% endfor %}
             </div>
