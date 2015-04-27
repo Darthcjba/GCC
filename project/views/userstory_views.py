@@ -58,11 +58,18 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
     View que agrega un user story al sistema
     """
     model = UserStory
-    form_class = modelform_factory(UserStory,
-                                   fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado'))
     template_name = 'project/userstory/userstory_form.html'
     permission_required = 'project.create_userstory'
+
+    def get_form_class(self):
+        project = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        if 'prioritize_userstory' in get_perms(self.request.user, project):
+            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
+                                           'tiempo_estimado'))
+        else:
+            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'valor_negocio', 'valor_tecnico',
+                                           'tiempo_estimado'))
+        return form_class
 
     def get_permission_object(self):
         '''
@@ -83,7 +90,7 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
         :return: URL de redireccion
         """
         self.object = form.save(commit=False)
-        self.object.proyecto = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        self.object.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
         self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
@@ -93,15 +100,22 @@ class UpdateUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
     View que actualiza un user story del sistema
     """
     model = UserStory
-    form_class = modelform_factory(UserStory,
-                                   fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado'))
     template_name = 'project/userstory/userstory_form.html'
     permission_required = 'project.edit_userstory'
 
 
     def get_permission_object(self):
         return self.get_object().proyecto
+
+    def get_form_class(self):
+        project = self.get_object().proyecto
+        if 'prioritize_userstory' in get_perms(self.request.user, project):
+            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
+                                           'tiempo_estimado'))
+        else:
+            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'valor_negocio', 'valor_tecnico',
+                                           'tiempo_estimado'))
+        return form_class
 
     def get_context_data(self, **kwargs):
         """
