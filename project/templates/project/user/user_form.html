@@ -11,6 +11,10 @@
                 {% bootstrap_field form.last_name %}
                 {% bootstrap_field form.email %}
                 {% bootstrap_field form.username %}
+                {% if form.password1 %}
+                    {% bootstrap_field form.password1 %}
+                    {% bootstrap_field form.password2 %}
+                {% endif %}
             </div>
             <div class="col-lg-6">
                 {% bootstrap_field form.general_perms %}

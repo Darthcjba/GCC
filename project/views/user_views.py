@@ -105,7 +105,7 @@ class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upda
     template_name = 'project/user/user_form.html'
     permission_required = 'auth.change_user'
     form_class = modelform_factory(User, form=UserEditForm,
-                                   fields=['first_name', 'last_name', 'email', 'username', 'password'], )
+                                   fields=['first_name', 'last_name', 'email', 'username'], )
 
     def get_success_url(self):
         """

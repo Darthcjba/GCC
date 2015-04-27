@@ -51,9 +51,6 @@ class UserEditForm(UserChangeForm):
     '''
     Formulario para edición de usuarios
     '''
-    password = ReadOnlyPasswordHashField(label=("Password"),
-        help_text=("Solo se almacena un hash del password, no hay manera de verla. "
-                   "Para modificarla seleccionar la opcion <strong>Cambiar Password</strong>"))
 
     general_perms_list = [(perm.codename, perm.name) for perm in __general_perms_list__()]
     general_perms_list.extend(__user_and_group_permissions__())
