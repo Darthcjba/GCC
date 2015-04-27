@@ -12,10 +12,12 @@ def add_permissions_team_member(sender, **kwargs):
     '''
     instance = kwargs['instance']
     action = kwargs['action']
+    exceptions = ['edit_my_userstory', 'registraractividad_my_userstory'] #Permisos a no copiar en el proyecto
     if(action=="post_add"):
         print('add_permissions_team_member triggered')
         #Copiar permisos del grupo al usuario para la instancia del proyecto
         for role in instance.roles.all():
             #print('rol presente en el modelo: ' + role.name)
             for perm in role.permissions.all():
-                assign_perm(perm.codename, instance.usuario, instance.proyecto)
+                if not perm.codename in exceptions:
+                    assign_perm(perm.codename, instance.usuario, instance.proyecto)

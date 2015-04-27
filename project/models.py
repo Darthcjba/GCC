@@ -3,7 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed, post_save
-from guardian.shortcuts import assign_perm, remove_perm
+from django.shortcuts import get_object_or_404
+from guardian.shortcuts import assign_perm, remove_perm, get_perms_for_model, get_perms
 from project.signals import add_permissions_team_member
 from django.core.urlresolvers import reverse_lazy
 import reversion
@@ -44,11 +45,12 @@ class Proyecto(models.Model):
             ('edit_flujo', 'editar flujo'),
             ('remove_flujo', 'eliminar flujo'),
 
-            ('create_userstory', 'agregar userstory'),
-            ('edit_userstory', 'editar userstory'),
-            ('remove_userstory', 'eliminar userstory'),
-            ('prioritize_userstory', 'asignar prioridad a userstory')
-            #TODO: Hace falta definir permisos para Versiones, Notas y Adjuntos?
+            ('create_userstory', 'agregar userstory al proyecto'),
+            ('edit_userstory', 'editar cualquier userstory del proyecto'),
+            ('remove_userstory', 'eliminar cualquier userstory del proyecto'),
+            ('prioritize_userstory', 'asignar prioridad a cualquier userstory'),
+            ('registraractividad_userstory', 'registrar actividad de cualquier userstory del proyecto')
+            #TODO: Hace falta definir permisos para Notas y Adjuntos?
         )
 
     def __unicode__(self):
@@ -190,9 +192,30 @@ class UserStory(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('project:userstory_detail', args=[self.pk])
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.pk is not None:
+            old_developer = self.desarrollador
+        super(UserStory, self).save(force_insert, force_update, using, update_fields)
+        #borramos los permisos del antiguo desarrollador
+        if old_developer:
+            for perm in get_perms(old_developer, self):
+                remove_perm(perm, old_developer, self)
+        #copiamos al user story recién creado los permisos de user story
+        if self.proyecto and self.desarrollador:
+            rol = get_object_or_404(Group, miembroequipo__usuario=self.desarrollador, miembroequipo__proyecto=self.proyecto)
+            permisos_us = get_perms_for_model(UserStory)
+            for perm in rol.permissions.all():
+                if perm in permisos_us:
+                    assign_perm(perm.codename, self.desarrollador, self)
+
     class Meta:
         verbose_name_plural = 'user stories'
         default_permissions = ()
+        permissions = (
+            ('edit_my_userstory', 'editar userstory asignado a mí'),
+            ('registraractividad_my_userstory', 'registrar actividad a userstory asignado a mí')
+        )
 
 
 reversion.register(UserStory,

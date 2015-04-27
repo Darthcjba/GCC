@@ -63,12 +63,10 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
 
     def get_form_class(self):
         project = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        form_fields = ['nombre', 'descripcion', 'valor_negocio', 'valor_tecnico', 'tiempo_estimado']
         if 'prioritize_userstory' in get_perms(self.request.user, project):
-            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado'))
-        else:
-            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado'))
+            form_fields.insert(2, 'prioridad')
+        form_class = modelform_factory(UserStory, fields=form_fields)
         return form_class
 
     def get_permission_object(self):
@@ -109,12 +107,10 @@ class UpdateUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
     def get_form_class(self):
         project = self.get_object().proyecto
+        form_fields = ['nombre', 'descripcion', 'valor_negocio', 'valor_tecnico', 'tiempo_estimado']
         if 'prioritize_userstory' in get_perms(self.request.user, project):
-            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado'))
-        else:
-            form_class = modelform_factory(UserStory, fields=('nombre', 'descripcion', 'valor_negocio', 'valor_tecnico',
-                                           'tiempo_estimado'))
+            form_fields.insert(2, 'prioridad')
+        form_class = modelform_factory(UserStory, fields=form_fields)
         return form_class
 
     def get_context_data(self, **kwargs):
@@ -142,6 +138,18 @@ class UpdateUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         self.object = form.save()
 
         return HttpResponseRedirect(self.get_success_url())
+
+class RegistrarActividadUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
+    """
+    View que permite registrar los cambios aplicados a un user story
+    """
+    model = UserStory
+    template_name = 'project/userstory/userstory_registraractividad_form.html'
+    permission_required = 'project.registraractividad_userstory'
+    form_class = modelform_factory(UserStory, fields=('tiempo_registrado', 'estado'))
+
+    def get_permission_object(self):
+        return self.get_object().proyecto
 
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):

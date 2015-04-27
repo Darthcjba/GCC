@@ -1,0 +1,60 @@
+{% extends "project/base.html" %}
+{% load bootstrap3 %}
+{% load guardian_tags %}
+{% block title %}Registrar actividad en User Story{% endblock %}
+{% block header %}User Story{% endblock %}
+{% block content %}
+
+<p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
+<div class="row">
+            <div class="col-lg-6">
+                <div class="well">
+                    <p><strong>Nombre: </strong>{{ userstory.nombre }}</p>
+                    <p><strong>Prioridad: </strong>{{ userstory.get_prioridad_display }}</p>
+                    <p><strong>Valor de negocio: </strong>{{ userstory.valor_negocio }}</p>
+                    <p><strong>Valor Técnico: </strong>{{ userstory.valor_tecnico }}</p>
+                    <p><strong>Último cambio: </strong>{{ userstory.ultimo_cambio }}</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="well well-sm">
+                        <h4>Descripción</h4>
+                        <p>{{ userstory.descripcion }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <span class="fa fa-bars"> Estado Actual</span>
+                        </div>
+                        <div class="panel-body">
+                            <p><strong>Sprint: </strong>{{ userstory.sprint }}</p>
+                            <p><strong>Desarrollador: </strong>{{ userstory.desarrollador }}</p>
+                            <p><strong>Flujo: </strong>{{ userstory.actividad.flujo }} | <strong>Actividad: </strong>{{ userstory.actividad }} | <strong>Estado actual: </strong>{{ userstory.get_estado_display }}</p>
+                            <p><strong>Tiempo Estimado (horas): </strong>{{ userstory.tiempo_estimado }}</p>
+                            <p><strong>Tiempo registrado (horas): </strong>{{ userstory.tiempo_registrado }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-lg-3">{% bootstrap_field form.tiempo_registrado layout='horizontal' %}</div>
+            <div class="col-lg-3">{% bootstrap_field form.estado layout='horizontal' %}</div>
+        </div>
+        <div class="row">
+        {% buttons submit='Guardar' reset="Reset" %}
+            <a href="javascript:history.back()">
+                <button type="button" class="btn btn-danger">Cancelar</button>
+            </a>
+        {% endbuttons %}
+        </div>
+    </form>
+
+{% endblock %}
+
+

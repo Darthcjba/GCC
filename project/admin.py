@@ -20,6 +20,7 @@ class ProyectoAdmin(GuardedModelAdmin):
 class NotaAdmin(reversion.VersionAdmin):
     pass
 
+
 admin.site.register(Proyecto, ProyectoAdmin)
 admin.site.register(MiembroEquipo)
 admin.site.register(Flujo, ActividadAdmin)

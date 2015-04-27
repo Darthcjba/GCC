@@ -5,8 +5,9 @@
 {% block content %}
     <ul class="list-inline" xmlns="http://www.w3.org/1999/html">
         {% get_obj_perms user for userstory.proyecto as "proyecto_perms" %}
-        {% if "edit_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_update'  userstory.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
-        {% if "remove_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_delete'  userstory.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
+        {% if "edit_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_update'  userstory.id %}" class="fa fa-pencil"> Editar</a></li>{% endif %}
+        {% if "registraractividad_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_registraractividad'  userstory.id %}" class="fa fa-pencil-square-o"> Registrar Avance</a></li>{% endif %}
+        {% if "remove_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_delete'  userstory.id %}" class="fa fa-eraser"> Borrar</a></li>{% endif %}
         {% if "edit_userstory" in proyecto_perms %}<li><a href="{% url 'project:version_list' userstory.id %}" class="fa fa-clock-o"> Historial</a></li>{% endif %}
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
