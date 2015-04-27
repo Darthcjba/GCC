@@ -20,11 +20,13 @@ class ProyectoAdmin(GuardedModelAdmin):
 class NotaAdmin(reversion.VersionAdmin):
     pass
 
+class UserStoryAdmin(GuardedModelAdmin):
+    pass
 
 admin.site.register(Proyecto, ProyectoAdmin)
 admin.site.register(MiembroEquipo)
 admin.site.register(Flujo, ActividadAdmin)
 admin.site.register(Actividad)
-admin.site.register(UserStory)
+admin.site.register(UserStory, UserStoryAdmin)
 admin.site.register(Nota, NotaAdmin)
 admin.site.register(Sprint)

@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed, post_save
 from django.shortcuts import get_object_or_404
 from guardian.shortcuts import assign_perm, remove_perm, get_perms_for_model, get_perms
-from project.signals import add_permissions_team_member
 from django.core.urlresolvers import reverse_lazy
 import reversion
 
@@ -101,10 +100,6 @@ class MiembroEquipo(models.Model):
         unique_together = ('usuario', 'proyecto')
 
 
-m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through,
-                    dispatch_uid='add_permissions_signal')
-
-
 class Sprint(models.Model):
     """
     Manejo de los sprints del proyecto
@@ -195,19 +190,22 @@ class UserStory(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         if self.pk is not None:
-            old_developer = self.desarrollador
+            old_instance = get_object_or_404(UserStory, pk=self.pk)
+            old_developer = old_instance.desarrollador
         super(UserStory, self).save(force_insert, force_update, using, update_fields)
         #borramos los permisos del antiguo desarrollador
         if old_developer:
             for perm in get_perms(old_developer, self):
+                print(perm)
                 remove_perm(perm, old_developer, self)
         #copiamos al user story recién creado los permisos de user story
         if self.proyecto and self.desarrollador:
-            rol = get_object_or_404(Group, miembroequipo__usuario=self.desarrollador, miembroequipo__proyecto=self.proyecto)
+            membership = get_object_or_404(MiembroEquipo, usuario=self.desarrollador, proyecto=self.proyecto)
             permisos_us = get_perms_for_model(UserStory)
-            for perm in rol.permissions.all():
-                if perm in permisos_us:
-                    assign_perm(perm.codename, self.desarrollador, self)
+            for rol in membership.roles.all():
+                for perm in rol.permissions.all():
+                    if perm in permisos_us:
+                        assign_perm(perm.codename, self.desarrollador, self)
 
     class Meta:
         verbose_name_plural = 'user stories'
@@ -220,7 +218,10 @@ class UserStory(models.Model):
 
 reversion.register(UserStory,
                    fields=['nombre', 'descripcion', 'prioridad', 'valor_negocio', 'valor_tecnico', 'tiempo_estimado'])
-
+#importamos recién acá la señal para que no haya la dependencia circular entre la señal y UserStory
+from project.signals import add_permissions_team_member
+m2m_changed.connect(add_permissions_team_member, sender=MiembroEquipo.roles.through,
+                    dispatch_uid='add_permissions_signal')
 
 class Nota(models.Model):
     """

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, User
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse_lazy
 from django.core.urlresolvers import reverse
@@ -9,6 +9,7 @@ from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import remove_perm
 from guardian.shortcuts import get_perms
 from project.forms import RolForm
+from project.models import UserStory
 from project.views import GlobalPermissionRequiredMixin
 from project.views import get_selected_perms
 from project.views import CreateViewPermissionRequiredMixin
@@ -121,11 +122,14 @@ class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
             for perm in get_perms(user, project):
                 if perm!='view_project': #cuidamos de no eliminar permiso de ver proyecto
                     remove_perm(perm, user, project)
+            #borramos todos los permisos que tiene asociado el usuario a los User Stories del proyecto
+            for us in UserStory.objects.filter(desarrollador=user, proyecto=project):
+                for perm in get_perms(user, us):
+                    remove_perm(perm, user, us)
 
             all_roles = team_member.roles.all()
             for role in all_roles:
-                team_member.roles.remove(
-                    role)  #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.remove(role)  #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
                 team_member.roles.add(role)  #volvemos a agregar para que se copien los permisos actualizados
         return HttpResponseRedirect(self.get_success_url())
 
@@ -154,21 +158,23 @@ class DeleteRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.D
 
         # actualizamos los permisos de los miembros de equipos que tienen este rol
         team_members_set = miembroequipo_set.all()
-        # print('team_members_set antes de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
         self.object.delete()
-        #print('team_members_set despues de borrar: ' + ' '.join([member.usuario.username for member in team_members_set]))
         for team_member in team_members_set:
             print('team_member')
             user = team_member.usuario
             project = team_member.proyecto
             #borramos todos los permisos que tiene asociado el usuario en el proyecto
             for perm in get_perms(user, project):
-                remove_perm(perm, user, project)
+                if perm != 'view_project':
+                    remove_perm(perm, user, project)
+            #borramos todos los permisos que tiene asociado el usuario a los User Stories del proyecto
+            for us in UserStory.objects.filter(desarrollador=user, proyecto=project):
+                for perm in get_perms(user, us):
+                    remove_perm(perm, user, us)
+
             other_roles = team_member.roles.all()
-            #print("other_roles= " + ' '.join([rol.name for rol in other_roles]))
             for role in other_roles:
-                team_member.roles.remove(
-                    role)  #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
+                team_member.roles.remove(role)  #desacociamos al usuario de los demas roles con los que contaba (para que se eliminen los permisos anteriores)
                 team_member.roles.add(role)  #volvemos a agregar para que se copien los permisos actualizados
 
         return HttpResponseRedirect(success_url)

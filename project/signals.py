@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from guardian.shortcuts import assign_perm, get_perms, remove_perm
+from project.models import UserStory
 
 
 def add_permissions_team_member(sender, **kwargs):
@@ -15,9 +16,13 @@ def add_permissions_team_member(sender, **kwargs):
     exceptions = ['edit_my_userstory', 'registraractividad_my_userstory'] #Permisos a no copiar en el proyecto
     if(action=="post_add"):
         print('add_permissions_team_member triggered')
-        #Copiar permisos del grupo al usuario para la instancia del proyecto
+        #Copiar permisos del grupo al usuario para la instancia del proyecto y a los user stories que puedan corresponder dentro del proyecto
         for role in instance.roles.all():
-            #print('rol presente en el modelo: ' + role.name)
             for perm in role.permissions.all():
                 if not perm.codename in exceptions:
                     assign_perm(perm.codename, instance.usuario, instance.proyecto)
+                else:
+                    #buscamos los US que pertenezcan al usuario y le asignamos los permisos del rol
+                    uslist = UserStory.objects.filter(proyecto=instance.proyecto, desarrollador=instance.usuario)
+                    for us in uslist:
+                        assign_perm(perm.codename, instance.usuario, us)
