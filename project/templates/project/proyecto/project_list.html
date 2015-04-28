@@ -5,8 +5,8 @@
 
 {% block before_table %}
     <ul class="list-inline">
-        {% if perms.project.add_proyecto %}<li><a href="{% url 'project:project_create' %}" class="fa fa-plus-circle"> Agregar</a></li>{% endif %}
-        <li><a href="{% url 'project:project_list_cancelled' %}" class="fa fa-ban"> Proyectos Cancelados</a></li>
+        {% if perms.project.add_proyecto %}<li><a href="{% url 'project:project_create' %}"><i class="fa fa-plus-circle"></i> Agregar</a></li>{% endif %}
+        <li><a href="{% url 'project:project_list_cancelled' %}"><i class="fa fa-ban"></i> Proyectos Cancelados</a></li>
     </ul>
 {% endblock %}
 {% block thead %}
