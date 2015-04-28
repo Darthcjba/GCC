@@ -13,6 +13,10 @@
                             <p>No puede registrar su avance en el User Story <strong>{{ userstory.nombre | title }}</strong> debido a que el último sprint al cual se ha asociado el mismo ya <strong>ha llegado a su fecha de finalización.</strong> Este User Story estará disponible recien cuando se lo incluya en un nuevo sprint.</p>
                             <p>El último sprint al que fue incorporado el mismo fue <a href="{% url 'project:sprint_detail' userstory.sprint.pk %}"> {{ userstory.sprint }}</a> </p>
                         {% endif %}
+                        {% if error == "MENOR_PRIORIDAD" %}
+                            <p>No puede registrar su avance en el User Story <strong>{{ userstory.nombre | title }}</strong> debido a que en la actividad <strong>{{ userstory.actividad }}</strong> del flujo <strong>{{ userstory.flujo }}</strong> en el sprint actual <strong>({{ userstory.sprint }})</strong> hay otros User Story de mayor prioridad.</p>
+                            <p>La prioridad actual de este User Story es: <strong>{{ userstory.get_prioridad_display }}</strong>.</p>
+                        {% endif %}
                     </div>
                 </div>
     </div>

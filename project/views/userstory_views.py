@@ -170,12 +170,16 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         """
         if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto)\
                 or (self.get_object().desarrollador and 'registraractividad_my_userstory' in get_perms(self.get_object().desarrollador, self.get_object())):
-            #TODO Priorizacion
-            #TODO Guardar Descripcion del cambio
             if self.get_object().sprint and self.get_object().sprint.fin >= timezone.now():
-                return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
-            else:
-                return render(request, self.error_template, {'userstory': self.get_object(), 'error': "SPRINT_VENCIDO"})
+                if self.get_object().actividad:
+                    current_priority = self.get_object().prioridad
+                    s = self.get_object().sprint
+                    a = self.get_object().actividad
+                    bigger_priorities = UserStory.objects.filter(sprint= s, actividad= a, prioridad__gt=current_priority).count()
+                    if bigger_priorities == 0:
+                        return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+                return render(request, self.error_template, {'userstory': self.get_object(), 'error': "MENOR_PRIORIDAD"})
+            return render(request, self.error_template, {'userstory': self.get_object(), 'error': "SPRINT_VENCIDO"})
         raise PermissionDenied()
 
 
