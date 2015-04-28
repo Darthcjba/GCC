@@ -44,11 +44,11 @@ class Proyecto(models.Model):
             ('edit_flujo', 'editar flujo'),
             ('remove_flujo', 'eliminar flujo'),
 
-            ('create_userstory', 'agregar userstory al proyecto'),
-            ('edit_userstory', 'editar cualquier userstory del proyecto'),
-            ('remove_userstory', 'eliminar cualquier userstory del proyecto'),
-            ('prioritize_userstory', 'asignar prioridad a cualquier userstory'),
-            ('registraractividad_userstory', 'registrar actividad de cualquier userstory del proyecto')
+            ('create_userstory', 'agregar userstory'),
+            ('edit_userstory', 'editar userstory'),
+            ('remove_userstory', 'eliminar userstory'),
+            ('prioritize_userstory', 'asignar prioridad a userstories'),
+            ('registraractividad_userstory', 'registrar avances en userstories')
             #TODO: Hace falta definir permisos para Notas y Adjuntos?
         )
 
@@ -215,8 +215,8 @@ class UserStory(models.Model):
         verbose_name_plural = 'user stories'
         default_permissions = ()
         permissions = (
-            ('edit_my_userstory', 'editar userstory asignado a mí'),
-            ('registraractividad_my_userstory', 'registrar actividad a userstory asignado a mí')
+            ('edit_my_userstory', 'editar mis userstories'),
+            ('registraractividad_my_userstory', 'registrar avances en mis userstories')
         )
 
 
