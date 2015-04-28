@@ -24,6 +24,7 @@
                     <div class="panel-title"> <a href="{% url 'project:userstory_detail' u.id %}" style="color:#ffffff;">{{ u.nombre }}</a></div>
                 </div>
                 <div class="panel-body">
+                    <strong>Estado actual: </strong>{{ u.get_estado_display }}
                     <strong>Desarrollador: </strong>
                     {% if u.desarrollador %}
                         <a href="{% url 'project:user_detail' u.desarrollador_id %}">{{ u.desarrollador }}</a>
@@ -33,7 +34,7 @@
                     </br>
                     {% if u.actividad %}
                         <strong>Flujo: </strong><a href="{% url 'project:flujo_detail' u.actividad.flujo_id %}">{{ u.actividad.flujo }}</a><br/>
-                        <strong>Actividad: </strong>{{ u.actividad }} - {{ u.get_estado_display }}
+                        <strong>Actividad: </strong>{{ u.actividad }} - {{ u.get_estado_actividad_display }}
                     {% endif %}
                 </div>
                 <div class="panel-footer">

@@ -165,7 +165,8 @@ class UserStory(models.Model):
     Manejo de los User Stories. Los User Stories representan a cada
     funcionalidad desde la perspectiva del cliente que debe realizar el sistema.
     """
-    estado_choices = ((0, 'ToDo'), (1, 'Doing'), (2, 'Done'), (3, 'Pendiente Aprobacion'), (4, 'Aprobado'))
+    estado_actividad_choices = ((0, 'ToDo'), (1, 'Doing'), (2, 'Done'), )
+    estado_choices = ((0, 'Inactivo'), (1, 'En curso'), (2, 'Pendiente Aprobacion'), (3, 'Aprobado'), )
     priority_choices = ((0, 'Baja'), (1, 'Media'), (2, 'Alta'))
     nombre = models.CharField(max_length=60)
     descripcion = models.TextField()
@@ -176,6 +177,7 @@ class UserStory(models.Model):
     tiempo_registrado = models.PositiveIntegerField(default=0)
     ultimo_cambio = models.DateTimeField(auto_now=True)
     estado = models.IntegerField(choices=estado_choices, default=0)
+    estado_actividad = models.IntegerField(choices=estado_actividad_choices, default=0)
     proyecto = models.ForeignKey(Proyecto)
     desarrollador = models.ForeignKey(User, null=True, blank=True)
     sprint = models.ForeignKey(Sprint, null=True, blank=True)
@@ -232,7 +234,10 @@ class Nota(models.Model):
     """
     descripcion = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
-    # usuario = models.ForeignKey(User)
+    desarrollador = models.ForeignKey(User, null=True)
+    sprint = models.ForeignKey(Sprint, null=True)
+    actividad = models.ForeignKey(Actividad, null=True)
+    estado_actividad = models.IntegerField(choices=UserStory.estado_actividad_choices, null=True)
     user_story = models.ForeignKey(UserStory)
 
 

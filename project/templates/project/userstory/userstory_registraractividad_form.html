@@ -31,7 +31,7 @@
                         <div class="panel-body">
                             <p><strong>Sprint: </strong>{{ userstory.sprint }}</p>
                             <p><strong>Desarrollador: </strong>{{ userstory.desarrollador }}</p>
-                            <p><strong>Flujo: </strong>{{ userstory.actividad.flujo }} | <strong>Actividad: </strong>{{ userstory.actividad }} | <strong>Estado actual: </strong>{{ userstory.get_estado_display }}</p>
+                            <p><strong>Flujo: </strong>{{ userstory.actividad.flujo }} | <strong>Actividad: </strong>{{ userstory.actividad }} | <strong>Estado actual: </strong>{{ userstory.get_estado_actividad_display }}</p>
                             <p><strong>Tiempo Estimado (horas): </strong>{{ userstory.tiempo_estimado }}</p>
                             <p><strong>Tiempo registrado (horas): </strong>{{ userstory.tiempo_registrado }}</p>
                         </div>
@@ -44,7 +44,7 @@
 
         <div class="row">
             <div class="col-lg-3">{% bootstrap_field form.tiempo_registrado layout='horizontal' %}</div>
-            <div class="col-lg-3">{% bootstrap_field form.estado layout='horizontal' %}</div>
+            <div class="col-lg-3">{% bootstrap_field form.estado_actividad layout='horizontal' %}</div>
         </div>
         <div class="row">
         {% buttons submit='Guardar' reset="Reset" %}

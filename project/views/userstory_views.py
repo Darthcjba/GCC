@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.models import modelform_factory
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.views import generic
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
@@ -156,7 +157,8 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     """
     model = UserStory
     template_name = 'project/userstory/userstory_registraractividad_form.html'
-    form_class = modelform_factory(UserStory, fields=('tiempo_registrado', 'estado'))
+    form_class = modelform_factory(UserStory, fields=('tiempo_registrado', 'estado_actividad'))
+    error_template = 'project/userstory/userstory_error.html'
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -166,12 +168,15 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         :param kwargs: argumentos adicionales en forma de diccionario
         :return: PermissionDenied si el usuario no cuenta con permisos
         """
-        if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto):
-            return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
-        elif self.get_object().desarrollador and 'registraractividad_my_userstory' in get_perms(self.get_object().desarrollador, self.get_object()):
-            return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
-        else:
-            raise PermissionDenied()
+        if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto)\
+                or (self.get_object().desarrollador and 'registraractividad_my_userstory' in get_perms(self.get_object().desarrollador, self.get_object())):
+            #TODO Priorizacion
+            #TODO Guardar Descripcion del cambio
+            if self.get_object().sprint and self.get_object().sprint.fin >= timezone.now():
+                return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+            else:
+                return render(request, self.error_template, {'userstory': self.get_object(), 'error': "SPRINT_VENCIDO"})
+        raise PermissionDenied()
 
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
