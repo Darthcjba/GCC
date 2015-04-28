@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views import generic
 from guardian.mixins import LoginRequiredMixin
-from guardian.shortcuts import get_perms
+from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
 from project.models import UserStory, Proyecto, MiembroEquipo, Sprint
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
@@ -93,17 +94,27 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
 
         return HttpResponseRedirect(self.get_success_url())
 
-class UpdateUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
+class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
     """
     View que actualiza un user story del sistema
     """
     model = UserStory
     template_name = 'project/userstory/userstory_form.html'
-    permission_required = 'project.edit_userstory'
 
-
-    def get_permission_object(self):
-        return self.get_object().proyecto
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Comprobación de permisos hecha antes de la llamada al dispatch que inicia el proceso de respuesta al request de la url
+        :param request: request hecho por el cliente
+        :param args: argumentos adicionales posicionales
+        :param kwargs: argumentos adicionales en forma de diccionario
+        :return: PermissionDenied si el usuario no cuenta con permisos
+        """
+        if 'edit_userstory' in get_perms(request.user, self.get_object().proyecto):
+            return super(UpdateUserStory, self).dispatch(request, *args, **kwargs)
+        elif self.get_object().desarrollador and 'edit_my_userstory' in get_perms(self.get_object().desarrollador, self.get_object()):
+            return super(UpdateUserStory, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
 
     def get_form_class(self):
         project = self.get_object().proyecto
@@ -139,17 +150,28 @@ class UpdateUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
         return HttpResponseRedirect(self.get_success_url())
 
-class RegistrarActividadUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
+class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     """
     View que permite registrar los cambios aplicados a un user story
     """
     model = UserStory
     template_name = 'project/userstory/userstory_registraractividad_form.html'
-    permission_required = 'project.registraractividad_userstory'
     form_class = modelform_factory(UserStory, fields=('tiempo_registrado', 'estado'))
 
-    def get_permission_object(self):
-        return self.get_object().proyecto
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Comprobación de permisos hecha antes de la llamada al dispatch que inicia el proceso de respuesta al request de la url
+        :param request: request hecho por el cliente
+        :param args: argumentos adicionales posicionales
+        :param kwargs: argumentos adicionales en forma de diccionario
+        :return: PermissionDenied si el usuario no cuenta con permisos
+        """
+        if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto):
+            return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+        elif self.get_object().desarrollador and 'registraractividad_my_userstory' in get_perms(self.get_object().desarrollador, self.get_object()):
+            return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
 
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):

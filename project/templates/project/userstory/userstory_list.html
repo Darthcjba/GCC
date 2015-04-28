@@ -1,5 +1,6 @@
 {% extends 'project/base_table_js.html' %}
 {% load staticfiles %}
+{% load guardian_tags %}
 {% block title %}{{ view.project }} - Product Backlog{% endblock %}
 {% block header %}Product Backlog{% endblock %}
 {% block before_table %}
@@ -12,16 +13,21 @@
     <tr>
         <th>Nombre</th>
         <th>Ver</th>
-        {% if "edit_userstory" in proyecto_perms %}<th>Editar</th>{% endif %}
+        <th>Editar</th>
         {% if "remove_userstory" in proyecto_perms %}<th>Eliminar</th>{% endif %}
     </tr>
 {% endblock %}
 {% block tbody %}
     {% for us in userstories %}
+        {% get_obj_perms user for us as "us_perms" %}
     <tr class="odd gradeX">
         <td>{{ us.nombre }}</td>
         <td ><a href="{% url 'project:userstory_detail' us.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
-        {% if "edit_userstory" in proyecto_perms %}<td><a href="{% url 'project:userstory_update' us.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
+        {% if "edit_userstory" in proyecto_perms or 'edit_my_userstory' in us_perms %}
+            <td><a href="{% url 'project:userstory_update' us.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>
+        {% else %}
+            <td><i class="fa fa-pencil fa-fw"></i></td>
+        {% endif %}
         {% if "remove_userstory" in proyecto_perms %}<td><a href="{% url 'project:userstory_delete' us.id %}"><i class="fa fa-trash-o fa-fw"></i></a></td>{% endif %}
     </tr>
     {% endfor %}

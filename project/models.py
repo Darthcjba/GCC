@@ -189,6 +189,8 @@ class UserStory(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
+        old_developer = None
+
         if self.pk is not None:
             old_instance = get_object_or_404(UserStory, pk=self.pk)
             old_developer = old_instance.desarrollador
