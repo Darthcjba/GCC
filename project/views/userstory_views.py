@@ -175,7 +175,8 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
                     current_priority = self.get_object().prioridad
                     s = self.get_object().sprint
                     a = self.get_object().actividad
-                    bigger_priorities = UserStory.objects.filter(sprint= s, actividad= a, prioridad__gt=current_priority).count()
+                    d = self.get_object().desarrollador
+                    bigger_priorities = UserStory.objects.filter(sprint=s, actividad=a, desarrollador=d, prioridad__gt=current_priority).count()
                     if bigger_priorities == 0:
                         return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
                 return render(request, self.error_template, {'userstory': self.get_object(), 'error': "MENOR_PRIORIDAD"})
