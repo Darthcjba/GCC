@@ -88,6 +88,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     """
     Vista para agregar un Sprint en el sistema y añadir este sprint, un desarrollador y una actividad al user Story
     """
+    #TODO Mostrar como initial data del formset los US que quedaron del sprint anterior
     model = Sprint
     template_name = 'project/sprint/sprint_form.html'
     permission_required = 'project.create_sprint'
@@ -145,7 +146,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         formsetb= self.formset(self.request.POST)
         if formsetb.has_changed():
             if formsetb.is_valid():
-                for subform in formsetb :
+                for subform in formsetb:
                     new_userStory = subform.cleaned_data['userStory']
                     new_flujo = subform.cleaned_data['flujo']
                     self.flujo = new_flujo
@@ -153,6 +154,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                     new_userStory.desarrollador= new_desarrollador
                     new_userStory.sprint= self.object
                     new_userStory.actividad=self.flujo.actividad_set.first()
+                    new_userStory.estado = 1 #El User Story pasa a estar en curso por incluirse en el Sprint
                     new_userStory.save()
                 return HttpResponseRedirect(self.get_success_url())
             else:
@@ -234,6 +236,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                         new_userStory.desarrollador = new_desarrollador
                         new_userStory.sprint = self.object
                         new_userStory.actividad = self.flujo.actividad_set.first()
+                        new_userStory.estado = 1
                     new_userStory.save()
                     proccessed_forms.append(new_userStory)
             return HttpResponseRedirect(self.get_success_url())
