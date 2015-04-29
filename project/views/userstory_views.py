@@ -155,7 +155,6 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     """
     View que permite registrar los cambios aplicados a un user story
     """
-    #TODO Permitir que el Scrum Master pueda mover el User Story a otra actividad
     model = UserStory
     template_name = 'project/userstory/userstory_registraractividad_form.html'
     error_template = 'project/userstory/userstory_error.html'

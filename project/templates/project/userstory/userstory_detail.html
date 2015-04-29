@@ -16,12 +16,14 @@
         <div class="col-lg-6">
             <div class="well">
                 <p><strong>Nombre: </strong>{{ userstory.nombre }}</p>
-                <p><strong>Estado: </strong>{{ userstory.get_estado_display }}</p>
+                <p><strong>Estado del User Story: </strong>{{ userstory.get_estado_display }}</p>
                 <p><strong>Prioridad: </strong>{{ userstory.get_prioridad_display }}</p>
                 <p><strong>Valor de negocio: </strong>{{ userstory.valor_negocio }}</p>
                 <p><strong>Valor Técnico: </strong>{{ userstory.valor_tecnico }}</p>
                 <p><strong>Último cambio: </strong>{{ userstory.ultimo_cambio }}</p>
-                <p><strong></strong></p>
+                {% if userstory.desarrollador %}<p><strong>Asignado a: </strong>{{ userstory.desarrollador }}{% endif %}
+                {% if userstory.actividad %}<p><strong>Flujo: </strong>{{ userstory.actividad.flujo }} | <strong>Actividad: </strong>{{ userstory.actividad }} | <strong>Estado: </strong>{{ userstory.get_estado_actividad_display }} {% endif %}
+                {% if userstory.sprint %}<p><strong>Último Sprint: </strong>{{ userstory.sprint }} {% endif %}
             </div>
         </div>
         <div class="col-lg-6">
