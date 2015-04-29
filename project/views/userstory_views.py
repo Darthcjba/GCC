@@ -10,7 +10,7 @@ from django.views import generic
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
-from project.models import UserStory, Proyecto, MiembroEquipo, Sprint
+from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 
@@ -112,7 +112,7 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         """
         if 'edit_userstory' in get_perms(request.user, self.get_object().proyecto):
             return super(UpdateUserStory, self).dispatch(request, *args, **kwargs)
-        elif self.get_object().desarrollador and 'edit_my_userstory' in get_perms(self.get_object().desarrollador, self.get_object()):
+        elif 'edit_my_userstory' in get_perms(self.request.user, self.get_object()):
             return super(UpdateUserStory, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied()
@@ -155,9 +155,9 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     """
     View que permite registrar los cambios aplicados a un user story
     """
+    #TODO Permitir que el Scrum Master pueda mover el User Story a otra actividad
     model = UserStory
     template_name = 'project/userstory/userstory_registraractividad_form.html'
-    form_class = modelform_factory(UserStory, fields=('tiempo_registrado', 'estado_actividad'))
     error_template = 'project/userstory/userstory_error.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -169,7 +169,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         :return: PermissionDenied si el usuario no cuenta con permisos
         """
         if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto)\
-                or (self.get_object().desarrollador and 'registraractividad_my_userstory' in get_perms(self.get_object().desarrollador, self.get_object())):
+                or ('registraractividad_my_userstory' in get_perms(request.user, self.get_object())):
             if self.get_object().sprint and self.get_object().sprint.fin >= timezone.now():
                 if self.get_object().actividad:
                     current_priority = self.get_object().prioridad
@@ -183,6 +183,27 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
             return render(request, self.error_template, {'userstory': self.get_object(), 'error': "SPRINT_VENCIDO"})
         raise PermissionDenied()
 
+    def get_form_class(self):
+        """
+        Retorna el tipo de formulario que se mostrará en el template. En caso de que
+        el usuario cuente con el permiso de editar userstory se le permitirá cambiar la actividad
+        del User Story.
+        """
+        actual_fields = ['tiempo_registrado', 'estado_actividad']
+        if 'edit_userstory' in get_perms(self.request.user, self.get_object().proyecto) or\
+            'edit_my_userstory' in get_perms(self.request.user, self.get_object()):
+            actual_fields.insert(1, 'actividad')
+        return modelform_factory(UserStory, fields=actual_fields)
+
+    def get_form(self, form_class):
+        '''
+        Personalización del form retornado
+        '''
+
+        form = super(RegistrarActividadUserStory, self).get_form(form_class)
+        if 'actividad' in form.fields:
+            form.fields['actividad'].queryset = Actividad.objects.filter(flujo=self.get_object().actividad.flujo)
+        return form
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
