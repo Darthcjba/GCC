@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
@@ -517,6 +518,52 @@ class UserStoryTest(TestCase):
         self.assertEquals(us.nombre, 'Second Value US')
 
     def test_update_userstory_no_permission(self):
+        c = self.client
+        login = c.login(username='none', password='none')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        #No debío haber creado el userstory
+        self.assertEquals(response.status_code, 403)
+        self.assertIsNone(us)
+
+    def test_registraractividad_userstory_with_permission(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+        self.assertEquals(us.nombre, 'First Value US')
+        s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
+        f = Flujo.objects.create(nombre="Implementación", proyecto=p)
+        a1 = Actividad.objects.create(nombre="Analisis", flujo=f)
+        a2 = Actividad.objects.create(nombre="Desarrollo", flujo=f)
+        us.actividad = a2
+        us.sprint = s
+        us.desarrollador = User.objects.first()
+
+        response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
+        self.assertEquals(response.status_code, 200)
+        #nos vamos a la página de registrar actividad de user story
+        response = c.get(reverse('project:userstory_registraractividad', args=(str(p.id))))
+        #debería retornar 200
+        self.assertEquals(response.status_code, 200)
+        response = c.post(reverse('project:userstory_registraractividad', args=(str(p.id))),
+            {'tiempo_registrado':4, 'estado_actividad': 1}, follow=True)
+        self.assertRedirects(response, '/userstory/1/')
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+
+    def test_registraractividad_userstory_no_permission(self):
         c = self.client
         login = c.login(username='none', password='none')
         self.assertTrue(login)
