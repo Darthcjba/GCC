@@ -26,25 +26,32 @@
                         <th class="text-center">Doing</th>
                         <th class="text-center">Done</th>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>U1</td>
-                            <td>U2</td>
-                            <td>U3</td>
-                        </tr>
-                        <tr>
-                            <td>U3</td>
-                            <td>U4</td>
-                            <td>U5</td>
-                        </tr>
-                        <tr>
-                            <td>U5</td>
-                            <td>U7</td>
-                            <td>U8</td>
-                        </tr>
-                    </tbody>
+                    {% for u in userstory %}
+                             {% if  u.actividad == a %}
+                                 <tbody>
+                                 <tr>
+                                     <td>
+                                     {% if u.estado_actividad == 0 %}
+                                         <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
+                                     {% endif %}
+                                     </td>
+                                     <td>
+                                     {% if u.estado_actividad == 1 %}
+                                         <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
+                                     {% endif %}
+                                     </td>
+                                     <td>
+                                         {% if u.estado_actividad == 2 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
+                                         {% endif %}
+
+                                     </td>
+                                 </tr>
+                                 </tbody>
+                             {% endif %}
+                    {% endfor %}
                 </table>
-            </td>
+        </td>
     {% endfor %}
 {% endblock %}
 {% block after_table %}
