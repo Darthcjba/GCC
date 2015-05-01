@@ -549,15 +549,15 @@ class UserStoryTest(TestCase):
         a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
         us.actividad = a2
         us.sprint = s
-        us.desarrollador = User.objects.first()
-
+        us.desarrollador = p.equipo.first()
+        us.save()
         response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
         self.assertEquals(response.status_code, 200)
         #nos vamos a la página de registrar actividad de user story
-        response = c.get(reverse('project:userstory_registraractividad', args=(str(p.id))))
+        response = c.get(reverse('project:userstory_registraractividad', args=(str(us.id))))
         #debería retornar 200
         self.assertEquals(response.status_code, 200)
-        response = c.post(reverse('project:userstory_registraractividad', args=(str(p.id))),
+        response = c.post(reverse('project:userstory_registraractividad', args=(str(us.id))),
             {'tiempo_registrado':4, 'estado_actividad': 1}, follow=True)
         self.assertRedirects(response, '/userstory/1/')
         us = UserStory.objects.first()
