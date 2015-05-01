@@ -545,8 +545,8 @@ class UserStoryTest(TestCase):
         self.assertEquals(us.nombre, 'First Value US')
         s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
         f = Flujo.objects.create(nombre="Implementación", proyecto=p)
-        a1 = Actividad.objects.create(nombre="Analisis", flujo=f)
-        a2 = Actividad.objects.create(nombre="Desarrollo", flujo=f)
+        a1 = Actividad.objects.create(name="Analisis", flujo=f)
+        a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
         us.actividad = a2
         us.sprint = s
         us.desarrollador = User.objects.first()
