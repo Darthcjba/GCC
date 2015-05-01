@@ -33,7 +33,7 @@
                                      <td>
                                      {% if u.estado_actividad == 0 %}
                                          {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}"  >{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: #0044DD" >{{ u.nombre }}</a>
                                          {% elif u.prioridad == 1 %}
                                              <a href="{% url 'project:userstory_detail' u.id %}" style="color: orange">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 2 %}
@@ -44,7 +44,7 @@
                                      <td>
                                      {% if u.estado_actividad == 1 %}
                                          {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}"  >{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: #0044DD" >{{ u.nombre }}</a>
                                          {% elif u.prioridad == 1 %}
                                              <a href="{% url 'project:userstory_detail' u.id %}" style="color: orange">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 2 %}
@@ -55,7 +55,7 @@
                                      <td>
                                          {% if u.estado_actividad == 2 %}
                                              {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}"  >{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: #0044DD" >{{ u.nombre }}</a>
                                          {% elif u.prioridad == 1 %}
                                              <a href="{% url 'project:userstory_detail' u.id %}" style="color: orange">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 2 %}
@@ -73,6 +73,23 @@
     {% endfor %}
 {% endblock %}
 {% block after_table %}
+    <div class="col-lg-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Observacion
+            </div>
+            <div class="panel-body">
+                <p style="color: #d33333" >User story de prioridad alta</p>
+                <p style="color: orange">User story de prioridad medio</p>
+                <p style="color: #0044DD"> User story de prioridad baja</p>
+            </div>
+            <div class="panel-footer">
+                Panel Footer
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
             <p><a class="fa fa-step-backward" href="{% url 'project:flujo_list' flujo.proyecto.id %}"> Volver a
                 Flujos</a></p>
+    </div>
 {% endblock %}
