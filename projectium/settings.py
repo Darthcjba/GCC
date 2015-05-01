@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'guardian',
     'django.contrib.admindocs',
     'bootstrap3',
-    'debug_toolbar',
+    #'debug_toolbar',
     'reversion',
 )
 
@@ -129,4 +129,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 import sys
 if 'test' in sys.argv:
-    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')}
