@@ -32,17 +32,35 @@
                                  <tr>
                                      <td>
                                      {% if u.estado_actividad == 0 %}
-                                         <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
+                                         {% if u.prioridad == 0 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}"  >{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 1 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: orange">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 2 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: #d33333" >{{ u.nombre }}</a>
+                                         {% endif %}
                                      {% endif %}
                                      </td>
                                      <td>
                                      {% if u.estado_actividad == 1 %}
-                                         <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
+                                         {% if u.prioridad == 0 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}"  >{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 1 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: orange">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 2 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: #d33333" >{{ u.nombre }}</a>
+                                         {% endif %}
                                      {% endif %}
                                      </td>
                                      <td>
                                          {% if u.estado_actividad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
+                                             {% if u.prioridad == 0 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}"  >{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 1 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: orange">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 2 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" style="color: #d33333" >{{ u.nombre }}</a>
+                                         {% endif %}
                                          {% endif %}
 
                                      </td>

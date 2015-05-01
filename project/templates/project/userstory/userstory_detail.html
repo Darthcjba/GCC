@@ -47,5 +47,5 @@
         </div>
     </div>
     <p><a class="fa fa-step-backward" href="{% url 'project:product_backlog' userstory.proyecto.id %}"> Volver a User Stories</a></p>
-
+    <p><a class="fa fa-file" href="{% url 'project:project_detail' userstory.proyecto.id %}"> Volver al Proyecto {{ userstory.proyecto.nombre_corto }}</a></p>
 {% endblock %}
