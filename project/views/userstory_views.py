@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect, HttpResponseForbidden
@@ -203,6 +203,20 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         if 'actividad' in form.fields:
             form.fields['actividad'].queryset = Actividad.objects.filter(flujo=self.get_object().actividad.flujo)
         return form
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        #movemos el User Story a la sgte actividad en caso de que haya llegado a Done
+        if form.cleaned_data['estado_actividad'] == 2:
+            try:
+                next_actividad = self.object.actividad.get_next_in_order()
+            except ObjectDoesNotExist:
+                #TODO incluir en la cola a evaluar por el scrum master
+                next_actividad = self.object.actividad #temporalmente que mantenga su actividad
+            self.object.actividad = next_actividad
+            self.object.estado_actividad = 0
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
