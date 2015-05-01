@@ -210,7 +210,7 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
     """
     model = UserStory
     template_name = 'project/userstory/userstory_delete.html'
-    permission_required = 'project.delete_userstory'
+    permission_required = 'project.remove_userstory'
     context_object_name = 'userstory'
 
     def get_permission_object(self):
