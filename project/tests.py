@@ -569,13 +569,29 @@ class UserStoryTest(TestCase):
         self.assertTrue(login)
         p = Proyecto.objects.first()
         #creamos un user story
-        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
-            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
-             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
-        us = UserStory.objects.first()
-        #No debío haber creado el userstory
+        us = UserStory()
+        us.nombre = 'First Value US'
+        us.descripcion = "This is a User Story for test purposes."
+        us.prioridad = 1
+        us.valor_tecnico = 10
+        us.valor_negocio = 10
+        us.tiempo_estimado = 10
+        us.proyecto = p
+        s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
+        f = Flujo.objects.create(nombre="Implementación", proyecto=p)
+        a1 = Actividad.objects.create(name="Analisis", flujo=f)
+        a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
+        us.actividad = a2
+        us.sprint = s
+        us.desarrollador = p.equipo.first()
+        us.save()
+        response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
+        #no deberia poder ver User Story recien creado
         self.assertEquals(response.status_code, 403)
-        self.assertIsNone(us)
+        #nos vamos a la página de registrar actividad de user story
+        response = c.get(reverse('project:userstory_registraractividad', args=(str(us.id))))
+        #debería retornar 403
+        self.assertEquals(response.status_code, 403)
 
 
     def test_delete_userstory_with_permission(self):
