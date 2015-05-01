@@ -20,41 +20,40 @@
 {% block tbody %}
     {% for a in flujo.actividad_set.all %}
         <td>
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <th class="text-center">Todo</th>
-                        <th class="text-center">Doing</th>
-                        <th class="text-center">Done</th>
-                    </thead>
-                    {% for u in userstory %}
-                             {% if  u.actividad == a %}
-                                 <tbody>
-                                 <tr>
-                                     <td>
-                                     {% if u.estado_actividad == 0 %}
-                                         <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
-                                     {% endif %}
-                                     </td>
-                                     <td>
-                                     {% if u.estado_actividad == 1 %}
-                                         <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
-                                     {% endif %}
-                                     </td>
-                                     <td>
-                                         {% if u.estado_actividad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" >{{ u.nombre }}</a>
-                                         {% endif %}
-
-                                     </td>
-                                 </tr>
-                                 </tbody>
-                             {% endif %}
-                    {% endfor %}
-                </table>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <th class="text-center">Todo</th>
+                <th class="text-center">Doing</th>
+                <th class="text-center">Done</th>
+                </thead>
+                {% for u in userstory %}
+                    {% if  u.actividad == a %}
+                        <tbody>
+                        <tr>
+                            <td>
+                                {% if u.estado_actividad == 0 %}
+                                    <a href="{% url 'project:userstory_detail' u.id %}">{{ u.nombre }}</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if u.estado_actividad == 1 %}
+                                    <a href="{% url 'project:userstory_detail' u.id %}">{{ u.nombre }}</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if u.estado_actividad == 2 %}
+                                    <a href="{% url 'project:userstory_detail' u.id %}">{{ u.nombre }}</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    {% endif %}
+                {% endfor %}
+            </table>
         </td>
     {% endfor %}
 {% endblock %}
 {% block after_table %}
-            <p><a class="fa fa-step-backward" href="{% url 'project:flujo_list' flujo.proyecto.id %}"> Volver a
-                Flujos</a></p>
+    <p><a class="fa fa-step-backward" href="{% url 'project:flujo_list' flujo.proyecto.id %}"> Volver a
+        Flujos</a></p>
 {% endblock %}
