@@ -8,7 +8,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import SESSION_KEY
 from django.utils import timezone
 import reversion
-from project.models import Proyecto, models, Flujo, UserStory, Sprint, Actividad
+from project.models import Proyecto, Flujo, UserStory, Sprint, Actividad
 
 
 class LoginTest(TestCase):
@@ -557,11 +557,26 @@ class UserStoryTest(TestCase):
         response = c.get(reverse('project:userstory_registraractividad', args=(str(us.id))))
         #debería retornar 200
         self.assertEquals(response.status_code, 200)
-        response = c.post(reverse('project:userstory_registraractividad', args=(str(us.id))),
-            {'tiempo_registrado':4, 'estado_actividad': 1}, follow=True)
+
+        post_data = {
+            'actividad': 1,
+            'tiempo_registrado': 4,
+            'estado_actividad': 1,
+            'form-INITIAL_FORMS': 0,
+            'form-MAX_NUM_FORMS': 1000,
+            'form-MIN_NUM_FORMS': 0,
+            'form-TOTAL_FORMS': 1,
+            'form-0-mensaje': 'Mensaje',
+        }
+        response = c.post(reverse('project:userstory_registraractividad', args=(str(us.id))),post_data, follow=True)
+
         self.assertRedirects(response, '/userstory/1/')
         us = UserStory.objects.first()
         self.assertIsNotNone(us)
+        nota = us.nota_set.last()
+        #se creo una nota
+        self.assertIsNotNone(nota)
+        self.assertEquals(nota.mensaje, 'Mensaje')
 
     def test_registraractividad_userstory_no_permission(self):
         c = self.client

@@ -2,14 +2,14 @@
 {% load bootstrap3 %}
 {% load guardian_tags %}
 {% block title %}Registrar actividad en User Story{% endblock %}
-{% block header %}User Story{% endblock %}
+{% block header %}Registrar Avance{% endblock %}
 {% block content %}
 
-<p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
 <div class="row">
-            <div class="col-lg-6">
-                <div class="well">
-                    <p><strong>Nombre: </strong>{{ userstory.nombre }}</p>
+    <div class="col-lg-6">
+        <div class="well">
+            <p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
+            <p><strong>Nombre: </strong>{{ userstory.nombre }}</p>
                     <p><strong>Prioridad: </strong>{{ userstory.get_prioridad_display }}</p>
                     <p><strong>Valor de negocio: </strong>{{ userstory.valor_negocio }}</p>
                     <p><strong>Valor Técnico: </strong>{{ userstory.valor_tecnico }}</p>
@@ -17,12 +17,6 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="row">
-                    <div class="well well-sm">
-                        <h4>Descripción</h4>
-                        <p>{{ userstory.descripcion }}</p>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="panel panel-green">
                         <div class="panel-heading">
@@ -41,7 +35,13 @@
 </div>
     <form action="" method="post">
         {% csrf_token %}
-
+        <div class="row">
+            {{ formset.non_form_errors }}
+            <div class="col-lg-9">
+                {% for f in formset.forms %}{% bootstrap_form f %}{% endfor %}
+            </div>
+            {{ formset.management_form }}
+        </div>
         <div class="row">
             <div class="col-lg-3">{% bootstrap_field form.tiempo_registrado layout='horizontal' %}</div>
             {% if form.actividad %}

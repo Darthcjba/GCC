@@ -4,23 +4,23 @@
 {% block header %}{{ userstory.nombre|title }}{% endblock %}
 
 {% block before_table %}
-    <h3>Versiones</h3>
+    <h3>Historial de Tareas</h3>
 {% endblock %}
 {% block thead %}
     <tr>
-        <th>Fecha de Modificacion</th>
-        <th>Comentario</th>
-        <th>Usuario</th>
-        <th>Revertir</th>
+        <th>Fecha</th>
+        <th>Mensaje</th>
+        <th>Desarrollador</th>
+        <th>Ver</th>
     </tr>
 {% endblock %}
 {% block tbody %}
-    {% for v in versions %}
+    {% for n in notas %}
     <tr>
-        <td>{{ v.revision.date_created }}</td>
-        <td>{{ v.revision.comment }}</td>
-        <td>{{ v.revision.user }}</td>
-        <th><a href="{% url 'project:version_revert' v.object_id v.id %}" class="fa fa-undo"></a></th>
+        <td>{{ n.fecha }}</td>
+        <td>{{ n.mensaje|truncatechars:20 }}</td>
+        <td>{{ n.desarrollador }}</td>
+        <td><a href="{% url 'project:nota_detail' n.id %}"><i class="fa fa-eye"></i></a></td>
     </tr>
     {% endfor %}
 {% endblock %}
