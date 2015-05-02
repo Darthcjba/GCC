@@ -11,7 +11,7 @@ from django.views import generic
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
-from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Commit, Nota
+from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Nota
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 
@@ -151,7 +151,7 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         :param form: formulario recibido
         :return: URL de redireccion
         """
-        if form.has_changed:
+        if form.has_changed():
             with transaction.atomic(), reversion.create_revision():
                 self.object = form.save()
                 reversion.set_user(self.request.user)
@@ -317,7 +317,7 @@ class UpdateVersion(UpdateUserStory):
         with transaction.atomic(), reversion.create_revision():
             self.object = form.save()
             reversion.set_user(self.request.user)
-            rev = self.version.revision
+            # rev = self.version.revision
             reversion.set_comment("Reversion: {}".format(str.join(', ', form.changed_data)))
 
         return HttpResponseRedirect(self.get_success_url())
