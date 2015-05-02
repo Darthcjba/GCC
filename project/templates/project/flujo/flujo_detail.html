@@ -30,21 +30,40 @@
                     {% if  u.actividad == a %}
                         <tbody>
                         <tr>
-                            <td>
-                                {% if u.estado_actividad == 0 %}
-                                    <a href="{% url 'project:userstory_detail' u.id %}">{{ u.nombre }}</a>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if u.estado_actividad == 1 %}
-                                    <a href="{% url 'project:userstory_detail' u.id %}">{{ u.nombre }}</a>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if u.estado_actividad == 2 %}
-                                    <a href="{% url 'project:userstory_detail' u.id %}">{{ u.nombre }}</a>
-                                {% endif %}
-                            </td>
+                           <td>
+                                     {% if u.estado_actividad == 0 %}
+                                         {% if u.prioridad == 0 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary ">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 1 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning ">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 2 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger " >{{ u.nombre }}</a>
+                                         {% endif %}
+                                     {% endif %}
+                                     </td>
+                                     <td>
+                                     {% if u.estado_actividad == 1 %}
+                                         {% if u.prioridad == 0 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary ">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 1 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning ">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 2 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger " >{{ u.nombre }}</a>
+                                         {% endif %}
+                                     {% endif %}
+                                     </td>
+                                     <td>
+                                         {% if u.estado_actividad == 2 %}
+                                             {% if u.prioridad == 0 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary " >{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 1 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning ">{{ u.nombre }}</a>
+                                         {% elif u.prioridad == 2 %}
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger " >{{ u.nombre }}</a>
+                                         {% endif %}
+                                         {% endif %}
+
+                                     </td>
                         </tr>
                         </tbody>
                     {% endif %}
