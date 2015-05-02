@@ -7,6 +7,8 @@ if [ $? -eq 0 ];then
     python manage.py migrate
     echo "Poblando base de datos..."
     python manage.py loaddata initial
+    echo "Creando versiones iniciales..."
+    python manage.py createinitialrevisions
     echo "Ejecutando pruebas..."
     #python -Wi manage.py test
 else

@@ -215,7 +215,7 @@
       "is_active": true,
       "is_superuser": true,
       "is_staff": true,
-      "last_login": "2015-05-02T04:43:26.871Z",
+      "last_login": "2015-05-02T05:27:57.934Z",
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$12000$4SDy4qfSVTXt$44S7wV0mua/jjftwpEZ9oF+BhpAA2BtMNWRhZan8eWY=",
@@ -233,7 +233,7 @@
       "is_active": true,
       "is_superuser": false,
       "is_staff": true,
-      "last_login": "2015-04-19T15:39:41Z",
+      "last_login": "2015-05-02T05:27:50.329Z",
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$12000$av8xzAiXWYJW$bRBqHfoGcwid6Z7PT9pH8O7XpV6gPWHgwBHPIJsKWFA=",
@@ -269,7 +269,7 @@
       "is_active": true,
       "is_superuser": false,
       "is_staff": true,
-      "last_login": "2015-05-02T04:40:43.986Z",
+      "last_login": "2015-04-19T15:40:29Z",
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$12000$dpWPa8lOE43m$lOr8rMNpMMIkNiW5mZxrJO78xdiAiRBjYkUK9lvKy7c=",
@@ -413,7 +413,7 @@
       "is_active": true,
       "is_superuser": false,
       "is_staff": false,
-      "last_login": "2015-04-19T15:44:30Z",
+      "last_login": "2015-05-02T05:26:12.713Z",
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$12000$gPHAc5FKQRzn$Ec7XV51LfXR4UJzEO7vdKUSQXCYEewJxzRsGzwsIqjA=",
@@ -647,23 +647,12 @@
    "fields": {
       "proyecto": 7,
       "roles": [
-         8
+         9
       ],
       "usuario": 4
    },
    "model": "project.miembroequipo",
    "pk": 6
-},
-{
-   "fields": {
-      "proyecto": 7,
-      "roles": [
-         9
-      ],
-      "usuario": 2
-   },
-   "model": "project.miembroequipo",
-   "pk": 7
 },
 {
    "fields": {
@@ -690,7 +679,18 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "proyecto": 7,
+      "roles": [
+         9
+      ],
+      "usuario": 2
+   },
+   "model": "project.miembroequipo",
+   "pk": 10
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T05:24:59.836Z",
       "tiempo_estimado": 5,
       "estado_actividad": 0,
       "actividad": 1,
@@ -701,7 +701,7 @@
       "nombre": "Iniciar sesion",
       "sprint": 1,
       "tiempo_registrado": 6,
-      "prioridad": 0,
+      "prioridad": 2,
       "valor_negocio": 20,
       "valor_tecnico": 30
    },
@@ -710,10 +710,10 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-05-02T04:44:05.116Z",
+      "ultimo_cambio": "2015-05-02T05:31:47.453Z",
       "tiempo_estimado": 5,
-      "estado_actividad": 0,
-      "actividad": 1,
+      "estado_actividad": 1,
+      "actividad": 2,
       "estado": 0,
       "desarrollador": 2,
       "proyecto": 7,
@@ -721,7 +721,7 @@
       "nombre": "Cerrar sesion",
       "sprint": 1,
       "tiempo_registrado": 6,
-      "prioridad": 2,
+      "prioridad": 1,
       "valor_negocio": 20,
       "valor_tecnico": 30
    },
@@ -730,17 +730,17 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "ultimo_cambio": "2015-05-02T05:30:37.597Z",
       "tiempo_estimado": 5,
       "estado_actividad": 0,
-      "actividad": 1,
+      "actividad": 2,
       "estado": 0,
       "desarrollador": 4,
       "proyecto": 7,
       "descripcion": "Cambia contrasena del ususario",
       "nombre": "Cambiar contrasena",
       "sprint": 1,
-      "tiempo_registrado": 6,
+      "tiempo_registrado": 8,
       "prioridad": 0,
       "valor_negocio": 20,
       "valor_tecnico": 30
@@ -750,9 +750,9 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "ultimo_cambio": "2015-05-02T05:31:07.868Z",
       "tiempo_estimado": 5,
-      "estado_actividad": 0,
+      "estado_actividad": 1,
       "actividad": 1,
       "estado": 0,
       "desarrollador": 2,
@@ -810,7 +810,7 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-05-02T04:43:39.227Z",
+      "ultimo_cambio": "2015-05-02T05:28:23.446Z",
       "tiempo_estimado": 5,
       "estado_actividad": 0,
       "actividad": 2,
@@ -821,7 +821,7 @@
       "nombre": "Eliminar Proyecto",
       "sprint": 1,
       "tiempo_registrado": 6,
-      "prioridad": 1,
+      "prioridad": 2,
       "valor_negocio": 20,
       "valor_tecnico": 30
    },
@@ -830,7 +830,7 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-05-02T04:42:58.412Z",
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
       "tiempo_estimado": 5,
       "estado_actividad": 0,
       "actividad": 3,
@@ -841,7 +841,7 @@
       "nombre": "Priorizacion",
       "sprint": 1,
       "tiempo_registrado": 6,
-      "prioridad": 2,
+      "prioridad": 0,
       "valor_negocio": 20,
       "valor_tecnico": 30
    },
@@ -850,10 +850,10 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-05-02T04:42:49.868Z",
+      "ultimo_cambio": "2015-05-02T05:29:51.414Z",
       "tiempo_estimado": 5,
       "estado_actividad": 0,
-      "actividad": 3,
+      "actividad": 4,
       "estado": 0,
       "desarrollador": 4,
       "proyecto": 7,
@@ -870,14 +870,14 @@
 },
 {
    "fields": {
-      "ultimo_cambio": "2015-05-02T04:45:44.445Z",
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
       "tiempo_estimado": 5,
       "estado_actividad": 0,
       "actividad": 1,
       "estado": 0,
       "desarrollador": 2,
       "proyecto": 7,
-      "descripcion": "Buscar proyectos en el sistema.",
+      "descripcion": "Busca los proyectos en el sistema",
       "nombre": "Buscar Proyecto",
       "sprint": 2,
       "tiempo_registrado": 6,
@@ -967,5 +967,75 @@
    },
    "model": "project.userstory",
    "pk": 14
+},
+{
+   "fields": {
+      "user_story": 2,
+      "estado_actividad": 0,
+      "actividad": 2,
+      "mensaje": "Fixed bug when not logged in.",
+      "fecha": "2015-05-02T05:29:21.547Z",
+      "desarrollador": 2,
+      "sprint": 1,
+      "horas_registradas": 6
+   },
+   "model": "project.nota",
+   "pk": 1
+},
+{
+   "fields": {
+      "user_story": 9,
+      "estado_actividad": 0,
+      "actividad": 4,
+      "mensaje": "Changed variables",
+      "fecha": "2015-05-02T05:29:51.466Z",
+      "desarrollador": 4,
+      "sprint": 1,
+      "horas_registradas": 6
+   },
+   "model": "project.nota",
+   "pk": 2
+},
+{
+   "fields": {
+      "user_story": 3,
+      "estado_actividad": 0,
+      "actividad": 2,
+      "mensaje": "Done Everythoin",
+      "fecha": "2015-05-02T05:30:37.658Z",
+      "desarrollador": 4,
+      "sprint": 1,
+      "horas_registradas": 8
+   },
+   "model": "project.nota",
+   "pk": 3
+},
+{
+   "fields": {
+      "user_story": 4,
+      "estado_actividad": 1,
+      "actividad": 1,
+      "mensaje": "Doing it",
+      "fecha": "2015-05-02T05:31:07.922Z",
+      "desarrollador": 2,
+      "sprint": 1,
+      "horas_registradas": 6
+   },
+   "model": "project.nota",
+   "pk": 4
+},
+{
+   "fields": {
+      "user_story": 2,
+      "estado_actividad": 1,
+      "actividad": 2,
+      "mensaje": "Doing it",
+      "fecha": "2015-05-02T05:31:47.516Z",
+      "desarrollador": 2,
+      "sprint": 1,
+      "horas_registradas": 6
+   },
+   "model": "project.nota",
+   "pk": 5
 }
 ]
