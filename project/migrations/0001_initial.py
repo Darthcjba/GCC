@@ -8,6 +8,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('reversion', '0002_auto_20141216_1509'),
         ('auth', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
@@ -31,6 +32,18 @@ class Migration(migrations.Migration):
                 ('nombre', models.CharField(max_length=20)),
                 ('descripcion', models.TextField()),
                 ('creacion', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Commit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('estado_actividad', models.IntegerField(default=0, null=True)),
+                ('actividad', models.ForeignKey(to='project.Actividad', null=True)),
+                ('revision', models.ForeignKey(to='reversion.Revision')),
             ],
             options={
             },
@@ -173,6 +186,12 @@ class Migration(migrations.Migration):
             model_name='flujo',
             name='proyecto',
             field=models.ForeignKey(blank=True, to='project.Proyecto', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='commit',
+            name='sprint',
+            field=models.ForeignKey(to='project.Sprint', null=True),
             preserve_default=True,
         ),
         migrations.AddField(

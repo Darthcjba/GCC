@@ -1,0 +1,30 @@
+{% extends 'project/base_table_js.html' %}
+
+{% block title %}{{ userstory.nombre|title }}{% endblock %}
+{% block header %}{{ userstory.nombre|title }}{% endblock %}
+
+{% block before_table %}
+    <h3>Historial de Tareas</h3>
+{% endblock %}
+{% block thead %}
+    <tr>
+        <th>Fecha</th>
+        <th>Mensaje</th>
+        <th>Desarrollador</th>
+        <th>Ver</th>
+    </tr>
+{% endblock %}
+{% block tbody %}
+    {% for n in notas %}
+    <tr>
+        <td>{{ n.fecha }}</td>
+        <td>{{ n.mensaje|truncatechars:20 }}</td>
+        <td>{{ n.desarrollador }}</td>
+        <td><a href="{% url 'project:nota_detail' n.id %}"><i class="fa fa-eye"></i></a></td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block after_table %}
+    <p><a class="fa fa-step-backward" href="{% url 'project:userstory_detail' userstory.id %}"> Volver a User Story</a></p>
+{% endblock %}
