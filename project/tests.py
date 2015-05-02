@@ -8,7 +8,7 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import SESSION_KEY
 from django.utils import timezone
 import reversion
-from project.models import Proyecto, models, Flujo, UserStory, Sprint, Actividad
+from project.models import Proyecto, Flujo, UserStory, Sprint, Actividad
 
 
 class LoginTest(TestCase):
@@ -545,23 +545,38 @@ class UserStoryTest(TestCase):
         self.assertEquals(us.nombre, 'First Value US')
         s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
         f = Flujo.objects.create(nombre="Implementación", proyecto=p)
-        a1 = Actividad.objects.create(nombre="Analisis", flujo=f)
-        a2 = Actividad.objects.create(nombre="Desarrollo", flujo=f)
+        a1 = Actividad.objects.create(name="Analisis", flujo=f)
+        a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
         us.actividad = a2
         us.sprint = s
-        us.desarrollador = User.objects.first()
-
+        us.desarrollador = p.equipo.first()
+        us.save()
         response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
         self.assertEquals(response.status_code, 200)
         #nos vamos a la página de registrar actividad de user story
-        response = c.get(reverse('project:userstory_registraractividad', args=(str(p.id))))
+        response = c.get(reverse('project:userstory_registraractividad', args=(str(us.id))))
         #debería retornar 200
         self.assertEquals(response.status_code, 200)
-        response = c.post(reverse('project:userstory_registraractividad', args=(str(p.id))),
-            {'tiempo_registrado':4, 'estado_actividad': 1}, follow=True)
+
+        post_data = {
+            'actividad': 1,
+            'tiempo_registrado': 4,
+            'estado_actividad': 1,
+            'form-INITIAL_FORMS': 0,
+            'form-MAX_NUM_FORMS': 1000,
+            'form-MIN_NUM_FORMS': 0,
+            'form-TOTAL_FORMS': 1,
+            'form-0-mensaje': 'Mensaje',
+        }
+        response = c.post(reverse('project:userstory_registraractividad', args=(str(us.id))),post_data, follow=True)
+
         self.assertRedirects(response, '/userstory/1/')
         us = UserStory.objects.first()
         self.assertIsNotNone(us)
+        nota = us.nota_set.last()
+        #se creo una nota
+        self.assertIsNotNone(nota)
+        self.assertEquals(nota.mensaje, 'Mensaje')
 
     def test_registraractividad_userstory_no_permission(self):
         c = self.client
@@ -569,13 +584,29 @@ class UserStoryTest(TestCase):
         self.assertTrue(login)
         p = Proyecto.objects.first()
         #creamos un user story
-        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
-            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
-             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
-        us = UserStory.objects.first()
-        #No debío haber creado el userstory
+        us = UserStory()
+        us.nombre = 'First Value US'
+        us.descripcion = "This is a User Story for test purposes."
+        us.prioridad = 1
+        us.valor_tecnico = 10
+        us.valor_negocio = 10
+        us.tiempo_estimado = 10
+        us.proyecto = p
+        s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
+        f = Flujo.objects.create(nombre="Implementación", proyecto=p)
+        a1 = Actividad.objects.create(name="Analisis", flujo=f)
+        a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
+        us.actividad = a2
+        us.sprint = s
+        us.desarrollador = p.equipo.first()
+        us.save()
+        response = c.get(reverse('project:userstory_detail', args=(str(us.id))))
+        #no deberia poder ver User Story recien creado
         self.assertEquals(response.status_code, 403)
-        self.assertIsNone(us)
+        #nos vamos a la página de registrar actividad de user story
+        response = c.get(reverse('project:userstory_registraractividad', args=(str(us.id))))
+        #debería retornar 403
+        self.assertEquals(response.status_code, 403)
 
 
     def test_delete_userstory_with_permission(self):

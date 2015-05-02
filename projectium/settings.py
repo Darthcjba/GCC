@@ -40,12 +40,12 @@ INSTALLED_APPS = (
     'guardian',
     'django.contrib.admindocs',
     'bootstrap3',
-    'debug_toolbar',
+    #'debug_toolbar',
     'reversion',
 )
 
 MIDDLEWARE_CLASSES = (
-    'reversion.middleware.RevisionMiddleware',
+    #'reversion.middleware.RevisionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

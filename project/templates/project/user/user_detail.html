@@ -19,12 +19,12 @@
     <h3>User Stories</h3>
     {% for u in usuario.userstory_set.all %}
         <div class="col-lg-3">
-            <div class="panel panel-green">
+            <div class="panel panel-{% if u.prioridad == 0 %}green{% elif u.prioridad == 1 %}yellow{% else %}red{% endif %}">
                 <div class="panel-heading">
                     <div class="panel-title"> <a href="{% url 'project:userstory_detail' u.id %}" style="color:#ffffff;">{{ u.nombre }}</a></div>
                 </div>
                 <div class="panel-body">
-                    <strong>Estado actual: </strong>{{ u.get_estado_display }}
+                    <strong>Estado actual: </strong>{{ u.get_estado_display }}<br/>
                     <strong>Desarrollador: </strong>
                     {% if u.desarrollador %}
                         <a href="{% url 'project:user_detail' u.desarrollador_id %}">{{ u.desarrollador }}</a>
@@ -34,8 +34,9 @@
                     </br>
                     {% if u.actividad %}
                         <strong>Flujo: </strong><a href="{% url 'project:flujo_detail' u.actividad.flujo_id %}">{{ u.actividad.flujo }}</a><br/>
-                        <strong>Actividad: </strong>{{ u.actividad }} - {{ u.get_estado_actividad_display }}
+                        <strong>Actividad: </strong>{{ u.actividad }} - {{ u.get_estado_actividad_display }}<br/>
                     {% endif %}
+                        <strong>Prioriodad: </strong>{{ u.get_prioridad_display }}
                 </div>
                 <div class="panel-footer">
                     <a href="{% url 'project:userstory_detail' u.id %}"><i class="fa fa-eye fa-fw"></i></a>

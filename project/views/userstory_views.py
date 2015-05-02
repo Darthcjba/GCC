@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.forms.models import modelform_factory
+from django.forms.models import modelform_factory, inlineformset_factory, modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.views import generic
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
-from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad
+from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Nota
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 
@@ -91,7 +92,10 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
         """
         self.object = form.save(commit=False)
         self.object.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
-        self.object.save()
+        with transaction.atomic(), reversion.create_revision():
+            reversion.set_user(self.request.user)
+            reversion.set_comment("Version Inicial")
+            self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -147,7 +151,11 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         :param form: formulario recibido
         :return: URL de redireccion
         """
-        self.object = form.save()
+        if form.has_changed():
+            with transaction.atomic(), reversion.create_revision():
+                self.object = form.save()
+                reversion.set_user(self.request.user)
+                reversion.set_comment("Modificacion: {}".format(str.join(', ', form.changed_data)))
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -158,6 +166,12 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     model = UserStory
     template_name = 'project/userstory/userstory_registraractividad_form.html'
     error_template = 'project/userstory/userstory_error.html'
+    NoteFormset = modelformset_factory(Nota, fields=('mensaje',), extra=1)
+
+    def get_context_data(self, **kwargs):
+        context = super(RegistrarActividadUserStory, self).get_context_data(**kwargs)
+        context['formset'] = self.NoteFormset(queryset=Nota.objects.none())
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -167,7 +181,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         :param kwargs: argumentos adicionales en forma de diccionario
         :return: PermissionDenied si el usuario no cuenta con permisos
         """
-        if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto)\
+        if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto) \
                 or ('registraractividad_my_userstory' in get_perms(request.user, self.get_object())):
             if self.get_object().sprint and self.get_object().sprint.fin >= timezone.now():
                 if self.get_object().actividad:
@@ -189,8 +203,8 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         del User Story.
         """
         actual_fields = ['tiempo_registrado', 'estado_actividad']
-        if 'edit_userstory' in get_perms(self.request.user, self.get_object().proyecto) or\
-            'edit_my_userstory' in get_perms(self.request.user, self.get_object()):
+        if 'edit_userstory' in get_perms(self.request.user, self.get_object().proyecto) or \
+                        'edit_my_userstory' in get_perms(self.request.user, self.get_object()):
             actual_fields.insert(1, 'actividad')
         return modelform_factory(UserStory, fields=actual_fields)
 
@@ -204,13 +218,41 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
             form.fields['actividad'].queryset = Actividad.objects.filter(flujo=self.get_object().actividad.flujo)
         return form
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        nota_form = self.NoteFormset(self.request.POST)
+        #movemos el User Story a la sgte actividad en caso de que haya llegado a Done
+        if form.cleaned_data['estado_actividad'] == 2:
+            try:
+                next_actividad = self.object.actividad.get_next_in_order()
+            except ObjectDoesNotExist:
+                next_actividad = self.object.actividad #temporalmente que mantenga su actividad
+
+            self.object.actividad = next_actividad
+            self.object.estado_actividad = 0
+        #TODO incluir en la cola a evaluar por el scrum master
+        self.object.save()
+
+        if nota_form.is_valid():
+            for f in nota_form.forms:
+                n = f.save(commit=False)
+                n.horas_registradas = self.object.tiempo_registrado
+                n.desarrollador = self.object.desarrollador
+                n.sprint = self.object.sprint
+                n.actividad = self.object.actividad
+                n.estado_actividad = self.object.estado_actividad
+                n.user_story = self.object
+                n.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista de Eliminacion de User Stories
     """
     model = UserStory
     template_name = 'project/userstory/userstory_delete.html'
-    permission_required = 'project.delete_userstory'
+    permission_required = 'project.remove_userstory'
     context_object_name = 'userstory'
 
     def get_permission_object(self):
@@ -265,3 +307,17 @@ class UpdateVersion(UpdateUserStory):
         self.version = get_object_or_404(reversion.models.Version, pk=version_pk)
         initial = self.version.field_dict
         return initial
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de user story
+        :param form: formulario recibido
+        :return: URL de redireccion
+        """
+        with transaction.atomic(), reversion.create_revision():
+            self.object = form.save()
+            reversion.set_user(self.request.user)
+            # rev = self.version.revision
+            reversion.set_comment("Reversion: {}".format(str.join(', ', form.changed_data)))
+
+        return HttpResponseRedirect(self.get_success_url())

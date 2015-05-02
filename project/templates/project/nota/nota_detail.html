@@ -1,0 +1,33 @@
+{% extends 'project/base.html' %}
+{% block title %}Avance - {{ nota.user_story }}{% endblock %}
+{% block header %}{{ nota.user_story }}{% endblock %}
+
+{% block content %}
+    <p><strong>Proyecto Asociado: </strong><a href="{% url 'project:project_detail' nota.user_story_id %}">{{ nota.user_story.proyecto }}</a></p>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Avance
+                </div>
+                <div class="panel-body">
+                    <p><strong>Desarrollador: </strong><a href="{% url 'project:user_detail' nota.desarrollador_id %}">{{ nota.desarrollador }}</a></p>
+                    <p><strong>Fecha: </strong>{{ nota.fecha|date }}</p>
+                    <p><strong>Hora: </strong>{{ nota.fecha|time }}</p>
+                    <p><strong>Tiempo registrado: </strong>{{ nota.horas_registradas }}</p>
+                    <p><strong>Sprint: </strong><a href="{% url 'project:sprint_detail' nota.sprint_id %}">{{ nota.sprint }}</a></p>
+                    <p><strong>Flujo: </strong><a href="{% url 'project:flujo_detail' nota.actividad.flujo_id %}">{{ nota.actividad.flujo }}</a></p>
+                    <p><strong>Actividad: </strong>{{ nota.actividad }}</p>
+                    <p><strong>Estado: </strong>{{ nota.get_estado_actividad_display }}</p>
+               </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="well">
+                <h4>Mensaje</h4>
+                <p>{{ nota.mensaje }}</p>
+            </div>
+        </div>
+    </div>
+    <p><a class="fa fa-step-backward" href="{% url 'project:nota_list' nota.user_story_id %}"> Volver a Avances</a></p>
+{% endblock %}

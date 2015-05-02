@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('project', '0001_initial'),
+        ('project', '0002_auto_20150502_0050'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userstory',
-            name='prioridad',
-            field=models.IntegerField(default=0, choices=[(0, b'Baja'), (1, b'Media'), (2, b'Alta')]),
+            model_name='nota',
+            name='mensaje',
+            field=models.TextField(help_text=b'Mensaje de descripcion de los avances'),
         ),
     ]

@@ -8,6 +8,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('reversion', '0002_auto_20141216_1509'),
         ('auth', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
@@ -31,6 +32,18 @@ class Migration(migrations.Migration):
                 ('nombre', models.CharField(max_length=20)),
                 ('descripcion', models.TextField()),
                 ('creacion', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Commit',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('estado_actividad', models.IntegerField(default=0, null=True)),
+                ('actividad', models.ForeignKey(to='project.Actividad', null=True)),
+                ('revision', models.ForeignKey(to='reversion.Revision')),
             ],
             options={
             },
@@ -66,6 +79,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('descripcion', models.TextField()),
                 ('fecha', models.DateTimeField(auto_now_add=True)),
+                ('estado_actividad', models.IntegerField(null=True, choices=[(0, b'ToDo'), (1, b'Doing'), (2, b'Done')])),
+                ('actividad', models.ForeignKey(to='project.Actividad', null=True)),
+                ('desarrollador', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
             },
@@ -86,7 +102,7 @@ class Migration(migrations.Migration):
                 ('equipo', models.ManyToManyField(to=settings.AUTH_USER_MODEL, through='project.MiembroEquipo')),
             ],
             options={
-                'permissions': (('list_all_projects', 'listar los proyectos disponibles'), ('view_project', 'ver el proyecto'), ('create_sprint', 'agregar sprint'), ('edit_sprint', 'editar sprint'), ('remove_sprint', 'eliminar sprint'), ('create_flujo', 'agregar flujo'), ('edit_flujo', 'editar flujo'), ('remove_flujo', 'eliminar flujo'), ('create_userstory', 'agregar userstory'), ('edit_userstory', 'editar userstory'), ('remove_userstory', 'eliminar userstory')),
+                'permissions': (('list_all_projects', 'listar los proyectos disponibles'), ('view_project', 'ver el proyecto'), ('create_sprint', 'agregar sprint'), ('edit_sprint', 'editar sprint'), ('remove_sprint', 'eliminar sprint'), ('create_flujo', 'agregar flujo'), ('edit_flujo', 'editar flujo'), ('remove_flujo', 'eliminar flujo'), ('create_userstory', 'agregar userstory'), ('edit_userstory', 'editar userstory'), ('remove_userstory', 'eliminar userstory'), ('prioritize_userstory', 'asignar prioridad a userstories'), ('registraractividad_userstory', 'registrar avances en userstories')),
             },
             bases=(models.Model,),
         ),
@@ -110,15 +126,16 @@ class Migration(migrations.Migration):
             name='UserStory',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('nombre', models.CharField(max_length=20)),
+                ('nombre', models.CharField(max_length=60)),
                 ('descripcion', models.TextField()),
-                ('prioridad', models.IntegerField(default=1, choices=[(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)])),
+                ('prioridad', models.IntegerField(default=0, choices=[(0, b'Baja'), (1, b'Media'), (2, b'Alta')])),
                 ('valor_negocio', models.IntegerField()),
                 ('valor_tecnico', models.IntegerField()),
                 ('tiempo_estimado', models.PositiveIntegerField()),
                 ('tiempo_registrado', models.PositiveIntegerField(default=0)),
                 ('ultimo_cambio', models.DateTimeField(auto_now=True)),
-                ('estado', models.IntegerField(default=0, choices=[(0, b'ToDo'), (1, b'Doing'), (2, b'Done'), (3, b'Pendiente Aprobacion'), (4, b'Aprobado')])),
+                ('estado', models.IntegerField(default=0, choices=[(0, b'Inactivo'), (1, b'En curso'), (2, b'Pendiente Aprobacion'), (3, b'Aprobado')])),
+                ('estado_actividad', models.IntegerField(default=0, choices=[(0, b'ToDo'), (1, b'Doing'), (2, b'Done')])),
                 ('actividad', models.ForeignKey(blank=True, to='project.Actividad', null=True)),
                 ('desarrollador', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
                 ('proyecto', models.ForeignKey(to='project.Proyecto')),
@@ -127,24 +144,15 @@ class Migration(migrations.Migration):
             options={
                 'default_permissions': (),
                 'verbose_name_plural': 'user stories',
+                'permissions': (('edit_my_userstory', 'editar mis userstories'), ('registraractividad_my_userstory', 'registrar avances en mis userstories')),
             },
             bases=(models.Model,),
         ),
-        migrations.CreateModel(
-            name='Version',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('nombre', models.CharField(max_length=20)),
-                ('descripcion', models.TextField()),
-                ('valor_negocio', models.IntegerField()),
-                ('valor_tecnico', models.IntegerField()),
-                ('tiempo_estimado', models.TimeField()),
-                ('modificacion', models.DateTimeField(auto_now_add=True)),
-                ('user_story', models.ForeignKey(to='project.UserStory')),
-            ],
-            options={
-            },
-            bases=(models.Model,),
+        migrations.AddField(
+            model_name='nota',
+            name='sprint',
+            field=models.ForeignKey(to='project.Sprint', null=True),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='nota',
@@ -178,6 +186,12 @@ class Migration(migrations.Migration):
             model_name='flujo',
             name='proyecto',
             field=models.ForeignKey(blank=True, to='project.Proyecto', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='commit',
+            name='sprint',
+            field=models.ForeignKey(to='project.Sprint', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
