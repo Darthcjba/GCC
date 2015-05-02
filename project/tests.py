@@ -573,6 +573,10 @@ class UserStoryTest(TestCase):
         self.assertRedirects(response, '/userstory/1/')
         us = UserStory.objects.first()
         self.assertIsNotNone(us)
+        nota = us.nota_set.last()
+        #se creo una nota
+        self.assertIsNotNone(nota)
+        self.assertEquals(nota.mensaje, 'Mensaje')
 
     def test_registraractividad_userstory_no_permission(self):
         c = self.client
