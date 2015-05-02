@@ -1,0 +1,48 @@
+[
+{
+   "fields": {
+      "name": "Scrum Master",
+      "permissions": [
+         19,
+         20,
+         27,
+         24,
+         30,
+         21,
+         28,
+         25,
+         31,
+         33,
+         34,
+         29,
+         26,
+         32
+      ]
+   },
+   "model": "auth.group",
+   "pk": 7
+},
+{
+   "fields": {
+      "name": "Product Owner",
+      "permissions": [
+         30,
+         31,
+         33
+      ]
+   },
+   "model": "auth.group",
+   "pk": 8
+},
+{
+   "fields": {
+      "name": "Developer",
+      "permissions": [
+         41,
+         42
+      ]
+   },
+   "model": "auth.group",
+   "pk": 9
+}
+]
