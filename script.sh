@@ -6,7 +6,10 @@ if [ $? -eq 0 ];then
     echo "Migrando base de datos..."
     python manage.py migrate
     echo "Poblando base de datos..."
-    python manage.py loaddata fixtures/initial_data.json
+    python manage.py loaddata initial
+    #python manage.py loaddata fixtures/initial_data.json
+    echo "Creando versiones iniciales..."
+    python manage.py createinitialrevisions
     echo "Ejecutando pruebas..."
     #python -Wi manage.py test
 else
