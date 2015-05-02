@@ -11,7 +11,7 @@ from django.views import generic
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
-from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Commit, Nota
+from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Nota
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 

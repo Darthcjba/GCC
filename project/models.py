@@ -256,10 +256,3 @@ class Adjunto(models.Model):
     # path = models.FilePathField()
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
-
-
-class Commit(models.Model):
-    revision = models.ForeignKey(Revision)
-    sprint = models.ForeignKey(Sprint, null=True)
-    actividad = models.ForeignKey(Actividad, null=True)
-    estado_actividad = models.IntegerField(default=0, null=True)
