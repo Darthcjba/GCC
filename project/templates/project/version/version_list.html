@@ -9,7 +9,7 @@
 {% block thead %}
     <tr>
         <th>Fecha de Modificacion</th>
-        <th>Nombre</th>
+        <th>Comentario</th>
         <th>Usuario</th>
         <th>Revertir</th>
     </tr>
@@ -18,7 +18,7 @@
     {% for v in versions %}
     <tr>
         <td>{{ v.revision.date_created }}</td>
-        <td>{{ v }}</td>
+        <td>{{ v.revision.comment }}</td>
         <td>{{ v.revision.user }}</td>
         <th><a href="{% url 'project:version_revert' v.object_id v.id %}" class="fa fa-undo"></a></th>
     </tr>

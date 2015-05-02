@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.views import generic
@@ -91,7 +92,10 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
         """
         self.object = form.save(commit=False)
         self.object.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
-        self.object.save()
+        with transaction.atomic(), reversion.create_revision():
+            reversion.set_user(self.request.user)
+            reversion.set_comment("Version Inicial")
+            self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -147,7 +151,10 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         :param form: formulario recibido
         :return: URL de redireccion
         """
-        self.object = form.save()
+        with transaction.atomic(), reversion.create_revision():
+            self.object = form.save()
+            reversion.set_user(self.request.user)
+            reversion.set_comment("Modificacion: {}".format(str.join(', ', form.changed_data)))
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -279,3 +286,17 @@ class UpdateVersion(UpdateUserStory):
         self.version = get_object_or_404(reversion.models.Version, pk=version_pk)
         initial = self.version.field_dict
         return initial
+
+    def form_valid(self, form):
+        """
+        Comprobar validez del formulario. Crea una instancia de user story
+        :param form: formulario recibido
+        :return: URL de redireccion
+        """
+        with transaction.atomic(), reversion.create_revision():
+            self.object = form.save()
+            reversion.set_user(self.request.user)
+            rev = self.version.revision
+            reversion.set_comment("Reversion: {}".format(str.join(', ', form.changed_data)))
+
+        return HttpResponseRedirect(self.get_success_url())

@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from guardian.shortcuts import assign_perm, remove_perm, get_perms_for_model, get_perms
 from django.core.urlresolvers import reverse_lazy
 import reversion
+from reversion.models import Revision
 
 
 class Proyecto(models.Model):
@@ -251,3 +252,10 @@ class Adjunto(models.Model):
     # path = models.FilePathField()
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
+
+
+class Commit(models.Model):
+    revision = models.ForeignKey(Revision)
+    sprint = models.ForeignKey(Sprint, null=True)
+    actividad = models.ForeignKey(Actividad, null=True)
+    estado_actividad = models.IntegerField(default=0, null=True)
