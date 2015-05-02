@@ -1,4 +1,4 @@
-
+#! /bin/bash
 python CrearBasedeDatos.py
 if [ $? -eq 0 ];then
     echo "Creando migraciones..."

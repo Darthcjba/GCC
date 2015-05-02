@@ -10,7 +10,6 @@ try:
     print "La base de datos fue eliminada."
 except psycopg2.ProgrammingError:
     print "La base de datos no existe."
-    sys.exit(1)
 except psycopg2.OperationalError:
     print "La base de datos esta siendo utilizada. No se puede eliminar."
     sys.exit(1)
