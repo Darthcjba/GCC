@@ -141,8 +141,7 @@ class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upd
         """
         context = super(UpdateFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
-        if (self.request.method == 'GET'):
-            context['actividad_form'] = ActividadFormSet(instance=self.object)
+        context['actividad_form'] = ActividadFormSet(instance=self.object)
 
         return context
 
