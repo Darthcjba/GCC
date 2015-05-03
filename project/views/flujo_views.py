@@ -2,7 +2,7 @@
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from django.views import generic
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -116,7 +116,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form': form,
+        return render(self.request, self.get_template_names(), {'form': form,
                                                                      'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
@@ -167,7 +167,7 @@ class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upd
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form': form,
+        return render(self.request, self.get_template_names(), {'form': form,
                                                                      'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
