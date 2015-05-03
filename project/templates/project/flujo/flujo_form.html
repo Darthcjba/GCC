@@ -15,19 +15,17 @@
             cursor: 'move',
             update: function(event, ui) {
                 //reiniciamos conteo de posiciones
-                var itemMovido = ui.item.find("input[id$='-ORDER']");
-                itemMovido.val(0); //Nos aseguramos que el item movido tenga valor en orden, para controlar el caso de que sea uno de los que se está agregando
                 var currentPos = 1;
+                var camposName = $("input[id$='-name']");
                 var camposOrder = $("input[id$='-ORDER']");
                 for(var i=0; i<camposOrder.length; i++) {
                     var elem = camposOrder.eq(i);
-                    if(elem.val()) {
+                    var elemName = camposName.eq(i);
+                    if(elemName.val()) {
                         elem.val(currentPos);
                         currentPos++;
                     }
                 }
-                var camposOrder = $("input[id$='-ORDER']");
-                console.log(camposOrder);
             }
         });
     })
@@ -49,10 +47,10 @@
             {{ actividad_form.management_form }}
             {{ actividad_form.non_form_errors }}
                 {%for form in actividad_form%}
-                    <div class="activity">
-                    <span class="fa fa-arrows">
+
                     {{ form.id }}
-                    <div  class="form-group">
+                    <div  class="activity form-group">
+                    <span class="fa fa-arrows"> </span>
                     {{ form.name.errors }}
                    <label> {{ form.name.label_tag }}</label>
                    {{ form.name }}
@@ -61,8 +59,6 @@
                         {{ form.DELETE }}
                     {% endif %}
                     </div>
-                    </span>
-                </div>
             {% endfor %}
             </div>
         </fieldset>
