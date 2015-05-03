@@ -89,7 +89,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
         context = super(AddFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
 
-        context['actividad_form'] = ActividadFormSet()
+        context['actividad_form'] = ActividadFormSet(self.request.POST if self.request.method == 'POST' else None)
         return context
 
     def get_success_url(self):
@@ -141,7 +141,7 @@ class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upd
         """
         context = super(UpdateFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
-        context['actividad_form'] = ActividadFormSet(instance=self.object)
+        context['actividad_form'] = ActividadFormSet(self.request.POST if self.request.method == 'POST' else None, instance=self.object)
 
         return context
 
