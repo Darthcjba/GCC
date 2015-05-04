@@ -49,7 +49,8 @@ class Proyecto(models.Model):
             ('edit_userstory', 'editar userstory'),
             ('remove_userstory', 'eliminar userstory'),
             ('prioritize_userstory', 'asignar prioridad a userstories'),
-            ('registraractividad_userstory', 'registrar avances en userstories')
+            ('registraractividad_userstory', 'registrar avances en userstories'),
+            ('aprobar_userstory', 'aprobar userstories completados'),
 
             #TODO: Hace falta definir permisos para Notas y Adjuntos?
         )

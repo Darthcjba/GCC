@@ -8,6 +8,8 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.views import generic
+from django.views.generic import detail
+from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
@@ -40,6 +42,15 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         if not self.project:
             self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
         return manager.filter(proyecto=self.project)
+
+class ApprovalPendingUserStories(UserStoriesList):
+    permission_required = 'project.aprobar_userstory'
+    template_name = 'project/userstory/userstory_pending.html'
+    def get_queryset(self):
+        manager = UserStory.objects
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return manager.filter(proyecto=self.project, estado=2)
 
 class UserStoryDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
@@ -221,16 +232,19 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         nota_form = self.NoteFormset(self.request.POST)
+        new_estado = 0
         #movemos el User Story a la sgte actividad en caso de que haya llegado a Done
         if form.cleaned_data['estado_actividad'] == 2:
+            new_estado = 2
             try:
                 next_actividad = self.object.actividad.get_next_in_order()
             except ObjectDoesNotExist:
-                next_actividad = self.object.actividad #temporalmente que mantenga su actividad
+                next_actividad = self.object.actividad
+                self.object.estado = 2 #Lo marcamos como pendiente de aprobación
 
             self.object.actividad = next_actividad
-            self.object.estado_actividad = 0
-        #TODO incluir en la cola a evaluar por el scrum master
+            self.object.estado_actividad = new_estado
+
         self.object.save()
 
         if nota_form.is_valid():
@@ -260,6 +274,35 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
     def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+
+class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
+    """
+    Vista de Aprobación o rechazo de User Stories
+    """
+    model = UserStory
+    template_name = 'project/userstory/userstory_approve.html'
+    permission_required = 'project.aprobar_userstory'
+    context_object_name = 'userstory'
+    action = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(ApproveUserStory, self).get_context_data(**kwargs)
+        context['action'] = self.action
+        return context
+
+    def get_permission_object(self):
+        return self.get_object().proyecto
+
+    def get_success_url(self):
+        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+
+    def post(self, request, *args, **kwargs):
+        #TODO Manejar lógica de negocio
+        if self.action == 'aprobar' :
+            pass
+        elif self.action == 'rechazar' :
+            pass
+        return HttpResponseRedirect(self.get_success_url())
 
 class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     """
