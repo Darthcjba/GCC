@@ -1,0 +1,21 @@
+{% extends 'project/base_table.html' %}
+{% block title %}{{ user_story }} - Adjuntos{% endblock %}
+{% block header %}{{ user_story }}: Adjuntos{% endblock %}
+
+{% block thead %}
+    <tr>
+        <th>Nombre</th>
+        <th>Fecha de Creacion</th>
+        <th>Ver</th>
+    </tr>
+{% endblock %}
+
+{% block tbody %}
+    {% for a in adjuntos %}
+        <tr>
+            <td>{{ a.nombre }}</td>
+            <td>{{ a.creacion|date }}</td>
+            <td><a href="{% url 'project:file_view' a.id %}"><i class="fa fa-eye"></i></a></td>
+        </tr>
+    {% endfor %}
+{% endblock %}

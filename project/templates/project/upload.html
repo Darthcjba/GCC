@@ -1,0 +1,16 @@
+{% extends 'project/base.html' %}
+{% load bootstrap3 %}
+
+{% block header %}Adjuntar Archivo{% endblock %}
+{% block content %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        {% buttons submit='Guardar' reset="Reset" %}
+            <a href="javascript:history.back()">
+                <button type="button" class="btn btn-danger">Cancelar</button>
+            </a>
+        {% endbuttons %}
+    </form>
+{% endblock %}

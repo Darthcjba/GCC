@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group, Permission, User
 from django import forms
 from django.forms import BaseFormSet
 from guardian.shortcuts import get_perms_for_model
-from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
+from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo, Adjunto
 from project.models import UserStory
 from django.forms.models import inlineformset_factory
 
@@ -115,6 +115,7 @@ class AddToSprintForm(forms.Form):
     desarrollador=forms.ModelChoiceField(queryset=User.objects.all())
     flujo = forms.ModelChoiceField(queryset=Flujo.objects.all())
 
+
 class AddToSprintFormset(BaseFormSet):
     def clean(self):
         """
@@ -130,3 +131,18 @@ class AddToSprintFormset(BaseFormSet):
                 if us in userstories:
                     raise forms.ValidationError("Un mismo User Story puede aparecer sólo una vez en el sprint.")
                 userstories.append(us)
+
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
+
+
+class FileUploadForm(forms.ModelForm):
+    """
+    Formulario para adjuntar un archivo.
+    """
+    class Meta:
+        model = Adjunto
+        fields = ['nombre', 'descripcion', 'archivo', 'user_story']
+

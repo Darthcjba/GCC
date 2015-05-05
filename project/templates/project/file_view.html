@@ -1,0 +1,10 @@
+{% extends 'project/base.html' %}
+{% block title %}{{ adjunto.nombre }}{% endblock %}
+{% block header %}{{ adjunto.nombre }}{% endblock %}
+
+{% block content %}
+    <h1>{{ adjunto.nombre }}</h1>
+    <p>{{ adjunto.creacion }}</p>
+    <p>{{ adjunto.descripcion }}</p>
+    <p>{{ adjunto.user_story }}</p>
+{% endblock %}
