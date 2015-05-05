@@ -10,7 +10,7 @@
             {% if "edit_userstory" in proyecto_perms or 'edit_my_userstory' in us_perms%}<li><a href="{% url 'project:userstory_update'  userstory.id %}" class="fa fa-pencil"> Editar</a></li>{% endif %}
             {% if "registraractividad_userstory" in proyecto_perms or 'registraractividad_my_userstory' in us_perms %}<li><a href="{% url 'project:userstory_registraractividad'  userstory.id %}" class="fa fa-pencil-square-o"> Registrar Avance</a></li>{% endif %}
             {% if "edit_userstory" in proyecto_perms or 'edit_my_userstory' in us_perms%}<li><a href="{% url 'project:version_list' userstory.id %}" class="fa fa-clock-o"> Historial</a></li>{% endif %}
-        {% else %}
+        {% elif userstory.estado == 2 %}
             {% if "aprobar_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_aprobar' userstory.id %}" class="fa fa-check-circle"> Aprobar User Story</a></li>{% endif %}
             {% if "aprobar_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_rechazar' userstory.id %}" class="fa fa-times-circle"> Rechazar User Story</a></li>{% endif %}
         {% endif %}

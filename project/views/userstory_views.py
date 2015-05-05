@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.models import modelform_factory, inlineformset_factory, modelformset_factory
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
@@ -202,7 +202,9 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
                     d = self.get_object().desarrollador
                     bigger_priorities = UserStory.objects.filter(sprint=s, actividad=a, desarrollador=d, prioridad__gt=current_priority).count()
                     if bigger_priorities == 0:
-                        return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+                        if self.get_object().estado == 1:
+                            return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+                        return render(request, self.error_template, {'userstory': self.get_object(), 'error': "OTRO_ESTADO"})
                 return render(request, self.error_template, {'userstory': self.get_object(), 'error': "MENOR_PRIORIDAD"})
             return render(request, self.error_template, {'userstory': self.get_object(), 'error': "SPRINT_VENCIDO"})
         raise PermissionDenied()
@@ -285,6 +287,12 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
     context_object_name = 'userstory'
     action = ''
 
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.estado == 2:
+            return super(ApproveUserStory, self).dispatch(request, *args, **kwargs)
+        raise Http404
+
     def get_context_data(self, **kwargs):
         context = super(ApproveUserStory, self).get_context_data(**kwargs)
         context['action'] = self.action
@@ -297,11 +305,14 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
 
     def post(self, request, *args, **kwargs):
-        #TODO Manejar lógica de negocio
-        if self.action == 'aprobar' :
-            pass
-        elif self.action == 'rechazar' :
-            pass
+        us = self.get_object()
+        if self.action == 'aprobar':
+            us.estado = 3 #Aprobado
+        elif self.action == 'rechazar':
+            us.estado = 1 #Vuelve al estado en desarrollo
+            us.estado_actividad = 1
+            #TODO Debe volver a la primera actividad del flujo el US?
+        us.save()
         return HttpResponseRedirect(self.get_success_url())
 
 class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
