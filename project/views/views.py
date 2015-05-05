@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.views import generic
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
-from project.forms import UploadFileForm, FileUploadForm
+from project.forms import FileUploadForm
 import reversion
 from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto
 
