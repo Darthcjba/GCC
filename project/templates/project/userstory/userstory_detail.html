@@ -11,6 +11,7 @@
         {% if "remove_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_delete'  userstory.id %}" class="fa fa-eraser"> Borrar</a></li>{% endif %}
         {% if "edit_userstory" in proyecto_perms or 'edit_my_userstory' in us_perms%}<li><a href="{% url 'project:version_list' userstory.id %}" class="fa fa-clock-o"> Historial</a></li>{% endif %}
         <li><a href="{% url 'project:nota_list' userstory.id %}"><i class="fa fa-newspaper-o"></i> Tareas</a></li>
+        <li><a href="{% url 'project:file_list' userstory.id %}"><i class="fa fa-file"></i> Adjuntos</a></li>
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
     <div class="row">

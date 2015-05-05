@@ -253,6 +253,6 @@ class Adjunto(models.Model):
     """
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
-    archivo = models.FileField(upload_to='user_story')
+    archivo = models.FileField(upload_to='user_story', null=True)
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)

@@ -3,7 +3,7 @@
 
 {% block header %}Adjuntar Archivo{% endblock %}
 {% block content %}
-    <form role="form" method="post">
+    <form role="form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
 

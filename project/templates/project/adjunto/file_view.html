@@ -3,7 +3,7 @@
 {% block header %}{{ adjunto.nombre }}{% endblock %}
 
 {% block content %}
-    <h1>{{ adjunto.nombre }}</h1>
+    <a href="{{ adjunto.archivo.url }}"><i class="fa fa-download"></i> Descargar</a>
     <p>{{ adjunto.creacion }}</p>
     <p>{{ adjunto.descripcion }}</p>
     <p>{{ adjunto.user_story }}</p>

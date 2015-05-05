@@ -2,6 +2,10 @@
 {% block title %}{{ user_story }} - Adjuntos{% endblock %}
 {% block header %}{{ user_story }}: Adjuntos{% endblock %}
 
+{% block before_table %}
+    <a href="{% url 'project:file_upload' user_story.id %}">Subir archivo</a>
+{% endblock %}
+
 {% block thead %}
     <tr>
         <th>Nombre</th>
@@ -15,7 +19,7 @@
         <tr>
             <td>{{ a.nombre }}</td>
             <td>{{ a.creacion|date }}</td>
-            <td><a href="{% url 'project:file_view' a.id %}"><i class="fa fa-eye"></i></a></td>
+            <td><a href="{% url 'project:file_detail' a.id %}"><i class="fa fa-eye"></i></a></td>
         </tr>
     {% endfor %}
 {% endblock %}

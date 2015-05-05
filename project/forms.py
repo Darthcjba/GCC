@@ -133,16 +133,11 @@ class AddToSprintFormset(BaseFormSet):
                 userstories.append(us)
 
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
-
-
 class FileUploadForm(forms.ModelForm):
     """
     Formulario para adjuntar un archivo.
     """
     class Meta:
         model = Adjunto
-        fields = ['nombre', 'descripcion', 'archivo', 'user_story']
+        fields = ['nombre', 'descripcion', 'archivo']
 

@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, url
 from project import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = patterns('',
                        url(r'^$', views.home, name='home'),
@@ -28,6 +30,9 @@ urlpatterns = patterns('',
                        url(r'^userstory/(?P<pk>\d+)/delete/$', views.DeleteUserStory.as_view(), name="userstory_delete"),
                        url(r'^userstory/(?P<pk>\d+)/version/$', views.VersionList.as_view(), name="version_list"),
                        url(r'^userstory/(?P<pk>\d+)/revert/(?P<version_pk>\d+)/$', views.UpdateVersion.as_view(), name="version_revert"),
+                       url(r'^userstory/(?P<pk>\d+)/files/$', views.FileList.as_view(), name="file_list"),
+                       url(r'^userstory/(?P<pk>\d+)/files/upload/$', views.UploadFileView.as_view(), name="file_upload"),
+                       url(r'^file/(?P<pk>\d+)/$', views.FileDetail.as_view(), name="file_detail"),
                        url(r'^nota/(?P<pk>\d+)/$', views.NotaDetail.as_view(), name='nota_detail'),
                        url(r'^userstory/(?P<pk>\d+)/notas/$', views.NotaList.as_view(), name="nota_list"),
                        url(r'^roles/$', views.RolList.as_view(), name='rol_list'),
@@ -65,4 +70,4 @@ urlpatterns = patterns('',
                        url(r'^plantilla/add/$', views.AddPlantilla.as_view(), name="plantilla_add"),
                        url(r'^plantilla/(?P<pk>\d+)/delete/$', views.DeletePlantilla.as_view(), name="plantilla_delete"),
                        url(r'^plantilla/(?P<pk>\d+)/edit/$', views.UpdatePlantilla.as_view(), name="plantilla_update"),
-                       )
+                       ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
