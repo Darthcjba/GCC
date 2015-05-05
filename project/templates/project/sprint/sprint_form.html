@@ -23,23 +23,27 @@
     </style>
     <form action="" method="post">
         {% csrf_token %}
-        <div>
-            {{ form.as_p }}
+        <div class="row">
+            <div class="col-lg-3">
+                {% bootstrap_field form.nombre %}
+            </div>
+            <div class="col-lg-3">
+                {% bootstrap_field form.inicio %}
+            </div>
         </div>
         <fieldset>
-            <legend> Agregar UserStory</legend>
+            <legend>Agregar UserStory</legend>
             {{ formset.management_form }}
             {{ formset.non_form_errors }}
             <div class="row top-buffer team-members">
-            {%for form in formset%}
-                {{ form.id }}
-                <div class="teammember" id="teammember-{{ forloop.counter0 }}">
-                    {% if form.instance.pk %}{% bootstrap_field form.DELETE %}{% endif %}
-                    {% bootstrap_form form %}
+                {% for form in formset %}
+                    {{ form.id }}
+                    <div class="teammember" id="teammember-{{ forloop.counter0 }}">
+                        {% if form.instance.pk %}{% bootstrap_field form.DELETE %}{% endif %}
+                        {% bootstrap_form form %}
+                    </div>
 
-            </div>
-
-            {% endfor %}
+                {% endfor %}
             </div>
         </fieldset>
         <input type="submit" value="Agregar" class="btn btn-default"/>
