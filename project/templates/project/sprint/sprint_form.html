@@ -41,6 +41,7 @@
                     <div class="teammember" id="teammember-{{ forloop.counter0 }}">
                         {% if form.instance.pk %}{% bootstrap_field form.DELETE %}{% endif %}
                         {% bootstrap_form form %}
+
                     </div>
 
                 {% endfor %}
