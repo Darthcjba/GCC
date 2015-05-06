@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.forms import formset_factory
 from django.forms.extras import SelectDateWidget
 from django.forms.models import modelform_factory, modelformset_factory, inlineformset_factory
@@ -45,6 +46,7 @@ class SprintList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.List
         context = super(SprintList, self).get_context_data(**kwargs)
         context['proyecto_perms'] = get_perms(self.request.user, self.project)
         return context
+
 
     def get_queryset(self):
         """
@@ -113,6 +115,12 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         """
         return reverse('project:sprint_detail', kwargs={'pk': self.object.id})
 
+    def __filtrar_formset__(self, formset):
+        for userformset in formset.forms:
+            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
+            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
+            userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.proyecto).exclude(estado_actividad=1)
+
     def get_context_data(self, **kwargs):
         """
         Agregar datos al contexto como los desarrolladores del projecto, el flujo y los userStory
@@ -121,12 +129,10 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         """
         context = super(AddSprintView, self).get_context_data(**kwargs)
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
-        formset=self.formset()
-        for userformset in formset.forms:
-            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
-            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
-            userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.proyecto)
-        context['formset'] = formset
+        #current_us = self.get_object().userstory_set.all()
+        formsetb= self.formset()
+        self.__filtrar_formset__(formsetb)
+        context['formset'] = formsetb
         return context
 
 
