@@ -56,6 +56,7 @@ class ProjectDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, DetailVie
         context['team'] = self.object.miembroequipo_set.all()
         context['flows'] = self.object.flujo_set.all()
         context['sprints'] = self.object.sprint_set.all()
+        context['pending_us'] = self.object.userstory_set.filter(estado=2).count()
         return context
 
 

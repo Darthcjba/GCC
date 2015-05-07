@@ -26,9 +26,9 @@
                 </div>
                 <div class="panel-footer">
                     <a href="{% url 'project:userstory_detail' u.id %}"><i class="fa fa-eye fa-fw"></i></a>
-                    {% if "aprobar_userstory" in proyecto_perms %}<a href="#" title="Aprobar User Story"><i
+                    {% if "aprobar_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_aprobar' u.id %}" title="Aprobar User Story"><i
                             class="fa fa-check-circle fa-fw"></i></a>{% endif %}
-                    {% if "aprobar_userstory" in proyecto_perms %}<a href="#" title="Rechazar User Story"><i
+                    {% if "aprobar_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_rechazar' u.id %}" title="Rechazar User Story"><i
                             class="fa fa-times-circle fa-fw"></i></a>{% endif %}
                 </div>
             </div>

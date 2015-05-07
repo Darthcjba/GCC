@@ -193,7 +193,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         :return: PermissionDenied si el usuario no cuenta con permisos
         """
         if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto) \
-                or ('registraractividad_my_userstory' in get_perms(request.user, self.get_object())):
+                or ('registraractividad_my_userstory' in get_perms(request.user, self.get_object())): #Comprobacion de permisos
             if self.get_object().sprint and self.get_object().sprint.fin >= timezone.now():
                 if self.get_object().actividad:
                     current_priority = self.get_object().prioridad
@@ -201,8 +201,8 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
                     a = self.get_object().actividad
                     d = self.get_object().desarrollador
                     bigger_priorities = UserStory.objects.filter(sprint=s, actividad=a, desarrollador=d, prioridad__gt=current_priority).count()
-                    if bigger_priorities == 0:
-                        if self.get_object().estado == 1:
+                    if bigger_priorities == 0: #Comprobacion de prioridad del User Story
+                        if self.get_object().estado == 1: #Comprobacion de estado del User Story
                             return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
                         return render(request, self.error_template, {'userstory': self.get_object(), 'error': "OTRO_ESTADO"})
                 return render(request, self.error_template, {'userstory': self.get_object(), 'error': "MENOR_PRIORIDAD"})

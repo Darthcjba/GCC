@@ -130,3 +130,4 @@ class AddToSprintFormset(BaseFormSet):
                 if us in userstories:
                     raise forms.ValidationError("Un mismo User Story puede aparecer sólo una vez en el sprint.")
                 userstories.append(us)
+
