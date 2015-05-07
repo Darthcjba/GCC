@@ -8,7 +8,7 @@ from django.views import generic
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from guardian.shortcuts import get_perms
 from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantillaForm
-from project.models import Flujo, Proyecto
+from project.models import Flujo, Proyecto, UserStory
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 class FlujoList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
@@ -62,6 +62,22 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         context = super(FlujoDetail, self).get_context_data(**kwargs)
         context['actividad'] = self.object.actividad_set.all()
         context['userstory'] = self.object.proyecto.userstory_set.all()
+        return context
+
+
+class FlujoDetailSprint(FlujoDetail):
+    sprint = None
+
+    def get_context_data(self, **kwargs):
+        """
+        Agregar lista de actividades al contexto
+        :param kwargs: diccionario de argumentos claves
+        :return: contexto
+        """
+        self.sprint = get_object_or_404(UserStory, pk=self.kwargs['sprint_pk'])
+        context = super(FlujoDetailSprint, self).get_context_data(**kwargs)
+        context['sprint'] = self.sprint
+        context['userstory'] = self.object.proyecto.userstory_set.filter(sprint=self.sprint)
         return context
 
 

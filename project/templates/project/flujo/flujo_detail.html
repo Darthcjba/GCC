@@ -10,6 +10,15 @@
         {% if "remove_flujo" in proyecto_perms %}
             <li><a href="{% url 'project:flujo_delete'  flujo.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
     </ul>
+    <ul class="list-inline">
+    {% if sprint %}
+        <li><a href="{% url 'project:flujo_detail' flujo.id %}">Ver Todos</a></li>
+    {% else %}
+            {% for s in flujo.proyecto.sprint_set.all %}
+                <li><a href="{% url 'project:flujo_detail_sprint' flujo.id s.id %}">{{ s }}</a></li>
+            {% endfor %}
+    {% endif %}
+    </ul>
     <p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
 {% endblock %}
 {% block thead %}

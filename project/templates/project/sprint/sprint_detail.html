@@ -7,7 +7,6 @@
         {% get_obj_perms user for sprint.proyecto as "proyecto_perms" %}
         {% if "edit_sprint" in proyecto_perms %}
             <li><a href="{% url 'project:sprint_update'  sprint.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
-
     </ul>
     <p><strong>Nombre:</strong> {{ sprint.nombre }}</p>
     <p><strong>Fecha Inicio:</strong>{{ sprint.inicio }}</p>
