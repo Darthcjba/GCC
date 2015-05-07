@@ -251,8 +251,16 @@ class Adjunto(models.Model):
     """
     Modelo para la administración de archivos adjuntos a un User Story.
     """
+    tipo_choices = [('img', 'Imagen'), ('text', 'Texto'), ('mmed', 'Multimedia'), ('bin', 'Binario')]
+    lang_choices = [('clike', 'C'), ('python', 'Python'), ('ruby', 'Ruby'), ('css', 'CSS'), ('php', 'PHP'), ('scala', 'Scala'),
+        ('sql', 'SQL'), ('bash', 'Bash'), ('javascript', 'JavaScript')]
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
     archivo = models.FileField(upload_to='user_story', null=True)
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
+    tipo = models.CharField(choices=tipo_choices, default='text', max_length=10)
+    lenguaje = models.CharField(choices=lang_choices, default='css', max_length=10)
+
+    def __unicode__(self):
+        return '{}: {}'.format(self.tipo, self.nombre)

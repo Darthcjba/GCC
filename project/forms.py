@@ -139,5 +139,5 @@ class FileUploadForm(forms.ModelForm):
     """
     class Meta:
         model = Adjunto
-        fields = ['nombre', 'descripcion', 'archivo']
+        fields = ['nombre', 'descripcion', 'archivo', 'tipo', 'lenguaje']
 

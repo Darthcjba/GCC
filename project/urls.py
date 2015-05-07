@@ -70,4 +70,5 @@ urlpatterns = patterns('',
                        url(r'^plantilla/add/$', views.AddPlantilla.as_view(), name="plantilla_add"),
                        url(r'^plantilla/(?P<pk>\d+)/delete/$', views.DeletePlantilla.as_view(), name="plantilla_delete"),
                        url(r'^plantilla/(?P<pk>\d+)/edit/$', views.UpdatePlantilla.as_view(), name="plantilla_update"),
+                       url(r'^prism/$', views.prism, name='plantilla'),
                        ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

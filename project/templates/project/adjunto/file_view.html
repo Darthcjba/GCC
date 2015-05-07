@@ -1,10 +1,48 @@
 {% extends 'project/base.html' %}
+{% load staticfiles %}
 {% block title %}{{ adjunto.nombre }}{% endblock %}
+{% block extra_css %}
+    <link href="{% static 'prism.css' %}" rel="stylesheet" />
+{% endblock %}
 {% block header %}{{ adjunto.nombre }}{% endblock %}
 
 {% block content %}
-    <a href="{{ adjunto.archivo.url }}"><i class="fa fa-download"></i> Descargar</a>
-    <p>{{ adjunto.creacion }}</p>
-    <p>{{ adjunto.descripcion }}</p>
-    <p>{{ adjunto.user_story }}</p>
+    {% if adjunto.tipo == 'img' %}
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a href="{{ adjunto.archivo.url }}"><img src="{{ adjunto.archivo.url }}" alt="{{ adjunto.archivo }}"
+                                                             class="img-responsive"></a>
+
+                    <div class="caption">
+                        <h3>{{ adjunto.nombre }}</h3>
+
+                        <p>{{ adjunto.descripcion }}</p>
+
+                        <p><a href="{{ adjunto.archivo.url }}" class="btn btn-primary" role="button">Descargar</a></p>
+
+                        <p><strong>User Story: </strong><a
+                                href="{% url 'project:userstory_detail' adjunto.user_story_id %}">{{ adjunto.user_story }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if adjunto.tipo == 'text' %}
+        <pre><code class="language-{{ adjunto.lenguaje }}">{{ adjunto.archivo.read}}</code></pre>
+        <h3>{{ adjunto.nombre }}</h3>
+
+        <p>{{ adjunto.descripcion }}</p>
+
+        <p><a href="{{ adjunto.archivo.url }}" class="btn btn-primary" role="button">Descargar</a></p>
+
+        <p><strong>User Story: </strong><a
+                href="{% url 'project:userstory_detail' adjunto.user_story_id %}">{{ adjunto.user_story }}</a></p>
+    {% endif %}
+    <a href="{% url 'project:file_list' adjunto.user_story_id %}"><i class="fa fa-step-backward"></i> Volver a Adjuntos</a>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'prism.js' %}"></script>
 {% endblock %}

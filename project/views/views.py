@@ -94,3 +94,6 @@ class FileList(generic.ListView):
         context = super(FileList, self).get_context_data(**kwargs)
         context['user_story'] = self.user_story
         return context
+
+def prism(request):
+    return render(request, 'project/adjunto/prism.html', {})

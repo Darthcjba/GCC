@@ -1,7 +1,8 @@
 from django.contrib import admin
 from guardian.admin import GuardedModelAdmin
 import reversion
-from project.models import Proyecto, MiembroEquipo, Flujo, Actividad, UserStory, Nota, Sprint
+from project.models import Proyecto, MiembroEquipo, Flujo, Actividad, UserStory, Nota, Sprint, Adjunto
+
 
 class MiembroEquipoInLine(admin.TabularInline):
     model = MiembroEquipo
@@ -30,3 +31,4 @@ admin.site.register(Actividad)
 admin.site.register(UserStory, UserStoryAdmin)
 admin.site.register(Nota, NotaAdmin)
 admin.site.register(Sprint)
+admin.site.register(Adjunto)

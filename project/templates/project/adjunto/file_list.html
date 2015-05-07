@@ -3,7 +3,7 @@
 {% block header %}{{ user_story }}: Adjuntos{% endblock %}
 
 {% block before_table %}
-    <a href="{% url 'project:file_upload' user_story.id %}">Subir archivo</a>
+    <a href="{% url 'project:file_upload' user_story.id %}"><i class="fa fa-upload"></i> Subir archivo</a>
 {% endblock %}
 
 {% block thead %}
