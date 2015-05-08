@@ -158,6 +158,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                     new_userStory.desarrollador= new_desarrollador
                     new_userStory.sprint= self.object
                     new_userStory.actividad=self.flujo.actividad_set.first()
+                    new_userStory.estado_actividad = 0
                     new_userStory.estado = 1 #El User Story pasa a estar en curso por incluirse en el Sprint
                     new_userStory.save()
                 return HttpResponseRedirect(self.get_success_url())
@@ -237,10 +238,12 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                         new_flujo = subform.cleaned_data['flujo']
                         self.flujo = new_flujo
                         new_desarrollador = subform.cleaned_data['desarrollador']
-                        new_userStory.desarrollador = new_desarrollador
-                        new_userStory.sprint = self.object
-                        new_userStory.actividad = self.flujo.actividad_set.first()
-                        new_userStory.estado = 1
+                        if new_userStory.estado!=3: #si el user story no ha finalizado
+                            new_userStory.desarrollador = new_desarrollador
+                            new_userStory.sprint = self.object
+                            new_userStory.actividad = self.flujo.actividad_set.first()
+                            new_userStory.estado = 1
+                            new_userStory.estado_actividad = 0
                     new_userStory.save()
                     proccessed_forms.append(new_userStory)
             return HttpResponseRedirect(self.get_success_url())

@@ -17,6 +17,9 @@
                             <p>No puede registrar su avance en el User Story <strong>{{ userstory.nombre | title }}</strong> debido a que en la actividad <strong>{{ userstory.actividad }}</strong> del flujo <strong>{{ userstory.flujo }}</strong> en el sprint actual <strong>({{ userstory.sprint }})</strong> hay otros User Story de mayor prioridad.</p>
                             <p>La prioridad actual de este User Story es: <strong>{{ userstory.get_prioridad_display }}</strong>.</p>
                         {% endif %}
+                        {% if error == "OTRO_ESTADO" %}
+                            <p>No puede registrar su avance en el User Story  <strong>{{ userstory.nombre | title }}</strong> debido a que el mismo se encuentra en estado <strong>{{ userstory.get_estado_display }}</strong> y no en el estado <strong>En Curso</strong>. </p>
+                        {% endif %}
                     </div>
                 </div>
     </div>

@@ -3,11 +3,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.models import modelform_factory, inlineformset_factory, modelformset_factory
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.db import transaction
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.views import generic
+from django.views.generic import detail
+from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
@@ -40,6 +42,15 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         if not self.project:
             self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
         return manager.filter(proyecto=self.project)
+
+class ApprovalPendingUserStories(UserStoriesList):
+    permission_required = 'project.aprobar_userstory'
+    template_name = 'project/userstory/userstory_pending.html'
+    def get_queryset(self):
+        manager = UserStory.objects
+        if not self.project:
+            self.project = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return manager.filter(proyecto=self.project, estado=2)
 
 class UserStoryDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
@@ -182,7 +193,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         :return: PermissionDenied si el usuario no cuenta con permisos
         """
         if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto) \
-                or ('registraractividad_my_userstory' in get_perms(request.user, self.get_object())):
+                or ('registraractividad_my_userstory' in get_perms(request.user, self.get_object())): #Comprobacion de permisos
             if self.get_object().sprint and self.get_object().sprint.fin >= timezone.now():
                 if self.get_object().actividad:
                     current_priority = self.get_object().prioridad
@@ -190,8 +201,10 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
                     a = self.get_object().actividad
                     d = self.get_object().desarrollador
                     bigger_priorities = UserStory.objects.filter(sprint=s, actividad=a, desarrollador=d, prioridad__gt=current_priority).count()
-                    if bigger_priorities == 0:
-                        return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+                    if bigger_priorities == 0: #Comprobacion de prioridad del User Story
+                        if self.get_object().estado == 1: #Comprobacion de estado del User Story
+                            return super(RegistrarActividadUserStory, self).dispatch(request, *args, **kwargs)
+                        return render(request, self.error_template, {'userstory': self.get_object(), 'error': "OTRO_ESTADO"})
                 return render(request, self.error_template, {'userstory': self.get_object(), 'error': "MENOR_PRIORIDAD"})
             return render(request, self.error_template, {'userstory': self.get_object(), 'error': "SPRINT_VENCIDO"})
         raise PermissionDenied()
@@ -221,16 +234,20 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         nota_form = self.NoteFormset(self.request.POST)
+        new_estado = 0
         #movemos el User Story a la sgte actividad en caso de que haya llegado a Done
         if form.cleaned_data['estado_actividad'] == 2:
+            new_estado = 0
             try:
                 next_actividad = self.object.actividad.get_next_in_order()
             except ObjectDoesNotExist:
-                next_actividad = self.object.actividad #temporalmente que mantenga su actividad
+                next_actividad = self.object.actividad
+                self.object.estado = 2 #Lo marcamos como pendiente de aprobación
+                new_estado = 2
 
             self.object.actividad = next_actividad
-            self.object.estado_actividad = 0
-        #TODO incluir en la cola a evaluar por el scrum master
+            self.object.estado_actividad = new_estado
+
         self.object.save()
 
         if nota_form.is_valid():
@@ -260,6 +277,44 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
     def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+
+class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
+    """
+    Vista de Aprobación o rechazo de User Stories
+    """
+    model = UserStory
+    template_name = 'project/userstory/userstory_approve.html'
+    permission_required = 'project.aprobar_userstory'
+    context_object_name = 'userstory'
+    action = ''
+
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.estado == 2:
+            return super(ApproveUserStory, self).dispatch(request, *args, **kwargs)
+        raise Http404
+
+    def get_context_data(self, **kwargs):
+        context = super(ApproveUserStory, self).get_context_data(**kwargs)
+        context['action'] = self.action
+        return context
+
+    def get_permission_object(self):
+        return self.get_object().proyecto
+
+    def get_success_url(self):
+        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+
+    def post(self, request, *args, **kwargs):
+        us = self.get_object()
+        if self.action == 'aprobar':
+            us.estado = 3 #Aprobado
+        elif self.action == 'rechazar':
+            us.estado = 1 #Vuelve al estado en desarrollo
+            us.estado_actividad = 0 #Vuelve al estado de actividad To Do
+            #TODO Debe volver a la primera actividad del flujo el US?
+        us.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     """
