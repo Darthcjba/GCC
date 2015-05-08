@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.forms import formset_factory
+from django.forms import formset_factory, HiddenInput
 from django.forms.extras import SelectDateWidget
 from django.forms.models import modelform_factory, modelformset_factory, inlineformset_factory
 from django.http import HttpResponseRedirect
@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms
-from project.forms import AddToSprintForm, AddToSprintFormset
+from project.forms import AddToSprintForm, AddToSprintFormset, AddSprintBaseForm
 from project.models import Sprint, Proyecto, Actividad, Flujo, UserStory
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 from django.views import generic
@@ -93,13 +93,21 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
     model = Sprint
     template_name = 'project/sprint/sprint_form.html'
     permission_required = 'project.create_sprint'
-    form_class = modelform_factory(Sprint,
-                                   widgets={'inicio': SelectDateWidget},
-                                   fields={'nombre', 'inicio'})
+    form_class = modelform_factory(Sprint,form=AddSprintBaseForm,
+                                   widgets={'inicio': SelectDateWidget, 'proyecto':HiddenInput},
+                                   fields={'nombre', 'inicio', 'proyecto'})
     formset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, extra=1)
 
     proyecto = None
 
+    def get_initial(self):
+        """
+        Datos iniciales para el formulario
+        :return: diccionario de datos
+        """
+        proyecto = get_object_or_404(Proyecto, id= self.kwargs['project_pk'])
+        initial={'proyecto': proyecto}
+        return initial
     def get_permission_object(self):
         """
         Obtener el permiso de un objeto
@@ -144,7 +152,6 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
 
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
         self.object= form.save(commit=False)
-        self.object.proyecto= self.proyecto
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.proyecto.duracion_sprint)
         self.object.save()
         formsetb= self.formset(self.request.POST)
@@ -176,9 +183,9 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
     model = Sprint
     permission_required = 'project.edit_sprint'
     template_name = 'project/sprint/sprint_form.html'
-    form_class = modelform_factory(Sprint,
-                                   widgets={'inicio': SelectDateWidget},
-                                   fields={'nombre', 'inicio'})
+    form_class = modelform_factory(Sprint,form=AddSprintBaseForm,
+                                   widgets={'inicio': SelectDateWidget,'proyecto': HiddenInput},
+                                   fields={'nombre', 'inicio','proyecto'})
     UserStoryFormset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, can_delete=True, extra=1)
     formset = None
 

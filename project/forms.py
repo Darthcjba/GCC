@@ -2,11 +2,14 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group, Permission, User
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import BaseFormSet
+from django.utils import timezone
 from guardian.shortcuts import get_perms_for_model
 from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
 from project.models import UserStory
 from django.forms.models import inlineformset_factory
+import datetime
 
 def __general_perms_list__():
     '''
@@ -106,6 +109,38 @@ class CreateFromPlantillaForm(forms.Form):
     '''
     plantilla = forms.ModelChoiceField(queryset=Flujo.objects.filter(proyecto=None), empty_label=None)
 
+class AddSprintBaseForm(forms.ModelForm):
+    """
+    Formulario base para la creacion de Sprints
+    """
+
+    class Meta:
+        model= Sprint
+        fields = ['nombre', 'inicio', 'proyecto']
+
+
+
+    def clean(self):
+        """
+        Chequea que  las fechas  de los Sprints no se solapen
+        """
+        if any(self.errors):
+            return
+
+
+        if 'inicio' and 'proyecto' in self.cleaned_data :
+                inicio= self.cleaned_data['inicio']
+                proyecto= self.cleaned_data['proyecto']
+                fin = inicio + datetime.timedelta(days= proyecto.duracion_sprint)
+                sprint = proyecto.sprint_set.filter(inicio__lte=fin , fin__gte=inicio).exclude(pk=self.instance.pk)
+                try:
+                    if inicio < timezone.now():
+                        raise ValidationError({'inicio': 'Fecha inicio debe  ser mayor o igual a la fecha actual '})
+                    if  sprint.exists():
+                        raise ValidationError({'inicio':'Durante este tiempo existe  ' + str(sprint[0].nombre)})
+                except TypeError:
+                    pass
+
 
 class AddToSprintForm(forms.Form):
     """
@@ -114,6 +149,8 @@ class AddToSprintForm(forms.Form):
     userStory =forms.ModelChoiceField(queryset=UserStory.objects.all())
     desarrollador=forms.ModelChoiceField(queryset=User.objects.all())
     flujo = forms.ModelChoiceField(queryset=Flujo.objects.all())
+
+
 
 class AddToSprintFormset(BaseFormSet):
     def clean(self):

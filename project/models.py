@@ -112,7 +112,7 @@ class Sprint(models.Model):
     nombre = models.CharField(max_length=20)
     inicio = models.DateTimeField()
     fin = models.DateTimeField()
-    proyecto = models.ForeignKey(Proyecto, null=False)
+    proyecto = models.ForeignKey(Proyecto, null=False, blank=True)
     #estado = models.BooleanField(default=False)
 
     class Meta:
@@ -126,24 +126,7 @@ class Sprint(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('project:sprint_detail', args=[self.pk])
 
-    def clean(self):
-        try:
-            if self.inicio < timezone.now():
-                raise ValidationError({'inicio': 'Fecha inicio debe  ser mayor o igual a la fecha actual '})
-            if Sprint.objects.filter(Q(inicio__range=(self.inicio, self.fin)) & Q(proyecto=self.proyecto)).exists():
-                sprint = Sprint.objects.get(Q(inicio__range=(self.inicio, self.fin)) & Q(proyecto=self.proyecto))
-                if sprint.id != self.id:
-                    raise ValidationError({'inicio':'Durante este tiempo ya existe el sprint: ' + sprint.nombre})
-            elif Sprint.objects.filter(Q(fin__range=(self.inicio, self.fin)) & Q(proyecto=self.proyecto)).exists():
-                sprint = Sprint.objects.get(Q(fin__range=(self.inicio, self.fin)) & Q(proyecto=self.proyecto))
-                if sprint.id != self.id:
-                    raise ValidationError({'inicio':'Durante este tiempo ya existe el sprint: ' + sprint.nombre})
-            elif Sprint.objects.filter(Q(proyecto=self.proyecto) & Q(inicio__lte=self.inicio) & Q(fin__gte=self.fin)).exists():
-                sprint = Sprint.objects.get(Q(proyecto=self.proyecto) & Q(inicio__lte=self.inicio) & Q(fin__gte=self.fin))
-                if sprint.id != self.id:
-                    raise ValidationError({'inicio':'Durante este tiempo existe un sprint' + sprint.nombre})
-        except TypeError:
-            pass  # si una de las fechas es null, clean_field() se encarga de lanzar error
+
 
 
 class Flujo(models.Model):
