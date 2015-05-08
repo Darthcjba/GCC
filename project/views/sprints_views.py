@@ -182,9 +182,9 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
     model = Sprint
     permission_required = 'project.edit_sprint'
     template_name = 'project/sprint/sprint_form.html'
-    form_class = modelform_factory(Sprint,
-                                   widgets={'inicio': SelectDateWidget},
-                                   fields={'nombre', 'inicio'})
+    form_class = modelform_factory(Sprint,form=AddSprintBaseForm,
+                                   widgets={'inicio': SelectDateWidget,'proyecto': HiddenInput},
+                                   fields={'nombre', 'inicio','proyecto'})
     UserStoryFormset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, can_delete=True, extra=1)
     formset = None
 
