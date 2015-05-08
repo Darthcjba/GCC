@@ -163,7 +163,7 @@
 },
 {
    "fields": {
-      "expire_date": "2015-05-15T22:11:52.221Z",
+      "expire_date": "2015-05-14T15:00:07.331Z",
       "session_data": "ZTNkMmUxZjRjYmNhNjU2OGFmMDJjYzQ2ZGZmZGY0N2I4ZmRmNmMwMTp7Il9hdXRoX3VzZXJfaGFzaCI6ImZmOWJkMmE4N2Y0ZGUwOWIxYjRhMTcxZjkzNjk0NWZhZjcwMjUxMDEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
    },
    "model": "sessions.session",
@@ -2022,7 +2022,7 @@
       "is_active": true,
       "is_superuser": false,
       "is_staff": true,
-      "last_login": "2015-04-19T15:40:08Z",
+      "last_login": "2015-05-02T03:34:21.477Z",
       "groups": [],
       "user_permissions": [],
       "password": "pbkdf2_sha256$12000$5dtswdumbwQa$KsUeqwv39DEyrPluVvYQ4E1OuMoUjVtss0/4IK+Uwb8=",

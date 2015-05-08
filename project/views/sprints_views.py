@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.forms import formset_factory
 from django.forms.extras import SelectDateWidget
 from django.forms.models import modelform_factory, modelformset_factory, inlineformset_factory
@@ -112,6 +113,12 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         :return:la url de redireccion a la vista de los detalles del sprint agregado.
         """
         return reverse('project:sprint_detail', kwargs={'pk': self.object.id})
+
+    def __filtrar_formset__(self, formset):
+        for userformset in formset.forms:
+            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
+            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
+            userformset.fields['userStory'].queryset = UserStory.objects.filter(Q(proyecto=self.proyecto), Q(estado=1) | Q(estado=0))
 
     def get_context_data(self, **kwargs):
         """
