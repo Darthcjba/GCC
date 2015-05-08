@@ -77,7 +77,7 @@ class FlujoDetailSprint(FlujoDetail):
         self.sprint = get_object_or_404(UserStory, pk=self.kwargs['sprint_pk'])
         context = super(FlujoDetailSprint, self).get_context_data(**kwargs)
         context['sprint'] = self.sprint
-        context['userstory'] = self.object.proyecto.userstory_set.filter(sprint=self.sprint)
+        context['userstory'] = self.object.proyecto.userstory_set.order_by('-prioridad').filter(sprint=self.sprint)
         return context
 
 
