@@ -61,7 +61,7 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         """
         context = super(FlujoDetail, self).get_context_data(**kwargs)
         context['actividad'] = self.object.actividad_set.all()
-        context['userstory'] = self.object.proyecto.userstory_set.all()
+        context['userstory'] = self.object.proyecto.userstory_set.order_by('-prioridad').all()
         return context
 
 
