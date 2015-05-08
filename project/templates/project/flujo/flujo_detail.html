@@ -39,36 +39,36 @@
                              {% if  u.actividad == a %}
                                  <tbody>
                                  <tr>
-                                     <td>
-                                     {% if u.estado_actividad == 0 %}
+                                     <td class="text-center">
+                                     {% if  u.estado_actividad == 0 %}
                                          {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm">{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm btn-block">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 1 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm">{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm btn-block">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm " >{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm  btn-block" >{{ u.nombre }}</a>
                                          {% endif %}
                                      {% endif %}
                                      </td>
-                                     <td>
+                                     <td class="text-center">
                                      {% if u.estado_actividad == 1 %}
                                          {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm">{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm btn-block">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 1 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm">{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm btn-block">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm" >{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm btn-block" >{{ u.nombre }}</a>
                                          {% endif %}
                                      {% endif %}
                                      </td>
-                                     <td>
+                                     <td class="text-center">
                                          {% if u.estado_actividad == 2 %}
                                              {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm" >{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm btn-block" >{{ u.nombre }}</a>
                                          {% elif u.prioridad == 1 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm">{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm btn-block">{{ u.nombre }}</a>
                                          {% elif u.prioridad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm" >{{ u.nombre }}</a>
+                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm btn-block" >{{ u.nombre }}</a>
                                          {% endif %}
                                          {% endif %}
 
