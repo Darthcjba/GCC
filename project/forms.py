@@ -137,7 +137,7 @@ class AddSprintBaseForm(forms.ModelForm):
                     if inicio < timezone.now():
                         raise ValidationError({'inicio': 'Fecha inicio debe  ser mayor o igual a la fecha actual '})
                     if  sprint.exists():
-                        raise ValidationError({'inicio':'Durante este tiempo existe  ' + sprint})
+                        raise ValidationError({'inicio':'Durante este tiempo existe  ' + str(sprint[0].nombre)})
                 except TypeError:
                     pass
 
