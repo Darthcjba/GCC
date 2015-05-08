@@ -129,10 +129,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         context = super(AddSprintView, self).get_context_data(**kwargs)
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
         formset=self.formset(self.request.POST if self.request.method == 'POST' else None)
-        for userformset in formset.forms:
-            userformset.fields['desarrollador'].queryset = User.objects.filter(miembroequipo__proyecto=self.proyecto)
-            userformset.fields['flujo'].queryset = Flujo.objects.filter(proyecto=self.proyecto)
-            userformset.fields['userStory'].queryset = UserStory.objects.filter(proyecto=self.proyecto)
+        self.__filtrar_formset__(formset)
         context['formset'] = formset
         return context
 
