@@ -237,12 +237,13 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         new_estado = 0
         #movemos el User Story a la sgte actividad en caso de que haya llegado a Done
         if form.cleaned_data['estado_actividad'] == 2:
-            new_estado = 2
+            new_estado = 0
             try:
                 next_actividad = self.object.actividad.get_next_in_order()
             except ObjectDoesNotExist:
                 next_actividad = self.object.actividad
                 self.object.estado = 2 #Lo marcamos como pendiente de aprobación
+                new_estado = 2
 
             self.object.actividad = next_actividad
             self.object.estado_actividad = new_estado
@@ -310,7 +311,7 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
             us.estado = 3 #Aprobado
         elif self.action == 'rechazar':
             us.estado = 1 #Vuelve al estado en desarrollo
-            us.estado_actividad = 1
+            us.estado_actividad = 0 #Vuelve al estado de actividad To Do
             #TODO Debe volver a la primera actividad del flujo el US?
         us.save()
         return HttpResponseRedirect(self.get_success_url())
