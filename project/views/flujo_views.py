@@ -2,13 +2,13 @@
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from django.views import generic
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from guardian.shortcuts import get_perms
 from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantillaForm
-from project.models import Flujo, Proyecto
+from project.models import Flujo, Proyecto, UserStory
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 class FlujoList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
@@ -65,6 +65,22 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         return context
 
 
+class FlujoDetailSprint(FlujoDetail):
+    sprint = None
+
+    def get_context_data(self, **kwargs):
+        """
+        Agregar lista de actividades al contexto
+        :param kwargs: diccionario de argumentos claves
+        :return: contexto
+        """
+        self.sprint = get_object_or_404(UserStory, pk=self.kwargs['sprint_pk'])
+        context = super(FlujoDetailSprint, self).get_context_data(**kwargs)
+        context['sprint'] = self.sprint
+        context['userstory'] = self.object.proyecto.userstory_set.filter(sprint=self.sprint)
+        return context
+
+
 class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     View que agrega un flujo al sistema
@@ -89,7 +105,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
         context = super(AddFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
 
-        context['actividad_form'] = ActividadFormSet()
+        context['actividad_form'] = ActividadFormSet(self.request.POST if self.request.method == 'POST' else None)
         return context
 
     def get_success_url(self):
@@ -116,7 +132,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form': form,
+        return render(self.request, self.get_template_names(), {'form': form,
                                                                      'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
@@ -141,8 +157,7 @@ class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upd
         """
         context = super(UpdateFlujo, self).get_context_data(**kwargs)
         context['current_action'] = "Agregar"
-        if (self.request.method == 'GET'):
-            context['actividad_form'] = ActividadFormSet(instance=self.object)
+        context['actividad_form'] = ActividadFormSet(self.request.POST if self.request.method == 'POST' else None, instance=self.object)
 
         return context
 
@@ -168,7 +183,7 @@ class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upd
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form': form,
+        return render(self.request, self.get_template_names(), {'form': form,
                                                                      'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 

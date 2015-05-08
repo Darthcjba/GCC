@@ -3,6 +3,7 @@
 {% block title %}Formulario Flujo{% endblock %}
 {% block extrahead %}
     <script src="{% static 'js/jquery.formset.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script type="text/javascript">
     $(function() {
         $('.activity').formset({
@@ -10,12 +11,31 @@
             addText: 'Agregar actividad',
             deleteText: 'Eliminar'
         });
+        $('.sortable').sortable({
+            cursor: 'move',
+            update: function(event, ui) {
+                //reiniciamos conteo de posiciones
+                var currentPos = 1;
+                var camposName = $("input[id$='-name']");
+                var camposOrder = $("input[id$='-ORDER']");
+                for(var i=0; i<camposOrder.length; i++) {
+                    var elem = camposOrder.eq(i);
+                    var elemName = camposName.eq(i);
+                    if(elemName.val()) {
+                        elem.val(currentPos);
+                        currentPos++;
+                    }
+                }
+            }
+        });
     })
     </script>
 {% endblock %}
 {% block header %}Flujo{% endblock %}
 {% block content %}
-
+    <style media="screen" type="text/css">
+        input[id$='-ORDER'] { display: none; }
+    </style>
     <form action="" method="post">
         {% csrf_token %}
         <div>
@@ -23,22 +43,24 @@
         </div>
         <fieldset>
             <legend> Actividades</legend>
+            <div class="sortable">
             {{ actividad_form.management_form }}
             {{ actividad_form.non_form_errors }}
+                {%for form in actividad_form%}
 
-            {%for form in actividad_form%}
-                {{ form.id }}
-                <div  class="form-group activity">
-                {{ form.name.errors }}
-               <label> {{ form.name.label_tag }}</label>
-               {{ form.name }}
-                {% if actividad_form.can_order %}
-                    <label>Orden: </label>{{ form.ORDER }}
-                    {{ form.DELETE }}
-                {% endif %}
-            </div>
-
+                    {{ form.id }}
+                    <div  class="activity form-group">
+                    <span class="fa fa-arrows"> </span>
+                    {{ form.name.errors }}
+                   <label> {{ form.name.label_tag }}</label>
+                   {{ form.name }}
+                    {% if actividad_form.can_order %}
+                        {{ form.ORDER }}
+                        {{ form.DELETE }}
+                    {% endif %}
+                    </div>
             {% endfor %}
+            </div>
         </fieldset>
         <input type="submit" value="{{ current_action }}" class="btn btn-default"/>
     </form>

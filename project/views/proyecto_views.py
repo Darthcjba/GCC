@@ -77,8 +77,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
 
     def get_context_data(self, **kwargs):
         context = super(ProjectCreate, self).get_context_data(**kwargs)
-        if self.request.method == 'GET':
-            context['formset'] = self.TeamMemberInlineFormSet()
+        context['formset'] = self.TeamMemberInlineFormSet(self.request.POST if self.request.method == 'POST' else None)
         return context
 
     def form_valid(self, form):
@@ -150,8 +149,7 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
         :param kwargs: Diccionario con parametros con nombres clave
         '''
         context = super(ProjectUpdate, self).get_context_data(**kwargs)
-        if (self.request.method == 'GET'):
-            context['formset'] = self.TeamMemberInlineFormSet(instance=self.object)
+        context['formset'] = self.TeamMemberInlineFormSet(self.request.POST if self.request.method == 'POST' else None, instance=self.object)
         return context
 
 
