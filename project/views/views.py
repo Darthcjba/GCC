@@ -66,6 +66,8 @@ class UploadFileView(generic.FormView):
         self.file = form.save(commit=False)
         user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
         self.file.user_story = user_story
+        archivo = self.request.FILES['archivo']
+        self.file.binario = archivo.read()
         self.file.save()
 
         return HttpResponseRedirect(self.get_success_url())

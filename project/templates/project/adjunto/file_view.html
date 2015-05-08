@@ -7,6 +7,7 @@
 {% block header %}{{ adjunto.nombre }}{% endblock %}
 
 {% block content %}
+    {{ adjunto.archivo.binario }}
     {% if adjunto.tipo == 'img' %}
         <div class="row">
             <div class="col-sm-6 col-md-4">
