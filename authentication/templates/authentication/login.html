@@ -38,7 +38,7 @@
                         <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
                     </div>
                 {% endif %}
-                <a href="{% url 'project:password_reset' %}">Olvido su password?</a>
+                <a href="{% url 'authentication:password_reset' %}">Olvido su password?</a>
                 <input type="submit" value="Login" class="btn btn-lg btn-success btn-block"/>
             </fieldset>
         </form>

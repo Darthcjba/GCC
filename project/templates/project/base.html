@@ -175,11 +175,11 @@
                         <li><a href="{% url 'project:user_detail' user.id %}"><i
                                 class="fa fa-user fa-fw"></i> {{ user.username }}</a>
                         </li>
-                        <li><a href="{% url 'project:password_change' %}"><i class="fa fa-gear fa-fw"></i> Cambiar
+                        <li><a href="{% url 'authentication:password_change' %}"><i class="fa fa-gear fa-fw"></i> Cambiar
                             Password</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{% url 'project:logout' %}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{% url 'authentication:logout' %}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

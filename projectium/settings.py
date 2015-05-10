@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.core.urlresolvers import reverse, reverse_lazy
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -36,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
     'project',
     'guardian',
     'django.contrib.admindocs',
@@ -104,9 +106,9 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
 
-LOGIN_URL='/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL='/logout/'
+LOGIN_URL = reverse_lazy('authentication:login')
+LOGIN_REDIRECT_URL = reverse_lazy('project:home')
+LOGOUT_URL = reverse_lazy('authentication:logout')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
