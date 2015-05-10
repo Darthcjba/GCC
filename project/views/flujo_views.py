@@ -60,8 +60,7 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         :return: contexto
         """
         context = super(FlujoDetail, self).get_context_data(**kwargs)
-        context['actividad'] = self.object.actividad_set.all()
-        context['userstory'] = self.object.proyecto.userstory_set.order_by('-prioridad').all()
+        context['act_us'] = [a.userstory_set.order_by('-prioridad') for a in self.object.actividad_set.all()]
         return context
 
 
@@ -75,9 +74,9 @@ class FlujoDetailSprint(FlujoDetail):
         :return: contexto
         """
         self.sprint = get_object_or_404(UserStory, pk=self.kwargs['sprint_pk'])
-        context = super(FlujoDetailSprint, self).get_context_data(**kwargs)
+        context = super(generic.DetailView, self).get_context_data(**kwargs)
         context['sprint'] = self.sprint
-        context['userstory'] = self.object.proyecto.userstory_set.order_by('-prioridad').filter(sprint=self.sprint)
+        context['act_us'] = [a.userstory_set.filter(sprint=self.sprint).order_by('-prioridad') for a in self.object.actividad_set.all()]
         return context
 
 

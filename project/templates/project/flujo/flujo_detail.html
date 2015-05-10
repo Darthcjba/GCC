@@ -14,70 +14,63 @@
     {% if sprint %}
         <li><a href="{% url 'project:flujo_detail' flujo.id %}">Ver Todos</a></li>
     {% else %}
-            {% for s in flujo.proyecto.sprint_set.all %}
-                <li><a href="{% url 'project:flujo_detail_sprint' flujo.id s.id %}">{{ s }}</a></li>
-            {% endfor %}
+        {% for s in flujo.proyecto.sprint_set.all %}
+            <li><a href="{% url 'project:flujo_detail_sprint' flujo.id s.id %}">{{ s }}</a></li>
+        {% endfor %}
     {% endif %}
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
 {% endblock %}
+
 {% block thead %}
     {% for a in flujo.actividad_set.all %}
         <th class="text-center">{{ a }}</th>
     {% endfor %}
 {% endblock %}
-{% block tbody %}
-    {% for a in flujo.actividad_set.all %}
-        <td>
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <th class="text-center">Todo</th>
-                        <th class="text-center">Doing</th>
-                        <th class="text-center">Done</th>
-                    </thead>
-                    {% for u in userstory %}
-                             {% if  u.actividad == a %}
-                                 <tbody>
-                                 <tr>
-                                     <td class="text-center">
-                                     {% if  u.estado_actividad == 0 %}
-                                         {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% elif u.prioridad == 1 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% elif u.prioridad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm  btn-block" >{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% endif %}
-                                     {% endif %}
-                                     </td>
-                                     <td class="text-center">
-                                     {% if u.estado_actividad == 1 %}
-                                         {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% elif u.prioridad == 1 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% elif u.prioridad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm btn-block" >{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% endif %}
-                                     {% endif %}
-                                     </td>
-                                     <td class="text-center">
-                                         {% if u.estado_actividad == 2 %}
-                                             {% if u.prioridad == 0 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-primary btn-sm btn-block" >{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% elif u.prioridad == 1 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-warning btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% elif u.prioridad == 2 %}
-                                             <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline btn-danger btn-sm btn-block" >{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
-                                         {% endif %}
-                                         {% endif %}
 
-                                     </td>
-                                 </tr>
-                                 </tbody>
-                             {% endif %}
-                    {% endfor %}
-                </table>
+{% block tbody %}
+    {% for us in act_us %}
+        <td>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <th class="text-center">To Do</th>
+                    <th class="text-center">Doing</th>
+                    <th class="text-center">Done</th>
+                </thead>
+                {% for u in us %}
+                     <tbody>
+                     <tr>
+                         <td class="text-center">
+                         {% if  u.estado_actividad == 0 %}
+                             {% with p=u.prioridad %}
+                                 <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline
+                                 btn-{% if p == 0 %}primary{% elif p == 1 %}warning{% elif p == 2 %}danger{% endif %}
+                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
+                             {% endwith %}
+                         {% endif %}
+                         </td>
+                         <td class="text-center">
+                         {% if u.estado_actividad == 1 %}
+                             {% with p=u.prioridad %}
+                                 <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline
+                                 btn-{% if p == 0 %}primary{% elif p == 1 %}warning{% elif p == 2 %}danger{% endif %}
+                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
+                             {% endwith %}
+                         {% endif %}
+                         </td>
+                         <td class="text-center">
+                         {% if u.estado_actividad == 2 %}
+                             {% with p=u.prioridad %}
+                                 <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline
+                                 btn-{% if p == 0 %}primary{% elif p == 1 %}warning{% elif p == 2 %}danger{% endif %}
+                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
+                             {% endwith %}
+                         {% endif %}
+                         </td>
+                     </tr>
+                     </tbody>
+                {% endfor %}
+            </table>
         </td>
     {% endfor %}
 {% endblock %}
