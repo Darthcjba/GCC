@@ -11,12 +11,41 @@
 <p><strong>Username:</strong> {{ usuario.username }}</p>
 <p><strong>Email:</strong> {{ usuario.email }}</p>
 <h3>Proyectos</h3>
-<ul>
-{% for p in projects %}
-    <li><a href="{% url 'project:project_detail' p.proyecto_id %}">{{ p.proyecto.nombre_corto }} - {{ p.roles.all|join:", " }}</a></li>
-{% endfor %}
-</ul>
-    <h3>User Stories</h3>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel-group" id="accordion">
+                {% for p in projects %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}" aria-expanded="false"
+                               class="collapsed">{{ p.proyecto.nombre_corto }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                        <div class="panel-body">
+                            <strong>Roles: </strong>
+                            {% for r in p.roles.all %}
+                                <span class="label label-primary">{{ r }}</span>
+                            {% endfor %}
+                                <ul class="list-inline">
+                                    <li><strong>Estado: </strong>{{ p.proyecto.get_estado_display }}</li>
+                                    <li><strong>Inicio: </strong>{{ p.proyecto.inicio|date }}</li>
+                                    <li><strong>Fin: </strong>{{ p.proyecto.fin|date }}</li>
+                                </ul>
+                                <p>{{ p.proyecto.descripcion }}</p>
+                            <a href="{% url 'project:project_detail' p.proyecto_id %}" class="btn btn-primary btn-sm">Ver Más</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <h3 id="user_stories">User Stories</h3>
     <!-- Buscador -->
     <form id="buscador" action="" class="styled" method="post">
         <div class="form-group">
