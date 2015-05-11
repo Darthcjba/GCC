@@ -89,30 +89,18 @@
 {% endblock %}
 {% block extra_js %}
     <script type="text/javascript">
-        $(document).ready(function(){
-        $("#filtro").keyup(function(){
-
-
-            var filtro = $(this).val(), cuenta = 0;
-
-            // Loop through the comment list
-            $("#userstoriespanels > div").each(function(){
-
-
-                if ($(this).text().search(new RegExp(filtro, "i")) < 0) {
-                    $(this).fadeOut();
-
-
-                } else {
-                    $(this).show();
-                    cuenta++;
-                }
+        $(document).ready(function () {
+            $("#filtro").keyup(function () {
+                var filtro = $(this).val();
+                $("#userstoriespanels").children("div").each(function () {
+                    if ($(this).text().search(new RegExp(filtro, "i")) < 0) {
+                        $(this).fadeOut();
+                    } else {
+                        $(this).fadeIn();
+                    }
+                });
             });
-
-            // Actualizar el contador
-            var cantItems = cuenta;
         });
-    });
     </script>
 
 {% endblock %}
