@@ -40,7 +40,7 @@ urlpatterns = patterns('',
                        url(r'^roles/add/$', views.AddRolView.as_view(), name="rol_add"),
                        url(r'^roles/(?P<pk>\d+)/edit/$', views.UpdateRolView.as_view(), name="rol_update"),
                        url(r'^roles/(?P<pk>\d+)/delete/$', views.DeleteRolView.as_view(), name="rol_delete"),
-
+                       url(r'^blob/(?P<pk>\d+)/$', views.download_blob, name='download_blob'),
                        url(r'^projects/(?P<project_pk>\d+)/sprint/add/$', views.AddSprintView.as_view(), name="sprint_add"),
                        url(r'^sprint/(?P<pk>\d+)/$', views.SprintDetail.as_view(), name='sprint_detail'),
                        url(r'^projects/(?P<project_pk>\d+)/sprint/$', views.SprintList.as_view(),name="sprint_list"),

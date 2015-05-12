@@ -7,12 +7,13 @@
 {% block header %}{{ adjunto.nombre }}{% endblock %}
 
 {% block content %}
+    <a href="{% url 'project:download_blob' adjunto.id %}">Descargar Blob</a>
     {{ adjunto.archivo.binario }}
     {% if adjunto.tipo == 'img' %}
         <div class="row">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <a href="{{ adjunto.archivo.url }}"><img src="{{ adjunto.archivo.url }}" alt="{{ adjunto.archivo }}"
+                    <a href="{{ adjunto.archivo.url }}"><img src="data:{{ adjunto.content_type }};base64,{{ adjunto.img64 }}" alt="{{ adjunto.nombre }}"
                                                              class="img-responsive"></a>
 
                     <div class="caption">

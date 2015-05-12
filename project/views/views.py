@@ -67,6 +67,7 @@ class UploadFileView(generic.FormView):
         user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
         self.file.user_story = user_story
         archivo = self.request.FILES['archivo']
+        self.file.content_type = archivo.content_type
         self.file.binario = archivo.read()
         self.file.save()
 
@@ -96,6 +97,14 @@ class FileList(generic.ListView):
         context = super(FileList, self).get_context_data(**kwargs)
         context['user_story'] = self.user_story
         return context
+
+def download_blob(request, pk):
+    adjunto = Adjunto.objects.get(pk=pk)
+    filename = adjunto.archivo.name.replace('user_story/', '')
+    contents = adjunto.binario
+    response = HttpResponse(contents, content_type=adjunto.content_type)
+    response['Content-Disposition'] = 'attachment; filename=%s' % filename
+    return response
 
 def prism(request):
     return render(request, 'project/adjunto/prism.html', {})

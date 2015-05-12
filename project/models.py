@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from base64 import b64encode
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed, post_save
 from django.shortcuts import get_object_or_404
+from django.utils.encoding import force_bytes
 from guardian.shortcuts import assign_perm, remove_perm, get_perms_for_model, get_perms
 from django.core.urlresolvers import reverse_lazy
 import reversion
@@ -258,6 +260,7 @@ class Adjunto(models.Model):
     descripcion = models.TextField()
     archivo = models.FileField(upload_to='user_story', null=True)
     binario = models.BinaryField(null=True, blank=True)
+    content_type = models.CharField(null=True, blank=True, max_length=20)
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
     tipo = models.CharField(choices=tipo_choices, default='text', max_length=10)
@@ -265,3 +268,6 @@ class Adjunto(models.Model):
 
     def __unicode__(self):
         return '{}: {}'.format(self.tipo, self.nombre)
+
+    def img64(self):
+        return b64encode(force_bytes(self.binario))
