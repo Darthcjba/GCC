@@ -260,7 +260,7 @@ class Adjunto(models.Model):
     descripcion = models.TextField()
     archivo = models.FileField(upload_to='user_story', null=True)
     binario = models.BinaryField(null=True, blank=True)
-    content_type = models.CharField(null=True, blank=True, max_length=20)
+    content_type = models.CharField(null=True, blank=True, max_length=50)
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
     tipo = models.CharField(choices=tipo_choices, default='text', max_length=10)
