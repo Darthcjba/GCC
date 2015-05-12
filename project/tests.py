@@ -548,6 +548,7 @@ class UserStoryTest(TestCase):
         a1 = Actividad.objects.create(name="Analisis", flujo=f)
         a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
         us.actividad = a2
+        us.estado = 1 #Estado en curso
         us.sprint = s
         us.desarrollador = p.equipo.first()
         us.save()
@@ -569,7 +570,6 @@ class UserStoryTest(TestCase):
             'form-0-mensaje': 'Mensaje',
         }
         response = c.post(reverse('project:userstory_registraractividad', args=(str(us.id))),post_data, follow=True)
-
         self.assertRedirects(response, '/userstory/1/')
         us = UserStory.objects.first()
         self.assertIsNotNone(us)
@@ -785,8 +785,23 @@ class SprintTest(TestCase):
             self.assertIsNotNone(f)
             response = c.get(reverse('project:sprint_add', args=(str(p.id))))
             self.assertEquals(response.status_code, 200)
-            response = c.post(reverse('project:sprint_add', args=(str(p.id))),
-                          {'nombre': 'Sprint_test', 'inicio': timezone.now(), 'fin':timezone.now(),'userStory':us, 'desarrollador': u, 'flujo':f}, follow=True)
+            post_data = {
+            'nombre': 'Sprint_test',
+            'inicio': timezone.now(),
+            'proyecto':p,
+            'fin':timezone.now(),
+            'actividad': 1,
+            'tiempo_registrado': 4,
+            'estado_actividad': 1,
+            'form-INITIAL_FORMS': 0,
+            'form-MAX_NUM_FORMS': 1000,
+            'form-MIN_NUM_FORMS': 0,
+            'form-TOTAL_FORMS': 1,
+            'form-0-userStory': us.id,
+            'form-0-desarrollador':u.id,
+            'form-0-flujo':f.id,
+        }
+            response = c.post(reverse('project:sprint_add', args=(str(p.id))), post_data, follow=True)
             self.assertEquals(response.status_code,200)
             s=Sprint.objects.get(pk=1)
             self.assertIsNotNone(s)
@@ -807,8 +822,21 @@ class SprintTest(TestCase):
             s=Sprint.objects.get(pk=1)
             response = c.get(reverse('project:sprint_add', args=(str(s.id))))
             self.assertEquals(response.status_code, 200)
+            post_data = {
+                'nombre': 'Sprint_test',
+                'inicio': timezone.now(),
+                'fin':timezone.now(),
+                'proyecto':p,
+                'form-INITIAL_FORMS': 0,
+                'form-MAX_NUM_FORMS': 1000,
+                'form-MIN_NUM_FORMS': 0,
+                'form-TOTAL_FORMS': 1,
+                'form-0-userStory': us.id,
+                'form-0-desarrollador':u.id,
+                'form-0-flujo':f.id,
+            }
             response = c.post(reverse('project:sprint_update',args=(str(s.id))),
-                          {'nombre': 'Sprint_test', 'inicio': timezone.now(), 'fin':timezone.now(),'userStory':us, 'desarrollador': u, 'flujo':f}, follow=True)
+                          post_data, follow=True)
             self.assertEquals(response.status_code,200)
 
 
