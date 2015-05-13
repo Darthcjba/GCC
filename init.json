@@ -1,0 +1,5573 @@
+[
+{
+   "fields": {
+      "model": "logentry",
+      "name": "log entry",
+      "app_label": "admin"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 1
+},
+{
+   "fields": {
+      "model": "permission",
+      "name": "permission",
+      "app_label": "auth"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 2
+},
+{
+   "fields": {
+      "model": "group",
+      "name": "group",
+      "app_label": "auth"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 3
+},
+{
+   "fields": {
+      "model": "user",
+      "name": "user",
+      "app_label": "auth"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 4
+},
+{
+   "fields": {
+      "model": "contenttype",
+      "name": "content type",
+      "app_label": "contenttypes"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 5
+},
+{
+   "fields": {
+      "model": "session",
+      "name": "session",
+      "app_label": "sessions"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 6
+},
+{
+   "fields": {
+      "model": "proyecto",
+      "name": "proyecto",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 7
+},
+{
+   "fields": {
+      "model": "miembroequipo",
+      "name": "miembro equipo",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 8
+},
+{
+   "fields": {
+      "model": "sprint",
+      "name": "sprint",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 9
+},
+{
+   "fields": {
+      "model": "flujo",
+      "name": "flujo",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 10
+},
+{
+   "fields": {
+      "model": "actividad",
+      "name": "actividad",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 11
+},
+{
+   "fields": {
+      "model": "userstory",
+      "name": "user story",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 12
+},
+{
+   "fields": {
+      "model": "nota",
+      "name": "nota",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 13
+},
+{
+   "fields": {
+      "model": "adjunto",
+      "name": "adjunto",
+      "app_label": "project"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 14
+},
+{
+   "fields": {
+      "model": "userobjectpermission",
+      "name": "user object permission",
+      "app_label": "guardian"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 15
+},
+{
+   "fields": {
+      "model": "groupobjectpermission",
+      "name": "group object permission",
+      "app_label": "guardian"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 16
+},
+{
+   "fields": {
+      "model": "revision",
+      "name": "revision",
+      "app_label": "reversion"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 17
+},
+{
+   "fields": {
+      "model": "version",
+      "name": "version",
+      "app_label": "reversion"
+   },
+   "model": "contenttypes.contenttype",
+   "pk": 18
+},
+{
+   "fields": {
+      "expire_date": "2015-05-14T15:00:07.331Z",
+      "session_data": "ZTNkMmUxZjRjYmNhNjU2OGFmMDJjYzQ2ZGZmZGY0N2I4ZmRmNmMwMTp7Il9hdXRoX3VzZXJfaGFzaCI6ImZmOWJkMmE4N2Y0ZGUwOWIxYjRhMTcxZjkzNjk0NWZhZjcwMjUxMDEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+   },
+   "model": "sessions.session",
+   "pk": "dzg3213hzsmj1x5v18siwuf3hobhka93"
+},
+{
+   "fields": {
+      "expire_date": "2015-05-27T14:24:08.375Z",
+      "session_data": "ZTNkMmUxZjRjYmNhNjU2OGFmMDJjYzQ2ZGZmZGY0N2I4ZmRmNmMwMTp7Il9hdXRoX3VzZXJfaGFzaCI6ImZmOWJkMmE4N2Y0ZGUwOWIxYjRhMTcxZjkzNjk0NWZhZjcwMjUxMDEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+   },
+   "model": "sessions.session",
+   "pk": "mnq7tu48c0v8gh4oit0zxzewp8ps76sq"
+},
+{
+   "fields": {
+      "expire_date": "2015-05-16T03:42:24.406Z",
+      "session_data": "NTg2NjI2MDEyMzA2ZTBlYzI0ZDVhZWRhYzU5YWNjY2Y5ZWFiODlhZjp7Il9hdXRoX3VzZXJfaGFzaCI6ImEzNTU0NjU3NzIyY2Q3MjRlNzk5Njc3ZDg5NThkZjNiMDQ0N2JhN2YiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjJ9"
+   },
+   "model": "sessions.session",
+   "pk": "ttram5ig8efkcv48ollhqoncc5si2tz6"
+},
+{
+   "fields": {
+      "nombre": "Sprint 1",
+      "proyecto": 7,
+      "fin": "2015-05-19T16:34:33Z",
+      "inicio": "2015-04-19T16:34:32Z"
+   },
+   "model": "project.sprint",
+   "pk": 1
+},
+{
+   "fields": {
+      "nombre": "Sprint 2",
+      "proyecto": 7,
+      "fin": "2015-04-19T16:34:49Z",
+      "inicio": "2015-04-19T16:34:47Z"
+   },
+   "model": "project.sprint",
+   "pk": 2
+},
+{
+   "fields": {
+      "nombre": "Sprint 3",
+      "proyecto": 7,
+      "fin": "2015-04-19T16:34:58Z",
+      "inicio": "2015-04-19T16:34:57Z"
+   },
+   "model": "project.sprint",
+   "pk": 3
+},
+{
+   "fields": {
+      "nombre": "Sprint",
+      "proyecto": 6,
+      "fin": "2015-10-31T00:00:00Z",
+      "inicio": "2015-10-01T00:00:00Z"
+   },
+   "model": "project.sprint",
+   "pk": 4
+},
+{
+   "fields": {
+      "nombre": "Tiempo de duracion",
+      "proyecto": 3,
+      "fin": "2015-05-04T00:00:00Z",
+      "inicio": "2015-04-04T00:00:00Z"
+   },
+   "model": "project.sprint",
+   "pk": 5
+},
+{
+   "fields": {
+      "nombre": "Sprint1",
+      "proyecto": 8,
+      "fin": "2015-10-12T00:00:00Z",
+      "inicio": "2015-09-12T00:00:00Z"
+   },
+   "model": "project.sprint",
+   "pk": 6
+},
+{
+   "fields": {
+      "nombre": "Sprint",
+      "proyecto": 5,
+      "fin": "2015-11-01T00:00:00Z",
+      "inicio": "2015-10-04T00:00:00Z"
+   },
+   "model": "project.sprint",
+   "pk": 7
+},
+{
+   "fields": {
+      "nombre": "SPrint1",
+      "proyecto": 11,
+      "fin": "2015-07-31T00:00:00Z",
+      "inicio": "2015-07-01T00:00:00Z"
+   },
+   "model": "project.sprint",
+   "pk": 8
+},
+{
+   "fields": {
+      "nombre": "Tiempo a personajes",
+      "proyecto": 9,
+      "fin": "2015-01-16T00:00:00Z",
+      "inicio": "2015-01-01T00:00:00Z"
+   },
+   "model": "project.sprint",
+   "pk": 9
+},
+{
+   "fields": {
+      "nombre": "Desarrollo",
+      "proyecto": 7
+   },
+   "model": "project.flujo",
+   "pk": 1
+},
+{
+   "fields": {
+      "nombre": "Mantenimiento",
+      "proyecto": 7
+   },
+   "model": "project.flujo",
+   "pk": 2
+},
+{
+   "fields": {
+      "nombre": "Desarrollo",
+      "proyecto": null
+   },
+   "model": "project.flujo",
+   "pk": 3
+},
+{
+   "fields": {
+      "nombre": "FLujo1",
+      "proyecto": 6
+   },
+   "model": "project.flujo",
+   "pk": 4
+},
+{
+   "fields": {
+      "nombre": "Creacion",
+      "proyecto": 3
+   },
+   "model": "project.flujo",
+   "pk": 5
+},
+{
+   "fields": {
+      "nombre": "Actividades",
+      "proyecto": 8
+   },
+   "model": "project.flujo",
+   "pk": 6
+},
+{
+   "fields": {
+      "nombre": "Principio",
+      "proyecto": 5
+   },
+   "model": "project.flujo",
+   "pk": 7
+},
+{
+   "fields": {
+      "nombre": "Flujo1",
+      "proyecto": 11
+   },
+   "model": "project.flujo",
+   "pk": 8
+},
+{
+   "fields": {
+      "nombre": "Personajes",
+      "proyecto": 9
+   },
+   "model": "project.flujo",
+   "pk": 9
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Analisis",
+      "flujo": 1
+   },
+   "model": "project.actividad",
+   "pk": 1
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "Diseno",
+      "flujo": 1
+   },
+   "model": "project.actividad",
+   "pk": 2
+},
+{
+   "fields": {
+      "_order": 2,
+      "name": "Mantenimiento",
+      "flujo": 1
+   },
+   "model": "project.actividad",
+   "pk": 3
+},
+{
+   "fields": {
+      "_order": 3,
+      "name": "Implementacion",
+      "flujo": 1
+   },
+   "model": "project.actividad",
+   "pk": 4
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "A",
+      "flujo": 2
+   },
+   "model": "project.actividad",
+   "pk": 5
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "B",
+      "flujo": 2
+   },
+   "model": "project.actividad",
+   "pk": 6
+},
+{
+   "fields": {
+      "_order": 2,
+      "name": "C",
+      "flujo": 2
+   },
+   "model": "project.actividad",
+   "pk": 7
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Analisis",
+      "flujo": 3
+   },
+   "model": "project.actividad",
+   "pk": 8
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "Dise\u00f1o",
+      "flujo": 3
+   },
+   "model": "project.actividad",
+   "pk": 9
+},
+{
+   "fields": {
+      "_order": 2,
+      "name": "Implementacion",
+      "flujo": 3
+   },
+   "model": "project.actividad",
+   "pk": 10
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Nombre",
+      "flujo": 4
+   },
+   "model": "project.actividad",
+   "pk": 11
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Disenho",
+      "flujo": 5
+   },
+   "model": "project.actividad",
+   "pk": 12
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "Construccion",
+      "flujo": 5
+   },
+   "model": "project.actividad",
+   "pk": 13
+},
+{
+   "fields": {
+      "_order": 2,
+      "name": "terminacion",
+      "flujo": 5
+   },
+   "model": "project.actividad",
+   "pk": 14
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Planeamiento",
+      "flujo": 6
+   },
+   "model": "project.actividad",
+   "pk": 15
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "Realizacion",
+      "flujo": 6
+   },
+   "model": "project.actividad",
+   "pk": 16
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Analisis",
+      "flujo": 7
+   },
+   "model": "project.actividad",
+   "pk": 17
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "Creacion",
+      "flujo": 7
+   },
+   "model": "project.actividad",
+   "pk": 18
+},
+{
+   "fields": {
+      "_order": 2,
+      "name": "Puesta en Marcha",
+      "flujo": 7
+   },
+   "model": "project.actividad",
+   "pk": 19
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Analisis",
+      "flujo": 8
+   },
+   "model": "project.actividad",
+   "pk": 20
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "Dise\u00f1o",
+      "flujo": 8
+   },
+   "model": "project.actividad",
+   "pk": 21
+},
+{
+   "fields": {
+      "_order": 2,
+      "name": "finalizacion",
+      "flujo": 8
+   },
+   "model": "project.actividad",
+   "pk": 22
+},
+{
+   "fields": {
+      "_order": 0,
+      "name": "Disenho",
+      "flujo": 9
+   },
+   "model": "project.actividad",
+   "pk": 23
+},
+{
+   "fields": {
+      "_order": 1,
+      "name": "Prueba",
+      "flujo": 9
+   },
+   "model": "project.actividad",
+   "pk": 24
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "ESTO NO TIENE QUE SALIR",
+      "object_id": "15",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 15,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"a;sdljfaoisdjfoasd\", \"nombre\": \"ESTO NO TIENE QUE SALIR\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 15}]",
+      "revision": 1
+   },
+   "model": "reversion.version",
+   "pk": 1
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "ESTO NO TIENE QUE SALIR",
+      "object_id": "15",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 15,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"a;sdljfaoisdjfoasd\", \"nombre\": \"ESTO NO TIENE QUE SALIR\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 15}]",
+      "revision": 2
+   },
+   "model": "reversion.version",
+   "pk": 2
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Iniciar sesion",
+      "object_id": "1",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 1,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Inicio de sesion en el sistema\", \"nombre\": \"Iniciar sesion\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 1}]",
+      "revision": 3
+   },
+   "model": "reversion.version",
+   "pk": 3
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Cerrar sesion",
+      "object_id": "2",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 2,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Cerrar de sesion en el sistema\", \"nombre\": \"Cerrar sesion\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 2}]",
+      "revision": 4
+   },
+   "model": "reversion.version",
+   "pk": 4
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Cerrar sesion",
+      "object_id": "2",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 2,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Cerrar de sesion en el sistema\", \"nombre\": \"Cerrar sesion\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 2}]",
+      "revision": 5
+   },
+   "model": "reversion.version",
+   "pk": 5
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Cambiar contrasena",
+      "object_id": "3",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 3,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Cambia contrasena del ususario\", \"nombre\": \"Cambiar contrasena\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 3}]",
+      "revision": 6
+   },
+   "model": "reversion.version",
+   "pk": 6
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Restaurar contrasena",
+      "object_id": "4",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 4,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Restaura la contrasena a un valor predeterminado\", \"nombre\": \"Restaurar contrasena\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 4}]",
+      "revision": 7
+   },
+   "model": "reversion.version",
+   "pk": 7
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Iniciar sesion",
+      "object_id": "1",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 1,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Inicio de sesion en el sistema\", \"nombre\": \"Iniciar sesion\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 1}]",
+      "revision": 8
+   },
+   "model": "reversion.version",
+   "pk": 8
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Iniciar sesion",
+      "object_id": "1",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 1,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Inicio de sesion en el sistema\", \"nombre\": \"Iniciar sesion\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 1}]",
+      "revision": 9
+   },
+   "model": "reversion.version",
+   "pk": 9
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Buscar Proyecto",
+      "object_id": "10",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 10,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Busca los proyectos en el sistema\", \"nombre\": \"Buscar Proyecto\", \"prioridad\": 1, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 10}]",
+      "revision": 10
+   },
+   "model": "reversion.version",
+   "pk": 10
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Buscar Proyecto",
+      "object_id": "10",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 10,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 7, \"descripcion\": \"Busca los proyectos en el sistema\", \"nombre\": \"Buscar Proyecto\", \"prioridad\": 1, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 10}]",
+      "revision": 11
+   },
+   "model": "reversion.version",
+   "pk": 11
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Buscar Proyecto",
+      "object_id": "10",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 10,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 7, \"descripcion\": \"Busca los proyectos en el sistema\", \"nombre\": \"Buscar Proyecto\", \"prioridad\": 1, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 10}]",
+      "revision": 12
+   },
+   "model": "reversion.version",
+   "pk": 12
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Buscar Proyecto",
+      "object_id": "10",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 10,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 7, \"descripcion\": \"Busca los proyectos en el sistema\", \"nombre\": \"Buscar Proyecto\", \"prioridad\": 1, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 10}]",
+      "revision": 13
+   },
+   "model": "reversion.version",
+   "pk": 13
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Usuario",
+      "object_id": "12",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 12,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Crear Usuario  en el sistema\", \"nombre\": \"Crear Usuario\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 12}]",
+      "revision": 13
+   },
+   "model": "reversion.version",
+   "pk": 14
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Editar Usuario",
+      "object_id": "13",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 13,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Edita un Usuario  en el sistema\", \"nombre\": \"Editar Usuario\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 13}]",
+      "revision": 13
+   },
+   "model": "reversion.version",
+   "pk": 15
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Eliminar Usuario",
+      "object_id": "14",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 14,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Elimina un Usuario  en el sistema\", \"nombre\": \"Eliminar Usuario\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 14}]",
+      "revision": 13
+   },
+   "model": "reversion.version",
+   "pk": 16
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Iniciar sesion",
+      "object_id": "1",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 1,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Inicio de sesion en el sistema\", \"nombre\": \"Iniciar sesion\", \"prioridad\": 2, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 1}]",
+      "revision": 14
+   },
+   "model": "reversion.version",
+   "pk": 17
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Cerrar sesion",
+      "object_id": "2",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 2,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Cerrar de sesion en el sistema\", \"nombre\": \"Cerrar sesion\", \"prioridad\": 1, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 2}]",
+      "revision": 15
+   },
+   "model": "reversion.version",
+   "pk": 18
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Restaurar contrasena",
+      "object_id": "4",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 4,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Restaura la contrasena a un valor predeterminado\", \"nombre\": \"Restaurar contrasena\", \"prioridad\": 1, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 4}]",
+      "revision": 16
+   },
+   "model": "reversion.version",
+   "pk": 19
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Iniciar sesion",
+      "object_id": "1",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 1,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Inicio de sesion en el sistema\", \"nombre\": \"Iniciar sesion\", \"prioridad\": 2, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 1}]",
+      "revision": 17
+   },
+   "model": "reversion.version",
+   "pk": 20
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Restaurar contrasena",
+      "object_id": "4",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 4,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Restaura la contrasena a un valor predeterminado\", \"nombre\": \"Restaurar contrasena\", \"prioridad\": 1, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 4}]",
+      "revision": 18
+   },
+   "model": "reversion.version",
+   "pk": 21
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Iniciar sesion",
+      "object_id": "1",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 1,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Inicio de sesion en el sistema\", \"nombre\": \"Iniciar sesion\", \"prioridad\": 2, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 1}]",
+      "revision": 19
+   },
+   "model": "reversion.version",
+   "pk": 22
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Probar instrumentos",
+      "object_id": "16",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 16,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 6, \"descripcion\": \"Adquirir los instrumentos para poder crear un xbox\", \"nombre\": \"Probar instrumentos\", \"prioridad\": 2, \"valor_negocio\": 3, \"valor_tecnico\": 11}, \"model\": \"project.userstory\", \"pk\": 16}]",
+      "revision": 20
+   },
+   "model": "reversion.version",
+   "pk": 23
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Ensamblar las componentes",
+      "object_id": "17",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 17,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 9, \"descripcion\": \"Poner todos las componentes dentro del sistema xbox\", \"nombre\": \"Ensamblar las componentes\", \"prioridad\": 1, \"valor_negocio\": 10, \"valor_tecnico\": 8}, \"model\": \"project.userstory\", \"pk\": 17}]",
+      "revision": 21
+   },
+   "model": "reversion.version",
+   "pk": 24
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Instalar software",
+      "object_id": "18",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 18,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"Instalacion del software del sistema que va a tener\", \"nombre\": \"Instalar software\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 10}, \"model\": \"project.userstory\", \"pk\": 18}]",
+      "revision": 22
+   },
+   "model": "reversion.version",
+   "pk": 25
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Probar instrumentos",
+      "object_id": "16",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 16,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 6, \"descripcion\": \"Adquirir los instrumentos para poder crear un xbox\", \"nombre\": \"Probar instrumentos\", \"prioridad\": 2, \"valor_negocio\": 3, \"valor_tecnico\": 11}, \"model\": \"project.userstory\", \"pk\": 16}]",
+      "revision": 23
+   },
+   "model": "reversion.version",
+   "pk": 26
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Ensamblar las componentes",
+      "object_id": "17",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 17,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 9, \"descripcion\": \"Poner todos las componentes dentro del sistema xbox\", \"nombre\": \"Ensamblar las componentes\", \"prioridad\": 1, \"valor_negocio\": 10, \"valor_tecnico\": 8}, \"model\": \"project.userstory\", \"pk\": 17}]",
+      "revision": 23
+   },
+   "model": "reversion.version",
+   "pk": 27
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Instalar software",
+      "object_id": "18",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 18,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"Instalacion del software del sistema que va a tener\", \"nombre\": \"Instalar software\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 10}, \"model\": \"project.userstory\", \"pk\": 18}]",
+      "revision": 23
+   },
+   "model": "reversion.version",
+   "pk": 28
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Probar instrumentos",
+      "object_id": "16",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 16,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 6, \"descripcion\": \"Adquirir los instrumentos para poder crear un xbox\", \"nombre\": \"Probar instrumentos\", \"prioridad\": 2, \"valor_negocio\": 3, \"valor_tecnico\": 11}, \"model\": \"project.userstory\", \"pk\": 16}]",
+      "revision": 24
+   },
+   "model": "reversion.version",
+   "pk": 29
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Personajes",
+      "object_id": "19",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 19,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 11, \"descripcion\": \"Creacion de los personajes del sistema\", \"nombre\": \"Crear Personajes\", \"prioridad\": 2, \"valor_negocio\": 10, \"valor_tecnico\": 12}, \"model\": \"project.userstory\", \"pk\": 19}]",
+      "revision": 25
+   },
+   "model": "reversion.version",
+   "pk": 30
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Ambiente",
+      "object_id": "20",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 20,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 14, \"descripcion\": \"Creacion del ambiente en el que se le pondra a los personajes\", \"nombre\": \"Crear Ambiente\", \"prioridad\": 0, \"valor_negocio\": 10, \"valor_tecnico\": 15}, \"model\": \"project.userstory\", \"pk\": 20}]",
+      "revision": 26
+   },
+   "model": "reversion.version",
+   "pk": 31
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Creacion de nivel",
+      "object_id": "21",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 21,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 30, \"descripcion\": \"Creacion de los niveles cada vez que el usuario gana el juego, hasta un maximo de 5 niveles aumentando la dificultad\", \"nombre\": \"Creacion de nivel\", \"prioridad\": 1, \"valor_negocio\": 15, \"valor_tecnico\": 10}, \"model\": \"project.userstory\", \"pk\": 21}]",
+      "revision": 27
+   },
+   "model": "reversion.version",
+   "pk": 32
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Personajes",
+      "object_id": "19",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 19,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 11, \"descripcion\": \"Creacion de los personajes del sistema\", \"nombre\": \"Crear Personajes\", \"prioridad\": 2, \"valor_negocio\": 10, \"valor_tecnico\": 12}, \"model\": \"project.userstory\", \"pk\": 19}]",
+      "revision": 28
+   },
+   "model": "reversion.version",
+   "pk": 33
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Ambiente",
+      "object_id": "20",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 20,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 14, \"descripcion\": \"Creacion del ambiente en el que se le pondra a los personajes\", \"nombre\": \"Crear Ambiente\", \"prioridad\": 0, \"valor_negocio\": 10, \"valor_tecnico\": 15}, \"model\": \"project.userstory\", \"pk\": 20}]",
+      "revision": 28
+   },
+   "model": "reversion.version",
+   "pk": 34
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Creacion de nivel",
+      "object_id": "21",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 21,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 30, \"descripcion\": \"Creacion de los niveles cada vez que el usuario gana el juego, hasta un maximo de 5 niveles aumentando la dificultad\", \"nombre\": \"Creacion de nivel\", \"prioridad\": 1, \"valor_negocio\": 15, \"valor_tecnico\": 10}, \"model\": \"project.userstory\", \"pk\": 21}]",
+      "revision": 28
+   },
+   "model": "reversion.version",
+   "pk": 35
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Contruir una muestra",
+      "object_id": "22",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 22,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 40, \"descripcion\": \"Contruccion de una muestra del kinect\", \"nombre\": \"Contruir una muestra\", \"prioridad\": 0, \"valor_negocio\": 13, \"valor_tecnico\": 20}, \"model\": \"project.userstory\", \"pk\": 22}]",
+      "revision": 29
+   },
+   "model": "reversion.version",
+   "pk": 36
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Contruccion de sensor de movimiento",
+      "object_id": "23",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 23,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 30, \"descripcion\": \"Contruir un sensor de moviemiento para el kinect\", \"nombre\": \"Contruccion de sensor de movimiento\", \"prioridad\": 1, \"valor_negocio\": 12, \"valor_tecnico\": 25}, \"model\": \"project.userstory\", \"pk\": 23}]",
+      "revision": 30
+   },
+   "model": "reversion.version",
+   "pk": 37
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Contruir una muestra",
+      "object_id": "22",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 22,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 40, \"descripcion\": \"Contruccion de una muestra del kinect\", \"nombre\": \"Contruir una muestra\", \"prioridad\": 0, \"valor_negocio\": 13, \"valor_tecnico\": 20}, \"model\": \"project.userstory\", \"pk\": 22}]",
+      "revision": 31
+   },
+   "model": "reversion.version",
+   "pk": 38
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Contruccion de sensor de movimiento",
+      "object_id": "23",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 23,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 30, \"descripcion\": \"Contruir un sensor de moviemiento para el kinect\", \"nombre\": \"Contruccion de sensor de movimiento\", \"prioridad\": 1, \"valor_negocio\": 12, \"valor_tecnico\": 25}, \"model\": \"project.userstory\", \"pk\": 23}]",
+      "revision": 31
+   },
+   "model": "reversion.version",
+   "pk": 39
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Contruccion de sensor de movimiento",
+      "object_id": "23",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 23,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 30, \"descripcion\": \"Contruir un sensor de moviemiento para el kinect\", \"nombre\": \"Contruccion de sensor de movimiento\", \"prioridad\": 1, \"valor_negocio\": 12, \"valor_tecnico\": 25}, \"model\": \"project.userstory\", \"pk\": 23}]",
+      "revision": 32
+   },
+   "model": "reversion.version",
+   "pk": 40
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Inicio",
+      "object_id": "24",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 24,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"Creacion del inicio de la serie\", \"nombre\": \"Crear Inicio\", \"prioridad\": 0, \"valor_negocio\": 6, \"valor_tecnico\": 13}, \"model\": \"project.userstory\", \"pk\": 24}]",
+      "revision": 33
+   },
+   "model": "reversion.version",
+   "pk": 41
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "crear trama",
+      "object_id": "25",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 25,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 12, \"descripcion\": \"Creacion de la trama de la serie  japonesa\", \"nombre\": \"crear trama\", \"prioridad\": 0, \"valor_negocio\": 15, \"valor_tecnico\": 16}, \"model\": \"project.userstory\", \"pk\": 25}]",
+      "revision": 34
+   },
+   "model": "reversion.version",
+   "pk": 42
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Finalizar Trama",
+      "object_id": "26",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 26,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 50, \"descripcion\": \"Finalizacion de la trama y serie japonesa(Muere el actor prinicipal y revive con las  esferas del dragon\", \"nombre\": \"Finalizar Trama\", \"prioridad\": 0, \"valor_negocio\": 29, \"valor_tecnico\": 21}, \"model\": \"project.userstory\", \"pk\": 26}]",
+      "revision": 35
+   },
+   "model": "reversion.version",
+   "pk": 43
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Inicio",
+      "object_id": "24",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 24,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"Creacion del inicio de la serie\", \"nombre\": \"Crear Inicio\", \"prioridad\": 0, \"valor_negocio\": 6, \"valor_tecnico\": 13}, \"model\": \"project.userstory\", \"pk\": 24}]",
+      "revision": 36
+   },
+   "model": "reversion.version",
+   "pk": 44
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "crear trama",
+      "object_id": "25",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 25,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 12, \"descripcion\": \"Creacion de la trama de la serie  japonesa\", \"nombre\": \"crear trama\", \"prioridad\": 0, \"valor_negocio\": 15, \"valor_tecnico\": 16}, \"model\": \"project.userstory\", \"pk\": 25}]",
+      "revision": 36
+   },
+   "model": "reversion.version",
+   "pk": 45
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Finalizar Trama",
+      "object_id": "26",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 26,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 50, \"descripcion\": \"Finalizacion de la trama y serie japonesa(Muere el actor prinicipal y revive con las  esferas del dragon\", \"nombre\": \"Finalizar Trama\", \"prioridad\": 0, \"valor_negocio\": 29, \"valor_tecnico\": 21}, \"model\": \"project.userstory\", \"pk\": 26}]",
+      "revision": 36
+   },
+   "model": "reversion.version",
+   "pk": 46
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "crear trama",
+      "object_id": "25",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 25,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 12, \"descripcion\": \"Creacion de la trama de la serie  japonesa\", \"nombre\": \"crear trama\", \"prioridad\": 0, \"valor_negocio\": 15, \"valor_tecnico\": 16}, \"model\": \"project.userstory\", \"pk\": 25}]",
+      "revision": 37
+   },
+   "model": "reversion.version",
+   "pk": 47
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Inicio",
+      "object_id": "24",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 24,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"Creacion del inicio de la serie\", \"nombre\": \"Crear Inicio\", \"prioridad\": 0, \"valor_negocio\": 6, \"valor_tecnico\": 13}, \"model\": \"project.userstory\", \"pk\": 24}]",
+      "revision": 38
+   },
+   "model": "reversion.version",
+   "pk": 48
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Finalizar Trama",
+      "object_id": "26",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 26,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 50, \"descripcion\": \"Finalizacion de la trama y serie japonesa(Muere el actor prinicipal y revive con las  esferas del dragon\", \"nombre\": \"Finalizar Trama\", \"prioridad\": 0, \"valor_negocio\": 29, \"valor_tecnico\": 21}, \"model\": \"project.userstory\", \"pk\": 26}]",
+      "revision": 39
+   },
+   "model": "reversion.version",
+   "pk": 49
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "US1",
+      "object_id": "27",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 27,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 15, \"descripcion\": \"UserStory1\", \"nombre\": \"US1\", \"prioridad\": 1, \"valor_negocio\": 15, \"valor_tecnico\": 15}, \"model\": \"project.userstory\", \"pk\": 27}]",
+      "revision": 40
+   },
+   "model": "reversion.version",
+   "pk": 50
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "US2",
+      "object_id": "28",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 28,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"User Story 2\", \"nombre\": \"US2\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 20}, \"model\": \"project.userstory\", \"pk\": 28}]",
+      "revision": 41
+   },
+   "model": "reversion.version",
+   "pk": 51
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "US3",
+      "object_id": "29",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 29,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 21, \"descripcion\": \"UserStory3\", \"nombre\": \"US3\", \"prioridad\": 0, \"valor_negocio\": 21, \"valor_tecnico\": 21}, \"model\": \"project.userstory\", \"pk\": 29}]",
+      "revision": 42
+   },
+   "model": "reversion.version",
+   "pk": 52
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Us4",
+      "object_id": "30",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 30,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 23, \"descripcion\": \"UserStory 4\", \"nombre\": \"Us4\", \"prioridad\": 0, \"valor_negocio\": 23, \"valor_tecnico\": 23}, \"model\": \"project.userstory\", \"pk\": 30}]",
+      "revision": 43
+   },
+   "model": "reversion.version",
+   "pk": 53
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "US1",
+      "object_id": "27",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 27,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 15, \"descripcion\": \"UserStory1\", \"nombre\": \"US1\", \"prioridad\": 1, \"valor_negocio\": 15, \"valor_tecnico\": 15}, \"model\": \"project.userstory\", \"pk\": 27}]",
+      "revision": 44
+   },
+   "model": "reversion.version",
+   "pk": 54
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "US2",
+      "object_id": "28",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 28,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 20, \"descripcion\": \"User Story 2\", \"nombre\": \"US2\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 20}, \"model\": \"project.userstory\", \"pk\": 28}]",
+      "revision": 44
+   },
+   "model": "reversion.version",
+   "pk": 55
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "US3",
+      "object_id": "29",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 29,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 21, \"descripcion\": \"UserStory3\", \"nombre\": \"US3\", \"prioridad\": 0, \"valor_negocio\": 21, \"valor_tecnico\": 21}, \"model\": \"project.userstory\", \"pk\": 29}]",
+      "revision": 44
+   },
+   "model": "reversion.version",
+   "pk": 56
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Us4",
+      "object_id": "30",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 30,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 23, \"descripcion\": \"UserStory 4\", \"nombre\": \"Us4\", \"prioridad\": 0, \"valor_negocio\": 23, \"valor_tecnico\": 23}, \"model\": \"project.userstory\", \"pk\": 30}]",
+      "revision": 44
+   },
+   "model": "reversion.version",
+   "pk": 57
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Mario",
+      "object_id": "31",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 31,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 16, \"descripcion\": \"Creacion de Mario Bros.\", \"nombre\": \"Crear Mario\", \"prioridad\": 0, \"valor_negocio\": 16, \"valor_tecnico\": 16}, \"model\": \"project.userstory\", \"pk\": 31}]",
+      "revision": 45
+   },
+   "model": "reversion.version",
+   "pk": 58
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Luigi",
+      "object_id": "32",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 32,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 15, \"descripcion\": \"Creacion del personaje Luigi\", \"nombre\": \"Crear Luigi\", \"prioridad\": 0, \"valor_negocio\": 15, \"valor_tecnico\": 15}, \"model\": \"project.userstory\", \"pk\": 32}]",
+      "revision": 46
+   },
+   "model": "reversion.version",
+   "pk": 59
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Peach",
+      "object_id": "33",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 33,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 23, \"descripcion\": \"Creacion de la princesa peach\", \"nombre\": \"Crear Peach\", \"prioridad\": 0, \"valor_negocio\": 41, \"valor_tecnico\": 50}, \"model\": \"project.userstory\", \"pk\": 33}]",
+      "revision": 47
+   },
+   "model": "reversion.version",
+   "pk": 60
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Luigi",
+      "object_id": "32",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 32,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 15, \"descripcion\": \"Creacion del personaje Luigi\", \"nombre\": \"Crear Luigi\", \"prioridad\": 0, \"valor_negocio\": 15, \"valor_tecnico\": 15}, \"model\": \"project.userstory\", \"pk\": 32}]",
+      "revision": 48
+   },
+   "model": "reversion.version",
+   "pk": 61
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Peach",
+      "object_id": "33",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 33,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 23, \"descripcion\": \"Creacion de la princesa peach\", \"nombre\": \"Crear Peach\", \"prioridad\": 0, \"valor_negocio\": 41, \"valor_tecnico\": 50}, \"model\": \"project.userstory\", \"pk\": 33}]",
+      "revision": 48
+   },
+   "model": "reversion.version",
+   "pk": 62
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Mario",
+      "object_id": "31",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 31,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 16, \"descripcion\": \"Creacion de Mario Bros.\", \"nombre\": \"Crear Mario\", \"prioridad\": 0, \"valor_negocio\": 16, \"valor_tecnico\": 16}, \"model\": \"project.userstory\", \"pk\": 31}]",
+      "revision": 48
+   },
+   "model": "reversion.version",
+   "pk": 63
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Crear Proyecto",
+      "object_id": "5",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 5,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Crea un nuevo proyecto en el sistema\", \"nombre\": \"Crear Proyecto\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 5}]",
+      "revision": 49
+   },
+   "model": "reversion.version",
+   "pk": 64
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Editar Proyecto",
+      "object_id": "6",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 6,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Edita los datos de determinado proyecto en el sistema\", \"nombre\": \"Editar Proyecto\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 6}]",
+      "revision": 50
+   },
+   "model": "reversion.version",
+   "pk": 65
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Eliminar Proyecto",
+      "object_id": "7",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 7,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Elimina determinado proyecto del sistema\", \"nombre\": \"Eliminar Proyecto\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 7}]",
+      "revision": 51
+   },
+   "model": "reversion.version",
+   "pk": 66
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Priorizacion",
+      "object_id": "8",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 8,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Da prioridad a determinado elemento del sistema para que se realice primero\", \"nombre\": \"Priorizacion\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 8}]",
+      "revision": 52
+   },
+   "model": "reversion.version",
+   "pk": 67
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Consultar Proyecto",
+      "object_id": "9",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 9,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Detalla los datos del proyecto en el sistema\", \"nombre\": \"Consultar Proyecto\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 9}]",
+      "revision": 53
+   },
+   "model": "reversion.version",
+   "pk": 68
+},
+{
+   "fields": {
+      "format": "json",
+      "object_repr": "Gestionar Usuario",
+      "object_id": "11",
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "object_id_int": 11,
+      "serialized_data": "[{\"fields\": {\"tiempo_estimado\": 5, \"descripcion\": \"Gestiona los usuario en el sistema\", \"nombre\": \"Gestionar Usuario\", \"prioridad\": 0, \"valor_negocio\": 20, \"valor_tecnico\": 30}, \"model\": \"project.userstory\", \"pk\": 11}]",
+      "revision": 54
+   },
+   "model": "reversion.version",
+   "pk": 69
+},
+{
+   "fields": {
+      "codename": "add_logentry",
+      "name": "Can add log entry",
+      "content_type": [
+         "admin",
+         "logentry"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 1
+},
+{
+   "fields": {
+      "codename": "change_logentry",
+      "name": "Can change log entry",
+      "content_type": [
+         "admin",
+         "logentry"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 2
+},
+{
+   "fields": {
+      "codename": "delete_logentry",
+      "name": "Can delete log entry",
+      "content_type": [
+         "admin",
+         "logentry"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 3
+},
+{
+   "fields": {
+      "codename": "add_permission",
+      "name": "Can add permission",
+      "content_type": [
+         "auth",
+         "permission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 4
+},
+{
+   "fields": {
+      "codename": "change_permission",
+      "name": "Can change permission",
+      "content_type": [
+         "auth",
+         "permission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 5
+},
+{
+   "fields": {
+      "codename": "delete_permission",
+      "name": "Can delete permission",
+      "content_type": [
+         "auth",
+         "permission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 6
+},
+{
+   "fields": {
+      "codename": "add_group",
+      "name": "Can add group",
+      "content_type": [
+         "auth",
+         "group"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 7
+},
+{
+   "fields": {
+      "codename": "change_group",
+      "name": "Can change group",
+      "content_type": [
+         "auth",
+         "group"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 8
+},
+{
+   "fields": {
+      "codename": "delete_group",
+      "name": "Can delete group",
+      "content_type": [
+         "auth",
+         "group"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 9
+},
+{
+   "fields": {
+      "codename": "add_user",
+      "name": "Can add user",
+      "content_type": [
+         "auth",
+         "user"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 10
+},
+{
+   "fields": {
+      "codename": "change_user",
+      "name": "Can change user",
+      "content_type": [
+         "auth",
+         "user"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 11
+},
+{
+   "fields": {
+      "codename": "delete_user",
+      "name": "Can delete user",
+      "content_type": [
+         "auth",
+         "user"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 12
+},
+{
+   "fields": {
+      "codename": "add_contenttype",
+      "name": "Can add content type",
+      "content_type": [
+         "contenttypes",
+         "contenttype"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 13
+},
+{
+   "fields": {
+      "codename": "change_contenttype",
+      "name": "Can change content type",
+      "content_type": [
+         "contenttypes",
+         "contenttype"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 14
+},
+{
+   "fields": {
+      "codename": "delete_contenttype",
+      "name": "Can delete content type",
+      "content_type": [
+         "contenttypes",
+         "contenttype"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 15
+},
+{
+   "fields": {
+      "codename": "add_session",
+      "name": "Can add session",
+      "content_type": [
+         "sessions",
+         "session"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 16
+},
+{
+   "fields": {
+      "codename": "change_session",
+      "name": "Can change session",
+      "content_type": [
+         "sessions",
+         "session"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 17
+},
+{
+   "fields": {
+      "codename": "delete_session",
+      "name": "Can delete session",
+      "content_type": [
+         "sessions",
+         "session"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 18
+},
+{
+   "fields": {
+      "codename": "add_proyecto",
+      "name": "Can add proyecto",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 19
+},
+{
+   "fields": {
+      "codename": "change_proyecto",
+      "name": "Can change proyecto",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 20
+},
+{
+   "fields": {
+      "codename": "delete_proyecto",
+      "name": "Can delete proyecto",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 21
+},
+{
+   "fields": {
+      "codename": "list_all_projects",
+      "name": "listar los proyectos disponibles",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 22
+},
+{
+   "fields": {
+      "codename": "view_project",
+      "name": "ver el proyecto",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 23
+},
+{
+   "fields": {
+      "codename": "create_sprint",
+      "name": "agregar sprint",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 24
+},
+{
+   "fields": {
+      "codename": "edit_sprint",
+      "name": "editar sprint",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 25
+},
+{
+   "fields": {
+      "codename": "remove_sprint",
+      "name": "eliminar sprint",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 26
+},
+{
+   "fields": {
+      "codename": "create_flujo",
+      "name": "agregar flujo",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 27
+},
+{
+   "fields": {
+      "codename": "edit_flujo",
+      "name": "editar flujo",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 28
+},
+{
+   "fields": {
+      "codename": "remove_flujo",
+      "name": "eliminar flujo",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 29
+},
+{
+   "fields": {
+      "codename": "create_userstory",
+      "name": "agregar userstory",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 30
+},
+{
+   "fields": {
+      "codename": "edit_userstory",
+      "name": "editar userstory",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 31
+},
+{
+   "fields": {
+      "codename": "remove_userstory",
+      "name": "eliminar userstory",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 32
+},
+{
+   "fields": {
+      "codename": "prioritize_userstory",
+      "name": "asignar prioridad a userstories",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 33
+},
+{
+   "fields": {
+      "codename": "registraractividad_userstory",
+      "name": "registrar avances en userstories",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 34
+},
+{
+   "fields": {
+      "codename": "aprobar_userstory",
+      "name": "aprobar userstories completados",
+      "content_type": [
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 35
+},
+{
+   "fields": {
+      "codename": "add_flow_template",
+      "name": "agregar plantilla de flujo",
+      "content_type": [
+         "project",
+         "flujo"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 36
+},
+{
+   "fields": {
+      "codename": "change_flow_template",
+      "name": "editar plantilla de flujo",
+      "content_type": [
+         "project",
+         "flujo"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 37
+},
+{
+   "fields": {
+      "codename": "delete_flow_template",
+      "name": "eliminar plantilla de flujo",
+      "content_type": [
+         "project",
+         "flujo"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 38
+},
+{
+   "fields": {
+      "codename": "add_actividad",
+      "name": "Can add actividad",
+      "content_type": [
+         "project",
+         "actividad"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 39
+},
+{
+   "fields": {
+      "codename": "change_actividad",
+      "name": "Can change actividad",
+      "content_type": [
+         "project",
+         "actividad"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 40
+},
+{
+   "fields": {
+      "codename": "delete_actividad",
+      "name": "Can delete actividad",
+      "content_type": [
+         "project",
+         "actividad"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 41
+},
+{
+   "fields": {
+      "codename": "edit_my_userstory",
+      "name": "editar mis userstories",
+      "content_type": [
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 42
+},
+{
+   "fields": {
+      "codename": "registraractividad_my_userstory",
+      "name": "registrar avances en mis userstories",
+      "content_type": [
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 43
+},
+{
+   "fields": {
+      "codename": "add_nota",
+      "name": "Can add nota",
+      "content_type": [
+         "project",
+         "nota"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 44
+},
+{
+   "fields": {
+      "codename": "change_nota",
+      "name": "Can change nota",
+      "content_type": [
+         "project",
+         "nota"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 45
+},
+{
+   "fields": {
+      "codename": "delete_nota",
+      "name": "Can delete nota",
+      "content_type": [
+         "project",
+         "nota"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 46
+},
+{
+   "fields": {
+      "codename": "add_adjunto",
+      "name": "Can add adjunto",
+      "content_type": [
+         "project",
+         "adjunto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 47
+},
+{
+   "fields": {
+      "codename": "change_adjunto",
+      "name": "Can change adjunto",
+      "content_type": [
+         "project",
+         "adjunto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 48
+},
+{
+   "fields": {
+      "codename": "delete_adjunto",
+      "name": "Can delete adjunto",
+      "content_type": [
+         "project",
+         "adjunto"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 49
+},
+{
+   "fields": {
+      "codename": "add_userobjectpermission",
+      "name": "Can add user object permission",
+      "content_type": [
+         "guardian",
+         "userobjectpermission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 50
+},
+{
+   "fields": {
+      "codename": "change_userobjectpermission",
+      "name": "Can change user object permission",
+      "content_type": [
+         "guardian",
+         "userobjectpermission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 51
+},
+{
+   "fields": {
+      "codename": "delete_userobjectpermission",
+      "name": "Can delete user object permission",
+      "content_type": [
+         "guardian",
+         "userobjectpermission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 52
+},
+{
+   "fields": {
+      "codename": "add_groupobjectpermission",
+      "name": "Can add group object permission",
+      "content_type": [
+         "guardian",
+         "groupobjectpermission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 53
+},
+{
+   "fields": {
+      "codename": "change_groupobjectpermission",
+      "name": "Can change group object permission",
+      "content_type": [
+         "guardian",
+         "groupobjectpermission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 54
+},
+{
+   "fields": {
+      "codename": "delete_groupobjectpermission",
+      "name": "Can delete group object permission",
+      "content_type": [
+         "guardian",
+         "groupobjectpermission"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 55
+},
+{
+   "fields": {
+      "codename": "add_revision",
+      "name": "Can add revision",
+      "content_type": [
+         "reversion",
+         "revision"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 56
+},
+{
+   "fields": {
+      "codename": "change_revision",
+      "name": "Can change revision",
+      "content_type": [
+         "reversion",
+         "revision"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 57
+},
+{
+   "fields": {
+      "codename": "delete_revision",
+      "name": "Can delete revision",
+      "content_type": [
+         "reversion",
+         "revision"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 58
+},
+{
+   "fields": {
+      "codename": "add_version",
+      "name": "Can add version",
+      "content_type": [
+         "reversion",
+         "version"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 59
+},
+{
+   "fields": {
+      "codename": "change_version",
+      "name": "Can change version",
+      "content_type": [
+         "reversion",
+         "version"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 60
+},
+{
+   "fields": {
+      "codename": "delete_version",
+      "name": "Can delete version",
+      "content_type": [
+         "reversion",
+         "version"
+      ]
+   },
+   "model": "auth.permission",
+   "pk": 61
+},
+{
+   "fields": {
+      "name": "Scrum Master",
+      "permissions": [
+         [
+            "add_proyecto",
+            "project",
+            "proyecto"
+         ],
+         [
+            "aprobar_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "change_proyecto",
+            "project",
+            "proyecto"
+         ],
+         [
+            "create_flujo",
+            "project",
+            "proyecto"
+         ],
+         [
+            "create_sprint",
+            "project",
+            "proyecto"
+         ],
+         [
+            "create_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "delete_proyecto",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_flujo",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_sprint",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "prioritize_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "registraractividad_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "remove_flujo",
+            "project",
+            "proyecto"
+         ],
+         [
+            "remove_sprint",
+            "project",
+            "proyecto"
+         ],
+         [
+            "remove_userstory",
+            "project",
+            "proyecto"
+         ]
+      ]
+   },
+   "model": "auth.group",
+   "pk": 7
+},
+{
+   "fields": {
+      "name": "Product Owner",
+      "permissions": [
+         [
+            "create_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "prioritize_userstory",
+            "project",
+            "proyecto"
+         ]
+      ]
+   },
+   "model": "auth.group",
+   "pk": 8
+},
+{
+   "fields": {
+      "name": "Developer",
+      "permissions": [
+         [
+            "edit_my_userstory",
+            "project",
+            "userstory"
+         ],
+         [
+            "registraractividad_my_userstory",
+            "project",
+            "userstory"
+         ]
+      ]
+   },
+   "model": "auth.group",
+   "pk": 9
+},
+{
+   "fields": {
+      "username": "AnonymousUser",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:39:08.389Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "",
+      "email": "",
+      "date_joined": "2015-04-19T15:39:08.389Z"
+   },
+   "model": "auth.user",
+   "pk": -1
+},
+{
+   "fields": {
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "last_login": "2015-05-13T14:24:08.372Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$4SDy4qfSVTXt$44S7wV0mua/jjftwpEZ9oF+BhpAA2BtMNWRhZan8eWY=",
+      "email": "admin@admin.com",
+      "date_joined": "2015-04-19T15:39:27.007Z"
+   },
+   "model": "auth.user",
+   "pk": 1
+},
+{
+   "fields": {
+      "username": "jordan",
+      "first_name": "Jordan",
+      "last_name": "Ayala",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2015-05-13T14:24:01.450Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$av8xzAiXWYJW$bRBqHfoGcwid6Z7PT9pH8O7XpV6gPWHgwBHPIJsKWFA=",
+      "email": "jayala1993@outlook.com",
+      "date_joined": "2015-04-19T15:39:41Z"
+   },
+   "model": "auth.user",
+   "pk": 2
+},
+{
+   "fields": {
+      "username": "santi",
+      "first_name": "Santiago",
+      "last_name": "Ortiz",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2015-05-02T03:34:21.477Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$5dtswdumbwQa$KsUeqwv39DEyrPluVvYQ4E1OuMoUjVtss0/4IK+Uwb8=",
+      "email": "sanmiorto@gmail.com",
+      "date_joined": "2015-04-19T15:40:08Z"
+   },
+   "model": "auth.user",
+   "pk": 3
+},
+{
+   "fields": {
+      "username": "guille",
+      "first_name": "Guillermo",
+      "last_name": "Peralta",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": true,
+      "last_login": "2015-05-02T03:39:02.013Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$dpWPa8lOE43m$lOr8rMNpMMIkNiW5mZxrJO78xdiAiRBjYkUK9lvKy7c=",
+      "email": "gperaltascura@gmail.com",
+      "date_joined": "2015-04-19T15:40:29Z"
+   },
+   "model": "auth.user",
+   "pk": 4
+},
+{
+   "fields": {
+      "username": "bgates",
+      "first_name": "Bill",
+      "last_name": "Gates",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:40:52Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$8dScKaqIPH7m$ZfSO9iJrXNjSAq6R0+qNlFXsjclu3ib+qiH0q5eJWlA=",
+      "email": "bgates@hotmail.com",
+      "date_joined": "2015-04-19T15:40:52Z"
+   },
+   "model": "auth.user",
+   "pk": 5
+},
+{
+   "fields": {
+      "username": "emusk",
+      "first_name": "Elon",
+      "last_name": "Musk",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:41:15Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$uskKZUxV9vKE$dO97sQ2Cxd+gJZeDWEAqbOYwRz/QYRSojPGqXgLByqo=",
+      "email": "emusk@tesla.com",
+      "date_joined": "2015-04-19T15:41:15Z"
+   },
+   "model": "auth.user",
+   "pk": 6
+},
+{
+   "fields": {
+      "username": "lpage",
+      "first_name": "Larry",
+      "last_name": "Page",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:41:32Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$olAZYy39FUBv$hXMNYvjDUNPEPqoxcvzg+oNBl3bPFc1grbKjynq78Qc=",
+      "email": "lpage@gmail.com",
+      "date_joined": "2015-04-19T15:41:32Z"
+   },
+   "model": "auth.user",
+   "pk": 7
+},
+{
+   "fields": {
+      "username": "wwallace",
+      "first_name": "William",
+      "last_name": "Wallace",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:41:55Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$tSatv0XTlgEa$eCFAImLACxKszEvnUU8cJO1DR0rxHrizKK8vXwrJtGQ=",
+      "email": "wwallace@gmail.com",
+      "date_joined": "2015-04-19T15:41:55Z"
+   },
+   "model": "auth.user",
+   "pk": 8
+},
+{
+   "fields": {
+      "username": "aturing",
+      "first_name": "Alan",
+      "last_name": "Turing",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:42:18Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$61LIgHrz8hUW$XC92pFNsnxSQZGz8RyCXrV/XKoBgUTvcT+qezjahh+k=",
+      "email": "aturing@gmail.com",
+      "date_joined": "2015-04-19T15:42:18Z"
+   },
+   "model": "auth.user",
+   "pk": 9
+},
+{
+   "fields": {
+      "username": "edijkstra",
+      "first_name": "Esdger",
+      "last_name": "Dijkstra",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:43:13Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$vMHChf9rqhaV$N4qA/hFWY5tcTtpQixfnOTi730OSZZKIY/b5Uj3N3fM=",
+      "email": "edijkstra@gmail.com",
+      "date_joined": "2015-04-19T15:43:13Z"
+   },
+   "model": "auth.user",
+   "pk": 10
+},
+{
+   "fields": {
+      "username": "shigmiya",
+      "first_name": "Shigeru",
+      "last_name": "Miyamoto",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:43:58Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$nKEB4RXA4yfg$Srqo+ip3ZrjgHudRux8Cx6rwKGwcmKFbbmwbNZ/6ROI=",
+      "email": "shigmiya@nintendo.com",
+      "date_joined": "2015-04-19T15:43:58Z"
+   },
+   "model": "auth.user",
+   "pk": 11
+},
+{
+   "fields": {
+      "username": "atoriyama",
+      "first_name": "Akira",
+      "last_name": "Toriyama",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:44:30Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$gPHAc5FKQRzn$Ec7XV51LfXR4UJzEO7vdKUSQXCYEewJxzRsGzwsIqjA=",
+      "email": "atoriyama@gmail.com",
+      "date_joined": "2015-04-19T15:44:30Z"
+   },
+   "model": "auth.user",
+   "pk": 12
+},
+{
+   "fields": {
+      "username": "jcarmack",
+      "first_name": "John",
+      "last_name": "Carmack",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:45:22Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$Ba2jp5pFDiEf$DlI60crkX3Bk1xRV1XSmm6bdxYdvK/m5oO9wUHHbL94=",
+      "email": "jcarmack@idsoft.com",
+      "date_joined": "2015-04-19T15:45:22Z"
+   },
+   "model": "auth.user",
+   "pk": 13
+},
+{
+   "fields": {
+      "username": "cliffyb",
+      "first_name": "Cliff",
+      "last_name": "bleszinski",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:46:08Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$1szrM7LcLDWn$FASV0cDRO65zY8+syJMfBJz9nShPScM+1HVGyXf6p/c=",
+      "email": "cliffyb@gmail.com",
+      "date_joined": "2015-04-19T15:46:08Z"
+   },
+   "model": "auth.user",
+   "pk": 14
+},
+{
+   "fields": {
+      "username": "matz",
+      "first_name": "Yukihiro",
+      "last_name": "Matsumoto",
+      "is_active": true,
+      "is_superuser": false,
+      "is_staff": false,
+      "last_login": "2015-04-19T15:47:04Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$dPOhj7OoKupC$KUKqiih+T+ZypOeNVgr7q5QUD9YimqWdcOIvdSCSjiY=",
+      "email": "matz@ruby.com",
+      "date_joined": "2015-04-19T15:47:04Z"
+   },
+   "model": "auth.user",
+   "pk": 15
+},
+{
+   "fields": {
+      "nombre_corto": "Spartan",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T15:59:03.237Z",
+      "inicio": "2015-04-19T15:55:18Z",
+      "descripcion": "Designed to be a lightweight web browser with an engine built around web standards that is \"designed for interoperability with the modern web\". It removes support for legacy technologies such as ActiveX in favor of extensions and integration with other Microsoft services, such as the Cortana assistant and OneDrive, and will also offer annotation tools and a reading mode.",
+      "fin": "2015-08-19T15:55:22Z",
+      "nombre_largo": "Spartan Internet Browser"
+   },
+   "model": "project.proyecto",
+   "pk": 1
+},
+{
+   "fields": {
+      "nombre_corto": "SpaceX",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T15:59:53.858Z",
+      "inicio": "2015-04-19T15:59:33Z",
+      "descripcion": "An American aerospace manufacturer and space transport services company headquartered in Hawthorne, California, USA. It was founded in 2002 by former PayPal entrepreneur and Tesla Motors CEO Elon Musk with the goal of reducing space transportation costs to enable the colonization of Mars. It has developed the Falcon 1 and Falcon 9 launch vehicles, both of which were designed from conception to eventually become reusable, and the Dragon spacecraft which is flown into orbit by the Falcon 9 launch vehicle to supply the International Space Station with cargo. A manned version of Dragon is in development.",
+      "fin": "2015-05-19T15:59:35Z",
+      "nombre_largo": "Space Exploration Project"
+   },
+   "model": "project.proyecto",
+   "pk": 2
+},
+{
+   "fields": {
+      "nombre_corto": "Durango",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T16:01:15.409Z",
+      "inicio": "2015-04-19T00:00:00Z",
+      "descripcion": "Xbox One is a home video game console developed and marketed by Microsoft. Announced on May 21, 2013, it is the successor to the Xbox 360 and is the third console in the Xbox family.",
+      "fin": "2015-07-19T00:00:00Z",
+      "nombre_largo": "Xbox One"
+   },
+   "model": "project.proyecto",
+   "pk": 3
+},
+{
+   "fields": {
+      "nombre_corto": "Xenon",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T16:01:46.836Z",
+      "inicio": "2015-04-19T16:01:36Z",
+      "descripcion": "The Xbox 360 is a home video game console developed by Microsoft. As the successor to the original Xbox, it is the second console in the Xbox series. The Xbox 360 competes with Sony's PlayStation 3 and Nintendo's Wii as part of the seventh generation of video game consoles. The Xbox 360 was officially unveiled on MTV on May 12, 2005, with detailed launch and game information divulged later that month at the Electronic Entertainment Expo (E3).",
+      "fin": "2015-05-19T16:01:40Z",
+      "nombre_largo": "Xbox 360"
+   },
+   "model": "project.proyecto",
+   "pk": 4
+},
+{
+   "fields": {
+      "nombre_corto": "Natal",
+      "estado": "IN",
+      "duracion_sprint": 28,
+      "creacion": "2015-04-19T16:02:29.317Z",
+      "inicio": "2015-04-19T00:00:00Z",
+      "descripcion": "A line of motion sensing input devices by Microsoft for Xbox 360 and Xbox One video game consoles and Windows PCs. Based around a webcam-style add-on peripheral, it enables users to control and interact with their console/computer without the need for a game controller, through a natural user interface using gestures and spoken commands.",
+      "fin": "2015-07-19T00:00:00Z",
+      "nombre_largo": "Kinect"
+   },
+   "model": "project.proyecto",
+   "pk": 5
+},
+{
+   "fields": {
+      "nombre_corto": "Revolution",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T16:03:21.479Z",
+      "inicio": "2015-04-19T00:00:00Z",
+      "descripcion": "A home video game console released by Nintendo on November 19, 2006. As a seventh-generation console, the Wii competes with Microsoft's Xbox 360 and Sony's PlayStation 3. Nintendo states that its console targets a broader demographic than that of the two others.",
+      "fin": "2015-05-19T00:00:00Z",
+      "nombre_largo": "Wii"
+   },
+   "model": "project.proyecto",
+   "pk": 6
+},
+{
+   "fields": {
+      "nombre_corto": "Doom",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T16:04:11.492Z",
+      "inicio": "2015-04-19T00:00:00Z",
+      "descripcion": "Upcoming reboot of the Doom series by id Software following the release of its last title, Doom 3, in 2004. It is slated for simultaneous release on Microsoft Windows, PlayStation 4, and Xbox One with no confirmed release date. After years in development with almost no news from id Software, it was restarted completely in 2011 with Bethesda Softworks as publisher for the game.",
+      "fin": "2015-05-19T00:00:00Z",
+      "nombre_largo": "Doom 4"
+   },
+   "model": "project.proyecto",
+   "pk": 7
+},
+{
+   "fields": {
+      "nombre_corto": "GOW",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T16:04:56.728Z",
+      "inicio": "2015-04-19T00:00:00Z",
+      "descripcion": "The game focuses on the troops of Delta Squad as they wield a desperate, last-ditch attempt to save the remaining human inhabitants of the fictional planet Sera from a relentless and seemingly unstoppable subterranean enemy known as the Locust Horde. The player assumes the role of Marcus Fenix (but can also play as Dominic Santiago), a former prisoner and war-hardened soldier. The game is based on the use of cover and strategic fire for the player to advance through the scenarios; a second player can play cooperatively through the main campaign to assist. The game also features several online multiplayer game modes for up to eight players.",
+      "fin": "2015-05-19T00:00:00Z",
+      "nombre_largo": "Gears of War"
+   },
+   "model": "project.proyecto",
+   "pk": 8
+},
+{
+   "fields": {
+      "nombre_corto": "SMB3",
+      "estado": "IN",
+      "duracion_sprint": 15,
+      "creacion": "2015-04-19T16:06:00.675Z",
+      "inicio": "2015-04-19T00:00:00Z",
+      "descripcion": "Super Mario Bros. 3 centers on plumbers Mario and Luigi who embark on a quest to save Princess Toadstool and the rulers of seven different kingdoms from the antagonist Bowser and his children, the Koopalings. The player, as Mario or Luigi, is able to defeat enemies by stomping them or using items that bestow magical powers. Mario and Luigi are given a wider range of abilities than in previous Super Mario games, including flying or sliding down slopes. In addition, Super Mario Bros. 3 introduces numerous elements, such as new enemy characters and the use of a world map to transition between levels, that have reappeared in or have influenced subsequent Mario games.",
+      "fin": "2015-08-19T00:00:00Z",
+      "nombre_largo": "Super Mario Bros. 3"
+   },
+   "model": "project.proyecto",
+   "pk": 9
+},
+{
+   "fields": {
+      "nombre_corto": "Smoothsort",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T16:08:55.202Z",
+      "inicio": "2015-04-19T16:08:41Z",
+      "descripcion": "A comparison-based sorting algorithm. It is a variation of heapsort developed by Edsger Dijkstra in 1981. Like heapsort, smoothsort's upper bound is O(n log n). The advantage of smoothsort is that it comes closer to O(n) time if the input is already sorted to some degree, whereas heapsort averages O(n log n) regardless of the initial sorted state.",
+      "fin": "2015-08-19T16:08:42Z",
+      "nombre_largo": "Smoothsort"
+   },
+   "model": "project.proyecto",
+   "pk": 10
+},
+{
+   "fields": {
+      "nombre_corto": "Resurrection F",
+      "estado": "IN",
+      "duracion_sprint": 30,
+      "creacion": "2015-04-19T16:10:17.716Z",
+      "inicio": "2015-04-19T00:00:00Z",
+      "descripcion": "Is the nineteenth Japanese animated feature film based on the Dragon Ball series, and the fifteenth to carry the Dragon Ball Z branding, set to be released in theaters on April 18, 2015. It will be the first ever Japanese film to be screened in IMAX 3D, and will also receive screenings at 4DX theaters.",
+      "fin": "2015-05-19T00:00:00Z",
+      "nombre_largo": "Dragon Ball Resurrection 'F'"
+   },
+   "model": "project.proyecto",
+   "pk": 11
+},
+{
+   "fields": {
+      "proyecto": 7,
+      "roles": [
+         [
+            "Scrum Master"
+         ],
+         [
+            "Product Owner"
+         ]
+      ],
+      "usuario": [
+         "jcarmack"
+      ]
+   },
+   "model": "project.miembroequipo",
+   "pk": 1
+},
+{
+   "fields": {
+      "proyecto": 7,
+      "roles": [
+         [
+            "Developer"
+         ]
+      ],
+      "usuario": [
+         "santi"
+      ]
+   },
+   "model": "project.miembroequipo",
+   "pk": 2
+},
+{
+   "fields": {
+      "proyecto": 7,
+      "roles": [
+         [
+            "Developer"
+         ]
+      ],
+      "usuario": [
+         "jordan"
+      ]
+   },
+   "model": "project.miembroequipo",
+   "pk": 3
+},
+{
+   "fields": {
+      "proyecto": 7,
+      "roles": [
+         [
+            "Developer"
+         ]
+      ],
+      "usuario": [
+         "guille"
+      ]
+   },
+   "model": "project.miembroequipo",
+   "pk": 4
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "santi"
+      ],
+      "proyecto": 7,
+      "descripcion": "Inicio de sesion en el sistema",
+      "nombre": "Iniciar sesion",
+      "sprint": 1,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 1
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "jordan"
+      ],
+      "proyecto": 7,
+      "descripcion": "Cerrar de sesion en el sistema",
+      "nombre": "Cerrar sesion",
+      "sprint": 1,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 2
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "guille"
+      ],
+      "proyecto": 7,
+      "descripcion": "Cambia contrasena del ususario",
+      "nombre": "Cambiar contrasena",
+      "sprint": 1,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 3
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "jordan"
+      ],
+      "proyecto": 7,
+      "descripcion": "Restaura la contrasena a un valor predeterminado",
+      "nombre": "Restaurar contrasena",
+      "sprint": 1,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 4
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 2,
+      "estado": 0,
+      "desarrollador": [
+         "santi"
+      ],
+      "proyecto": 7,
+      "descripcion": "Crea un nuevo proyecto en el sistema",
+      "nombre": "Crear Proyecto",
+      "sprint": 2,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 5
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 2,
+      "estado": 0,
+      "desarrollador": [
+         "guille"
+      ],
+      "proyecto": 7,
+      "descripcion": "Edita los datos de determinado proyecto en el sistema",
+      "nombre": "Editar Proyecto",
+      "sprint": 2,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 6
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 2,
+      "estado": 0,
+      "desarrollador": [
+         "guille"
+      ],
+      "proyecto": 7,
+      "descripcion": "Elimina determinado proyecto del sistema",
+      "nombre": "Eliminar Proyecto",
+      "sprint": 1,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 7
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 3,
+      "estado": 0,
+      "desarrollador": [
+         "santi"
+      ],
+      "proyecto": 7,
+      "descripcion": "Da prioridad a determinado elemento del sistema para que se realice primero",
+      "nombre": "Priorizacion",
+      "sprint": 1,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 8
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 3,
+      "estado": 0,
+      "desarrollador": [
+         "guille"
+      ],
+      "proyecto": 7,
+      "descripcion": "Detalla los datos del proyecto en el sistema",
+      "nombre": "Consultar Proyecto",
+      "sprint": 1,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 9
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "jordan"
+      ],
+      "proyecto": 7,
+      "descripcion": "Busca los proyectos en el sistema",
+      "nombre": "Buscar Proyecto",
+      "sprint": 2,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 10
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "guille"
+      ],
+      "proyecto": 7,
+      "descripcion": "Gestiona los usuario en el sistema",
+      "nombre": "Gestionar Usuario",
+      "sprint": 2,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 11
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "santi"
+      ],
+      "proyecto": 7,
+      "descripcion": "Crear Usuario  en el sistema",
+      "nombre": "Crear Usuario",
+      "sprint": 3,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 12
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "guille"
+      ],
+      "proyecto": 7,
+      "descripcion": "Edita un Usuario  en el sistema",
+      "nombre": "Editar Usuario",
+      "sprint": 3,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 13
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-04-19T16:34:49Z",
+      "tiempo_estimado": 5,
+      "estado_actividad": 0,
+      "actividad": 1,
+      "estado": 0,
+      "desarrollador": [
+         "jordan"
+      ],
+      "proyecto": 7,
+      "descripcion": "Elimina un Usuario  en el sistema",
+      "nombre": "Eliminar Usuario",
+      "sprint": 3,
+      "tiempo_registrado": 6,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 30
+   },
+   "model": "project.userstory",
+   "pk": 14
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:15:43.813Z",
+      "tiempo_estimado": 6,
+      "estado_actividad": 0,
+      "actividad": 13,
+      "estado": 1,
+      "desarrollador": [
+         "bgates"
+      ],
+      "proyecto": 3,
+      "descripcion": "Adquirir los instrumentos para poder crear un xbox",
+      "nombre": "Probar instrumentos",
+      "sprint": 5,
+      "tiempo_registrado": 0,
+      "prioridad": 2,
+      "valor_negocio": 3,
+      "valor_tecnico": 11
+   },
+   "model": "project.userstory",
+   "pk": 16
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:15:19.802Z",
+      "tiempo_estimado": 9,
+      "estado_actividad": 0,
+      "actividad": 12,
+      "estado": 1,
+      "desarrollador": [
+         "emusk"
+      ],
+      "proyecto": 3,
+      "descripcion": "Poner todos las componentes dentro del sistema xbox",
+      "nombre": "Ensamblar las componentes",
+      "sprint": 5,
+      "tiempo_registrado": 0,
+      "prioridad": 1,
+      "valor_negocio": 10,
+      "valor_tecnico": 8
+   },
+   "model": "project.userstory",
+   "pk": 17
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:15:19.820Z",
+      "tiempo_estimado": 20,
+      "estado_actividad": 0,
+      "actividad": 12,
+      "estado": 1,
+      "desarrollador": [
+         "atoriyama"
+      ],
+      "proyecto": 3,
+      "descripcion": "Instalacion del software del sistema que va a tener",
+      "nombre": "Instalar software",
+      "sprint": 5,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 10
+   },
+   "model": "project.userstory",
+   "pk": 18
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:22:21.637Z",
+      "tiempo_estimado": 11,
+      "estado_actividad": 0,
+      "actividad": 15,
+      "estado": 1,
+      "desarrollador": [
+         "lpage"
+      ],
+      "proyecto": 8,
+      "descripcion": "Creacion de los personajes del sistema",
+      "nombre": "Crear Personajes",
+      "sprint": 6,
+      "tiempo_registrado": 0,
+      "prioridad": 2,
+      "valor_negocio": 10,
+      "valor_tecnico": 12
+   },
+   "model": "project.userstory",
+   "pk": 19
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:22:21.657Z",
+      "tiempo_estimado": 14,
+      "estado_actividad": 0,
+      "actividad": 15,
+      "estado": 1,
+      "desarrollador": [
+         "wwallace"
+      ],
+      "proyecto": 8,
+      "descripcion": "Creacion del ambiente en el que se le pondra a los personajes",
+      "nombre": "Crear Ambiente",
+      "sprint": 6,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 10,
+      "valor_tecnico": 15
+   },
+   "model": "project.userstory",
+   "pk": 20
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:22:21.675Z",
+      "tiempo_estimado": 30,
+      "estado_actividad": 0,
+      "actividad": 15,
+      "estado": 1,
+      "desarrollador": [
+         "wwallace"
+      ],
+      "proyecto": 8,
+      "descripcion": "Creacion de los niveles cada vez que el usuario gana el juego, hasta un maximo de 5 niveles aumentando la dificultad",
+      "nombre": "Creacion de nivel",
+      "sprint": 6,
+      "tiempo_registrado": 0,
+      "prioridad": 1,
+      "valor_negocio": 15,
+      "valor_tecnico": 10
+   },
+   "model": "project.userstory",
+   "pk": 21
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:27:34.013Z",
+      "tiempo_estimado": 40,
+      "estado_actividad": 0,
+      "actividad": 17,
+      "estado": 1,
+      "desarrollador": [
+         "aturing"
+      ],
+      "proyecto": 5,
+      "descripcion": "Contruccion de una muestra del kinect",
+      "nombre": "Contruir una muestra",
+      "sprint": 7,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 13,
+      "valor_tecnico": 20
+   },
+   "model": "project.userstory",
+   "pk": 22
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:28:36.768Z",
+      "tiempo_estimado": 30,
+      "estado_actividad": 1,
+      "actividad": 19,
+      "estado": 1,
+      "desarrollador": [
+         "aturing"
+      ],
+      "proyecto": 5,
+      "descripcion": "Contruir un sensor de moviemiento para el kinect",
+      "nombre": "Contruccion de sensor de movimiento",
+      "sprint": 7,
+      "tiempo_registrado": 25,
+      "prioridad": 1,
+      "valor_negocio": 12,
+      "valor_tecnico": 25
+   },
+   "model": "project.userstory",
+   "pk": 23
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:41:09.892Z",
+      "tiempo_estimado": 20,
+      "estado_actividad": 1,
+      "actividad": 21,
+      "estado": 1,
+      "desarrollador": [
+         "edijkstra"
+      ],
+      "proyecto": 11,
+      "descripcion": "Creacion del inicio de la serie",
+      "nombre": "Crear Inicio",
+      "sprint": 8,
+      "tiempo_registrado": 5,
+      "prioridad": 0,
+      "valor_negocio": 6,
+      "valor_tecnico": 13
+   },
+   "model": "project.userstory",
+   "pk": 24
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:40:45.947Z",
+      "tiempo_estimado": 12,
+      "estado_actividad": 1,
+      "actividad": 21,
+      "estado": 1,
+      "desarrollador": [
+         "atoriyama"
+      ],
+      "proyecto": 11,
+      "descripcion": "Creacion de la trama de la serie  japonesa",
+      "nombre": "crear trama",
+      "sprint": 8,
+      "tiempo_registrado": 5,
+      "prioridad": 0,
+      "valor_negocio": 15,
+      "valor_tecnico": 16
+   },
+   "model": "project.userstory",
+   "pk": 25
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:41:25.278Z",
+      "tiempo_estimado": 50,
+      "estado_actividad": 1,
+      "actividad": 21,
+      "estado": 1,
+      "desarrollador": [
+         "atoriyama"
+      ],
+      "proyecto": 11,
+      "descripcion": "Finalizacion de la trama y serie japonesa(Muere el actor prinicipal y revive con las  esferas del dragon",
+      "nombre": "Finalizar Trama",
+      "sprint": 8,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 29,
+      "valor_tecnico": 21
+   },
+   "model": "project.userstory",
+   "pk": 26
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:43:46.008Z",
+      "tiempo_estimado": 15,
+      "estado_actividad": 0,
+      "actividad": 11,
+      "estado": 1,
+      "desarrollador": [
+         "matz"
+      ],
+      "proyecto": 6,
+      "descripcion": "UserStory1",
+      "nombre": "US1",
+      "sprint": 4,
+      "tiempo_registrado": 0,
+      "prioridad": 1,
+      "valor_negocio": 15,
+      "valor_tecnico": 15
+   },
+   "model": "project.userstory",
+   "pk": 27
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:43:46.033Z",
+      "tiempo_estimado": 20,
+      "estado_actividad": 0,
+      "actividad": 11,
+      "estado": 1,
+      "desarrollador": [
+         "matz"
+      ],
+      "proyecto": 6,
+      "descripcion": "User Story 2",
+      "nombre": "US2",
+      "sprint": 4,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 20,
+      "valor_tecnico": 20
+   },
+   "model": "project.userstory",
+   "pk": 28
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:43:46.057Z",
+      "tiempo_estimado": 21,
+      "estado_actividad": 0,
+      "actividad": 11,
+      "estado": 1,
+      "desarrollador": [
+         "matz"
+      ],
+      "proyecto": 6,
+      "descripcion": "UserStory3",
+      "nombre": "US3",
+      "sprint": 4,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 21,
+      "valor_tecnico": 21
+   },
+   "model": "project.userstory",
+   "pk": 29
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:43:46.081Z",
+      "tiempo_estimado": 23,
+      "estado_actividad": 0,
+      "actividad": 11,
+      "estado": 1,
+      "desarrollador": [
+         "matz"
+      ],
+      "proyecto": 6,
+      "descripcion": "UserStory 4",
+      "nombre": "Us4",
+      "sprint": 4,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 23,
+      "valor_tecnico": 23
+   },
+   "model": "project.userstory",
+   "pk": 30
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:47:25.489Z",
+      "tiempo_estimado": 16,
+      "estado_actividad": 0,
+      "actividad": 23,
+      "estado": 1,
+      "desarrollador": [
+         "jordan"
+      ],
+      "proyecto": 9,
+      "descripcion": "Creacion de Mario Bros.",
+      "nombre": "Crear Mario",
+      "sprint": 9,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 16,
+      "valor_tecnico": 16
+   },
+   "model": "project.userstory",
+   "pk": 31
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:47:25.508Z",
+      "tiempo_estimado": 15,
+      "estado_actividad": 0,
+      "actividad": 23,
+      "estado": 1,
+      "desarrollador": [
+         "cliffyb"
+      ],
+      "proyecto": 9,
+      "descripcion": "Creacion del personaje Luigi",
+      "nombre": "Crear Luigi",
+      "sprint": 9,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 15,
+      "valor_tecnico": 15
+   },
+   "model": "project.userstory",
+   "pk": 32
+},
+{
+   "fields": {
+      "ultimo_cambio": "2015-05-02T02:47:25.526Z",
+      "tiempo_estimado": 23,
+      "estado_actividad": 0,
+      "actividad": 23,
+      "estado": 1,
+      "desarrollador": [
+         "cliffyb"
+      ],
+      "proyecto": 9,
+      "descripcion": "Creacion de la princesa peach",
+      "nombre": "Crear Peach",
+      "sprint": 9,
+      "tiempo_registrado": 0,
+      "prioridad": 0,
+      "valor_negocio": 41,
+      "valor_tecnico": 50
+   },
+   "model": "project.userstory",
+   "pk": 33
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "view_project",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 1
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "add_proyecto",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 2
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "aprobar_userstory",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 3
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "change_proyecto",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 4
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "create_flujo",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 5
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "create_sprint",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 6
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "create_userstory",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 7
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "delete_proyecto",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 8
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "edit_flujo",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 9
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "edit_sprint",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 10
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "edit_userstory",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 11
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "prioritize_userstory",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 12
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "registraractividad_userstory",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 13
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "remove_flujo",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 14
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "remove_sprint",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 15
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jcarmack"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "remove_userstory",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 16
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "view_project",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 17
+},
+{
+   "fields": {
+      "object_pk": "1",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 18
+},
+{
+   "fields": {
+      "object_pk": "5",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 19
+},
+{
+   "fields": {
+      "object_pk": "8",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 20
+},
+{
+   "fields": {
+      "object_pk": "12",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 21
+},
+{
+   "fields": {
+      "object_pk": "1",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 22
+},
+{
+   "fields": {
+      "object_pk": "5",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 23
+},
+{
+   "fields": {
+      "object_pk": "8",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 24
+},
+{
+   "fields": {
+      "object_pk": "12",
+      "user": [
+         "santi"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 25
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "view_project",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 26
+},
+{
+   "fields": {
+      "object_pk": "2",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 27
+},
+{
+   "fields": {
+      "object_pk": "4",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 28
+},
+{
+   "fields": {
+      "object_pk": "10",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 29
+},
+{
+   "fields": {
+      "object_pk": "14",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 30
+},
+{
+   "fields": {
+      "object_pk": "2",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 31
+},
+{
+   "fields": {
+      "object_pk": "4",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 32
+},
+{
+   "fields": {
+      "object_pk": "10",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 33
+},
+{
+   "fields": {
+      "object_pk": "14",
+      "user": [
+         "jordan"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 34
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "proyecto"
+      ],
+      "permission": [
+         "view_project",
+         "project",
+         "proyecto"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 35
+},
+{
+   "fields": {
+      "object_pk": "3",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 36
+},
+{
+   "fields": {
+      "object_pk": "6",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 37
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 38
+},
+{
+   "fields": {
+      "object_pk": "9",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 39
+},
+{
+   "fields": {
+      "object_pk": "11",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 40
+},
+{
+   "fields": {
+      "object_pk": "13",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "edit_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 41
+},
+{
+   "fields": {
+      "object_pk": "3",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 42
+},
+{
+   "fields": {
+      "object_pk": "6",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 43
+},
+{
+   "fields": {
+      "object_pk": "7",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 44
+},
+{
+   "fields": {
+      "object_pk": "9",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 45
+},
+{
+   "fields": {
+      "object_pk": "11",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 46
+},
+{
+   "fields": {
+      "object_pk": "13",
+      "user": [
+         "guille"
+      ],
+      "content_type": [
+         "project",
+         "userstory"
+      ],
+      "permission": [
+         "registraractividad_my_userstory",
+         "project",
+         "userstory"
+      ]
+   },
+   "model": "guardian.userobjectpermission",
+   "pk": 47
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T15:03:08.601Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 1
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T15:05:09.021Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 2
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T15:36:15.638Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 3
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T15:36:53.364Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 4
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T15:37:17.598Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 5
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T15:58:45.215Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 6
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T20:23:19.349Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 7
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T20:24:20.038Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 8
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T20:28:17.027Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 9
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T20:37:12.897Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 10
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T20:37:21.471Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 11
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-04-30T20:37:59.907Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 12
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-01T14:09:36.918Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 13
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-01T14:49:12.080Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 14
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-01T14:49:38.476Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 15
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-01T14:51:45.453Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 16
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-01T14:58:42.719Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 17
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-01T15:05:18.996Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 18
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-01T22:22:20.633Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 19
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:12:35.571Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 20
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:13:34.673Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 21
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:14:26.723Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 22
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:15:19.834Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 23
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:15:43.839Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 24
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:18:10.847Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 25
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:18:53.748Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 26
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:20:00.585Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 27
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:22:21.689Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 28
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:24:07.433Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 29
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:25:38.808Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 30
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:27:34.048Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 31
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:28:36.795Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 32
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:36:42.580Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 33
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:37:24.049Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 34
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:38:23.858Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 35
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:40:23.011Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 36
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:40:45.976Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 37
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:41:09.919Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 38
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:41:25.306Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 39
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:42:16.754Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 40
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:42:35.292Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 41
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:42:50.298Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 42
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:43:07.265Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 43
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:43:46.100Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 44
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:45:26.946Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 45
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:45:50.812Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 46
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:46:21.785Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 47
+},
+{
+   "fields": {
+      "comment": "",
+      "date_created": "2015-05-02T02:47:25.540Z",
+      "manager_slug": "default",
+      "user": [
+         "admin"
+      ]
+   },
+   "model": "reversion.revision",
+   "pk": 48
+},
+{
+   "fields": {
+      "comment": "Initial version.",
+      "date_created": "2015-05-13T14:18:21.093Z",
+      "manager_slug": "default",
+      "user": null
+   },
+   "model": "reversion.revision",
+   "pk": 49
+},
+{
+   "fields": {
+      "comment": "Initial version.",
+      "date_created": "2015-05-13T14:18:21.098Z",
+      "manager_slug": "default",
+      "user": null
+   },
+   "model": "reversion.revision",
+   "pk": 50
+},
+{
+   "fields": {
+      "comment": "Initial version.",
+      "date_created": "2015-05-13T14:18:21.101Z",
+      "manager_slug": "default",
+      "user": null
+   },
+   "model": "reversion.revision",
+   "pk": 51
+},
+{
+   "fields": {
+      "comment": "Initial version.",
+      "date_created": "2015-05-13T14:18:21.105Z",
+      "manager_slug": "default",
+      "user": null
+   },
+   "model": "reversion.revision",
+   "pk": 52
+},
+{
+   "fields": {
+      "comment": "Initial version.",
+      "date_created": "2015-05-13T14:18:21.109Z",
+      "manager_slug": "default",
+      "user": null
+   },
+   "model": "reversion.revision",
+   "pk": 53
+},
+{
+   "fields": {
+      "comment": "Initial version.",
+      "date_created": "2015-05-13T14:18:21.113Z",
+      "manager_slug": "default",
+      "user": null
+   },
+   "model": "reversion.revision",
+   "pk": 54
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.896Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "21",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 1
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.904Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "20",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 2
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.907Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "19",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 3
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.909Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "18",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 4
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.911Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "17",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 5
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.913Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "16",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 6
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.915Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "15",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 7
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.917Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "14",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 8
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.919Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "13",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 9
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.921Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "12",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 10
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.923Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "11",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 11
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.925Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "10",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 12
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.927Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "9",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 13
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.929Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "8",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 14
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.931Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "7",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 15
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.933Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "6",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 16
+},
+{
+   "fields": {
+      "action_flag": 3,
+      "action_time": "2015-05-13T14:23:45.935Z",
+      "object_repr": "MiembroEquipo object",
+      "object_id": "3",
+      "change_message": "",
+      "user": [
+         "admin"
+      ],
+      "content_type": [
+         "project",
+         "miembroequipo"
+      ]
+   },
+   "model": "admin.logentry",
+   "pk": 17
+}
+]

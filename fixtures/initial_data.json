@@ -1376,564 +1376,83 @@
 },
 {
    "fields": {
-      "codename": "add_logentry",
-      "name": "Can add log entry",
-      "content_type": 1
-   },
-   "model": "auth.permission",
-   "pk": 1
-},
-{
-   "fields": {
-      "codename": "change_logentry",
-      "name": "Can change log entry",
-      "content_type": 1
-   },
-   "model": "auth.permission",
-   "pk": 2
-},
-{
-   "fields": {
-      "codename": "delete_logentry",
-      "name": "Can delete log entry",
-      "content_type": 1
-   },
-   "model": "auth.permission",
-   "pk": 3
-},
-{
-   "fields": {
-      "codename": "add_permission",
-      "name": "Can add permission",
-      "content_type": 2
-   },
-   "model": "auth.permission",
-   "pk": 4
-},
-{
-   "fields": {
-      "codename": "change_permission",
-      "name": "Can change permission",
-      "content_type": 2
-   },
-   "model": "auth.permission",
-   "pk": 5
-},
-{
-   "fields": {
-      "codename": "delete_permission",
-      "name": "Can delete permission",
-      "content_type": 2
-   },
-   "model": "auth.permission",
-   "pk": 6
-},
-{
-   "fields": {
-      "codename": "add_group",
-      "name": "Can add group",
-      "content_type": 3
-   },
-   "model": "auth.permission",
-   "pk": 7
-},
-{
-   "fields": {
-      "codename": "change_group",
-      "name": "Can change group",
-      "content_type": 3
-   },
-   "model": "auth.permission",
-   "pk": 8
-},
-{
-   "fields": {
-      "codename": "delete_group",
-      "name": "Can delete group",
-      "content_type": 3
-   },
-   "model": "auth.permission",
-   "pk": 9
-},
-{
-   "fields": {
-      "codename": "add_user",
-      "name": "Can add user",
-      "content_type": 4
-   },
-   "model": "auth.permission",
-   "pk": 10
-},
-{
-   "fields": {
-      "codename": "change_user",
-      "name": "Can change user",
-      "content_type": 4
-   },
-   "model": "auth.permission",
-   "pk": 11
-},
-{
-   "fields": {
-      "codename": "delete_user",
-      "name": "Can delete user",
-      "content_type": 4
-   },
-   "model": "auth.permission",
-   "pk": 12
-},
-{
-   "fields": {
-      "codename": "add_contenttype",
-      "name": "Can add content type",
-      "content_type": 5
-   },
-   "model": "auth.permission",
-   "pk": 13
-},
-{
-   "fields": {
-      "codename": "change_contenttype",
-      "name": "Can change content type",
-      "content_type": 5
-   },
-   "model": "auth.permission",
-   "pk": 14
-},
-{
-   "fields": {
-      "codename": "delete_contenttype",
-      "name": "Can delete content type",
-      "content_type": 5
-   },
-   "model": "auth.permission",
-   "pk": 15
-},
-{
-   "fields": {
-      "codename": "add_session",
-      "name": "Can add session",
-      "content_type": 6
-   },
-   "model": "auth.permission",
-   "pk": 16
-},
-{
-   "fields": {
-      "codename": "change_session",
-      "name": "Can change session",
-      "content_type": 6
-   },
-   "model": "auth.permission",
-   "pk": 17
-},
-{
-   "fields": {
-      "codename": "delete_session",
-      "name": "Can delete session",
-      "content_type": 6
-   },
-   "model": "auth.permission",
-   "pk": 18
-},
-{
-   "fields": {
-      "codename": "add_proyecto",
-      "name": "Can add proyecto",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 19
-},
-{
-   "fields": {
-      "codename": "change_proyecto",
-      "name": "Can change proyecto",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 20
-},
-{
-   "fields": {
-      "codename": "delete_proyecto",
-      "name": "Can delete proyecto",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 21
-},
-{
-   "fields": {
-      "codename": "list_all_projects",
-      "name": "listar los proyectos disponibles",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 22
-},
-{
-   "fields": {
-      "codename": "view_project",
-      "name": "ver el proyecto",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 23
-},
-{
-   "fields": {
-      "codename": "create_sprint",
-      "name": "agregar sprint",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 24
-},
-{
-   "fields": {
-      "codename": "edit_sprint",
-      "name": "editar sprint",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 25
-},
-{
-   "fields": {
-      "codename": "remove_sprint",
-      "name": "eliminar sprint",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 26
-},
-{
-   "fields": {
-      "codename": "create_flujo",
-      "name": "agregar flujo",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 27
-},
-{
-   "fields": {
-      "codename": "edit_flujo",
-      "name": "editar flujo",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 28
-},
-{
-   "fields": {
-      "codename": "remove_flujo",
-      "name": "eliminar flujo",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 29
-},
-{
-   "fields": {
-      "codename": "create_userstory",
-      "name": "agregar userstory",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 30
-},
-{
-   "fields": {
-      "codename": "edit_userstory",
-      "name": "editar userstory",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 31
-},
-{
-   "fields": {
-      "codename": "remove_userstory",
-      "name": "eliminar userstory",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 32
-},
-{
-   "fields": {
-      "codename": "prioritize_userstory",
-      "name": "asignar prioridad a userstories",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 33
-},
-{
-   "fields": {
-      "codename": "registraractividad_userstory",
-      "name": "registrar avances en userstories",
-      "content_type": 7
-   },
-   "model": "auth.permission",
-   "pk": 34
-},
-{
-   "fields": {
-      "codename": "add_flow_template",
-      "name": "agregar plantilla de flujo",
-      "content_type": 10
-   },
-   "model": "auth.permission",
-   "pk": 35
-},
-{
-   "fields": {
-      "codename": "change_flow_template",
-      "name": "editar plantilla de flujo",
-      "content_type": 10
-   },
-   "model": "auth.permission",
-   "pk": 36
-},
-{
-   "fields": {
-      "codename": "delete_flow_template",
-      "name": "eliminar plantilla de flujo",
-      "content_type": 10
-   },
-   "model": "auth.permission",
-   "pk": 37
-},
-{
-   "fields": {
-      "codename": "add_actividad",
-      "name": "Can add actividad",
-      "content_type": 11
-   },
-   "model": "auth.permission",
-   "pk": 38
-},
-{
-   "fields": {
-      "codename": "change_actividad",
-      "name": "Can change actividad",
-      "content_type": 11
-   },
-   "model": "auth.permission",
-   "pk": 39
-},
-{
-   "fields": {
-      "codename": "delete_actividad",
-      "name": "Can delete actividad",
-      "content_type": 11
-   },
-   "model": "auth.permission",
-   "pk": 40
-},
-{
-   "fields": {
-      "codename": "edit_my_userstory",
-      "name": "editar mis userstories",
-      "content_type": 12
-   },
-   "model": "auth.permission",
-   "pk": 41
-},
-{
-   "fields": {
-      "codename": "registraractividad_my_userstory",
-      "name": "registrar avances en mis userstories",
-      "content_type": 12
-   },
-   "model": "auth.permission",
-   "pk": 42
-},
-{
-   "fields": {
-      "codename": "add_nota",
-      "name": "Can add nota",
-      "content_type": 13
-   },
-   "model": "auth.permission",
-   "pk": 43
-},
-{
-   "fields": {
-      "codename": "change_nota",
-      "name": "Can change nota",
-      "content_type": 13
-   },
-   "model": "auth.permission",
-   "pk": 44
-},
-{
-   "fields": {
-      "codename": "delete_nota",
-      "name": "Can delete nota",
-      "content_type": 13
-   },
-   "model": "auth.permission",
-   "pk": 45
-},
-{
-   "fields": {
-      "codename": "add_adjunto",
-      "name": "Can add adjunto",
-      "content_type": 14
-   },
-   "model": "auth.permission",
-   "pk": 46
-},
-{
-   "fields": {
-      "codename": "change_adjunto",
-      "name": "Can change adjunto",
-      "content_type": 14
-   },
-   "model": "auth.permission",
-   "pk": 47
-},
-{
-   "fields": {
-      "codename": "delete_adjunto",
-      "name": "Can delete adjunto",
-      "content_type": 14
-   },
-   "model": "auth.permission",
-   "pk": 48
-},
-{
-   "fields": {
-      "codename": "add_userobjectpermission",
-      "name": "Can add user object permission",
-      "content_type": 15
-   },
-   "model": "auth.permission",
-   "pk": 49
-},
-{
-   "fields": {
-      "codename": "change_userobjectpermission",
-      "name": "Can change user object permission",
-      "content_type": 15
-   },
-   "model": "auth.permission",
-   "pk": 50
-},
-{
-   "fields": {
-      "codename": "delete_userobjectpermission",
-      "name": "Can delete user object permission",
-      "content_type": 15
-   },
-   "model": "auth.permission",
-   "pk": 51
-},
-{
-   "fields": {
-      "codename": "add_groupobjectpermission",
-      "name": "Can add group object permission",
-      "content_type": 16
-   },
-   "model": "auth.permission",
-   "pk": 52
-},
-{
-   "fields": {
-      "codename": "change_groupobjectpermission",
-      "name": "Can change group object permission",
-      "content_type": 16
-   },
-   "model": "auth.permission",
-   "pk": 53
-},
-{
-   "fields": {
-      "codename": "delete_groupobjectpermission",
-      "name": "Can delete group object permission",
-      "content_type": 16
-   },
-   "model": "auth.permission",
-   "pk": 54
-},
-{
-   "fields": {
-      "codename": "add_revision",
-      "name": "Can add revision",
-      "content_type": 17
-   },
-   "model": "auth.permission",
-   "pk": 55
-},
-{
-   "fields": {
-      "codename": "change_revision",
-      "name": "Can change revision",
-      "content_type": 17
-   },
-   "model": "auth.permission",
-   "pk": 56
-},
-{
-   "fields": {
-      "codename": "delete_revision",
-      "name": "Can delete revision",
-      "content_type": 17
-   },
-   "model": "auth.permission",
-   "pk": 57
-},
-{
-   "fields": {
-      "codename": "add_version",
-      "name": "Can add version",
-      "content_type": 18
-   },
-   "model": "auth.permission",
-   "pk": 58
-},
-{
-   "fields": {
-      "codename": "change_version",
-      "name": "Can change version",
-      "content_type": 18
-   },
-   "model": "auth.permission",
-   "pk": 59
-},
-{
-   "fields": {
-      "codename": "delete_version",
-      "name": "Can delete version",
-      "content_type": 18
-   },
-   "model": "auth.permission",
-   "pk": 60
-},
-{
-   "fields": {
       "name": "Scrum Master",
       "permissions": [
-         19,
-         20,
-         27,
-         24,
-         30,
-         21,
-         28,
-         25,
-         31,
-         33,
-         34,
-         29,
-         26,
-         32,
-         41,
-         42
+         [
+            "add_proyecto",
+            "project",
+            "proyecto"
+         ],
+         [
+            "aprobar_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "change_proyecto",
+            "project",
+            "proyecto"
+         ],
+         [
+            "create_flujo",
+            "project",
+            "proyecto"
+         ],
+         [
+            "create_sprint",
+            "project",
+            "proyecto"
+         ],
+         [
+            "create_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "delete_proyecto",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_flujo",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_sprint",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "prioritize_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "registraractividad_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "remove_flujo",
+            "project",
+            "proyecto"
+         ],
+         [
+            "remove_sprint",
+            "project",
+            "proyecto"
+         ],
+         [
+            "remove_userstory",
+            "project",
+            "proyecto"
+         ]
       ]
    },
    "model": "auth.group",
@@ -1943,8 +1462,21 @@
    "fields": {
       "name": "Product Owner",
       "permissions": [
-         34,
-         42
+         [
+            "create_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "edit_userstory",
+            "project",
+            "proyecto"
+         ],
+         [
+            "prioritize_userstory",
+            "project",
+            "proyecto"
+         ]
       ]
    },
    "model": "auth.group",
@@ -1954,7 +1486,16 @@
    "fields": {
       "name": "Developer",
       "permissions": [
-         42
+         [
+            "edit_my_userstory",
+            "project",
+            "userstory"
+         ],
+         [
+            "registraractividad_my_userstory",
+            "project",
+            "userstory"
+         ]
       ]
    },
    "model": "auth.group",
