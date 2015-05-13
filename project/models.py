@@ -253,21 +253,24 @@ class Adjunto(models.Model):
     """
     Modelo para la administración de archivos adjuntos a un User Story.
     """
-    tipo_choices = [('img', 'Imagen'), ('text', 'Texto'), ('mmed', 'Multimedia'), ('bin', 'Binario')]
-    lang_choices = [('clike', 'C'), ('python', 'Python'), ('ruby', 'Ruby'), ('css', 'CSS'), ('php', 'PHP'), ('scala', 'Scala'),
-        ('sql', 'SQL'), ('bash', 'Bash'), ('javascript', 'JavaScript')]
+    tipo_choices = [('img', 'Imagen'), ('text', 'Texto'), ('misc', 'Otro'), ('src', 'Codigo')]
+    lang_choices = [('clike', 'C'), ('python', 'Python'), ('ruby', 'Ruby'), ('css', 'CSS'), ('php', 'PHP'),
+                    ('scala', 'Scala'), ('sql', 'SQL'), ('bash', 'Bash'), ('javascript', 'JavaScript')]
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
-    archivo = models.FileField(upload_to='user_story', null=True)
+    filename = models.CharField(max_length=100, null=True, editable=False)
     binario = models.BinaryField(null=True, blank=True)
-    content_type = models.CharField(null=True, blank=True, max_length=50)
+    content_type = models.CharField(null=True, editable=False, max_length=50)
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
-    tipo = models.CharField(choices=tipo_choices, default='text', max_length=10)
-    lenguaje = models.CharField(choices=lang_choices, default='css', max_length=10)
+    tipo = models.CharField(choices=tipo_choices, default='misc', max_length=10)
+    lenguaje = models.CharField(choices=lang_choices, null=True, max_length=10)
 
     def __unicode__(self):
         return '{}: {}'.format(self.tipo, self.nombre)
 
     def img64(self):
         return b64encode(force_bytes(self.binario))
+
+    def get_absolute_url(self):
+        return reverse_lazy('project:download_attachment', args=[self.pk])

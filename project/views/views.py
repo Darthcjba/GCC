@@ -10,7 +10,10 @@ from guardian.admin import *;
 from project.forms import FileUploadForm
 import reversion
 from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto
+from os.path import splitext
 
+lang = {'.c': 'clike', '.py': 'python', '.rb': 'ruby', '.css': 'css', '.php': 'php', '.scala': 'scala', '.sql': 'sql',
+        '.sh': 'bash', '.js': 'javascript', '.html': 'html'}
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     '''
@@ -20,10 +23,12 @@ class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     return_403 = True
     raise_exception = True
 
+
 class CreateViewPermissionRequiredMixin(GlobalPermissionRequiredMixin):
     '''
     Mixin que permite requerir un permiso
     '''
+
     def get_object(self):
         return None
 
@@ -40,6 +45,7 @@ def home(request):
 
     return render(request, 'project/home.html', context)
 
+
 def get_selected_perms(POST):
     """
     Obtener los permisos marcados en el formulario
@@ -54,27 +60,41 @@ def get_selected_perms(POST):
     return current_list
 
 
-#TODO requerir permisos
+# TODO requerir permisos
 #TODO subir archivo dentro de una nota?
 
 class UploadFileView(generic.FormView):
     template_name = 'project/adjunto/upload.html'
     form_class = FileUploadForm
-    file = None
+    attachment = None
+
+    def upload_handler(self, uploaded_file):
+        self.attachment.filename = uploaded_file.name
+
+        if uploaded_file.content_type.startswith('image'):
+            self.attachment.tipo = 'img'
+        else:
+            _, ext = splitext(uploaded_file.name)
+            if ext in lang:
+                self.attachment.lenguaje = lang[ext]
+                self.attachment.tipo = 'src'
+            elif uploaded_file.content_type == 'text/plain':
+                self.attachment.tipo = 'text'
+
+        self.attachment.content_type = uploaded_file.content_type
+        self.attachment.binario = uploaded_file.read()
+        self.attachment.save()
 
     def form_valid(self, form):
-        self.file = form.save(commit=False)
+        self.attachment = form.save(commit=False)
         user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
-        self.file.user_story = user_story
-        archivo = self.request.FILES['archivo']
-        self.file.content_type = archivo.content_type
-        self.file.binario = archivo.read()
-        self.file.save()
+        self.attachment.user_story = user_story
+        self.upload_handler(self.request.FILES['file'])
 
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('project:file_detail', kwargs={'pk': self.file.id})
+        return reverse('project:file_detail', kwargs={'pk': self.attachment.id})
 
 
 class FileDetail(generic.DetailView):
@@ -98,13 +118,12 @@ class FileList(generic.ListView):
         context['user_story'] = self.user_story
         return context
 
-def download_blob(request, pk):
-    adjunto = Adjunto.objects.get(pk=pk)
-    filename = adjunto.archivo.name.replace('user_story/', '')
-    contents = adjunto.binario
-    response = HttpResponse(contents, content_type=adjunto.content_type)
-    response['Content-Disposition'] = 'attachment; filename=%s' % filename
+#TODO controlar permisos de descarga
+def download_attachment(request, pk):
+    attachment = Adjunto.objects.get(pk=pk)
+    response = HttpResponse(attachment.binario, content_type=attachment.content_type)
+    if attachment.tipo == 'img':
+        response['Content-Disposition'] = 'filename=%s' % attachment.filename
+    else:
+        response['Content-Disposition'] = 'attachment; filename=%s' % attachment.filename
     return response
-
-def prism(request):
-    return render(request, 'project/adjunto/prism.html', {})
