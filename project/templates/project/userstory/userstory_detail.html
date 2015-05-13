@@ -30,7 +30,7 @@
                 <p><strong>Último cambio: </strong>{{ userstory.ultimo_cambio }}</p>
                 {% if userstory.desarrollador %}<p><strong>Asignado a: </strong><a href="{% url 'project:user_detail' userstory.desarrollador.id %}">{{ userstory.desarrollador }}</a>{% endif %}
                 {% if userstory.actividad %}<p><strong>Flujo: </strong><a href="{% url 'project:flujo_detail' userstory.actividad.flujo.id %}"> {{ userstory.actividad.flujo }} </a>| <strong>Actividad: </strong>{{ userstory.actividad }} | <strong>Estado: </strong>{{ userstory.get_estado_actividad_display }} {% endif %}
-                {% if userstory.sprint %}<p><strong>Último Sprint: </strong>{{ userstory.sprint }} {% endif %}
+                {% if userstory.sprint %}<p><strong>Último Sprint: </strong><a href="{% url 'project:sprint_detail' userstory.sprint.id %}">{{ userstory.sprint }} </a>{% endif %}
             </div>
         </div>
         <div class="col-lg-6">

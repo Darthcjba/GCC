@@ -208,7 +208,6 @@ class UserStory(models.Model):
         #borramos los permisos del antiguo desarrollador
         if old_developer:
             for perm in get_perms(old_developer, self):
-                print(perm)
                 remove_perm(perm, old_developer, self)
         #copiamos al user story recién creado los permisos de user story
         if self.proyecto and self.desarrollador:
