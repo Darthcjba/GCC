@@ -2,13 +2,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.forms.models import modelform_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views import generic
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
-import reversion
-from project.models import MiembroEquipo, Proyecto, UserStory
+from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto
 
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
@@ -19,10 +18,12 @@ class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     return_403 = True
     raise_exception = True
 
+
 class CreateViewPermissionRequiredMixin(GlobalPermissionRequiredMixin):
     '''
     Mixin que permite requerir un permiso
     '''
+
     def get_object(self):
         return None
 
@@ -38,6 +39,7 @@ def home(request):
     context['team_members'] = MiembroEquipo.objects.all()
 
     return render(request, 'project/home.html', context)
+
 
 def get_selected_perms(POST):
     """

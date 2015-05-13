@@ -8,3 +8,4 @@ from user_views import *
 from userstory_views import *
 from nota_views import *
 from sprints_views import *
+from adjunto_views import *

@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, url
 from project import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = patterns('',
                        url(r'^$', views.home, name='home'),
@@ -32,6 +34,9 @@ urlpatterns = patterns('',
                        url(r'^userstory/(?P<pk>\d+)/rechazar/$', views.ApproveUserStory.as_view(action='rechazar'), name="userstory_rechazar"),
                        url(r'^userstory/(?P<pk>\d+)/version/$', views.VersionList.as_view(), name="version_list"),
                        url(r'^userstory/(?P<pk>\d+)/revert/(?P<version_pk>\d+)/$', views.UpdateVersion.as_view(), name="version_revert"),
+                       url(r'^userstory/(?P<pk>\d+)/files/$', views.FileList.as_view(), name="file_list"),
+                       url(r'^userstory/(?P<pk>\d+)/files/upload/$', views.UploadFileView.as_view(), name="file_upload"),
+                       url(r'^file/(?P<pk>\d+)/$', views.FileDetail.as_view(), name="file_detail"),
                        url(r'^nota/(?P<pk>\d+)/$', views.NotaDetail.as_view(), name='nota_detail'),
                        url(r'^userstory/(?P<pk>\d+)/notas/$', views.NotaList.as_view(), name="nota_list"),
                        url(r'^roles/$', views.RolList.as_view(), name='rol_list'),
@@ -39,7 +44,7 @@ urlpatterns = patterns('',
                        url(r'^roles/add/$', views.AddRolView.as_view(), name="rol_add"),
                        url(r'^roles/(?P<pk>\d+)/edit/$', views.UpdateRolView.as_view(), name="rol_update"),
                        url(r'^roles/(?P<pk>\d+)/delete/$', views.DeleteRolView.as_view(), name="rol_delete"),
-
+                       url(r'^attachment/(?P<pk>\d+)/$', views.download_attachment, name='download_attachment'),
                        url(r'^projects/(?P<project_pk>\d+)/sprint/add/$', views.AddSprintView.as_view(), name="sprint_add"),
                        url(r'^sprint/(?P<pk>\d+)/$', views.SprintDetail.as_view(), name='sprint_detail'),
                        url(r'^projects/(?P<project_pk>\d+)/sprint/$', views.SprintList.as_view(),name="sprint_list"),
@@ -50,4 +55,4 @@ urlpatterns = patterns('',
                        url(r'^plantilla/add/$', views.AddPlantilla.as_view(), name="plantilla_add"),
                        url(r'^plantilla/(?P<pk>\d+)/delete/$', views.DeletePlantilla.as_view(), name="plantilla_delete"),
                        url(r'^plantilla/(?P<pk>\d+)/edit/$', views.UpdatePlantilla.as_view(), name="plantilla_update"),
-                       )
+                       ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
