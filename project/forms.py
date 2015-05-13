@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.forms import BaseFormSet
 from django.utils import timezone
 from guardian.shortcuts import get_perms_for_model
-from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo
+from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo, Adjunto
 from project.models import UserStory
 from django.forms.models import inlineformset_factory
 import datetime
@@ -152,6 +152,7 @@ class AddToSprintForm(forms.Form):
 
 
 
+
 class AddToSprintFormset(BaseFormSet):
     def clean(self):
         """
@@ -167,4 +168,16 @@ class AddToSprintFormset(BaseFormSet):
                 if us in userstories:
                     raise forms.ValidationError("Un mismo User Story puede aparecer sólo una vez en el sprint.")
                 userstories.append(us)
+
+                userstories.append(us)
+
+
+class FileUploadForm(forms.ModelForm):
+    """
+    Formulario para adjuntar un archivo.
+    """
+    file = forms.FileField()
+    class Meta:
+        model = Adjunto
+        fields = ['nombre', 'descripcion']
 

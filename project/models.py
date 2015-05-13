@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from base64 import b64encode
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.db.models.signals import m2m_changed, post_save
 from django.shortcuts import get_object_or_404
+from django.utils.encoding import force_bytes
 from django.utils import timezone
 from guardian.shortcuts import assign_perm, remove_perm, get_perms_for_model, get_perms
 from django.core.urlresolvers import reverse_lazy
@@ -257,8 +259,24 @@ class Adjunto(models.Model):
     """
     Modelo para la administración de archivos adjuntos a un User Story.
     """
+    tipo_choices = [('img', 'Imagen'), ('text', 'Texto'), ('misc', 'Otro'), ('src', 'Codigo')]
+    lang_choices = [('clike', 'C'), ('python', 'Python'), ('ruby', 'Ruby'), ('css', 'CSS'), ('php', 'PHP'),
+                    ('scala', 'Scala'), ('sql', 'SQL'), ('bash', 'Bash'), ('javascript', 'JavaScript')]
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
-    # path = models.FilePathField()
+    filename = models.CharField(max_length=100, null=True, editable=False)
+    binario = models.BinaryField(null=True, blank=True)
+    content_type = models.CharField(null=True, editable=False, max_length=50)
     creacion = models.DateTimeField(auto_now_add=True)
     user_story = models.ForeignKey(UserStory)
+    tipo = models.CharField(choices=tipo_choices, default='misc', max_length=10)
+    lenguaje = models.CharField(choices=lang_choices, null=True, max_length=10)
+
+    def __unicode__(self):
+        return '{}: {}'.format(self.tipo, self.nombre)
+
+    def img64(self):
+        return b64encode(force_bytes(self.binario))
+
+    def get_absolute_url(self):
+        return reverse_lazy('project:download_attachment', args=[self.pk])
