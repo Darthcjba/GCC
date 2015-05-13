@@ -30,7 +30,12 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=20)),
                 ('descripcion', models.TextField()),
+                ('filename', models.CharField(max_length=100, null=True, editable=False)),
+                ('binario', models.BinaryField(null=True, blank=True)),
+                ('content_type', models.CharField(max_length=50, null=True, editable=False)),
                 ('creacion', models.DateTimeField(auto_now_add=True)),
+                ('tipo', models.CharField(default=b'misc', max_length=10, choices=[(b'img', b'Imagen'), (b'text', b'Texto'), (b'misc', b'Otro'), (b'src', b'Codigo')])),
+                ('lenguaje', models.CharField(max_length=10, null=True, choices=[(b'clike', b'C'), (b'python', b'Python'), (b'ruby', b'Ruby'), (b'css', b'CSS'), (b'php', b'PHP'), (b'scala', b'Scala'), (b'sql', b'SQL'), (b'bash', b'Bash'), (b'javascript', b'JavaScript')])),
             ],
             options={
             },
