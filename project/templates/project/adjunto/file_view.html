@@ -51,7 +51,7 @@
         </div>
 
 
-        <a href="{% url 'project:download_attachment' adjunto.id %}" class="btn btn-primary" role="button">Descargar</a>
+        <a href="{{ adjunto.get_absolute_url }}" class="btn btn-primary" role="button">Descargar</a>
     {% elif adjunto.tipo == 'text' %}
         <div class="row">
             <div class="col-lg-6">

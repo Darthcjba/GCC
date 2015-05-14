@@ -1,67 +1,90 @@
-
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.views import generic
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
+from guardian.decorators import permission_required_or_403
+from guardian.mixins import LoginRequiredMixin
 from os.path import splitext
 from project.forms import FileUploadForm
-from project.models import UserStory, Adjunto
+from project.models import UserStory, Adjunto, Proyecto
+from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 
 
 lang = {'.c': 'clike', '.py': 'python', '.rb': 'ruby', '.css': 'css', '.php': 'php', '.scala': 'scala', '.sql': 'sql',
         '.sh': 'bash', '.js': 'javascript', '.html': 'html'}
 
 
-# TODO requerir permisos
 # TODO subir archivo dentro de una nota?
-class UploadFileView(generic.FormView):
+class UploadFileView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.FormView):
+    """
+    Visa que permite subir un archivo adjunto
+    """
     template_name = 'project/adjunto/upload.html'
     form_class = FileUploadForm
-    attachment = None
+    user_story = None
+    permission_required = 'project.edit_my_userstory'
 
-    def upload_handler(self, uploaded_file):
-        self.attachment.filename = uploaded_file.name
+    def get_permission_object(self):
+        self.user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+        return self.user_story.proyecto
+
+    def upload_handler(self, attachment, uploaded_file):
+        attachment.user_story = self.user_story
+        attachment.filename = uploaded_file.name
 
         if uploaded_file.content_type.startswith('image'):
-            self.attachment.tipo = 'img'
+            attachment.tipo = 'img'
         else:
             _, ext = splitext(uploaded_file.name)
             if ext in lang:
-                self.attachment.lenguaje = lang[ext]
-                self.attachment.tipo = 'src'
+                attachment.lenguaje = lang[ext]
+                attachment.tipo = 'src'
             elif uploaded_file.content_type == 'text/plain':
-                self.attachment.tipo = 'text'
+                attachment.tipo = 'text'
 
-        self.attachment.content_type = uploaded_file.content_type
-        self.attachment.binario = uploaded_file.read()
-        self.attachment.save()
+        attachment.content_type = uploaded_file.content_type
+        attachment.binario = uploaded_file.read()
+        attachment.save()
 
     def form_valid(self, form):
-        self.attachment = form.save(commit=False)
-        user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
-        self.attachment.user_story = user_story
-        self.upload_handler(self.request.FILES['file'])
-
+        attachment = form.save(commit=False)
+        self.upload_handler(attachment, self.request.FILES['file'])
         return HttpResponseRedirect(self.get_success_url())
 
-    def get_success_url(self):
-        return reverse('project:file_detail', kwargs={'pk': self.attachment.id})
 
-
-class FileDetail(generic.DetailView):
+class FileDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     model = Adjunto
     template_name = 'project/adjunto/file_view.html'
     context_object_name = 'adjunto'
+    permission_required = 'project.view_project'
+
+    def get_permission_object(self):
+        """
+        Retorna el objeto al cual corresponde el permiso
+        """
+        return self.get_object().user_story.proyecto
 
 
-class FileList(generic.ListView):
+class FileList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
+    """
+    Vista que lista los adjuntos del user story
+    """
     model = Adjunto
     template_name = 'project/adjunto/file_list.html'
     context_object_name = 'adjuntos'
+    permission_required = 'project.view_project'
     user_story = None
 
-    def get_queryset(self):
+    def get_permission_object(self):
+        """
+        Retorna el objeto al cual corresponde el permiso
+        """
         self.user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+        return self.user_story.proyecto
+
+    def get_queryset(self):
         return self.user_story.adjunto_set.all()
 
     def get_context_data(self, **kwargs):
@@ -69,12 +92,21 @@ class FileList(generic.ListView):
         context['user_story'] = self.user_story
         return context
 
-#TODO controlar permisos de descarga
+
+@login_required
 def download_attachment(request, pk):
-    attachment = Adjunto.objects.get(pk=pk)
-    response = HttpResponse(attachment.binario, content_type=attachment.content_type)
-    if attachment.tipo == 'img':
-        response['Content-Disposition'] = 'filename=%s' % attachment.filename
-    else:
-        response['Content-Disposition'] = 'attachment; filename=%s' % attachment.filename
-    return response
+    """
+    Vista que permite la descarga de un archivo adjunto de la base de datos
+    :param request: request del cliente
+    :param pk: id del adjunto
+    :return: respuesta http con el archivo adjunto
+    """
+    attachment = get_object_or_404(Adjunto, pk=pk)
+    if request.user.has_perm('project.view_project', attachment.user_story.proyecto):
+        response = HttpResponse(attachment.binario, content_type=attachment.content_type)
+        if attachment.tipo == 'img':
+            response['Content-Disposition'] = 'filename=%s' % attachment.filename
+        else:
+            response['Content-Disposition'] = 'attachment; filename=%s' % attachment.filename
+        return response
+    raise PermissionDenied()
