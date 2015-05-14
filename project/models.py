@@ -260,7 +260,8 @@ class Adjunto(models.Model):
     """
     tipo_choices = [('img', 'Imagen'), ('text', 'Texto'), ('misc', 'Otro'), ('src', 'Codigo')]
     lang_choices = [('clike', 'C'), ('python', 'Python'), ('ruby', 'Ruby'), ('css', 'CSS'), ('php', 'PHP'),
-                    ('scala', 'Scala'), ('sql', 'SQL'), ('bash', 'Bash'), ('javascript', 'JavaScript')]
+                    ('scala', 'Scala'), ('sql', 'SQL'), ('bash', 'Bash'), ('javascript', 'JavaScript'),
+                    ('markup', 'Markup')]
     nombre = models.CharField(max_length=20)
     descripcion = models.TextField()
     filename = models.CharField(max_length=100, null=True, editable=False)
@@ -278,4 +279,7 @@ class Adjunto(models.Model):
         return b64encode(force_bytes(self.binario))
 
     def get_absolute_url(self):
+        return reverse_lazy('project:file_detail', args=[self.pk])
+
+    def get_download_url(self):
         return reverse_lazy('project:download_attachment', args=[self.pk])

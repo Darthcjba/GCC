@@ -1,9 +1,12 @@
-{% extends 'project/base_table.html' %}
+{% extends 'project/base_table_js.html' %}
+{% load guardian_tags %}
 {% block title %}{{ user_story }} - Adjuntos{% endblock %}
 {% block header %}{{ user_story }}: Adjuntos{% endblock %}
 
 {% block before_table %}
-    <a href="{% url 'project:file_upload' user_story.id %}"><i class="fa fa-upload"></i> Subir archivo</a>
+    {% get_obj_perms user for user_story.proyecto as "proyecto_perms" %}
+    {% get_obj_perms user for user_story as "us_perms" %}
+    {% if "edit_userstory" in proyecto_perms or 'edit_my_userstory' in us_perms%}<a href="{% url 'project:file_upload' user_story.id %}"><i class="fa fa-upload"></i> Subir archivo</a>{% endif %}
 {% endblock %}
 
 {% block thead %}

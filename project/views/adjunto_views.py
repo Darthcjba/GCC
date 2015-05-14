@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidde
 from django.shortcuts import get_object_or_404
 from guardian.decorators import permission_required_or_403
 from guardian.mixins import LoginRequiredMixin
+from guardian.shortcuts import get_perms
 from os.path import splitext
 from project.forms import FileUploadForm
 from project.models import UserStory, Adjunto, Proyecto
@@ -13,22 +14,33 @@ from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionReq
 
 
 lang = {'.c': 'clike', '.py': 'python', '.rb': 'ruby', '.css': 'css', '.php': 'php', '.scala': 'scala', '.sql': 'sql',
-        '.sh': 'bash', '.js': 'javascript', '.html': 'html'}
+        '.sh': 'bash', '.js': 'javascript', '.html': 'markup'}
 
 
 # TODO subir archivo dentro de una nota?
-class UploadFileView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.FormView):
+class UploadFileView(LoginRequiredMixin, generic.FormView):
     """
     Visa que permite subir un archivo adjunto
     """
     template_name = 'project/adjunto/upload.html'
     form_class = FileUploadForm
     user_story = None
-    permission_required = 'project.edit_my_userstory'
 
-    def get_permission_object(self):
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Comprobacion de permisos hecha antes de la llamada al dispatch que inicia el proceso de respuesta al request de la url
+        :param request: request hecho por el cliente
+        :param args: argumentos adicionales posicionales
+        :param kwargs: argumentos adicionales en forma de diccionario
+        :return: PermissionDenied si el usuario no cuenta con permisos
+        """
         self.user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
-        return self.user_story.proyecto
+        if 'edit_userstory' in get_perms(request.user, self.user_story.proyecto):
+            return super(UploadFileView, self).dispatch(request, *args, **kwargs)
+        elif 'edit_my_userstory' in get_perms(self.request.user, self.user_story):
+            return super(UploadFileView, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
 
     def upload_handler(self, attachment, uploaded_file):
         attachment.user_story = self.user_story
@@ -51,7 +63,7 @@ class UploadFileView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gene
     def form_valid(self, form):
         attachment = form.save(commit=False)
         self.upload_handler(attachment, self.request.FILES['file'])
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(attachment.get_absolute_url())
 
 
 class FileDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):

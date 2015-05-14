@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <a href="{{ adjunto.get_absolute_url }}"><img
+                    <a href="{{ adjunto.get_download_url }}"><img
                             src="data:{{ adjunto.content_type }};base64,{{ adjunto.img64 }}" alt="{{ adjunto.nombre }}"
                             class="img-responsive"></a>
 
@@ -21,7 +21,7 @@
 
                         <p>{{ adjunto.descripcion }}</p>
 
-                        <p><a href="{{ adjunto.get_absolute_url }}" class="btn btn-primary" role="button">Descargar</a>
+                        <p><a href="{{ adjunto.get_download_url }}" class="btn btn-primary" role="button">Descargar</a>
                         </p>
 
                         <p><strong>User Story: </strong><a
@@ -50,8 +50,7 @@
             </div>
         </div>
 
-
-        <a href="{{ adjunto.get_absolute_url }}" class="btn btn-primary" role="button">Descargar</a>
+        <a href="{{ adjunto.get_download_url }}" class="btn btn-primary" role="button">Descargar</a>
     {% elif adjunto.tipo == 'text' %}
         <div class="row">
             <div class="col-lg-6">
@@ -63,13 +62,14 @@
 
         <p>{{ adjunto.descripcion }}</p>
 
-        <p><a href="{{ adjunto.get_absolute_url }}" class="btn btn-primary" role="button">Descargar</a></p>
+        <p><a href="{{ adjunto.get_download_url }}" class="btn btn-primary" role="button">Descargar</a></p>
         <p><strong>User Story: </strong><a
                 href="{% url 'project:userstory_detail' adjunto.user_story_id %}">{{ adjunto.user_story }}</a></p>
     {% else %}
         <h3>{{ adjunto.descripcion }}</h3>
-        <p><a href="{{ adjunto.get_absolute_url }}" class="btn btn-primary" role="button">Descargar</a></p>
+        <p><a href="{{ adjunto.get_download_url }}" class="btn btn-primary" role="button">Descargar</a></p>
     {% endif %}
+
     <p><strong>Content type: </strong>{{ adjunto.content_type }}</p>
     <p><strong>Tipo: </strong>{{ adjunto.get_tipo_display }}</p>
     <a href="{% url 'project:file_list' adjunto.user_story_id %}"><i class="fa fa-step-backward"></i> Volver a Adjuntos</a>
