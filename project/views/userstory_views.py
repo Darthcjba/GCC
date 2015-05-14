@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.models import modelform_factory, inlineformset_factory, modelformset_factory
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.db import transaction
 from django.shortcuts import get_object_or_404, render
+from django.template.loader import get_template, render_to_string
 from django.utils import timezone
 from django.views import generic
 from django.views.generic import detail
@@ -15,6 +17,7 @@ from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 import reversion
 from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Nota
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
+from django.contrib.sites.shortcuts import get_current_site
 
 
 class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
@@ -163,12 +166,25 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         :return: URL de redireccion
         """
         if form.has_changed():
+            cambios = str.join(', ', form.changed_data)
             with transaction.atomic(), reversion.create_revision():
                 self.object = form.save()
                 reversion.set_user(self.request.user)
-                reversion.set_comment("Modificacion: {}".format(str.join(', ', form.changed_data)))
+                reversion.set_comment("Modificacion: {}".format(cambios))
+            self.notify(self.object, cambios)
 
         return HttpResponseRedirect(self.get_success_url())
+
+    def notify(self, user_story, changelist):
+        proyecto = user_story.proyecto
+        subject = 'Registro de Actividad: {} - {}'.format(user_story, proyecto)
+        domain = get_current_site(self.request).domain
+        message = render_to_string('project/notification_mail.html', {'proyecto': proyecto, 'us': user_story, 'domain': domain})
+        #recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.view_project', proyecto)]
+        #send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
+        send_mail(subject, message, 'projectium15@gamil.com', ['jayala1993@outlook.com'], html_message=message)
+
 
 class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     """
@@ -260,8 +276,18 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
                 n.estado_actividad = self.object.estado_actividad
                 n.user_story = self.object
                 n.save()
+            self.notify(n)
 
         return HttpResponseRedirect(self.get_success_url())
+
+    def notify(self, nota):
+        proyecto = nota.user_story.proyecto
+        subject = 'Registro de Actividad: {} - {}'.format(nota.user_story, proyecto)
+        message = render_to_string('project/notification_mail.html', {'proyecto': proyecto, 'nota': nota, 'us': nota.user_story})
+        #recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.view_project', proyecto)]
+        send_mail(subject, message, 'noreply.projectium15@gmail.com', recipients, html_message=message)
+
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """

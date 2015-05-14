@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ proyecto }}</h1>
+<hr/>
+<p>Se han registrado avances en el User Story '{{ us }}'<p></p>
+<p><strong>Avances:</strong></p>
+<p>{{ nota }}</p>
+<p>{{ cambios }}</p>
+<a href="http://{{ domain }}{% url 'project:userstory_detail' us.id %}">Ver User Story en Projectium</a>
+
+{% endblock %}
