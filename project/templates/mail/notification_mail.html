@@ -27,12 +27,12 @@
                 </div>
                 <div class="panel-body">
                     <p><strong>Mensaje: </strong>{{ nota.mensaje }}</p>
-                    <p><strong>Desarrollador: </strong><a href="{% url 'project:user_detail' nota.desarrollador_id %}">{{ nota.desarrollador }}</a></p>
+                    <p><strong>Desarrollador: </strong>{{ nota.desarrollador }}</p>
                     <p><strong>Fecha: </strong>{{ nota.fecha|date }}</p>
                     <p><strong>Hora: </strong>{{ nota.fecha|time }}</p>
                     <p><strong>Tiempo registrado: </strong>{{ nota.horas_registradas }}</p>
-                    <p><strong>Sprint: </strong><a href="{% url 'project:sprint_detail' nota.sprint_id %}">{{ nota.sprint }}</a></p>
-                    <p><strong>Flujo: </strong><a href="{% url 'project:flujo_detail' nota.actividad.flujo_id %}">{{ nota.actividad.flujo }}</a></p>
+                    <p><strong>Sprint: </strong>{{ nota.sprint }}</p>
+                    <p><strong>Flujo: </strong>{{ nota.actividad.flujo }}</p>
                     <p><strong>Actividad: </strong>{{ nota.actividad }}</p>
                     <p><strong>Estado: </strong>{{ nota.get_estado_actividad_display }}</p>
                     <a href="http://{{ domain }}{% url 'project:userstory_detail' us.id %}" class="btn btn-primary btn-block">Ver en Projectium</a>

@@ -179,7 +179,7 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         changelist = [c.replace('_', ' ').title() for c in changes]
         subject = 'Cambios en User Story: {} - {}'.format(user_story, proyecto)
         domain = get_current_site(self.request).domain
-        message = render_to_string('project/change_mail.html',
+        message = render_to_string('mail/change_mail.html',
                                    {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'cambios': changelist})
         recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
         if user_story.desarrollador not in recipients:
@@ -286,7 +286,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         proyecto = nota.user_story.proyecto
         subject = 'Registro de Actividad: {} - {}'.format(nota.user_story, proyecto)
         domain = get_current_site(self.request).domain
-        message = render_to_string('project/notification_mail.html', {'proyecto': proyecto, 'nota': nota, 'us': nota.user_story, 'domain': domain})
+        message = render_to_string('mail/notification_mail.html', {'proyecto': proyecto, 'nota': nota, 'us': nota.user_story, 'domain': domain})
         #recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
         send_mail(subject, message, 'noreply.projectium15@gmail.com', ['jayala1993@outlook.com'], html_message=message)
 
@@ -305,6 +305,7 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
     def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+
 
 class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
     """
@@ -342,7 +343,19 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
             us.estado_actividad = 0 #Vuelve al estado de actividad To Do
             #TODO Debe volver a la primera actividad del flujo el US?
         us.save()
+        self.notify(us)
         return HttpResponseRedirect(self.get_success_url())
+
+    def notify(self, user_story):
+        proyecto = user_story.proyecto
+        subject = 'Se ha aprobado el User Story: {} - {}'.format(user_story, proyecto)
+        domain = get_current_site(self.request).domain
+        message = render_to_string('mail/approved_email.html',
+                                   {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'u': self.request.user})
+        recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        if user_story.desarrollador not in recipients:
+            recipients.append(user_story.desarrollador.email)
+        send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
 
 class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     """
