@@ -18,25 +18,31 @@
 <body>
     <h1>Proyecto: {{ proyecto }}</h1>
     <hr/>
-    <p>Se han registrado avances en el User Story '{{ us }}'.<p></p>
+    <p>Se han realizado modificaciones en el User Story '{{ us }}'.<p></p>
+    <p>{{ nota }}</p>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-3">
+            <p><strong>Campos Modificados:</strong></p>
+            <ul>
+                {% for c in cambios %}
+                <li>{{ c }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-lg-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Avance</h3>
+                    <h3 class="panel-title">{{ us.nombre }}</h3>
                 </div>
                 <div class="panel-body">
-                    <p><strong>Mensaje: </strong>{{ nota.mensaje }}</p>
-                    <p><strong>Desarrollador: </strong><a href="{% url 'project:user_detail' nota.desarrollador_id %}">{{ nota.desarrollador }}</a></p>
-                    <p><strong>Fecha: </strong>{{ nota.fecha|date }}</p>
-                    <p><strong>Hora: </strong>{{ nota.fecha|time }}</p>
-                    <p><strong>Tiempo registrado: </strong>{{ nota.horas_registradas }}</p>
-                    <p><strong>Sprint: </strong><a href="{% url 'project:sprint_detail' nota.sprint_id %}">{{ nota.sprint }}</a></p>
-                    <p><strong>Flujo: </strong><a href="{% url 'project:flujo_detail' nota.actividad.flujo_id %}">{{ nota.actividad.flujo }}</a></p>
-                    <p><strong>Actividad: </strong>{{ nota.actividad }}</p>
-                    <p><strong>Estado: </strong>{{ nota.get_estado_actividad_display }}</p>
-                    <a href="http://{{ domain }}{% url 'project:userstory_detail' us.id %}" class="btn btn-primary btn-block">Ver en Projectium</a>
-               </div>
+                    <p><strong>Prioridad: </strong>{{ us.get_prioridad_display }}</p>
+                    <p><strong>Valor de Negocio: </strong>{{ us.valor_negocio }}</p>
+                    <p><strong>Valor Tecnico: </strong>{{ us.valor_tecnico }}</p>
+                    <p><strong>Tiempo Estimado: </strong>{{ us.tiempo_estimado }}</p>
+                </div>
+                <div class="panel-footer">
+                    <a href="http://{{ domain }}{% url 'project:userstory_detail' us.id %}">Ver en Projectium</a>
+                </div>
             </div>
         </div>
     </div>

@@ -166,24 +166,26 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         :return: URL de redireccion
         """
         if form.has_changed():
-            cambios = str.join(', ', form.changed_data)
             with transaction.atomic(), reversion.create_revision():
                 self.object = form.save()
                 reversion.set_user(self.request.user)
-                reversion.set_comment("Modificacion: {}".format(cambios))
-            self.notify(self.object, cambios)
+                reversion.set_comment("Modificacion: {}".format(str.join(', ', form.changed_data)))
+            self.notify(self.object, form.changed_data)
 
         return HttpResponseRedirect(self.get_success_url())
 
-    def notify(self, user_story, changelist):
+    def notify(self, user_story, changes):
         proyecto = user_story.proyecto
-        subject = 'Registro de Actividad: {} - {}'.format(user_story, proyecto)
+        changelist = [c.replace('_', ' ').title() for c in changes]
+        subject = 'Cambios en User Story: {} - {}'.format(user_story, proyecto)
         domain = get_current_site(self.request).domain
-        message = render_to_string('project/notification_mail.html', {'proyecto': proyecto, 'us': user_story, 'domain': domain})
-        #recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
-        recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.view_project', proyecto)]
-        #send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
-        send_mail(subject, message, 'projectium15@gamil.com', ['jayala1993@outlook.com'], html_message=message)
+        message = render_to_string('project/change_mail.html',
+                                   {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'cambios': changelist})
+        recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        if user_story.desarrollador not in recipients:
+            recipients.add(user_story.desarrollador.email)
+        send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
+        #send_mail(subject, message, 'projectium15@gamil.com', ['jayala1993@outlook.com'], html_message=message)
 
 
 class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
@@ -283,10 +285,10 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     def notify(self, nota):
         proyecto = nota.user_story.proyecto
         subject = 'Registro de Actividad: {} - {}'.format(nota.user_story, proyecto)
-        message = render_to_string('project/notification_mail.html', {'proyecto': proyecto, 'nota': nota, 'us': nota.user_story})
+        domain = get_current_site(self.request).domain
+        message = render_to_string('project/notification_mail.html', {'proyecto': proyecto, 'nota': nota, 'us': nota.user_story, 'domain': domain})
         #recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
-        recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.view_project', proyecto)]
-        send_mail(subject, message, 'noreply.projectium15@gmail.com', recipients, html_message=message)
+        send_mail(subject, message, 'noreply.projectium15@gmail.com', ['jayala1993@outlook.com'], html_message=message)
 
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
