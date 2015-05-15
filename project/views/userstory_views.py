@@ -183,7 +183,7 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
                                    {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'cambios': changelist})
         recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
         if user_story.desarrollador not in recipients:
-            recipients.add(user_story.desarrollador.email)
+            recipients.append(user_story.desarrollador.email)
         send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
         #send_mail(subject, message, 'projectium15@gamil.com', ['jayala1993@outlook.com'], html_message=message)
 
