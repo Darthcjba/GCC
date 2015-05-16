@@ -213,7 +213,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         """
         if 'registraractividad_userstory' in get_perms(request.user, self.get_object().proyecto) \
                 or ('registraractividad_my_userstory' in get_perms(request.user, self.get_object())): #Comprobacion de permisos
-            if self.get_object().sprint and self.get_object().sprint.fin >= timezone.now():
+            if self.get_object().sprint and self.get_object().sprint.inicio <= timezone.now().date() and self.get_object().sprint.fin >= timezone.now().date():
                 if self.get_object().actividad:
                     current_priority = self.get_object().prioridad
                     s = self.get_object().sprint
