@@ -3,37 +3,39 @@
 {% block title %}User Stories pendientes - {{ view.project }}{% endblock %}
 {% block header %}User Stories a Aprobar{% endblock %}
 {% block content %}
-
-    {% for u in userstories %}
-        <div class="col-lg-3">
-                <div class="panel panel-{% if u.prioridad == 0 %}green{% elif u.prioridad == 1 %}yellow{% else %}red{% endif %}">
-                <div class="panel-heading">
-                    <div class="panel-title"> <a href="{% url 'project:userstory_detail' u.id %}" style="color:#ffffff;">{{ u.nombre }}</a></div>
-                </div>
-                <div class="panel-body">
-                    <strong>Desarrollador: </strong>
-                    {% if u.desarrollador %}
-                        <a href="{% url 'project:user_detail' u.desarrollador_id %}">{{ u.desarrollador }}</a>
-                    {% else %}
-                        Ninguno
-                    {% endif %}
-                    </br>
-                    {% if u.actividad %}
-                        <strong>Flujo: </strong><a href="{% url 'project:flujo_detail' u.actividad.flujo_id %}">{{ u.actividad.flujo }}</a><br/>
-                        <strong>Actividad: </strong>{{ u.actividad }} - {{ u.get_estado_actividad_display }}<br/>
-                    {% endif %}
-                    <strong>Prioriodad: </strong>{{ u.get_prioridad_display }}
-                </div>
-                <div class="panel-footer">
-                    <a href="{% url 'project:userstory_detail' u.id %}"><i class="fa fa-eye fa-fw"></i></a>
-                    {% if "aprobar_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_aprobar' u.id %}" title="Aprobar User Story"><i
-                            class="fa fa-check-circle fa-fw"></i></a>{% endif %}
-                    {% if "aprobar_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_rechazar' u.id %}" title="Rechazar User Story"><i
-                            class="fa fa-times-circle fa-fw"></i></a>{% endif %}
+    {% if userstories.count == 0 %}
+        <p>No hay User Stories pendientes de aprobación.</p>
+    {% else %}
+        {% for u in userstories %}
+            <div class="col-lg-3">
+                    <div class="panel panel-{% if u.prioridad == 0 %}green{% elif u.prioridad == 1 %}yellow{% else %}red{% endif %}">
+                    <div class="panel-heading">
+                        <div class="panel-title"> <a href="{% url 'project:userstory_detail' u.id %}" style="color:#ffffff;">{{ u.nombre }}</a></div>
+                    </div>
+                    <div class="panel-body">
+                        <strong>Desarrollador: </strong>
+                        {% if u.desarrollador %}
+                            <a href="{% url 'project:user_detail' u.desarrollador_id %}">{{ u.desarrollador }}</a>
+                        {% else %}
+                            Ninguno
+                        {% endif %}
+                        </br>
+                        {% if u.actividad %}
+                            <strong>Flujo: </strong><a href="{% url 'project:flujo_detail' u.actividad.flujo_id %}">{{ u.actividad.flujo }}</a><br/>
+                            <strong>Actividad: </strong>{{ u.actividad }} - {{ u.get_estado_actividad_display }}<br/>
+                        {% endif %}
+                        <strong>Prioriodad: </strong>{{ u.get_prioridad_display }}
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{% url 'project:userstory_detail' u.id %}"><i class="fa fa-eye fa-fw"></i></a>
+                        {% if "aprobar_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_aprobar' u.id %}" title="Aprobar User Story"><i
+                                class="fa fa-check-circle fa-fw"></i></a>{% endif %}
+                        {% if "aprobar_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_rechazar' u.id %}" title="Rechazar User Story"><i
+                                class="fa fa-times-circle fa-fw"></i></a>{% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-
+        {% endfor %}
+    {% endif %}
 
 {% endblock %}
