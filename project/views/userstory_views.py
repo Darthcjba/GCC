@@ -14,6 +14,7 @@ from django.views.generic import detail
 from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
+from guardian.utils import get_403_or_None
 import reversion
 from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Nota
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
@@ -357,22 +358,30 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
             recipients.append(user_story.desarrollador.email)
         send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
 
-class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
+class VersionList(LoginRequiredMixin, generic.ListView):
     """
     Vista que devuelve una lista de versiones del User Story deseado.
     """
     context_object_name = 'versions'
     template_name = 'project/version/version_list.html'
+    permission_required = ['project.edit_userstory', 'project.edit_my_userstory']
     us = None
-    permission_required = 'project.edit_userstory'
 
-    def get_permission_object(self):
-        '''
-        Obtiene el user story
-        '''
-        us_pk = self.kwargs['pk']
-        self.us = get_object_or_404(UserStory, pk=us_pk)
-        return self.us.proyecto
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Comprobación de permisos hecha antes de la llamada al dispatch que inicia el proceso de respuesta al request de la url
+        :param request: request hecho por el cliente
+        :param args: argumentos adicionales posicionales
+        :param kwargs: argumentos adicionales en forma de diccionario
+        :return: PermissionDenied si el usuario no cuenta con permisos
+        """
+        self.us = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+        if 'edit_userstory' in get_perms(request.user, self.us.proyecto):
+            return super(VersionList, self).dispatch(request, *args, **kwargs)
+        elif 'edit_my_userstory' in get_perms(self.request.user, self.us):
+            return super(VersionList, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
 
     def get_queryset(self):
         """
@@ -387,6 +396,7 @@ class VersionList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Lis
         context = super(VersionList, self).get_context_data(**kwargs)
         context['userstory'] = self.us
         return context
+
 
 class UpdateVersion(UpdateUserStory):
     '''
