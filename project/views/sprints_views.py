@@ -80,7 +80,7 @@ class SprintDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.De
         :return: retorna el contexto
         """
         context = super(SprintDetail, self).get_context_data(**kwargs)
-        context['userStory'] = self.object.userstory_set.all()
+        context['userStory'] = self.object.userstory_set.order_by('-prioridad')
         return context
 
 
