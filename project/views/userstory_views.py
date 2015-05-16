@@ -182,7 +182,7 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         message = render_to_string('mail/change_mail.html',
                                    {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'cambios': changelist})
         recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
-        if user_story.desarrollador not in recipients:
+        if user_story.desarrollador and user_story.desarrollador.email not in recipients:
             recipients.append(user_story.desarrollador.email)
         send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
         #send_mail(subject, message, 'projectium15@gamil.com', ['jayala1993@outlook.com'], html_message=message)
@@ -287,8 +287,8 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         subject = 'Registro de Actividad: {} - {}'.format(nota.user_story, proyecto)
         domain = get_current_site(self.request).domain
         message = render_to_string('mail/notification_mail.html', {'proyecto': proyecto, 'nota': nota, 'us': nota.user_story, 'domain': domain})
-        #recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
-        send_mail(subject, message, 'noreply.projectium15@gmail.com', ['jayala1993@outlook.com'], html_message=message)
+        recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        send_mail(subject, message, 'noreply.projectium15@gmail.com', recipients, html_message=message)
 
 
 class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
@@ -353,7 +353,7 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
         message = render_to_string('mail/approved_email.html',
                                    {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'u': self.request.user})
         recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
-        if user_story.desarrollador not in recipients:
+        if user_story.desarrollador and user_story.desarrollador.email not in recipients:
             recipients.append(user_story.desarrollador.email)
         send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
 
