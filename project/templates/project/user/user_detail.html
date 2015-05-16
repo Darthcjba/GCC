@@ -54,7 +54,7 @@
     </form>
 
     <div id="userstoriespanels">
-        {% for u in usuario.userstory_set.all %}
+        {% for u in user_stories %}
             <div class="col-lg-3">
                 <div class="panel panel-{% if u.prioridad == 0 %}green{% elif u.prioridad == 1 %}yellow{% else %}red{% endif %}">
                     <div class="panel-heading">

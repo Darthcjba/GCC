@@ -49,6 +49,7 @@ class UserDetail(LoginRequiredMixin, DetailView):
         """
         context = super(UserDetail, self).get_context_data(**kwargs)
         context['projects'] = self.object.miembroequipo_set.all()
+        context['user_stories'] = self.object.userstory_set.order_by('-prioridad')
         return context
 
 
