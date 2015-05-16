@@ -288,7 +288,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         subject = 'Registro de Actividad: {} - {}'.format(nota.user_story, proyecto)
         domain = get_current_site(self.request).domain
         message = render_to_string('mail/notification_mail.html', {'proyecto': proyecto, 'nota': nota, 'us': nota.user_story, 'domain': domain})
-        recipients = [u for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
         send_mail(subject, message, 'noreply.projectium15@gmail.com', recipients, html_message=message)
 
 
