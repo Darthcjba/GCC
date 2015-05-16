@@ -648,6 +648,101 @@ class UserStoryTest(TestCase):
         response = c.get(reverse('project:product_backlog', args=(str(p.id))))
         self.assertEquals(response.status_code, 403)
 
+    def test_approve_userstory(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+        self.assertEquals(us.nombre, 'First Value US')
+        s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
+        f = Flujo.objects.create(nombre="Implementación", proyecto=p)
+        a1 = Actividad.objects.create(name="Analisis", flujo=f)
+        a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
+        us.actividad = a2
+        us.estado = 2 #Estado Pendiente de aprobacion
+        us.estado_actividad = 2
+        us.sprint = s
+        us.desarrollador = p.equipo.first()
+        us.save()
+        #nos dirigimos al formulario de aprobacion del userstory
+        response = c.get(reverse('project:userstory_aprobar', args=(str(us.id))))
+        self.assertEquals(response.status_code, 200)
+        #aprobamos el userstory
+        response = c.post(reverse('project:userstory_aprobar', args=(str(us.id))))
+        #deberia redirigir
+        self.assertRedirects(response, '/projects/1/userstories/')
+        #el userstory deberia estar aprobado
+        us = UserStory.objects.first()
+        self.assertEquals(us.estado, 3)
+
+    def test_reject_userstory(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+        self.assertEquals(us.nombre, 'First Value US')
+        s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
+        f = Flujo.objects.create(nombre="Implementación", proyecto=p)
+        a1 = Actividad.objects.create(name="Analisis", flujo=f)
+        a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
+        us.actividad = a2
+        us.estado = 2 #Estado Pendiente de aprobacion
+        us.estado_actividad = 2
+        us.sprint = s
+        us.desarrollador = p.equipo.first()
+        us.save()
+        #nos dirigimos al formulario de rechazo del userstory
+        response = c.get(reverse('project:userstory_rechazar', args=(str(us.id))))
+        self.assertEquals(response.status_code, 200)
+        #aprobamos el userstory
+        response = c.post(reverse('project:userstory_rechazar', args=(str(us.id))))
+        #deberia redirigir
+        self.assertRedirects(response, '/projects/1/userstories/')
+        #el userstory deberia estar en curso de vuelta
+        us = UserStory.objects.first()
+        self.assertEquals(us.estado, 1)
+
+    def test_pending_userstory(self):
+        c = self.client
+        login = c.login(username='test', password='test')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un user story
+        response = c.post(reverse('project:userstory_add', args=(str(p.id))),
+            {'nombre':'First Value US', 'descripcion':'This is a User Story for testing purposes.', 'prioridad': 1,
+             'valor_negocio': 10, 'valor_tecnico': 10, 'tiempo_estimado': 10}, follow=True)
+        us = UserStory.objects.first()
+        self.assertIsNotNone(us)
+        self.assertEquals(us.nombre, 'First Value US')
+        s = Sprint.objects.create(nombre="Sprint 1", inicio=timezone.now(), fin=timezone.now() + datetime.timedelta(days=30), proyecto=p)
+        f = Flujo.objects.create(nombre="Implementación", proyecto=p)
+        a1 = Actividad.objects.create(name="Analisis", flujo=f)
+        a2 = Actividad.objects.create(name="Desarrollo", flujo=f)
+        us.actividad = a2
+        us.estado = 1 #Estado En Curso
+        us.estado_actividad = 2
+        us.sprint = s
+        us.desarrollador = p.equipo.first()
+        us.save()
+        response = c.get(reverse('project:pending_userstories', args=(str(p.id))))
+        self.assertEquals(response.status_code, 200)
+        self.assertContains(response, "No hay User Stories pendientes de aprobación.")
+        us.estado = 2 #Estado Pendiente de Aprobacion
+        us.save()
+        response = c.get(reverse('project:pending_userstories', args=(str(p.id))))
+        self.assertNotContains(response, "No hay User Stories pendientes de aprobación.")
 
 class VersionTest(TestCase):
     def setUp(self):
