@@ -16,6 +16,7 @@ from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms, get_perms_for_model, assign_perm
 from guardian.utils import get_403_or_None
 import reversion
+from project.forms import RegistrarActividadForm
 from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Nota
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
@@ -234,11 +235,11 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         el usuario cuente con el permiso de editar userstory se le permitirá cambiar la actividad
         del User Story.
         """
-        actual_fields = ['tiempo_registrado', 'estado_actividad']
+        actual_fields = ['estado_actividad']
         if 'edit_userstory' in get_perms(self.request.user, self.get_object().proyecto) or \
                         'edit_my_userstory' in get_perms(self.request.user, self.get_object()):
             actual_fields.insert(1, 'actividad')
-        return modelform_factory(UserStory, fields=actual_fields)
+        return modelform_factory(UserStory, form=RegistrarActividadForm, fields=actual_fields)
 
     def get_form(self, form_class):
         '''
@@ -252,6 +253,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        self.object.tiempo_registrado = self.object.tiempo_registrado + form.cleaned_data['horas_a_registrar']
         nota_form = self.NoteFormset(self.request.POST)
         new_estado = 0
         #movemos el User Story a la sgte actividad en caso de que haya llegado a Done
@@ -342,7 +344,7 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
         elif self.action == 'rechazar':
             us.estado = 1 #Vuelve al estado en desarrollo
             us.estado_actividad = 0 #Vuelve al estado de actividad To Do
-            #TODO Debe volver a la primera actividad del flujo el US?
+            #TODO Logica de eleccion de nueva ubicacion de User Story
         us.save()
         self.notify(us)
         return HttpResponseRedirect(self.get_success_url())

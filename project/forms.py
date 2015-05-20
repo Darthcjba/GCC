@@ -180,3 +180,11 @@ class FileUploadForm(forms.ModelForm):
         model = Adjunto
         fields = ['nombre', 'descripcion']
 
+
+class RegistrarActividadForm(forms.ModelForm):
+    '''
+    Formulario para registrar actividad en un User Story
+    '''
+    horas_a_registrar = forms.IntegerField(min_value=0, error_messages={'required':'Ingrese cantidad de horas'}, initial=0)
+    class Meta:
+        model = UserStory
