@@ -8,9 +8,10 @@
     <script src="{% static 'bower_components/morrisjs/morris.min.js' %}"></script>
 {% endblock %}
 
-{% block header %}Burndown Chart{% endblock %}
+{% block header %}Burndown Chart - {{ project.nombre_corto }}{% endblock %}
 
 {% block content %}
+    <h3>Sprint: {{ sprint }}</h3>
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -35,13 +36,14 @@
             element: 'burndown-chart',
             // Chart data records -- each entry in this array corresponds to a point on
             // the chart.
-            data: [
-                {d: '0', ideal: 40, actual: 40},
-                {d: '1', ideal: 30, actual: 38},
-                {d: '2', ideal: 20, actual: 27},
-                {d: '3', ideal: 10, actual: 14},
-                {d: '4', ideal: 0, actual: 2}
-            ],
+{#            data: [#}
+{#                {d: '0', ideal: 40, actual: 40},#}
+{#                {d: '1', ideal: 30, actual: 38},#}
+{#                {d: '2', ideal: 20, actual: 27},#}
+{#                {d: '3', ideal: 10, actual: 14},#}
+{#                {d: '4', ideal: 0, actual: 2}#}
+{#            ],#}
+            data: {% autoescape off %}{{ data }}{% endautoescape %},
             // The name of the data record attribute that contains x-values.
             xkey: 'd',
             // A list of names of data record attributes that contain y-values.

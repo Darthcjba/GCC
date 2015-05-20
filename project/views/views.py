@@ -61,10 +61,21 @@ def daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
-def burndown(project_pk):
+
+def burndown(request, project_pk):
     project = get_object_or_404(Proyecto, pk=project_pk)
     sprint = project.sprint_set.first()
+    restante = total = project.get_horas_estimadas()
+    actuales = [total]
+    dias = project.duracion_sprint
     for d in daterange(sprint.inicio, sprint.fin):
         notas = sprint.nota_set.filter(fecha__year=d.year, fecha__month=d.month, fecha__day=d.day)
         hwork = notas.aggregate(total=Sum('horas_registradas'))['total']
-        print hwork
+        restante -= hwork if hwork else 0
+        actuales.append(restante)
+
+    m = float(total) / dias
+    data = [{'d': i, 'ideal': round(total - m * i, 2), 'actual': actuales[i]} for i in range(0, dias+1)]
+
+    ctx = {'project': project, 'sprint': sprint, 'data': data}
+    return render(request, 'project/morris.html', ctx)
