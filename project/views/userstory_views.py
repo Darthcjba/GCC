@@ -274,7 +274,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         if nota_form.is_valid():
             for f in nota_form.forms:
                 n = f.save(commit=False)
-                n.horas_registradas = self.object.tiempo_registrado
+                n.horas_registradas = form.cleaned_data['horas_a_registrar']
                 n.desarrollador = self.object.desarrollador
                 n.sprint = self.object.sprint
                 n.actividad = self.object.actividad
