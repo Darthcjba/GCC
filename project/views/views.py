@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
@@ -53,3 +55,16 @@ def get_selected_perms(POST):
     current_list.extend(POST.getlist('perms_flujo'))
     current_list.extend(POST.getlist('perms_sprint'))
     return current_list
+
+
+def daterange(start_date, end_date):
+    for n in range(int((end_date - start_date).days)):
+        yield start_date + timedelta(n)
+
+def burndown(project_pk):
+    project = get_object_or_404(Proyecto, pk=project_pk)
+    sprint = project.sprint_set.first()
+    for d in daterange(sprint.inicio, sprint.fin):
+        notas = sprint.nota_set.filter(fecha__year=d.year, fecha__month=d.month, fecha__day=d.day)
+        hwork = notas.aggregate(total=Sum('horas_registradas'))['total']
+        print hwork

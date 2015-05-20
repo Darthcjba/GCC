@@ -3,7 +3,7 @@ from base64 import b64encode
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.db.models.signals import m2m_changed, post_save
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
@@ -64,6 +64,12 @@ class Proyecto(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('project:project_detail', args=[self.pk])
+
+    def get_horas_estimadas(self):
+        return self.userstory_set.aggregate(total=Sum('tiempo_estimado'))['total']
+
+    def get_horas_trabajadas(self):
+        return self.userstory_set.aggregate(total=Sum('tiempo_registrado'))['total']
 
     def clean(self):
         try:

@@ -1,0 +1,60 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'bower_components/morrisjs/morris.css' %}">
+{% endblock %}
+{% block extrahead %}
+    <script src="{% static 'bower_components/raphael/raphael-min.js' %}"></script>
+    <script src="{% static 'bower_components/morrisjs/morris.min.js' %}"></script>
+{% endblock %}
+
+{% block header %}Burndown Chart{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Burndown Chart
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div id="burndown-chart"></div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        new Morris.Line({
+            // ID of the element in which to draw the chart.
+            element: 'burndown-chart',
+            // Chart data records -- each entry in this array corresponds to a point on
+            // the chart.
+            data: [
+                {d: '0', ideal: 40, actual: 40},
+                {d: '1', ideal: 30, actual: 38},
+                {d: '2', ideal: 20, actual: 27},
+                {d: '3', ideal: 10, actual: 14},
+                {d: '4', ideal: 0, actual: 2}
+            ],
+            // The name of the data record attribute that contains x-values.
+            xkey: 'd',
+            // A list of names of data record attributes that contain y-values.
+            ykeys: ['ideal', 'actual'],
+            // Labels for the ykeys -- will be displayed when you hover over the
+            // chart.
+            labels: ['Ideal', 'Actual'],
+            xLabelFormat: function (x) {
+                return 'Dia ' + x.x;
+            },
+            xLabelAngle: 60,
+            goals: [0, 40],
+            parseTime: false
+        });
+    </script>
+{% endblock %}
