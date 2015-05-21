@@ -326,13 +326,12 @@ class DeleteUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPerm
 
 class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
     """
-    Vista de Aprobación o rechazo de User Stories
+    Vista de Aprobación de User Story
     """
     model = UserStory
     template_name = 'project/userstory/userstory_approve.html'
     permission_required = 'project.aprobar_userstory'
     context_object_name = 'userstory'
-    action = ''
 
     def get_proyecto(self):
         return self.get_object().proyecto
@@ -343,11 +342,6 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
             return super(ApproveUserStory, self).dispatch(request, *args, **kwargs)
         raise Http404
 
-    def get_context_data(self, **kwargs):
-        context = super(ApproveUserStory, self).get_context_data(**kwargs)
-        context['action'] = self.action
-        return context
-
     def get_permission_object(self):
         return self.get_proyecto()
 
@@ -356,20 +350,15 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
 
     def post(self, request, *args, **kwargs):
         us = self.get_object()
-        if self.action == 'aprobar':
-            us.estado = 3 #Aprobado
-            #comprobamos si quedan User Stories en el proyecto para marcarlo como completado
-            p = us.proyecto
-            us_count = p.userstory_set.all().count()
-            approved_us_count = p.userstory_set.filter(estado=3).count()
-            approved_us_count += 1 #sumamos el actual que todavia no se ha guardado
-            if us_count == approved_us_count:
-                p.estado = 'CO'
-                p.save()
-        elif self.action == 'rechazar':
-            us.estado = 1 #Vuelve al estado en desarrollo
-            us.estado_actividad = 0 #Vuelve al estado de actividad To Do
-            #TODO Logica de eleccion de nueva ubicacion de User Story
+        us.estado = 3  # Aprobado
+        # comprobamos si quedan User Stories en el proyecto para marcarlo como completado
+        p = us.proyecto
+        us_count = p.userstory_set.all().count()
+        approved_us_count = p.userstory_set.filter(estado=3).count()
+        approved_us_count += 1  # sumamos el actual que todavia no se ha guardado
+        if us_count == approved_us_count:
+            p.estado = 'CO'
+            p.save()
         us.save()
         self.notify(us)
         return HttpResponseRedirect(self.get_success_url())
@@ -384,6 +373,41 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
         if user_story.desarrollador and user_story.desarrollador.email not in recipients:
             recipients.append(user_story.desarrollador.email)
         send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
+
+
+class RechazarUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.UpdateView):
+    model = UserStory
+    template_name = 'project/userstory/userstory_rechazar.html'
+    fields = ['actividad', 'estado_actividad']
+    permission_required = 'project.aprobar_userstory'
+    context_object_name = 'userstory'
+
+    def get_proyecto(self):
+        return self.get_object().proyecto
+
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.estado == 2:
+            return super(RechazarUserStory, self).dispatch(request, *args, **kwargs)
+        raise Http404
+
+    def get_form(self, form_class):
+        '''
+        Personalización del form retornado
+        '''
+
+        form = super(RechazarUserStory, self).get_form(form_class)
+        form.fields['actividad'].queryset = Actividad.objects.filter(flujo=self.get_object().actividad.flujo)
+        return form
+
+    def get_permission_object(self):
+        return self.get_proyecto()
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.estado = 1
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 class VersionList(LoginRequiredMixin, generic.ListView):
     """

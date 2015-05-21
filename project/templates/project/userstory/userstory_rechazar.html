@@ -1,4 +1,5 @@
 {% extends 'project/base.html' %}
+{% load bootstrap3 %}
 {% block title %}{{ action | title }} User Story{% endblock %}
 
 {% block header %}{{ userstory.nombre }} {% endblock %}
@@ -6,9 +7,9 @@
 <form action="" method="post" role="form">
     {% csrf_token %}
     <div class="form-group">
-        <p>Seguro de que desea <strong>aprobar</strong> el User Story <strong>{{ object }}</strong>?</p>
+        <p>Indique dónde reubicar el User Story <strong>{{ object }}</strong> a continuación, o si desea haga clic <a href="#">aquí</a> para cancelarlo.</p>
     </div>
-
-    <input type="submit" value="Aprobar" class="btn btn-default"/>
+    {% bootstrap_form form layout='horizontal' %}
+    <input type="submit" value="Rechazar" class="btn btn-default"/>
 </form>
 {% endblock %}
