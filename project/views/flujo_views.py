@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
@@ -61,6 +62,8 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         """
         context = super(FlujoDetail, self).get_context_data(**kwargs)
         context['act_us'] = [a.userstory_set.order_by('-prioridad') for a in self.object.actividad_set.all()]
+        time=UserStory.objects.filter(proyecto=self.object.proyecto).aggregate(Sum('tiempo_registrado'))
+        context['time']= time['tiempo_registrado__sum']
         return context
 
 
@@ -77,6 +80,8 @@ class FlujoDetailSprint(FlujoDetail):
         context = super(generic.DetailView, self).get_context_data(**kwargs)
         context['sprint'] = self.sprint
         context['act_us'] = [a.userstory_set.filter(sprint=self.sprint).order_by('-prioridad') for a in self.object.actividad_set.all()]
+        time=UserStory.objects.filter(proyecto=self.object.proyecto).filter(sprint=self.sprint).aggregate(Sum('tiempo_registrado'))
+        context['time']= time['tiempo_registrado__sum']
         return context
 
 
