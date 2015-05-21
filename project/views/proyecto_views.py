@@ -20,7 +20,7 @@ from guardian.shortcuts import remove_perm
 from guardian.shortcuts import get_perms
 from project.models import Proyecto
 from project.models import MiembroEquipo
-from project.views import GlobalPermissionRequiredMixin
+from project.views import GlobalPermissionRequiredMixin, ActiveProjectRequiredMixin
 from project.views import CreateViewPermissionRequiredMixin
 
 
@@ -105,7 +105,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                       context_instance=RequestContext(self.request))
 
 
-class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
+class ProjectUpdate(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     Permite la Edicion de Proyectos
     """
@@ -122,6 +122,8 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
                                            'descripcion'),
                                    )
 
+    def get_proyecto(self):
+        return self.get_object()
 
     def form_valid(self, form):
         '''
@@ -161,7 +163,7 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
         return context
 
 
-class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
+class ProjectDelete(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista para la cancelacion de proyectos
     """
@@ -169,6 +171,9 @@ class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.D
     template_name = 'project/proyecto/proyect_delete.html'
     success_url = reverse_lazy('project:project_list')
     permission_required = 'project.delete_proyecto'
+
+    def get_proyecto(self):
+        return self.get_object()
 
     def delete(self, request, *args, **kwargs):
         """
@@ -184,7 +189,7 @@ class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.D
             self.object.save(update_fields=['estado'])
         return HttpResponseRedirect(success_url)
 
-class ApproveProject(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
+class ApproveProject(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
     """
     Vista de Aprobación o rechazo de User Stories
     """
@@ -192,6 +197,9 @@ class ApproveProject(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleOb
     template_name = 'project/proyecto/project_approve.html'
     permission_required = 'project.aprobar_proyecto'
     context_object_name = 'proyecto'
+
+    def get_proyecto(self):
+        return self.get_object()
 
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()

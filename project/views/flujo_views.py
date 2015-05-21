@@ -9,7 +9,8 @@ from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from guardian.shortcuts import get_perms
 from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantillaForm
 from project.models import Flujo, Proyecto, UserStory
-from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
+from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin, ActiveProjectRequiredMixin
+
 
 class FlujoList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.ListView):
     """
@@ -80,7 +81,7 @@ class FlujoDetailSprint(FlujoDetail):
         return context
 
 
-class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
+class AddFlujo(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     View que agrega un flujo al sistema
     """
@@ -88,6 +89,9 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
     template_name = 'project/flujo/flujo_form.html'
     form_class = FlujosCreateForm
     permission_required = 'project.create_flujo'
+
+    def get_proyecto(self):
+        return get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
 
     def get_permission_object(self):
         '''
@@ -121,7 +125,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
         :return: URL de redireccion
         """
         self.object = form.save(commit=False)
-        self.object.proyecto = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        self.object.proyecto = self.get_proyecto()
         if self.object.proyecto.estado == 'IN':
             self.object.proyecto.estado = 'EP'
             self.object.proyecto.save()
@@ -139,7 +143,7 @@ class AddFlujo(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cr
                            context_instance=RequestContext(self.request))
 
 
-class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
+class UpdateFlujo(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     View que agrega un flujo al sistema
     """
@@ -147,6 +151,9 @@ class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upd
     template_name = 'project/flujo/flujo_form.html'
     form_class = FlujosCreateForm
     permission_required = 'project.edit_flujo'
+
+    def get_proyecto(self):
+        return self.get_object().proyecto
 
     def get_permission_object(self):
         return self.get_object().proyecto
@@ -190,7 +197,7 @@ class UpdateFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upd
                            context_instance=RequestContext(self.request))
 
 
-class DeleteFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
+class DeleteFlujo(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista de Eliminacion de Flujos
     """
@@ -199,13 +206,16 @@ class DeleteFlujo(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Del
     permission_required = 'project.delete_flujo'
     context_object_name = 'flujo'
 
+    def get_proyecto(self):
+        return self.get_object().proyecto
+
     def get_permission_object(self):
         return self.get_object().proyecto
 
     def get_success_url(self):
         return reverse_lazy('project:flujo_list', kwargs={'project_pk': self.get_object().proyecto.id})
 
-class CreateFromPlantilla(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.FormView):
+class CreateFromPlantilla(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.FormView):
     '''
     Vista de creación a partir de plantillas
     '''
@@ -213,8 +223,11 @@ class CreateFromPlantilla(LoginRequiredMixin, CreateViewPermissionRequiredMixin,
     form_class = CreateFromPlantillaForm
     permission_required = 'project.create_flujo'
 
+    def get_proyecto(self):
+        return get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+
     def get_permission_object(self):
-        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        return self.get_proyecto()
 
     def get_success_url(self):
         """

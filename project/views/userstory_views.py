@@ -18,7 +18,7 @@ from guardian.utils import get_403_or_None
 import reversion
 from project.forms import RegistrarActividadForm
 from project.models import UserStory, Proyecto, MiembroEquipo, Sprint, Actividad, Nota
-from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
+from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin, ActiveProjectRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 
 
@@ -72,13 +72,16 @@ class UserStoryDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         '''
         return self.get_object().proyecto
 
-class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
+class AddUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     View que agrega un user story al sistema
     """
     model = UserStory
     template_name = 'project/userstory/userstory_form.html'
     permission_required = 'project.create_userstory'
+
+    def get_proyecto(self):
+        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
 
     def get_form_class(self):
         project = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
@@ -92,7 +95,7 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
         '''
         Objeto por el cual comprobar el permiso
         '''
-        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        return self.get_proyecto()
 
     def get_success_url(self):
         """
@@ -107,7 +110,7 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
         :return: URL de redireccion
         """
         self.object = form.save(commit=False)
-        self.object.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        self.object.proyecto = self.get_proyecto()
         if self.object.proyecto.estado == 'IN':
             self.object.proyecto.estado = 'EP'
             self.object.proyecto.save()
@@ -118,12 +121,15 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
 
         return HttpResponseRedirect(self.get_success_url())
 
-class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
+class UpdateUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.UpdateView):
     """
     View que actualiza un user story del sistema
     """
     model = UserStory
     template_name = 'project/userstory/userstory_form.html'
+
+    def get_proyecto(self):
+        return self.get_object().proyecto
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -193,7 +199,7 @@ class UpdateUserStory(LoginRequiredMixin, generic.UpdateView):
         #send_mail(subject, message, 'projectium15@gamil.com', ['jayala1993@outlook.com'], html_message=message)
 
 
-class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
+class RegistrarActividadUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.UpdateView):
     """
     View que permite registrar los cambios aplicados a un user story
     """
@@ -201,6 +207,9 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     template_name = 'project/userstory/userstory_registraractividad_form.html'
     error_template = 'project/userstory/userstory_error.html'
     NoteFormset = modelformset_factory(Nota, fields=('mensaje',), extra=1)
+
+    def get_proyecto(self):
+        return self.get_object().proyecto
 
     def get_context_data(self, **kwargs):
         context = super(RegistrarActividadUserStory, self).get_context_data(**kwargs)
@@ -297,7 +306,7 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         send_mail(subject, message, 'noreply.projectium15@gmail.com', recipients, html_message=message)
 
 
-class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
+class DeleteUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista de Eliminacion de User Stories
     """
@@ -306,14 +315,16 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
     permission_required = 'project.remove_userstory'
     context_object_name = 'userstory'
 
-    def get_permission_object(self):
+    def get_proyecto(self):
         return self.get_object().proyecto
+    def get_permission_object(self):
+        return self.get_proyecto()
 
     def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
 
 
-class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
+class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
     """
     Vista de Aprobación o rechazo de User Stories
     """
@@ -322,6 +333,9 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
     permission_required = 'project.aprobar_userstory'
     context_object_name = 'userstory'
     action = ''
+
+    def get_proyecto(self):
+        return self.get_object().proyecto
 
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -335,7 +349,7 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
         return context
 
     def get_permission_object(self):
-        return self.get_object().proyecto
+        return self.get_proyecto()
 
     def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
