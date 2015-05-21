@@ -6,11 +6,12 @@ from django.db.models import Sum
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
-from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto
-
+from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota
+from random import randint
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     '''
@@ -71,11 +72,30 @@ def burndown(request, project_pk):
     for d in daterange(sprint.inicio, sprint.fin):
         notas = sprint.nota_set.filter(fecha__year=d.year, fecha__month=d.month, fecha__day=d.day)
         hwork = notas.aggregate(total=Sum('horas_registradas'))['total']
-        restante -= hwork if hwork else 0
+        hwork = hwork if hwork else 0
+        restante -= hwork if restante >= hwork else 0
         actuales.append(restante)
 
     m = float(total) / dias
     data = [{'d': i, 'ideal': round(total - m * i, 2), 'actual': actuales[i]} for i in range(0, dias+1)]
 
-    ctx = {'project': project, 'sprint': sprint, 'data': data}
+    ctx = {'project': project, 'sprint': sprint, 'data': data, 'goal': total}
     return render(request, 'project/morris.html', ctx)
+
+def generarNotas(request, project_pk):
+    project = get_object_or_404(Proyecto, pk=project_pk)
+    sprint = project.sprint_set.first()
+    us = sprint.userstory_set.first()
+    total = project.get_horas_estimadas()
+    dias = project.duracion_sprint
+    ini = sprint.inicio
+    sprint.nota_set.all().delete()
+    m = total / dias
+    nota = Nota(pk=0, user_story=us, desarrollador=us.desarrollador, sprint=sprint)
+    for dt in range(0, dias+1):
+        d = ini + timedelta(dt)
+        nota.fecha = d
+        nota.horas_registradas = randint(0, m+4)
+        nota.pk += 1
+        nota.save()
+    return redirect(reverse('project:morris', kwargs={'project_pk': project.id}))

@@ -248,7 +248,7 @@ class Nota(models.Model):
     constancias de los cambios, como cantidad de horas trabajadas, en un user story.
     """
     mensaje = models.TextField(help_text='Mensaje de descripcion de los avances')
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateTimeField(default=timezone.now)
     horas_registradas = models.IntegerField(default=0)
     desarrollador = models.ForeignKey(User, null=True)
     sprint = models.ForeignKey(Sprint, null=True)
@@ -257,7 +257,7 @@ class Nota(models.Model):
     user_story = models.ForeignKey(UserStory)
 
     def __unicode__(self):
-        return '{}({}): {}'.format(self.desarrollador, self.fecha, self.mensaje)
+        return '{}({}): {}'.format(self.desarrollador, self.fecha, self.horas_registradas)
 
 
 class Adjunto(models.Model):
