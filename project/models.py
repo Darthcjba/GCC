@@ -40,6 +40,7 @@ class Proyecto(models.Model):
         permissions = (
             ('list_all_projects', 'listar los proyectos disponibles'),
             ('view_project', 'ver el proyecto'),
+            ('aprobar_proyecto', 'aprobar el proyecto'),
 
             ('create_sprint', 'agregar sprint'),
             ('edit_sprint', 'editar sprint'),

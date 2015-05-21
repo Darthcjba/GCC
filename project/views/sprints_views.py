@@ -153,6 +153,9 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
         self.object= form.save(commit=False)
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.proyecto.duracion_sprint)
+        if self.proyecto.estado == 'IN':
+            self.proyecto.estado = 'EP'
+            self.proyecto.save()
         self.object.save()
         formsetb= self.formset(self.request.POST)
         if formsetb.has_changed():

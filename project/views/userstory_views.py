@@ -108,6 +108,9 @@ class AddUserStory(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generi
         """
         self.object = form.save(commit=False)
         self.object.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        if self.object.proyecto.estado == 'IN':
+            self.object.proyecto.estado = 'EP'
+            self.object.proyecto.save()
         with transaction.atomic(), reversion.create_revision():
             reversion.set_user(self.request.user)
             reversion.set_comment("Version Inicial")
@@ -341,6 +344,14 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
         us = self.get_object()
         if self.action == 'aprobar':
             us.estado = 3 #Aprobado
+            #comprobamos si quedan User Stories en el proyecto para marcarlo como completado
+            p = us.proyecto
+            us_count = p.userstory_set.all().count()
+            approved_us_count = p.userstory_set.filter(estado=3).count()
+            approved_us_count += 1 #sumamos el actual que todavia no se ha guardado
+            if us_count == approved_us_count:
+                p.estado = 'CO'
+                p.save()
         elif self.action == 'rechazar':
             us.estado = 1 #Vuelve al estado en desarrollo
             us.estado_actividad = 0 #Vuelve al estado de actividad To Do

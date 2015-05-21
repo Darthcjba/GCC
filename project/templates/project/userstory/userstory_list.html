@@ -50,6 +50,9 @@
                 </div>
             </div>
     {% endfor %}
+    <div class="col-lg-12">
+    <p><a class="fa fa-file" href="{% url 'project:project_detail' view.project.id %}"> Volver al Proyecto {{ view.project.nombre_corto }}</a></p>
+    </div>
 {% endblock %}
 {% block extra_js %}
         <script type="text/javascript">
