@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.views import generic
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
-from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota
+from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint
 from random import randint
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
@@ -82,30 +82,32 @@ def generarNotas(request, project_pk):
             nota.save()
     return redirect(reverse('project:highchart', kwargs={'project_pk': project.id}))
 
-def highchart(request, project_pk):
-    project = get_object_or_404(Proyecto, pk=project_pk)
-    sprint = project.sprint_set.first()
-    restante = total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
-    actuales = [total]
-    ideal = [total]
+def highchart(request, sprint_pk):
+    #project = get_object_or_404(Proyecto, pk=project_pk)
+    sprint = get_object_or_404(Sprint, pk=sprint_pk)
+    project = sprint.proyecto
+    h_restante = h_total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    h_real = [h_total]
+    h_ideal = [h_total]
     dias = project.duracion_sprint
-    m = float(total) / dias
+    m = float(h_total) / dias
     us_restante = us_total = sprint.userstory_set.count()
-    #us_restante = us_total = 30
     us_faltante = [us_total]
     us_completado = [0]
-    for d in daterange(sprint.inicio, sprint.fin):
+    # today = timezone.now()
+    today = sprint.fin
+    for d in daterange(sprint.inicio, today if today < sprint.fin else sprint.fin):
         notas = sprint.nota_set.filter(fecha__year=d.year, fecha__month=d.month, fecha__day=d.day)
         completados = notas.filter(estado=4).count()
         hwork = notas.aggregate(sum=Sum('horas_registradas'))['sum']
         hwork = hwork if hwork else 0
-        restante -= hwork if restante >= hwork else 0
-        actuales.append(restante)
-        total -= m
-        ideal.append(round(total,2))
+        h_restante -= hwork if h_restante >= hwork else 0
+        h_real.append(h_restante)
+        h_total -= m
+        h_ideal.append(round(h_total,2))
         us_restante -= completados
         us_faltante.append(us_restante if us_restante > 0 else 0)
         us_completado.append(completados)
 
-    ctx = {'project': project, 'sprint': sprint, 'ideal': ideal, 'real': actuales, 'us_faltante': us_faltante, 'us_terminado': us_completado}
+    ctx = {'project': project, 'sprint': sprint, 'ideal': h_ideal, 'real': h_real, 'us_faltante': us_faltante, 'us_terminado': us_completado}
     return render(request, 'project/highchart.html', ctx)
