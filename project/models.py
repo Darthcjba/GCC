@@ -247,12 +247,14 @@ class Nota(models.Model):
     Manejo de notas adjuntas relacionadas a un User Story, estás entradas representan
     constancias de los cambios, como cantidad de horas trabajadas, en un user story.
     """
+    estado_choices = ((0, 'Inactivo'), (1, 'En curso'), (2, 'Pendiente Aprobacion'), (3, 'Aprobado'), )
     mensaje = models.TextField(help_text='Mensaje de descripcion de los avances')
     fecha = models.DateTimeField(default=timezone.now)
     horas_registradas = models.IntegerField(default=0)
     desarrollador = models.ForeignKey(User, null=True)
     sprint = models.ForeignKey(Sprint, null=True)
     actividad = models.ForeignKey(Actividad, null=True)
+    estado = models.IntegerField(choices=estado_choices, default=0)
     estado_actividad = models.IntegerField(choices=UserStory.estado_actividad_choices, null=True)
     user_story = models.ForeignKey(UserStory)
 

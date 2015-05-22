@@ -62,31 +62,11 @@ def daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
-
-def burndown(request, project_pk):
-    project = get_object_or_404(Proyecto, pk=project_pk)
-    sprint = project.sprint_set.first()
-    restante = total = project.get_horas_estimadas()
-    actuales = [total]
-    dias = project.duracion_sprint
-    for d in daterange(sprint.inicio, sprint.fin):
-        notas = sprint.nota_set.filter(fecha__year=d.year, fecha__month=d.month, fecha__day=d.day)
-        hwork = notas.aggregate(total=Sum('horas_registradas'))['total']
-        hwork = hwork if hwork else 0
-        restante -= hwork if restante >= hwork else 0
-        actuales.append(restante)
-
-    m = float(total) / dias
-    data = [{'d': i, 'ideal': round(total - m * i, 2), 'actual': actuales[i]} for i in range(0, dias+1)]
-
-    ctx = {'project': project, 'sprint': sprint, 'data': data, 'goal': total}
-    return render(request, 'project/morris.html', ctx)
-
 def generarNotas(request, project_pk):
     project = get_object_or_404(Proyecto, pk=project_pk)
     sprint = project.sprint_set.first()
     us = sprint.userstory_set.first()
-    total = project.get_horas_estimadas()
+    total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
     dias = project.duracion_sprint
     ini = sprint.inicio
     sprint.nota_set.all().delete()
@@ -94,8 +74,38 @@ def generarNotas(request, project_pk):
     nota = Nota(pk=0, user_story=us, desarrollador=us.desarrollador, sprint=sprint)
     for dt in range(0, dias+1):
         d = ini + timedelta(dt)
-        nota.fecha = d
-        nota.horas_registradas = randint(0, m+4)
-        nota.pk += 1
-        nota.save()
-    return redirect(reverse('project:morris', kwargs={'project_pk': project.id}))
+        while(randint(0,100)>40):
+            nota.fecha = d
+            nota.horas_registradas = randint(0, m+4)
+            nota.estado = 4 if randint(0, 100) > 90 else 2
+            nota.pk += 1
+            nota.save()
+    return redirect(reverse('project:highchart', kwargs={'project_pk': project.id}))
+
+def highchart(request, project_pk):
+    project = get_object_or_404(Proyecto, pk=project_pk)
+    sprint = project.sprint_set.first()
+    restante = total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    actuales = [total]
+    ideal = [total]
+    dias = project.duracion_sprint
+    m = float(total) / dias
+    us_restante = us_total = sprint.userstory_set.count()
+    #us_restante = us_total = 30
+    us_faltante = [us_total]
+    us_completado = [0]
+    for d in daterange(sprint.inicio, sprint.fin):
+        notas = sprint.nota_set.filter(fecha__year=d.year, fecha__month=d.month, fecha__day=d.day)
+        completados = notas.filter(estado=4).count()
+        hwork = notas.aggregate(sum=Sum('horas_registradas'))['sum']
+        hwork = hwork if hwork else 0
+        restante -= hwork if restante >= hwork else 0
+        actuales.append(restante)
+        total -= m
+        ideal.append(round(total,2))
+        us_restante -= completados
+        us_faltante.append(us_restante if us_restante > 0 else 0)
+        us_completado.append(completados)
+
+    ctx = {'project': project, 'sprint': sprint, 'ideal': ideal, 'real': actuales, 'us_faltante': us_faltante, 'us_terminado': us_completado}
+    return render(request, 'project/highchart.html', ctx)

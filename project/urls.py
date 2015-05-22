@@ -56,7 +56,6 @@ urlpatterns = patterns('',
                        url(r'^plantilla/(?P<pk>\d+)/delete/$', views.DeletePlantilla.as_view(), name="plantilla_delete"),
                        url(r'^plantilla/(?P<pk>\d+)/edit/$', views.UpdatePlantilla.as_view(), name="plantilla_update"),
 
-                       url(r'morris/(?P<project_pk>\d+)/$', views.burndown, name='morris'),
+                       url(r'highchart/(?P<project_pk>\d+)/$', views.highchart, name='highchart'),
                        url(r'morris/(?P<project_pk>\d+)/generate/$', views.generarNotas, name='generate'),
-                       url(r'flot/$', views.generic.TemplateView.as_view(template_name='project/flot.html'), name='flot'),
                        )
