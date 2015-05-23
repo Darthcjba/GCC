@@ -46,7 +46,7 @@
                              {% with p=u.prioridad %}
                                  <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline
                                  btn-{% if p == 0 %}primary{% elif p == 1 %}warning{% elif p == 2 %}danger{% endif %}
-                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
+                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li>{% elif u.estado == 4 %}<li class="fa fa-times-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
                              {% endwith %}
                          {% endif %}
                          </td>
@@ -55,7 +55,7 @@
                              {% with p=u.prioridad %}
                                  <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline
                                  btn-{% if p == 0 %}primary{% elif p == 1 %}warning{% elif p == 2 %}danger{% endif %}
-                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
+                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li>{% elif u.estado == 4 %}<li class="fa fa-times-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
                              {% endwith %}
                          {% endif %}
                          </td>
@@ -64,7 +64,7 @@
                              {% with p=u.prioridad %}
                                  <a href="{% url 'project:userstory_detail' u.id %}" class="btn btn-outline
                                  btn-{% if p == 0 %}primary{% elif p == 1 %}warning{% elif p == 2 %}danger{% endif %}
-                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
+                                 btn-sm btn-block">{% if u.estado == 3 %}<li class="fa fa-check-circle fa-adjust"></li>{% elif u.estado == 4 %}<li class="fa fa-times-circle fa-adjust"></li> {% endif %}{{ u.nombre }}</a>
                              {% endwith %}
                          {% endif %}
                          </td>
@@ -86,6 +86,7 @@
                 <p style="color: orange">User story de prioridad medio</p>
                 <p style="color: #0044DD"> User story de prioridad baja</p>
                 <p class="fa fa-check-circle">: User Story aprobado</p>
+                <p class="fa fa-times-circle">: User Story cancelado </p>
             </div>
             <div class="panel-footer">
                 Los colores representan la prioridad

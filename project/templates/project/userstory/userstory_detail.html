@@ -18,6 +18,7 @@
 
         <li><a href="{% url 'project:nota_list' userstory.id %}"><i class="fa fa-newspaper-o"></i> Tareas</a></li>
         <li><a href="{% url 'project:file_list' userstory.id %}"><i class="fa fa-file"></i> Adjuntos</a></li>
+        {% if "cancelar_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_cancelar' userstory.id %}" class="fa fa-times">Cancelar</a></li> {% endif %}
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>
     <div class="row">
