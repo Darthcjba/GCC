@@ -13,6 +13,7 @@ from guardian.admin import *;
 from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint
 from random import randint
 
+
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
     '''
     Mixin que permite requerir un permiso
@@ -62,9 +63,11 @@ def daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
-def generarNotas(request, project_pk):
-    project = get_object_or_404(Proyecto, pk=project_pk)
-    sprint = project.sprint_set.first()
+
+def generarNotas(request, sprint_pk):
+    #project = get_object_or_404(Proyecto, pk=project_pk)
+    sprint = get_object_or_404(Sprint, pk=sprint_pk)
+    project = sprint.proyecto
     us = sprint.userstory_set.first()
     total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
     dias = project.duracion_sprint
@@ -72,42 +75,47 @@ def generarNotas(request, project_pk):
     sprint.nota_set.all().delete()
     m = total / dias
     nota = Nota(pk=0, user_story=us, desarrollador=us.desarrollador, sprint=sprint)
-    for dt in range(0, dias+1):
+    for dt in range(0, dias + 1):
         d = ini + timedelta(dt)
-        while(randint(0,100)>40):
-            nota.fecha = d
-            nota.horas_registradas = randint(0, m+4)
+        nota.fecha = d
+        nota.horas_registradas = randint(0, m + 2)
+        nota.estado = 4 if randint(0, 100) > 90 else 2
+        nota.pk += 1
+        nota.save()
+        while (randint(0, 100) > 60):
+            nota.horas_registradas = randint(0, m + 3)
             nota.estado = 4 if randint(0, 100) > 90 else 2
             nota.pk += 1
             nota.save()
-    return redirect(reverse('project:highchart', kwargs={'project_pk': project.id}))
+    return redirect(reverse('project:sprint_burndown', kwargs={'sprint_pk': sprint.id}))
+
 
 def highchart(request, sprint_pk):
-    #project = get_object_or_404(Proyecto, pk=project_pk)
+    # project = get_object_or_404(Proyecto, pk=project_pk)
     sprint = get_object_or_404(Sprint, pk=sprint_pk)
     project = sprint.proyecto
-    h_restante = h_total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
-    h_real = [h_total]
-    h_ideal = [h_total]
-    dias = project.duracion_sprint
-    m = float(h_total) / dias
-    us_restante = us_total = sprint.userstory_set.count()
-    us_faltante = [us_total]
-    us_completado = [0]
+    h_restante = h_total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']  # Horas estimadas de US
+    h_real = [h_total]  # Lista de horas registradas
+    h_ideal = [h_total]  # Lista de horas reales
+    m = float(h_total) / project.duracion_sprint  # Velocidad ideal
+    us_restante = us_total = sprint.userstory_set.count()  # User Stories del sprint
+    us_faltante = [us_total]  # Lista de user stories que faltan
+    us_completado = [0]  # Lista de user stories que se terminaron
     # today = timezone.now()
     today = sprint.fin
-    for d in daterange(sprint.inicio, today if today < sprint.fin else sprint.fin):
-        notas = sprint.nota_set.filter(fecha__year=d.year, fecha__month=d.month, fecha__day=d.day)
-        completados = notas.filter(estado=4).count()
-        hwork = notas.aggregate(sum=Sum('horas_registradas'))['sum']
-        hwork = hwork if hwork else 0
-        h_restante -= hwork if h_restante >= hwork else 0
+    for dia in daterange(sprint.inicio, sprint.fin):
+        notas = sprint.nota_set.filter(fecha__year=dia.year, fecha__month=dia.month, fecha__day=dia.day)
+        completados = notas.filter(estado=4).count()  # User Stories terminados en el dia
+        hwork = notas.aggregate(sum=Sum('horas_registradas'))['sum']  # Total de horas registradas en el dia
+        hwork = hwork if hwork else 0  # Por si aggregate devuelve None
+        h_restante -= hwork if h_restante >= hwork else 0  # Si se terminan las horas antes del fin
         h_real.append(h_restante)
         h_total -= m
-        h_ideal.append(round(h_total,2))
+        h_ideal.append(round(h_total, 1))
         us_restante -= completados
         us_faltante.append(us_restante if us_restante > 0 else 0)
         us_completado.append(completados)
 
-    ctx = {'project': project, 'sprint': sprint, 'ideal': h_ideal, 'real': h_real, 'us_faltante': us_faltante, 'us_terminado': us_completado}
+    ctx = {'project': project, 'sprint': sprint, 'ideal': h_ideal, 'real': h_real, 'us_faltante': us_faltante,
+           'us_terminado': us_completado}
     return render(request, 'project/highchart.html', ctx)
