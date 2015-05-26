@@ -64,6 +64,7 @@ def daterange(start_date, end_date):
         yield start_date + timedelta(n)
 
 
+#Solo para prueba
 def generarNotas(request, sprint_pk):
     #project = get_object_or_404(Proyecto, pk=project_pk)
     sprint = get_object_or_404(Sprint, pk=sprint_pk)
