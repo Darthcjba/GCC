@@ -56,6 +56,6 @@ urlpatterns = patterns('',
                        url(r'^plantilla/(?P<pk>\d+)/delete/$', views.DeletePlantilla.as_view(), name="plantilla_delete"),
                        url(r'^plantilla/(?P<pk>\d+)/edit/$', views.UpdatePlantilla.as_view(), name="plantilla_update"),
 
-                       url(r'sprint/(?P<sprint_pk>\d+)/burndown/$', views.sprint_burndown, name='sprint_burndown'),
+                       url(r'sprint/(?P<pk>\d+)/burndown/$', views.SprintBurndown.as_view(), name='sprint_burndown'),
                        url(r'morris/(?P<sprint_pk>\d+)/generate/$', views.generarNotas, name='generate'),
                        )

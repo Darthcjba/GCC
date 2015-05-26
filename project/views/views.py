@@ -88,12 +88,19 @@ def generarNotas(request, sprint_pk):
             nota.horas_registradas = randint(0, m + 3)
             nota.estado = 4 if randint(0, 100) > 90 else 2
             nota.save(force_insert=True)
-    return redirect(reverse('project:sprint_burndown', kwargs={'sprint_pk': sprint.id}))
+    return redirect(reverse('project:sprint_burndown', kwargs={'pk': sprint.id}))
 
+class SprintBurndown(generic.DetailView):
+    model = Sprint
+    template_name = 'project/highchart.html'
 
-def sprint_burndown(request, sprint_pk):
-    # project = get_object_or_404(Proyecto, pk=project_pk)
-    sprint = get_object_or_404(Sprint, pk=sprint_pk)
+    def get_context_data(self, **kwargs):
+        context = super(SprintBurndown, self).get_context_data(**kwargs)
+        ctx = get_sprint_burndown(self.object)
+        context.update(ctx)
+        return context
+
+def get_sprint_burndown(sprint):
     project = sprint.proyecto
     h_restante = h_total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']  # Horas estimadas de US
     lh_real = [h_total]  # Lista de horas registradas
@@ -119,6 +126,5 @@ def sprint_burndown(request, sprint_pk):
         lus_restante.append(us_restante if us_restante > 0 else 0)
         lus_completado.append(completados)
 
-    ctx = {'project': project, 'sprint': sprint, 'ideal': lh_ideal, 'real': lh_real, 'us_faltante': lus_restante,
+    return {'project': project, 'sprint': sprint, 'ideal': lh_ideal, 'real': lh_real, 'us_faltante': lus_restante,
            'us_terminado': lus_completado}
-    return render(request, 'project/highchart.html', ctx)
