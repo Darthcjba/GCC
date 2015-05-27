@@ -1,14 +1,10 @@
 from datetime import timedelta
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
-from django.forms.models import modelform_factory
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views import generic
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from guardian.admin import *;
 from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint
 from random import randint
 from project.views import GlobalPermissionRequiredMixin
@@ -71,7 +67,7 @@ def generarNotas(request, sprint_pk):
             nota.horas_registradas = randint(0, m + 3)
             nota.estado = 4 if randint(0, 100) > 90 else 2
             nota.save(force_insert=True)
-    return redirect(reverse('project:sprint_burndown', kwargs={'pk': sprint.id}))
+    return redirect(reverse_lazy('project:sprint_burndown', kwargs={'pk': sprint.id}))
 
 
 def get_sprint_burndown(sprint):
