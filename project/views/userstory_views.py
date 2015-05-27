@@ -310,6 +310,39 @@ class DeleteUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
 
 
+class CancelUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
+    """
+    Vista cancelacion de User Stories
+    """
+    model = UserStory
+    template_name = 'project/userstory/userstory_cancel.html'
+    context_object_name = 'userstory'
+    permission_required = 'project.cancelar_userstory'
+    action = ''
+
+    def get_context_data(self, **kwargs):
+        context = super(CancelUserStory, self).get_context_data(**kwargs)
+        context['action'] = self.action
+        return context
+    def get_permission_object(self):
+        return self.get_object().proyecto
+    def get_succes_url(self):
+        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+    def dispatch(self, request, *args, **kwargs):
+        return super(CancelUserStory, self).dispatch(request,*args, **kwargs)
+
+    def post(self,request,*args, **kwargs):
+        us= self.get_object()
+        if self.action == 'cancelar':
+            us.estado = 4
+
+        us.save()
+        return HttpResponseRedirect(self.get_succes_url())
+
+
+
+
+
 class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
     """
     Vista de Aprobación o rechazo de User Stories

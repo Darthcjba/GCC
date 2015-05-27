@@ -47,6 +47,9 @@
                                 class="fa fa-pencil fa-fw"></i></a>{% endif %}
                         {% if "remove_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_delete' u.id %}"><i
                                 class="fa fa-trash-o fa-fw"></i></a>{% endif %}
+                        {% if u.estado != 4  and u.estado != 3%}
+                        {% if "cancelar_userstory" in proyecto_perms %}<a href="{% url 'project:userstory_cancelar' u.id %}"><i class="fa fa-times"></i></a> {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

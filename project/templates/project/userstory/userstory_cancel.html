@@ -1,0 +1,14 @@
+{% extends 'project/base.html' %}
+{% block title %}{{ action | title }} User Story{% endblock %}
+
+{% block header %}{{ userstory.nombre }} {% endblock %}
+{% block content %}
+<form action="" method="post" role="form">
+    {% csrf_token %}
+    <div class="form-group">
+        <p>Seguro de que desea <strong>{{ action }}</strong> el User Story <strong>{{ object }}</strong>?</p>
+    </div>
+
+    <input type="submit" value="{{ action | title }}" class="btn btn-default"/>
+</form>
+{% endblock %}

@@ -55,6 +55,7 @@ class Proyecto(models.Model):
             ('prioritize_userstory', 'asignar prioridad a userstories'),
             ('registraractividad_userstory', 'registrar avances en userstories'),
             ('aprobar_userstory', 'aprobar userstories completados'),
+            ('cancelar_userstory', 'cancela userstories completados'),
 
             #TODO: Hace falta definir permisos para Notas y Adjuntos?
         )
@@ -176,7 +177,7 @@ class UserStory(models.Model):
     funcionalidad desde la perspectiva del cliente que debe realizar el sistema.
     """
     estado_actividad_choices = ((0, 'ToDo'), (1, 'Doing'), (2, 'Done'), )
-    estado_choices = ((0, 'Inactivo'), (1, 'En curso'), (2, 'Pendiente Aprobacion'), (3, 'Aprobado'), )
+    estado_choices = ((0, 'Inactivo'), (1, 'En curso'), (2, 'Pendiente Aprobacion'), (3, 'Aprobado'), (4,'Cancelado'),)
     priority_choices = ((0, 'Baja'), (1, 'Media'), (2, 'Alta'))
     nombre = models.CharField(max_length=60)
     descripcion = models.TextField()

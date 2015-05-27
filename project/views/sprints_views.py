@@ -245,7 +245,7 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                         new_flujo = subform.cleaned_data['flujo']
                         self.flujo = new_flujo
                         new_desarrollador = subform.cleaned_data['desarrollador']
-                        if new_userStory.estado!=3: #si el user story no ha finalizado
+                        if new_userStory.estado!=3 and new_userStory.estado!=4: #si el user story no ha finalizado
                             new_userStory.desarrollador = new_desarrollador
                             new_userStory.sprint = self.object
                             new_userStory.actividad = self.flujo.actividad_set.first()
