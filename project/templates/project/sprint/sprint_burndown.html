@@ -1,0 +1,159 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+{% block extrahead %}
+    <script src="{% static 'js/highcharts/highcharts.js' %}"></script>
+    <script src="{% static 'js/highcharts/exporting.js' %}"></script>
+{#    <script type="text/javascript" src="{% static 'js/highcharts/themes/sand-signika.js' %}"></script>#}
+{% endblock %}
+
+{% block header %}Burndown Chart - {{ sprint.proyecto.nombre_corto }} - {{ sprint.nombre }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-clock-o"></i> {{ sprint }}</h3>
+                </div>
+                <div class="panel-body">
+                    <p><strong>Inicio: </strong>{{ sprint.inicio|date }}</p>
+
+                    <p><strong>Fin: </strong>{{ sprint.fin|date }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <a href="{% url 'project:generate' sprint.id %}" class="btn">Generar Notas</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div id="container" style="width:100%; height:400px;"></div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function () {
+            $('#container').highcharts({
+                credits: false,
+                exporting: {
+                    filename: '{{ sprint.nombre }}-bdchart',
+                    buttons: {
+                        contextButton: {
+                            text: 'Exportar a',
+                            menuItems: [{
+                                text: 'PNG',
+                                onclick: function () {
+                                    this.exportChart();
+                                }
+                            }, {
+                                text: 'JPEG',
+                                onclick: function () {
+                                    this.exportChart({
+                                        type: 'image/jpeg'
+                                    });
+                                }
+                            }, {
+                                text: 'PDF',
+                                onclick: function () {
+                                    this.exportChart({
+                                        type: 'application/pdf'
+                                    });
+                                }
+                            }, {
+                                text: 'SVG',
+                                onclick: function () {
+                                    this.exportChart({
+                                        type: 'image/svg+xml'
+                                    });
+                                }
+                            }]
+                        }
+                    }
+                },
+                chart: {
+                    zoomType: 'xy'
+                },
+                title: {
+                    text: 'Burndown Chart'
+                },
+                subtitle: {
+                    text: '{{ sprint.nombre }}'
+                },
+                xAxis: [{
+                    categories: [{% for d in ideal %}'Día {{ forloop.counter0 }}',{% endfor %}],
+                    crosshair: true
+                }],
+                yAxis: [{ // Primary yAxis
+                    min: 0,
+                    labels: {
+                        format: '{value} hs'
+                    },
+                    title: {
+                        text: 'Esfuerzo Restante'
+                    }
+                }, { // Secondary yAxis
+                    title: {
+                        text: 'User Stories completos y restantes'
+                    },
+                    labels: {
+                        format: '{value} US'
+                    },
+                    opposite: true
+                }],
+                tooltip: {
+                    shared: true
+                },
+                series: [{
+                    name: 'User Stories Completados',
+                    type: 'column',
+                    yAxis: 1,
+                    data: {{ us_terminado }},
+                    tooltip: {
+                        valueSuffix: ' US'
+                    }
+                }, {
+                    name: 'User Stories Faltantes',
+                    type: 'line',
+                    yAxis: 1,
+                    data: {{ us_faltante }},
+                    tooltip: {
+                        valueSuffix: ' US'
+                    },
+                    marker:{
+                        enabled: false
+                    }
+                }, {
+                    name: 'Burndown Ideal',
+                    type: 'spline',
+                    data: {{ ideal }},
+                    tooltip: {
+                        valueSuffix: ' hs'
+                    },
+                    marker:{
+                        enabled: false
+                    }
+                }, {
+                    name: 'Burndown Real',
+                    type: 'line',
+                    data: {{ real }},
+                    marker:{
+                      symbol: 'circle'
+                    },
+                    tooltip: {
+                        valueSuffix: ' hs'
+                    }
+                }]
+            });
+        });
+    </script>
+{% endblock %}

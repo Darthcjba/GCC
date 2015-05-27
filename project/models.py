@@ -3,7 +3,7 @@ from base64 import b64encode
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.db.models.signals import m2m_changed, post_save
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
@@ -65,6 +65,12 @@ class Proyecto(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('project:project_detail', args=[self.pk])
+
+    def get_horas_estimadas(self):
+        return self.userstory_set.aggregate(total=Sum('tiempo_estimado'))['total']
+
+    def get_horas_trabajadas(self):
+        return self.userstory_set.aggregate(total=Sum('tiempo_registrado'))['total']
 
     def clean(self):
         try:
@@ -242,17 +248,19 @@ class Nota(models.Model):
     Manejo de notas adjuntas relacionadas a un User Story, estás entradas representan
     constancias de los cambios, como cantidad de horas trabajadas, en un user story.
     """
+    estado_choices = ((0, 'Inactivo'), (1, 'En curso'), (2, 'Pendiente Aprobacion'), (3, 'Aprobado'), )
     mensaje = models.TextField(help_text='Mensaje de descripcion de los avances')
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateTimeField(default=timezone.now)
     horas_registradas = models.IntegerField(default=0)
     desarrollador = models.ForeignKey(User, null=True)
     sprint = models.ForeignKey(Sprint, null=True)
     actividad = models.ForeignKey(Actividad, null=True)
+    estado = models.IntegerField(choices=estado_choices, default=0)
     estado_actividad = models.IntegerField(choices=UserStory.estado_actividad_choices, null=True)
     user_story = models.ForeignKey(UserStory)
 
     def __unicode__(self):
-        return '{}({}): {}'.format(self.desarrollador, self.fecha, self.mensaje)
+        return '{}({}): {}'.format(self.desarrollador, self.fecha, self.horas_registradas)
 
 
 class Adjunto(models.Model):

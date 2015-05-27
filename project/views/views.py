@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
-from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto
+from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint
+from random import randint
 
 
 class GlobalPermissionRequiredMixin(PermissionRequiredMixin):
