@@ -6,7 +6,7 @@
 {#    <script type="text/javascript" src="{% static 'js/highcharts/themes/sand-signika.js' %}"></script>#}
 {% endblock %}
 
-{% block header %}Burndown Chart - {{ project.nombre_corto }} - {{ sprint.nombre }}{% endblock %}
+{% block header %}Burndown Chart - {{ sprint.proyecto.nombre_corto }} - {{ sprint.nombre }}{% endblock %}
 
 {% block content %}
     <div class="row">
