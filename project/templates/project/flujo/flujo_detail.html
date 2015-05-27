@@ -18,14 +18,15 @@
             <li {% if s.id == sprint.id %}class="active"{% endif %}><a href="{% url 'project:flujo_detail_sprint' flujo.id s.id %}">{{ s }}</a></li>
         {% endfor %}
     </ul>
-    <p ><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
-    <p><strong>Tiempo Registrado:</strong>{{ time }} horas</p>
+    <p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
+    <p><strong>Tiempo Registrado:</strong>{{ registrado|default_if_none:"0" }} horas</p>
+    <p><strong>Tiempo Estimado: </strong>{{ estimado|default_if_none:"0" }} horas</p>
 
 {% endblock %}
 
 {% block thead %}
     {% for a in flujo.actividad_set.all %}
-        <th class="text-center">{{ a }}</th>
+        <th class="text-center">{{ a }} <span class="badge">{{ a.userstory_set.count }}</span> </th>
     {% endfor %}
 {% endblock %}
 

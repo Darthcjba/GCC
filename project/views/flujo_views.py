@@ -53,7 +53,6 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         '''
         return self.get_object().proyecto
 
-
     def get_context_data(self, **kwargs):
         """
         Agregar lista de actividades al contexto
@@ -62,8 +61,9 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         """
         context = super(FlujoDetail, self).get_context_data(**kwargs)
         context['act_us'] = [a.userstory_set.order_by('-prioridad') for a in self.object.actividad_set.all()]
-        time=UserStory.objects.filter(proyecto=self.object.proyecto).aggregate(Sum('tiempo_registrado'))
-        context['time']= time['tiempo_registrado__sum']
+        us = self.object.proyecto.userstory_set.filter(actividad__flujo=self.object) #User Stories del Flujo
+        time = us.aggregate(registrado=Sum('tiempo_registrado'), estimado=Sum('tiempo_estimado')) #Aggregate retorna None en vez de 0
+        context.update(time)
         return context
 
 
@@ -80,8 +80,9 @@ class FlujoDetailSprint(FlujoDetail):
         context = super(generic.DetailView, self).get_context_data(**kwargs)
         context['sprint'] = self.sprint
         context['act_us'] = [a.userstory_set.filter(sprint=self.sprint).order_by('-prioridad') for a in self.object.actividad_set.all()]
-        time=UserStory.objects.filter(proyecto=self.object.proyecto).filter(sprint=self.sprint).aggregate(Sum('tiempo_registrado'))
-        context['time']= time['tiempo_registrado__sum']
+        us = self.object.proyecto.userstory_set.filter(actividad__flujo=self.object, sprint=self.sprint) #User Stories del Flujo
+        time = us.aggregate(registrado=Sum('tiempo_registrado'), estimado=Sum('tiempo_estimado'))
+        context.update(time)
         return context
 
 
