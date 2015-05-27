@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'guardian',
     'django.contrib.admindocs',
     'bootstrap3',
-    #'debug_toolbar',
+    'debug_toolbar',
     'reversion',
 )
 
