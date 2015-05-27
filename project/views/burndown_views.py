@@ -19,7 +19,7 @@ class SprintBurndown(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.
     Vista del burndown chart
     """
     model = Sprint
-    template_name = 'project/highchart.html'
+    template_name = 'project/sprint/sprint_burndown.html'
     permission_required = 'project.view_project'
 
     def get_permission_object(self):
