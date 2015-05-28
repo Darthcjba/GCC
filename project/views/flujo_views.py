@@ -60,6 +60,7 @@ class FlujoDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Det
         :return: contexto
         """
         context = super(FlujoDetail, self).get_context_data(**kwargs)
+        context['actividades'] = [[a, a.userstory_set.count()]for a in self.object.actividad_set.all()]
         context['act_us'] = [a.userstory_set.order_by('-prioridad') for a in self.object.actividad_set.all()]
         us = self.object.proyecto.userstory_set.filter(actividad__flujo=self.object) #User Stories del Flujo
         time = us.aggregate(registrado=Sum('tiempo_registrado'), estimado=Sum('tiempo_estimado')) #Aggregate retorna None en vez de 0
@@ -78,6 +79,7 @@ class FlujoDetailSprint(FlujoDetail):
         """
         self.sprint = get_object_or_404(UserStory, pk=self.kwargs['sprint_pk'])
         context = super(generic.DetailView, self).get_context_data(**kwargs)
+        context['actividades'] = [[a, a.userstory_set.filter(sprint=self.sprint).count()] for a in self.object.actividad_set.all()]
         context['sprint'] = self.sprint
         context['act_us'] = [a.userstory_set.filter(sprint=self.sprint).order_by('-prioridad') for a in self.object.actividad_set.all()]
         us = self.object.proyecto.userstory_set.filter(actividad__flujo=self.object, sprint=self.sprint) #User Stories del Flujo
