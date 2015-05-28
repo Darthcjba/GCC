@@ -197,7 +197,8 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
     model = UserStory
     template_name = 'project/userstory/userstory_registraractividad_form.html'
     error_template = 'project/userstory/userstory_error.html'
-    NoteFormset = modelformset_factory(Nota, fields=('mensaje',), extra=1)
+    #TODO: quitar fecha del formset. solo para debug
+    NoteFormset = modelformset_factory(Nota, fields=('mensaje', 'fecha'), extra=1)
 
     def get_context_data(self, **kwargs):
         context = super(RegistrarActividadUserStory, self).get_context_data(**kwargs)
@@ -274,10 +275,12 @@ class RegistrarActividadUserStory(LoginRequiredMixin, generic.UpdateView):
         if nota_form.is_valid():
             for f in nota_form.forms:
                 n = f.save(commit=False)
-                n.horas_registradas = form.cleaned_data['horas_a_registrar']
-                n.desarrollador = self.object.desarrollador
+                n.horas_a_registrar = form.cleaned_data['horas_a_registrar']
+                n.tiempo_registrado = self.object.tiempo_registrado
+                n.desarrollador = self.request.user
                 n.sprint = self.object.sprint
                 n.actividad = self.object.actividad
+                n.estado = self.object.estado
                 n.estado_actividad = self.object.estado_actividad
                 n.user_story = self.object
                 n.save()
@@ -324,10 +327,13 @@ class CancelUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleO
         context = super(CancelUserStory, self).get_context_data(**kwargs)
         context['action'] = self.action
         return context
+
     def get_permission_object(self):
         return self.get_object().proyecto
-    def get_succes_url(self):
+
+    def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+
     def dispatch(self, request, *args, **kwargs):
         return super(CancelUserStory, self).dispatch(request,*args, **kwargs)
 
@@ -338,9 +344,6 @@ class CancelUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleO
 
         us.save()
         return HttpResponseRedirect(self.get_succes_url())
-
-
-
 
 
 class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
@@ -372,22 +375,30 @@ class ApproveUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, Single
 
     def post(self, request, *args, **kwargs):
         us = self.get_object()
+        user = self.request.user
         if self.action == 'aprobar':
             us.estado = 3 #Aprobado
+            action = "aprobado"
         elif self.action == 'rechazar':
             us.estado = 1 #Vuelve al estado en desarrollo
             us.estado_actividad = 0 #Vuelve al estado de actividad To Do
+            action = "aprobado"
             #TODO Logica de eleccion de nueva ubicacion de User Story
+
         us.save()
-        self.notify(us)
+        msg = "User Story {} por {}".format(action, user)
+        nota = Nota(desarrollador=user, sprint=us.sprint, tiempo_registrado=us.tiempo_registrado, actividad=us.actividad,
+                    estado=us.estado, estado_actividad=us.estado_actividad, user_story=us, mensaje=msg)
+        nota.save()
+        self.notify(us, user, action)
         return HttpResponseRedirect(self.get_success_url())
 
-    def notify(self, user_story):
+    def notify(self, user_story, user, action):
         proyecto = user_story.proyecto
-        subject = 'Se ha aprobado el User Story: {} - {}'.format(user_story, proyecto)
+        subject = 'Se ha {} el User Story: {} - {}'.format(action, user_story, proyecto)
         domain = get_current_site(self.request).domain
         message = render_to_string('mail/approved_email.html',
-                                   {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'u': self.request.user})
+                                   {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'u': user, 'act': action})
         recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
         if user_story.desarrollador and user_story.desarrollador.email not in recipients:
             recipients.append(user_story.desarrollador.email)
