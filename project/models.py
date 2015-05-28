@@ -251,7 +251,8 @@ class Nota(models.Model):
     estado_choices = ((0, 'Inactivo'), (1, 'En curso'), (2, 'Pendiente Aprobacion'), (3, 'Aprobado'), )
     mensaje = models.TextField(help_text='Mensaje de descripcion de los avances')
     fecha = models.DateTimeField(default=timezone.now)
-    horas_registradas = models.IntegerField(default=0)
+    tiempo_registrado = models.IntegerField(default=0)
+    horas_a_registrar = models.IntegerField(default=0)
     desarrollador = models.ForeignKey(User, null=True)
     sprint = models.ForeignKey(Sprint, null=True)
     actividad = models.ForeignKey(Actividad, null=True)
@@ -260,7 +261,7 @@ class Nota(models.Model):
     user_story = models.ForeignKey(UserStory)
 
     def __unicode__(self):
-        return '{}({}): {}'.format(self.desarrollador, self.fecha, self.horas_registradas)
+        return '{}({}): {}'.format(self.desarrollador, self.fecha, self.horas_a_registrar)
 
 
 class Adjunto(models.Model):
