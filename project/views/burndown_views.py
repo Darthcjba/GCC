@@ -55,17 +55,17 @@ def generarNotas(request, sprint_pk):
     sprint.nota_set.all().delete()
     m = total / dias
     for dt in range(0, dias + 1):
-        nota = Nota(user_story=us, desarrollador=us.desarrollador, sprint=sprint)
+        nota = Nota(user_story=us, desarrollador=us.desarrollador, sprint=sprint, actividad=us.actividad)
         d = ini + timedelta(dt)
         nota.fecha = d
-        nota.horas_registradas = randint(0, m + 2)
+        nota.horas_a_registrar = randint(0, m + 2)
         nota.estado = 4 if randint(0, 100) > 90 else 2
         nota.save(force_insert=True)
         while (randint(0, 100) > 60):
-            nota = Nota(user_story=us, desarrollador=us.desarrollador, sprint=sprint)
+            nota = Nota(user_story=us, desarrollador=us.desarrollador, sprint=sprint, actividad=us.actividad)
             nota.fecha = d
-            nota.horas_registradas = randint(0, m + 3)
-            nota.estado = 4 if randint(0, 100) > 90 else 2
+            nota.horas_a_registrar = randint(0, m + 3)
+            nota.estado = 3 if randint(0, 100) > 90 else 2 # Simular un User Story terminado
             nota.save(force_insert=True)
     return redirect(reverse_lazy('project:sprint_burndown', kwargs={'pk': sprint.id}))
 
@@ -82,12 +82,14 @@ def get_sprint_burndown(sprint):
     # TODO: si todavia no termino el sprint, se muestra hasta hoy o hasta el fin de sprint?
     today = timezone.now()
     fin = today if today < sprint.fin else sprint.fin
+    db_hwork = [0]
     for dia in daterange(sprint.inicio, sprint.fin):
         notas = sprint.nota_set.filter(fecha__year=dia.year, fecha__month=dia.month, fecha__day=dia.day)
-        completados = notas.filter(estado=4).count()  # User Stories terminados en el dia
-        hwork = notas.aggregate(sum=Sum('horas_registradas'))['sum']  # Total de horas registradas en el dia
+        completados = notas.filter(estado=3).count()  # User Stories terminados en el dia
+        hwork = notas.aggregate(sum=Sum('horas_a_registrar'))['sum']  # Total de horas registradas en el dia
         hwork = hwork if hwork else 0  # Por si aggregate devuelve None
         # TODO: controlar si se registran mas horas de lo estimado
+        db_hwork.append(hwork)
         h_restante -= hwork if h_restante >= hwork else 0  # Si se terminan las horas antes del fin
         h_total -= m
         us_restante -= completados
@@ -96,5 +98,4 @@ def get_sprint_burndown(sprint):
         lus_restante.append(us_restante if us_restante > 0 else 0)
         lus_completado.append(completados)
 
-    return {'ideal': lh_ideal, 'real': lh_real, 'us_faltante': lus_restante,
-            'us_terminado': lus_completado}
+    return {'ideal': lh_ideal, 'real': lh_real, 'us_faltante': lus_restante, 'us_terminado': lus_completado, 'db_hwork': db_hwork}
