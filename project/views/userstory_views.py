@@ -388,16 +388,9 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
     def post(self, request, *args, **kwargs):
         us = self.get_object()
         user = self.request.user
-        if self.action == 'aprobar':
-            us.estado = 3 #Aprobado
-            action = "aprobado"
-        elif self.action == 'rechazar':
-            us.estado = 1 #Vuelve al estado en desarrollo
-            us.estado_actividad = 0 #Vuelve al estado de actividad To Do
-            action = "aprobado"
-            #TODO Logica de eleccion de nueva ubicacion de User Story
 
         us.estado = 3  # Aprobado
+        action = "aprobado"
         # comprobamos si quedan User Stories en el proyecto para marcarlo como completado
         p = us.proyecto
         us_count = p.userstory_set.all().count()
