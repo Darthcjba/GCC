@@ -137,6 +137,12 @@ class AddSprintBaseForm(forms.ModelForm):
                         raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha actual '})
                 if sprint.exists():
                     raise ValidationError({'inicio': 'Durante este tiempo existe  ' + str(sprint[0].nombre)})
+                if inicio.date() < proyecto.inicio.date():
+                    raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha inicio del proyecto'})
+                if inicio.date()>=  proyecto.fin.date():
+                    raise ValidationError({'inicio': 'Fecha inicio debe ser menor a la fecha fin del proyecto'})
+                if fin.date() > proyecto.fin.date():
+                    raise ValidationError({'inicio': 'Terminacion del esprint supera fecha fin del proyecto'})
             except TypeError:
                 pass
 
