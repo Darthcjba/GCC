@@ -131,11 +131,10 @@ class AddSprintBaseForm(forms.ModelForm):
             fin = inicio + datetime.timedelta(days=proyecto.duracion_sprint)
             today = timezone.now().date()
             sprint = proyecto.sprint_set.filter(inicio__lte=fin, fin__gte=inicio).exclude(pk=self.instance.pk)
-            # sprint2 = proyecto.sprint_set.get(inicio__lte=fin , fin__gte=inicio)
             try:
                 if inicio.date() < today:
-                    # if inicio != sprint2.inicio:
-                    raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha actual '})
+                    if inicio != self.instance.inicio:
+                        raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha actual '})
                 if sprint.exists():
                     raise ValidationError({'inicio': 'Durante este tiempo existe  ' + str(sprint[0].nombre)})
             except TypeError:
