@@ -118,8 +118,6 @@ class AddSprintBaseForm(forms.ModelForm):
         model= Sprint
         fields = ['nombre', 'inicio', 'proyecto']
 
-
-
     def clean(self):
         """
         Chequea que  las fechas  de los Sprints no se solapen
@@ -127,20 +125,21 @@ class AddSprintBaseForm(forms.ModelForm):
         if any(self.errors):
             return
 
-        if 'inicio' and 'proyecto' in self.cleaned_data :
-                inicio= self.cleaned_data['inicio']
-                proyecto= self.cleaned_data['proyecto']
-                fin = inicio + datetime.timedelta(days= proyecto.duracion_sprint)
-                sprint = proyecto.sprint_set.filter(inicio__lte=fin , fin__gte=inicio).exclude(pk=self.instance.pk)
-                sprint2=proyecto.sprint_set.get(inicio__lte=fin , fin__gte=inicio)
-                try:
-                    if inicio.date() < timezone.now().date():
-                        if inicio != sprint2.inicio:
-                            raise ValidationError({'inicio': 'Fecha inicio debe  ser mayor o igual a la fecha actual '})
-                    if sprint.exists():
-                        raise ValidationError({'inicio':'Durante este tiempo existe  ' + str(sprint[0].nombre)})
-                except TypeError:
-                    pass
+        if 'inicio' and 'proyecto' in self.cleaned_data:
+            inicio = self.cleaned_data['inicio']
+            proyecto = self.cleaned_data['proyecto']
+            fin = inicio + datetime.timedelta(days=proyecto.duracion_sprint)
+            today = timezone.now().date()
+            sprint = proyecto.sprint_set.filter(inicio__lte=fin, fin__gte=inicio).exclude(pk=self.instance.pk)
+            # sprint2 = proyecto.sprint_set.get(inicio__lte=fin , fin__gte=inicio)
+            try:
+                if inicio.date() < today:
+                    # if inicio != sprint2.inicio:
+                    raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha actual '})
+                if sprint.exists():
+                    raise ValidationError({'inicio': 'Durante este tiempo existe  ' + str(sprint[0].nombre)})
+            except TypeError:
+                pass
 
 
 class AddToSprintForm(forms.Form):
@@ -150,8 +149,6 @@ class AddToSprintForm(forms.Form):
     userStory =forms.ModelChoiceField(queryset=UserStory.objects.all())
     desarrollador=forms.ModelChoiceField(queryset=User.objects.all())
     flujo = forms.ModelChoiceField(queryset=Flujo.objects.all())
-
-
 
 
 class AddToSprintFormset(BaseFormSet):
