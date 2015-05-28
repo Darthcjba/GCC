@@ -9,6 +9,7 @@
 {% block thead %}
     <tr>
         <th>Fecha</th>
+        <th>Tiempo Trabajado</th>
         <th>Mensaje</th>
         <th>Desarrollador</th>
         <th>Ver</th>
@@ -18,6 +19,7 @@
     {% for n in notas %}
     <tr>
         <td>{{ n.fecha }}</td>
+        <td>{{ n.horas_a_registrar }}</td>
         <td>{{ n.mensaje|truncatechars:20 }}</td>
         <td>{{ n.desarrollador }}</td>
         <td><a href="{% url 'project:nota_detail' n.id %}"><i class="fa fa-eye"></i></a></td>

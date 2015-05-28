@@ -3,7 +3,7 @@
 {% block header %}{{ nota.user_story }}{% endblock %}
 
 {% block content %}
-    <p><strong>Proyecto Asociado: </strong><a href="{% url 'project:project_detail' nota.user_story_id %}">{{ nota.user_story.proyecto }}</a></p>
+    <p><strong>Proyecto Asociado: </strong><a href="{{ nota.user_story.proyecto.get_absolute_url }}">{{ nota.user_story.proyecto }}</a></p>
     <div class="row">
         <div class="col-lg-4">
             <div class="panel panel-primary">
@@ -11,14 +11,15 @@
                     Avance
                 </div>
                 <div class="panel-body">
-                    <p><strong>Desarrollador: </strong><a href="{% url 'project:user_detail' nota.desarrollador_id %}">{{ nota.desarrollador }}</a></p>
-                    <p><strong>Fecha: </strong>{{ nota.fecha|date }}</p>
-                    <p><strong>Hora: </strong>{{ nota.fecha|time }}</p>
-                    <p><strong>Tiempo registrado: </strong>{{ nota.horas_registradas }}</p>
+                    <p><strong>Desarrollador:</strong><a href="{% url 'project:user_detail' nota.desarrollador_id %}"> {{ nota.desarrollador }}</a></p>
+                    <p><strong>Fecha:</strong> {{ nota.fecha|date }}</p>
+                    <p><strong>Hora:</strong> {{ nota.fecha|time }}</p>
+                    <p><strong>Estado de User Story: </strong>{{ nota.get_estado_display }}</p>
+                    <p><strong>Tiempo trabajado:</strong> {{ nota.horas_a_registrar }}</p>
+                    <p><strong>Tiempo registrado hasta la fecha:</strong> {{ nota.tiempo_registrado }}</p>
                     <p><strong>Sprint: </strong><a href="{% url 'project:sprint_detail' nota.sprint_id %}">{{ nota.sprint }}</a></p>
                     <p><strong>Flujo: </strong><a href="{% url 'project:flujo_detail' nota.actividad.flujo_id %}">{{ nota.actividad.flujo }}</a></p>
-                    <p><strong>Actividad: </strong>{{ nota.actividad }}</p>
-                    <p><strong>Estado: </strong>{{ nota.get_estado_actividad_display }}</p>
+                    <p><strong>Actividad: </strong>{{ nota.actividad }} | {{ nota.get_estado_actividad_display }}</p>
                </div>
             </div>
         </div>

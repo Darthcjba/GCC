@@ -30,7 +30,8 @@
                     <p><strong>Desarrollador: </strong>{{ nota.desarrollador }}</p>
                     <p><strong>Fecha: </strong>{{ nota.fecha|date }}</p>
                     <p><strong>Hora: </strong>{{ nota.fecha|time }}</p>
-                    <p><strong>Tiempo registrado: </strong>{{ nota.horas_registradas }}</p>
+                    <p><strong>Tiempo trabajado:</strong> {{ nota.horas_a_registrar }}</p>
+                    <p><strong>Tiempo registrado hasta la fecha:</strong> {{ nota.tiempo_registrado }}</p>
                     <p><strong>Sprint: </strong>{{ nota.sprint }}</p>
                     <p><strong>Flujo: </strong>{{ nota.actividad.flujo }}</p>
                     <p><strong>Actividad: </strong>{{ nota.actividad }}</p>

@@ -132,9 +132,15 @@
                     marker:{
                         enabled: false
                     }
-                }, {
+                },
+{#                    {#}
+{#                    name: 'DB Hwork',#}
+{#                    type: 'line',#}
+{#                    data: {{ db_hwork }},#}
+{#                }, #}
+                    {
                     name: 'Burndown Ideal',
-                    type: 'spline',
+                    type: 'line',
                     data: {{ ideal }},
                     tooltip: {
                         valueSuffix: ' hs'
