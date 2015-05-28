@@ -7,7 +7,7 @@
 <form action="" method="post" role="form">
     {% csrf_token %}
     <div class="form-group">
-        <p>Indique dónde reubicar el User Story <strong>{{ object }}</strong> a continuación, o si desea haga clic <a href="#">aquí</a> para cancelarlo.</p>
+        <p>Indique dónde reubicar el User Story <strong>{{ object }}</strong> a continuación, o si desea haga clic <a href="{% url 'project:userstory_cancelar' object.id %}">aquí</a> para cancelarlo.</p>
     </div>
     {% bootstrap_form form layout='horizontal' %}
     <input type="submit" value="Rechazar" class="btn btn-default"/>

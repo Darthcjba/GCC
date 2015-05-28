@@ -358,7 +358,7 @@ class CancelUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleO
             us.estado = 4
 
         us.save()
-        return HttpResponseRedirect(self.get_succes_url())
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):

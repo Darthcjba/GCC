@@ -250,7 +250,7 @@ class Nota(models.Model):
     constancias de los cambios, como cantidad de horas trabajadas, en un user story.
     """
     estado_choices = ((0, 'Inactivo'), (1, 'En curso'), (2, 'Pendiente Aprobacion'), (3, 'Aprobado'), )
-    mensaje = models.TextField(help_text='Mensaje de descripcion de los avances')
+    mensaje = models.TextField(help_text='Mensaje de descripcion de los avances', null=True, blank=True)
     fecha = models.DateTimeField(default=timezone.now)
     tiempo_registrado = models.IntegerField(default=0)
     horas_a_registrar = models.IntegerField(default=0)
