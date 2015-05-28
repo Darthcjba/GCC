@@ -12,13 +12,12 @@ from django.forms.models import inlineformset_factory
 import datetime
 
 def __general_perms_list__():
-    '''
-
+    """
+    Devuelve una lista de permisos generales
     :return: lista con los permisos que pueden asignarse a nivel general
     :rtype: list
-    '''
+    """
     permlist = []
-
     permlist.append(Permission.objects.get(codename="list_all_projects"))
     permlist.append(Permission.objects.get(codename="add_flow_template"))
     permlist.append(Permission.objects.get(codename="change_flow_template"))
@@ -35,9 +34,9 @@ def __user_and_group_permissions__():
     return perms
 
 class UserCreateForm(UserCreationForm):
-    '''
+    """
     Formulario para la creación de usuarios
-    '''
+    """
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
@@ -51,9 +50,9 @@ class UserCreateForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'email', 'username']
 
 class UserEditForm(UserChangeForm):
-    '''
+    """
     Formulario para edición de usuarios
-    '''
+    """
 
     general_perms_list = [(perm.codename, perm.name) for perm in __general_perms_list__()]
     general_perms_list.extend(__user_and_group_permissions__())
@@ -64,7 +63,6 @@ class RolForm(forms.ModelForm):
     '''
     Formulario para el manejo de roles
     '''
-
 
     perms_proyecto_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'proyecto' in perm.codename]
     perms_userstories_list = [(perm.codename, perm.name) for perm in get_perms_for_model(Proyecto) if 'userstory' in perm.codename]
@@ -131,28 +129,24 @@ class AddSprintBaseForm(forms.ModelForm):
             fin = inicio + datetime.timedelta(days=proyecto.duracion_sprint)
             today = timezone.now().date()
             sprint = proyecto.sprint_set.filter(inicio__lte=fin, fin__gte=inicio).exclude(pk=self.instance.pk)
-            try:
-                if inicio.date() < today:
-                    if inicio != self.instance.inicio:
-                        raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha actual '})
-                if sprint.exists():
-                    raise ValidationError({'inicio': 'Durante este tiempo existe  ' + str(sprint[0].nombre)})
-                if inicio.date() < proyecto.inicio.date():
-                    raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha inicio del proyecto'})
-                if inicio.date()>=  proyecto.fin.date():
-                    raise ValidationError({'inicio': 'Fecha inicio debe ser menor a la fecha fin del proyecto'})
-                if fin.date() > proyecto.fin.date():
-                    raise ValidationError({'inicio': 'Terminacion del esprint supera fecha fin del proyecto'})
-            except TypeError:
-                pass
+            if (inicio.date() < today) & (inicio != self.instance.inicio):
+                raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha actual '})
+            if sprint.exists():
+                raise ValidationError({'inicio': 'Durante este tiempo existe  ' + str(sprint[0].nombre)})
+            if inicio.date() < proyecto.inicio.date():
+                raise ValidationError({'inicio': 'Fecha inicio debe ser mayor o igual a la fecha de inicio del proyecto'})
+            if inicio.date() >= proyecto.fin.date():
+                raise ValidationError({'inicio': 'Fecha inicio debe ser menor a la fecha de fin del proyecto'})
+            if fin.date() > proyecto.fin.date():
+                raise ValidationError({'inicio': 'Fin del sprint supera la fecha de fin del proyecto'})
 
 
 class AddToSprintForm(forms.Form):
     """
     formulario para la agregacion de userStory, desarrollador y flujo a un Sprint
     """
-    userStory =forms.ModelChoiceField(queryset=UserStory.objects.all())
-    desarrollador=forms.ModelChoiceField(queryset=User.objects.all())
+    userStory = forms.ModelChoiceField(queryset=UserStory.objects.all())
+    desarrollador = forms.ModelChoiceField(queryset=User.objects.all())
     flujo = forms.ModelChoiceField(queryset=Flujo.objects.all())
 
 
@@ -180,6 +174,7 @@ class FileUploadForm(forms.ModelForm):
     Formulario para adjuntar un archivo.
     """
     file = forms.FileField()
+
     class Meta:
         model = Adjunto
         fields = ['nombre', 'descripcion']
@@ -190,5 +185,6 @@ class RegistrarActividadForm(forms.ModelForm):
     Formulario para registrar actividad en un User Story
     '''
     horas_a_registrar = forms.IntegerField(min_value=0, error_messages={'required':'Ingrese cantidad de horas'}, initial=0)
+
     class Meta:
         model = UserStory
