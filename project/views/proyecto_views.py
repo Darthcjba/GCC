@@ -1,22 +1,26 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.urlresolvers import reverse_lazy
 from django.forms import CheckboxSelectMultiple
 from django.forms import inlineformset_factory
 from django.forms.extras import SelectDateWidget
 from django.forms.models import modelform_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
+from django.template.loader import render_to_string
 from django.views import generic
 from django.views.generic import DetailView
+from django.views.generic import detail
 from django.views.generic import ListView
+from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import remove_perm
 from guardian.shortcuts import get_perms
 from project.models import Proyecto
 from project.models import MiembroEquipo
-from project.views import GlobalPermissionRequiredMixin
+from project.views import GlobalPermissionRequiredMixin, ActiveProjectRequiredMixin
 from project.views import CreateViewPermissionRequiredMixin
 
 
@@ -101,7 +105,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                       context_instance=RequestContext(self.request))
 
 
-class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
+class ProjectUpdate(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     Permite la Edicion de Proyectos
     """
@@ -118,6 +122,8 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
                                            'descripcion'),
                                    )
 
+    def get_proyecto(self):
+        return self.get_object()
 
     def form_valid(self, form):
         '''
@@ -157,7 +163,7 @@ class ProjectUpdate(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
         return context
 
 
-class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
+class ProjectDelete(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DeleteView):
     """
     Vista para la cancelacion de proyectos
     """
@@ -165,6 +171,9 @@ class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.D
     template_name = 'project/proyecto/proyect_delete.html'
     success_url = reverse_lazy('project:project_list')
     permission_required = 'project.delete_proyecto'
+
+    def get_proyecto(self):
+        return self.get_object()
 
     def delete(self, request, *args, **kwargs):
         """
@@ -180,3 +189,46 @@ class ProjectDelete(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.D
             self.object.save(update_fields=['estado'])
         return HttpResponseRedirect(success_url)
 
+class ApproveProject(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
+    """
+    Vista de Aprobación o rechazo de User Stories
+    """
+    model = Proyecto
+    template_name = 'project/proyecto/project_approve.html'
+    permission_required = 'project.aprobar_proyecto'
+    context_object_name = 'proyecto'
+
+    def get_proyecto(self):
+        return self.get_object()
+
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.estado == 'CO':
+            return super(ApproveProject, self).dispatch(request, *args, **kwargs)
+        raise Http404
+
+    def get_success_url(self):
+        return reverse_lazy('project:project_detail', kwargs={'pk': self.get_object().id})
+
+    def post(self, request, *args, **kwargs):
+        p = self.get_object()
+        if self.request.POST.get('rechazar', '') == 'rechazar':
+            #TODO Exactamente qué hacer
+            pass
+            #p.estado = 'EP' #Vuelve al estado en desarrollo
+        elif self.request.POST.get('aprobar', '') == 'aprobar':
+            p.estado = 'AP' #Aprobado
+        p.save()
+        '''self.notify(p)'''
+        return HttpResponseRedirect(self.get_success_url())
+    '''
+    def notify(self, proyecto):
+        subject = 'Se ha aprobado el Proyecto: {}'.format(proyecto)
+        domain = get_current_site(self.request).domain
+        message = render_to_string('mail/approved_email.html',
+                                   {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'u': self.request.user})
+        recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        if user_story.desarrollador and user_story.desarrollador.email not in recipients:
+            recipients.append(user_story.desarrollador.email)
+        send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
+    '''

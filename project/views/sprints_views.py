@@ -11,7 +11,7 @@ from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import get_perms
 from project.forms import AddToSprintForm, AddToSprintFormset, AddSprintBaseForm
 from project.models import Sprint, Proyecto, Actividad, Flujo, UserStory
-from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin
+from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin, ActiveProjectRequiredMixin
 from django.views import generic
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -85,7 +85,7 @@ class SprintDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.De
 
 
 
-class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
+class AddSprintView(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.CreateView):
     """
     Vista para agregar un Sprint en el sistema y añadir este sprint, un desarrollador y una actividad al user Story
     """
@@ -100,13 +100,15 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
 
     proyecto = None
 
+    def get_proyecto(self):
+        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+
     def get_initial(self):
         """
         Datos iniciales para el formulario
         :return: diccionario de datos
         """
-        proyecto = get_object_or_404(Proyecto, id= self.kwargs['project_pk'])
-        initial={'proyecto': proyecto}
+        initial={'proyecto': self.get_proyecto()}
         return initial
     def get_permission_object(self):
         """
@@ -135,7 +137,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         :return: retorna el contexto
         """
         context = super(AddSprintView, self).get_context_data(**kwargs)
-        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        self.proyecto = self.get_proyecto()
         formset=self.formset(self.request.POST if self.request.method == 'POST' else None)
         self.__filtrar_formset__(formset)
         context['formset'] = formset
@@ -150,9 +152,12 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
         :return: vuelve a la pagina de detalle del sprint o renderea la pagina marcando los errores para volver a enviar sin errores
         """
 
-        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        self.proyecto = self.get_proyecto()
         self.object= form.save(commit=False)
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.proyecto.duracion_sprint)
+        if self.proyecto.estado == 'IN':
+            self.proyecto.estado = 'EP'
+            self.proyecto.save()
         self.object.save()
         formsetb= self.formset(self.request.POST)
         if formsetb.has_changed():
@@ -176,7 +181,7 @@ class AddSprintView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
             return HttpResponseRedirect(self.get_success_url())
 
 
-class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
+class UpdateSprintView(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
     Vista para actualizar los datos del Sprint y  del UserStory que son el desarrollador, la actividad y el Sprint
     """
@@ -188,6 +193,9 @@ class UpdateSprintView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generi
                                    fields={'nombre', 'inicio','proyecto'})
     UserStoryFormset = formset_factory(AddToSprintForm, formset=AddToSprintFormset, can_delete=True, extra=1)
     formset = None
+
+    def get_proyecto(self):
+        return self.get_object().proyecto
 
     def get_permission_object(self):
         """

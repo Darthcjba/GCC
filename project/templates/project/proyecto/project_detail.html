@@ -11,8 +11,8 @@
         {% if 'delete_proyecto' in proyecto_perms %}<li><a href="{% url 'project:project_delete' project.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
         <a href="{% url 'project:product_backlog' project.id %}"><i class="fa fa-file fa-fw"></i> Ver Product Backlog</a>
         {% if 'aprobar_userstory' in proyecto_perms %}
-            {% if approved_us == total_us %}
-                 <a href="#"><i class="fa fa-check-square fa-fw"></i> ¿Aprobar proyecto?</a>
+            {% if project.estado == 'CO' %}
+                 <a href="{% url 'project:project_aprobar' project.id %}"><i class="fa fa-check-square fa-fw"></i> ¿Aprobar proyecto?</a>
             {% else %}
                 <a href="{% url 'project:pending_userstories' project.id %}"><i class="fa fa-check-square fa-fw"></i> User Stories a Aprobar <span class="badge">{{ pending_us }}</span></a>
             {% endif %}
