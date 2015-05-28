@@ -400,10 +400,8 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
             p.estado = 'CO'
             p.save()
         us.save()
-        msg = "User Story {} por {}".format(action, user)
-        nota = Nota(desarrollador=user, sprint=us.sprint, tiempo_registrado=us.tiempo_registrado, actividad=us.actividad,
-                    estado=us.estado, estado_actividad=us.estado_actividad, user_story=us, mensaje=msg)
-        nota.save()
+
+        crearNota(us, user, "User Story {} por {}".format(action, user.get_full_name()))
         self.notify(us, user, action)
         return HttpResponseRedirect(self.get_success_url())
 
@@ -451,7 +449,22 @@ class RechazarUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.
         self.object = form.save(commit=False)
         self.object.estado = 1
         self.object.save()
+        action = "rechazado"
+        crearNota(self.object, self.request.user, "User Story {} por {}".format(action, self.request.user.get_full_name()))
+        self.notify(self.object, self.request.user, action)
         return HttpResponseRedirect(self.get_success_url())
+
+    #TODO: Hacer una funcion que envie notificaciones
+    def notify(self, user_story, user, action):
+        proyecto = user_story.proyecto
+        subject = 'Se ha {} el User Story: {} - {}'.format(action, user_story, proyecto)
+        domain = get_current_site(self.request).domain
+        message = render_to_string('mail/approved_email.html',
+                                   {'proyecto': proyecto, 'us': user_story, 'domain': domain, 'u': user, 'act': action})
+        recipients = [u.email for u in proyecto.equipo.all() if u.has_perm('project.aprobar_userstory', proyecto)]
+        if user_story.desarrollador and user_story.desarrollador.email not in recipients:
+            recipients.append(user_story.desarrollador.email)
+        send_mail(subject, message, 'projectium15@gamil.com', recipients, html_message=message)
 
 class VersionList(LoginRequiredMixin, generic.ListView):
     """
@@ -522,3 +535,8 @@ class UpdateVersion(UpdateUserStory):
             reversion.set_comment("Reversion: {}".format(str.join(', ', form.changed_data)))
 
         return HttpResponseRedirect(self.get_success_url())
+
+def crearNota(us, user, msg):
+    nota = Nota(desarrollador=user, sprint=us.sprint, tiempo_registrado=us.tiempo_registrado, actividad=us.actividad,
+                    estado=us.estado, estado_actividad=us.estado_actividad, user_story=us, mensaje=msg)
+    nota.save()

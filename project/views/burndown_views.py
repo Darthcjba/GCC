@@ -50,6 +50,7 @@ def generarNotas(request, sprint_pk):
     project = sprint.proyecto
     us = sprint.userstory_set.first()
     total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    total = total if total else 0
     dias = project.duracion_sprint
     ini = sprint.inicio
     sprint.nota_set.all().delete()
@@ -72,7 +73,8 @@ def generarNotas(request, sprint_pk):
 
 def get_sprint_burndown(sprint):
     project = sprint.proyecto
-    h_restante = h_total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']  # Horas estimadas de US
+    total = sprint.userstory_set.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    h_restante = h_total = total if total else 0 # Horas estimadas de US
     lh_real = [h_total]  # Lista de horas registradas
     lh_ideal = [h_total]  # Lista de horas reales
     m = float(h_total) / project.duracion_sprint  # Velocidad ideal
