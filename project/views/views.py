@@ -3,11 +3,13 @@ from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.core.exceptions import PermissionDenied
 from django.forms.models import modelform_factory
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import generic
+from django.views.generic.detail import SingleObjectMixin
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
 from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint
@@ -31,6 +33,18 @@ class CreateViewPermissionRequiredMixin(GlobalPermissionRequiredMixin):
     def get_object(self):
         return None
 
+
+class ActiveProjectRequiredMixin(object):
+    proyecto = None
+
+    def get_proyecto(self):
+        return self.proyecto
+
+    def dispatch(self, request, *args, **kwargs):
+        proyecto = self.get_proyecto()
+        if proyecto.estado != 'AP':
+            return super(ActiveProjectRequiredMixin, self).dispatch(request, *args, **kwargs)
+        raise PermissionDenied()
 
 @login_required()
 def home(request):
