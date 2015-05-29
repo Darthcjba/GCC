@@ -155,9 +155,8 @@ class AddSprintView(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPe
         self.proyecto = self.get_proyecto()
         self.object= form.save(commit=False)
         self.object.fin= self.object.inicio + datetime.timedelta(days=self.proyecto.duracion_sprint)
-        if self.proyecto.estado == 'IN':
-            self.proyecto.estado = 'EP'
-            self.proyecto.save()
+        self.proyecto.estado = 'EP'
+        self.proyecto.save()
         self.object.save()
         formsetb= self.formset(self.request.POST)
         if formsetb.has_changed():

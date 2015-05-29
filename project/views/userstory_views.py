@@ -111,9 +111,8 @@ class AddUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPer
         """
         self.object = form.save(commit=False)
         self.object.proyecto = self.get_proyecto()
-        if self.object.proyecto.estado == 'IN':
-            self.object.proyecto.estado = 'EP'
-            self.object.proyecto.save()
+        self.object.proyecto.estado = 'EP'
+        self.object.proyecto.save()
         with transaction.atomic(), reversion.create_revision():
             reversion.set_user(self.request.user)
             reversion.set_comment("Version Inicial")

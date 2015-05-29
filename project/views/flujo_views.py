@@ -134,9 +134,8 @@ class AddFlujo(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPermiss
         """
         self.object = form.save(commit=False)
         self.object.proyecto = self.get_proyecto()
-        if self.object.proyecto.estado == 'IN':
-            self.object.proyecto.estado = 'EP'
-            self.object.proyecto.save()
+        self.object.proyecto.estado = 'EP'
+        self.object.proyecto.save()
         self.object.save()
         actividad_form = ActividadFormSet(self.request.POST, instance=self.object)
         if actividad_form.is_valid():
@@ -249,9 +248,8 @@ class CreateFromPlantilla(ActiveProjectRequiredMixin, LoginRequiredMixin, Create
         acti_set = new_flujo.actividad_set.all()
         new_flujo.pk = None
         new_flujo.proyecto = proyecto
-        if proyecto.estado == 'IN':
-            proyecto.estado = 'EP'
-            proyecto.save()
+        proyecto.estado = 'EP'
+        proyecto.save()
         new_flujo.save()
         self.flujo = new_flujo
         for actividad in acti_set:
