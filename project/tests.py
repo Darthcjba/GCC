@@ -343,6 +343,51 @@ class ProjectTest(TestCase):
         response = c.get('/projects/1/')
         self.assertEquals(response.status_code, 404)
 
+    def test_approve_project(self):
+        c = self.client
+        login = c.login(username='temp', password='temp')
+        self.assertTrue(login)
+        #cremaos un proyecto
+        response = c.post('projects/add/', {'nombre_corto': 'test', 'nombre_largo': 'test_proyecto',
+                                            'descripcion': 'test', 'duracion_sprint': 30, 'inicio': timezone.now(),
+                                            'fin': timezone.now()}, follow=True)
+        p = Proyecto.objects.first()
+        p.estado = 'CO' #lo marcamos como terminado
+        p.save()
+        #nos dirigimos al formulario de aprobacion del proyecto
+        response = c.get(reverse('project:project_aprobar', args=(str(p.id))))
+        self.assertEquals(response.status_code, 200)
+        #aprobamos el proyecto
+        response = c.post(reverse('project:project_aprobar', args=(str(p.id))), data={'aprobar':'aprobar'})
+        #deberia redirigir
+        self.assertRedirects(response, '/projects/1/')
+        #el proyecto deberia estar aprobado
+        p = Proyecto.objects.first()
+        self.assertEquals(p.estado, 'AP')
+
+    def test_reject_project(self):
+        c = self.client
+        login = c.login(username='temp', password='temp')
+        self.assertTrue(login)
+        p = Proyecto.objects.first()
+        #creamos un proyecto
+        response = c.post('projects/add/', {'nombre_corto': 'test', 'nombre_largo': 'test_proyecto',
+                                            'descripcion': 'test', 'duracion_sprint': 30, 'inicio': timezone.now(),
+                                            'fin': timezone.now()}, follow=True)
+        p = Proyecto.objects.first()
+        p.estado = 'CO' #lo marcamos como terminado
+        p.save()
+        #nos dirigimos al formulario de rechazo del proyecto
+        response = c.get(reverse('project:project_aprobar', args=(str(p.id))))
+        self.assertEquals(response.status_code, 200)
+        #rechazamos el proyecto
+        response = c.post(reverse('project:project_aprobar', args=(str(p.id))), data={'recahzar':'rechazar'})
+        #deberia redirigir
+        self.assertRedirects(response, '/projects/1/')
+        #el proyecto deberia estar completado
+        p = Proyecto.objects.first()
+        self.assertNotEquals(p.estado, 'AP')
+        self.assertEquals(p.estado, 'CO')
 
 class FlujoTest(TestCase):
 
@@ -561,13 +606,14 @@ class UserStoryTest(TestCase):
 
         post_data = {
             'actividad': 1,
-            'tiempo_registrado': 4,
+            'horas_a_registrar': 4,
             'estado_actividad': 1,
             'form-INITIAL_FORMS': 0,
             'form-MAX_NUM_FORMS': 1000,
             'form-MIN_NUM_FORMS': 0,
             'form-TOTAL_FORMS': 1,
             'form-0-mensaje': 'Mensaje',
+            'form-0-fecha': '2015-05-29 17:56:16',
         }
         response = c.post(reverse('project:userstory_registraractividad', args=(str(us.id))),post_data, follow=True)
         self.assertRedirects(response, '/userstory/1/')
@@ -706,10 +752,10 @@ class UserStoryTest(TestCase):
         #nos dirigimos al formulario de rechazo del userstory
         response = c.get(reverse('project:userstory_rechazar', args=(str(us.id))))
         self.assertEquals(response.status_code, 200)
-        #aprobamos el userstory
-        response = c.post(reverse('project:userstory_rechazar', args=(str(us.id))))
+        #rechazamos el userstory
+        response = c.post(reverse('project:userstory_rechazar', args=(str(us.id))), {'actividad':a2.id, 'estado_actividad':0})
         #deberia redirigir
-        self.assertRedirects(response, '/projects/1/userstories/')
+        self.assertRedirects(response, '/userstory/1/')
         #el userstory deberia estar en curso de vuelta
         us = UserStory.objects.first()
         self.assertEquals(us.estado, 1)
