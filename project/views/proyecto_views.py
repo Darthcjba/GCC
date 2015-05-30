@@ -64,6 +64,7 @@ class ProjectDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, DetailVie
         context['approved_us'] = self.object.userstory_set.filter(estado=3).count()
         context['active_us'] = self.object.userstory_set.filter(estado=1).count()
         context['pending_us'] = self.object.userstory_set.filter(estado=2).count()
+        context['failed_us'] = self.object.userstory_set.filter(estado=4).count()
         return context
 
 

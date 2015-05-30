@@ -392,7 +392,7 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
         action = "aprobado"
         # comprobamos si quedan User Stories en el proyecto para marcarlo como completado
         p = us.proyecto
-        us_count = p.userstory_set.all().count()
+        us_count = p.userstory_set.exclude(estado=4).count()
         approved_us_count = p.userstory_set.filter(estado=3).count()
         approved_us_count += 1  # sumamos el actual que todavia no se ha guardado
         if us_count == approved_us_count:
