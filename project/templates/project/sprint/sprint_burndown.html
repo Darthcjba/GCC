@@ -17,14 +17,13 @@
                 </div>
                 <div class="panel-body">
                     <p><strong>Inicio: </strong>{{ sprint.inicio|date }}</p>
-
                     <p><strong>Fin: </strong>{{ sprint.fin|date }}</p>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <a href="{% url 'project:generate' sprint.id %}" class="btn">Generar Notas</a>
-        </div>
+{#        <div class="col-lg-3">#}
+{#            <a href="{% url 'project:generate' sprint.id %}" class="btn">Generar Notas</a>#}
+{#        </div>#}
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -37,6 +36,9 @@
             </div>
             <!-- /.panel -->
         </div>
+    </div>
+    <div class="col-lg-12">
+        <p><a class="fa fa-file" href="{% url 'project:sprint_detail' sprint.id %}"> Volver al Sprint {{ sprint.nombre }}</a></p>
     </div>
 {% endblock %}
 
