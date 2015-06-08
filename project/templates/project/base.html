@@ -116,7 +116,7 @@
                             <a href="{% url 'project:userstory_detail' u.id %}">
                                 <div>
                                     <p>
-                                        <strong>{{ u }}</strong>
+                                        <strong>{{ u|truncatechars:"25" }}</strong>
                                         <span class="pull-right text-muted">{{ u.progreso }}% Complete</span>
                                     </p>
 
