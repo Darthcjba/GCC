@@ -73,6 +73,13 @@ class Proyecto(models.Model):
     def get_horas_trabajadas(self):
         return self.userstory_set.aggregate(total=Sum('tiempo_registrado'))['total']
 
+    def _get_progreso(self):
+        us_total = self.userstory_set.count() - self.userstory_set.filter(estado=4).count()
+        us_aprobados = self.userstory_set.filter(estado=3).count()
+        progreso = float(us_aprobados) / us_total * 100 if us_total > 0 else 0
+        return int(progreso)
+    progreso = property(_get_progreso)
+
     def clean(self):
         try:
             if self.inicio > self.fin:
@@ -203,6 +210,11 @@ class UserStory(models.Model):
 
     def __unicode__(self):
         return self.nombre
+
+    def _get_progreso(self):
+        progreso = float(self.tiempo_registrado) / self.tiempo_estimado * 100
+        return int(progreso if progreso <= 100 else 100)
+    progreso = property(_get_progreso)
 
     def get_absolute_url(self):
         return reverse_lazy('project:userstory_detail', args=[self.pk])
