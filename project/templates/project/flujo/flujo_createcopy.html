@@ -1,6 +1,15 @@
 {% extends "project/base.html" %}
 {% load bootstrap3 %}
 {% block title %}Formulario Flujo{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+        <li><a href="{{ view.proyecto.get_absolute_url }}">{{ view.proyecto }}</a></li>
+        <li><a href="{% url 'project:flujo_list' view.proyecto.id %}">Flujos</a></li>
+    <li class="active">Crear Desde Plantilla</li>
+{% endblock %}
+
 {% block header %}Flujo{% endblock %}
 {% block content %}
 

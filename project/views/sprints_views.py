@@ -108,8 +108,9 @@ class AddSprintView(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPe
         Datos iniciales para el formulario
         :return: diccionario de datos
         """
-        initial={'proyecto': self.get_proyecto()}
+        initial = {'proyecto': self.get_proyecto()}
         return initial
+
     def get_permission_object(self):
         """
         Obtener el permiso de un objeto
@@ -140,6 +141,7 @@ class AddSprintView(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPe
         self.proyecto = self.get_proyecto()
         formset=self.formset(self.request.POST if self.request.method == 'POST' else None)
         self.__filtrar_formset__(formset)
+        context['current_action'] = 'Agregar'
         context['formset'] = formset
         return context
 
@@ -225,6 +227,7 @@ class UpdateSprintView(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
         current_us = self.get_object().userstory_set.all()
         formset= self.UserStoryFormset(self.request.POST if self.request.method == 'POST' else None, initial=[{'userStory':us, 'flujo':us.actividad.flujo, 'desarrollador':us.desarrollador} for us in current_us])
         self.__filtrar_formset__(formset)
+        context['current_action'] = 'Editar'
         context['formset'] = formset
         return context
 

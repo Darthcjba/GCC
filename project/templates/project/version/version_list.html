@@ -1,6 +1,16 @@
 {% extends 'project/base_table_js.html' %}
 
 {% block title %}{{ userstory.nombre|title }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{% url 'project:project_detail' userstory.proyecto_id %}">{{ userstory.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' userstory.proyecto_id %}">User Stories</a></li>
+    <li><a href="{% url 'project:userstory_detail' userstory.id %}">{{ userstory }}</a></li>
+    <li class="active">Versiones</li>
+{% endblock %}
+
 {% block header %}{{ userstory.nombre|title }}{% endblock %}
 
 {% block before_table %}

@@ -1,6 +1,13 @@
 {% extends 'project/base_table.html' %}
-{% load staticfiles %}
 {% block title %}Flujos{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ view.project.get_absolute_url }}">{{ view.project }}</a></li>
+    <li class="active">Flujos</li>
+{% endblock %}
+
 {% block header %}Flujos{% endblock %}
 {% block before_table %}
     <h4><strong>Proyecto: </strong><td>{{ view.project }}</td></h4>

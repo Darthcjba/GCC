@@ -51,6 +51,7 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 class ApprovalPendingUserStories(UserStoriesList):
     permission_required = 'project.aprobar_userstory'
     template_name = 'project/userstory/userstory_pending.html'
+
     def get_queryset(self):
         manager = UserStory.objects
         if not self.project:
@@ -167,7 +168,7 @@ class UpdateUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.Up
         :return: contexto
         """
         context = super(UpdateUserStory, self).get_context_data(**kwargs)
-        context['current_action'] = "Actualizar"
+        context['current_action'] = "Editar"
         return context
 
     def get_success_url(self):
@@ -377,7 +378,8 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
     context_object_name = 'userstory'
 
     def get_proyecto(self):
-        return self.get_object().proyecto
+        self.proyecto = self.get_object().proyecto
+        return self.proyecto
 
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()

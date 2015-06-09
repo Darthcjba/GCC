@@ -1,6 +1,15 @@
 {% extends 'project/base.html' %}
 {% block title %}Eliminar Flujo{% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ flujo.proyecto.get_absolute_url }}">{{ flujo.proyecto }}</a></li>
+    <li><a href="{% url 'project:flujo_list' flujo.proyecto_id %}">Flujos</a></li>
+    <li><a href="{{ flujo.get_absolute_url }}">{{ flujo }}</a></li>
+    <li class="active">Eliminar</li>
+{% endblock %}
+
 {% block header %}{{ flujo.nombre }} {% endblock %}
 {% block content %}
 <form action="" method="post" role="form">

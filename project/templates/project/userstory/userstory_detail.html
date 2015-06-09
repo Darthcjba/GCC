@@ -28,7 +28,7 @@
         <li><a href="{% url 'project:nota_list' userstory.id %}"><i class="fa fa-newspaper-o"></i> Avances</a></li>
         <li><a href="{% url 'project:file_list' userstory.id %}"><i class="fa fa-file"></i> Adjuntos</a></li>
         {%  if userstory.estado != 4 and userstory.estado != 3 %}
-        {% if "cancelar_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_cancelar' userstory.id %}" class="fa fa-times">Cancelar</a></li> {% endif %}
+        {% if "cancelar_userstory" in proyecto_perms %}<li><a href="{% url 'project:userstory_cancelar' userstory.id %}" class="fa fa-times"> Cancelar</a></li> {% endif %}
         {% endif %}
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ userstory.proyecto }}</p>

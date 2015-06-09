@@ -1,5 +1,16 @@
 {% extends 'project/base.html' %}
 {% block title %}Avance - {{ nota.user_story }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ nota.user_story.proyecto.get_absolute_url }}">{{ nota.user_story.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' nota.user_story.proyecto_id %}">User Stories</a></li>
+    <li><a href="{{ nota.user_story.get_absolute_url }}">{{ nota.user_story }}</a></li>
+    <li><a href="{% url 'project:nota_list' nota.user_story_id %}">Historial de Avances</a></li>
+    <li class="Active">{{ nota.fecha }}</li>
+{% endblock %}
+
 {% block header %}{{ nota.user_story }}{% endblock %}
 
 {% block content %}

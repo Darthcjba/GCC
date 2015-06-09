@@ -296,7 +296,7 @@ class Adjunto(models.Model):
     lenguaje = models.CharField(choices=lang_choices, null=True, max_length=10)
 
     def __unicode__(self):
-        return '{}: {}'.format(self.tipo, self.nombre)
+        return self.nombre
 
     def img64(self):
         return b64encode(force_bytes(self.binario))
