@@ -1,5 +1,16 @@
 {% extends 'project/base.html' %}
 {% load bootstrap3 %}
+{% block title %}Adjuntar Archivo{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{% url 'project:project_detail' view.user_story.proyecto_id %}">{{ adjuviewnto.user_story.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' view.user_story.proyecto_id %}">User Stories</a></li>
+    <li><a href="{% url 'project:userstory_detail' view.user_story.id %}">{{ view.user_story }}</a></li>
+    <li><a href="{% url 'project:file_list' view.user_story.id %}">Adjuntos</a></li>
+    <li class="Active">Subir</li>
+{% endblock %}
 
 {% block header %}Adjuntar Archivo{% endblock %}
 {% block content %}

@@ -80,8 +80,15 @@ class AddUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPer
     template_name = 'project/userstory/userstory_form.html'
     permission_required = 'project.create_userstory'
 
+    def get_context_data(self, **kwargs):
+        context = super(AddUserStory, self).get_context_data(**kwargs)
+
+        context['current_action'] = 'Crear'
+        return context
+
     def get_proyecto(self):
-        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        return self.proyecto
 
     def get_form_class(self):
         project = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])

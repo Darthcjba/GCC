@@ -2,6 +2,14 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block title %}Formulario Proyecto{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    {% if action == "Editar" %}<li><a href="{% url 'project:project_detail' proyecto.id %}">{{ proyecto.nombre_corto }}</a></li>{% endif %}
+    <li class="active">{{ action }}</li>
+{% endblock %}
+
 {% block header %}Proyecto{% endblock %}
 {% block extrahead %}
     <script src="{% static 'js/jquery.formset.js' %}"></script>

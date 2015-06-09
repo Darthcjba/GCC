@@ -1,6 +1,15 @@
 {% extends 'project/base.html' %}
 {% load guardian_tags %}
 {% block title %}{{ userstory }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{% url 'project:project_detail' userstory.proyecto_id %}">{{ userstory.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' userstory.proyecto_id %}">User Stories</a></li>
+    <li class="active">{{ userstory }}</li>
+{% endblock %}
+
 {% block header %}{{ userstory.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline" xmlns="http://www.w3.org/1999/html">
