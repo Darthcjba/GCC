@@ -1,5 +1,11 @@
 {% extends 'project/base_table.html' %}
 {% block title %}Roles{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li class="active">Roles</li>
+{% endblock %}
+
 {% block header %}Roles{% endblock %}
 {% block before_table %}
     {% if perms.auth.add_group %}<p><a href="{% url 'project:rol_add' %}" class="fa fa-plus-circle">Agregar</a></p>{% endif %}

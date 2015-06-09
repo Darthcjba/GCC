@@ -1,6 +1,13 @@
 {% extends 'project/base.html' %}
 {% block title %}{{ group }}{% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:rol_list' %}">Roles</a></li>
+    <li><a href="{% url 'project:rol_detail' group.id %}">{{ group }}</a></li>
+    <li class="active">Eliminar</li>
+{% endblock %}
+
 {% block header %}{{ group }}{% endblock %}
 {% block content %}
 <form action="" method="post" role="form">

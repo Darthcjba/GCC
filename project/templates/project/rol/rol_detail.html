@@ -1,5 +1,12 @@
 {% extends 'project/base.html' %}
 {% block title %}{{ rol.name }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:rol_list' %}">Roles</a></li>
+    <li class="active">{{ rol }}</li>
+{% endblock %}
+
 {% block header %}{{ rol.name }}{% endblock %}
 {% block content %}
     <h3>Permisos: </h3>
