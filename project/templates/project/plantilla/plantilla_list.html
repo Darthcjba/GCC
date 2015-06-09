@@ -1,6 +1,12 @@
 {% extends 'project/base.html' %}
 {% load staticfiles %}
 {% block title %}Plantillas{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li class="active">Plantillas</li>
+{% endblock %}
+
 {% block header %}Plantillas{% endblock %}
 {% block content %}
     {% if perms.project.add_flow_template %}<p><a href="{% url 'project:plantilla_add' %}" class="fa fa-plus-circle"> Agregar</a></p>{% endif %}
