@@ -1,5 +1,11 @@
 {% extends 'project/base_table_js.html' %}
 {% block title %}Usuarios{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li class="active">Usuarios</li>
+{% endblock %}
+
 {% block header %}Usuarios{% endblock %}
 
 {% block before_table %}
