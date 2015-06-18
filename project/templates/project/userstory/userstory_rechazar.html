@@ -2,6 +2,14 @@
 {% load bootstrap3 %}
 {% block title %}{{ action | title }} User Story{% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ object.proyecto.get_absolute_url }}">{{ object.proyecto }}</a></li>
+    <li><a href="{% url 'project:pending_userstories' object.proyecto_id %}">User Stories a Aprobar</a></li>
+    <li class="Active">Rechazar {{ object }}</li>
+{% endblock %}
+
 {% block header %}{{ userstory.nombre }} {% endblock %}
 {% block content %}
 <form action="" method="post" role="form">

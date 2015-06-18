@@ -1,6 +1,16 @@
 {% extends 'project/base_table_js.html' %}
 {% load guardian_tags %}
 {% block title %}{{ user_story }} - Adjuntos{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{% url 'project:project_detail' user_story.proyecto_id %}">{{ user_story.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' user_story.proyecto_id %}">User Stories</a></li>
+    <li><a href="{% url 'project:userstory_detail' user_story.id %}">{{ user_story }}</a></li>
+    <li class="Active">Adjuntos</li>
+{% endblock %}
+
 {% block header %}{{ user_story }}: Adjuntos{% endblock %}
 
 {% block before_table %}

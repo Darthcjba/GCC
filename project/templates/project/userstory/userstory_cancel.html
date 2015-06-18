@@ -1,6 +1,16 @@
 {% extends "project/base.html" %}
 {% load bootstrap3 %}
 {% load guardian_tags %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ object.proyecto.get_absolute_url }}">{{ object.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' object.proyecto_id %}">User Stories</a></li>
+    <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
+    <li class="active">Cancelar</li>
+{% endblock %}
+
 {% block title %}Cancelar User Story{% endblock %}
 {% block header %}Cancelar User Story{% endblock %}
 {% block content %}

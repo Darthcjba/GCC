@@ -14,8 +14,12 @@
                 </button>
                 <a class="navbar-brand" href="{% url 'project:home' %}">Projectium</a>
             </div>
+            <ul class="nav navbar-nav">
+                <ul class="breadcrumb">
+                  {% block breadcrumbs %}<li class="active">Home</li>{% endblock %}
+                </ul>
+            </ul>
             <!-- /.navbar-header -->
-
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -82,14 +86,14 @@
                                 <div>
                                     <p>
                                         <strong>{{ p }}</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
+                                        <span class="pull-right text-muted">{{ p.progreso }}% Complete</span>
                                     </p>
 
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar"
-                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                             style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{ p.progreso }}" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: {{ p.progreso }}%">
+                                            <span class="sr-only">{{ p.progreso }}% Complete (success)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +103,7 @@
                         {% endfor %}
                         <li>
                             <a class="text-center" href="{% url 'project:project_list' %}">
-                                <strong>See All Projects</strong>
+                                <strong>Ver todos los proyectos</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
@@ -116,15 +120,15 @@
                             <a href="{% url 'project:userstory_detail' u.id %}">
                                 <div>
                                     <p>
-                                        <strong>{{ u }}</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
+                                        <strong>{{ u|truncatechars:"25" }}</strong>
+                                        <span class="pull-right text-muted">{{ u.progreso }}% Complete</span>
                                     </p>
 
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar"
-                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                             style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
+                                        <div class="progress-bar" role="progressbar"
+                                             aria-valuenow="{{ u.progreso }}" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: {{ u.progreso }}%">
+                                            <span class="sr-only">{{ u.progreso }}% Complete (success)</span>
                                         </div>
                                     </div>
                                 </div>

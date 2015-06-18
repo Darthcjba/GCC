@@ -2,9 +2,23 @@
 {% load bootstrap3 %}
 {% load guardian_tags %}
 {% block title %}Formulario User Story{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    {% if current_action == "Crear" %}
+        <li><a href="{% url 'project:project_detail' view.proyecto.id %}">{{ view.proyecto}}</a></li>
+        <li><a href="{% url 'project:product_backlog' view.proyecto.id %}">User Stories</a></li>
+    {% else %}
+        <li><a href="{% url 'project:project_detail' userstory.proyecto_id %}">{{ userstory.proyecto }}</a></li>
+        <li><a href="{% url 'project:product_backlog' userstory.proyecto_id %}">User Stories</a></li>
+        <li><a href="{% url 'project:userstory_detail' userstory.id %}">{{ userstory }}</a></li>
+    {% endif %}
+    <li class="active">{{ current_action }}</li>
+{% endblock %}
+
 {% block header %}User Story{% endblock %}
 {% block content %}
-
 
     <form action="" method="post">
         {% csrf_token %}

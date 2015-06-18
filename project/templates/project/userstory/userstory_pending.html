@@ -1,6 +1,14 @@
 {% extends 'project/base.html' %}
 {% load guardian_tags %}
 {% block title %}User Stories pendientes - {{ view.project }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ view.project.get_absolute_url }}">{{ view.project }}</a></li>
+    <li class="Active">User Stories a Aprobar</li>
+{% endblock %}
+
 {% block header %}User Stories a Aprobar{% endblock %}
 {% block content %}
     {% if userstories.count == 0 %}

@@ -1,9 +1,21 @@
 {% extends 'project/base.html' %}
 {% load staticfiles %}
+
+{% block title %}{{ sprint }} - Burndown{% endblock %}
+
 {% block extrahead %}
     <script src="{% static 'js/highcharts/highcharts.js' %}"></script>
     <script src="{% static 'js/highcharts/exporting.js' %}"></script>
 {#    <script type="text/javascript" src="{% static 'js/highcharts/themes/sand-signika.js' %}"></script>#}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ sprint.proyecto.get_absolute_url }}">{{ sprint.proyecto }}</a></li>
+    <li><a href="{% url 'project:sprint_list' sprint.proyecto_id %}">Sprints</a></li>
+    <li><a href="{{ sprint.get_absolute_url }}">{{ sprint }}</a></li>
+    <li class="active">Burndown</li>
 {% endblock %}
 
 {% block header %}Burndown Chart - {{ sprint.proyecto.nombre_corto }} - {{ sprint.nombre }}{% endblock %}

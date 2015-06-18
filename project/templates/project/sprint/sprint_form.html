@@ -2,6 +2,21 @@
 {% load static %}
 {% load bootstrap3 %}
 {% block title %}Formulario Sprint{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    {% if current_action == 'Editar' %}
+        <li><a href="{{ sprint.proyecto.get_absolute_url }}">{{ sprint.proyecto }}</a></li>
+        <li><a href="{% url 'project:sprint_list' sprint.proyecto_id %}">Sprints</a></li>
+        <li><a href="{{ sprint.get_absolute_url }}">{{ sprint }}</a></li>
+    {% elif current_action == 'Agregar' %}
+        <li><a href="{{ view.proyecto.get_absolute_url }}">{{ view.proyecto }}</a></li>
+        <li><a href="{% url 'project:sprint_list' view.proyecto.id %}">Sprints</a></li>
+    {% endif %}
+    <li class="active">{{ current_action }}</li>
+{% endblock %}
+
 {% block header %}Sprint{% endblock %}
 {% block extrahead %}
     <script src="{% static 'js/jquery.formset.js' %}"></script>

@@ -2,6 +2,14 @@
 {% load staticfiles %}
 {% load guardian_tags %}
 {% block title %}{{ view.project }} - Product Backlog{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{% url 'project:project_detail' view.project.id %}">{{ view.project }}</a></li>
+    <li class="active">User Stories</li>
+{% endblock %}
+
 {% block header %}Product Backlog{% endblock %}
 {% block content %}
     <h4><strong>Proyecto: </strong><td>{{ view.project }}</td></h4>

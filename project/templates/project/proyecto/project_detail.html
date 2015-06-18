@@ -1,20 +1,26 @@
 {% extends 'project/base.html' %}
 {% load guardian_tags %}
-{% block title %}{{ project.nombre_corto }}{% endblock %}
+{% block title %}{{ proyecto.nombre_corto }}{% endblock %}
 
-{% block header %}{{ project.nombre_corto }}{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li class="active">{{ proyecto.nombre_corto }}</li>
+{% endblock %}
+
+{% block header %}{{ proyecto.nombre_corto }}{% endblock %}
 {% block content %}
-    {% get_obj_perms user for project as "proyecto_perms" %}
-    <h3>{{ project.nombre_largo }}</h3>
+    {% get_obj_perms user for proyecto as "proyecto_perms" %}
+    <h3>{{ proyecto.nombre_largo }}</h3>
     <ul class="list-inline">
-        {% if 'change_proyecto' in proyecto_perms %}<li><a href="{% url 'project:project_update' project.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
-        {% if 'delete_proyecto' in proyecto_perms %}<li><a href="{% url 'project:project_delete' project.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
-        <a href="{% url 'project:product_backlog' project.id %}"><i class="fa fa-file fa-fw"></i> Ver Product Backlog</a>
+        {% if 'change_proyecto' in proyecto_perms %}<li><a href="{% url 'project:project_update' proyecto.id %}" class="fa fa-pencil"> Editar</a></li>{% endif %}
+        {% if 'delete_proyecto' in proyecto_perms %}<li><a href="{% url 'project:project_delete' proyecto.id %}" class="fa fa-eraser"> Cancelar</a></li>{% endif %}
+        <a href="{% url 'project:product_backlog' proyecto.id %}"><i class="fa fa-file fa-fw"></i> Ver Product Backlog</a>
         {% if 'aprobar_userstory' in proyecto_perms %}
-            {% if project.estado == 'CO' %}
-                 <a href="{% url 'project:project_aprobar' project.id %}"><i class="fa fa-check-square fa-fw"></i> ¿Aprobar proyecto?</a>
+            {% if proyecto.estado == 'CO' %}
+                 <a href="{% url 'project:project_aprobar' proyecto.id %}"><i class="fa fa-check-square fa-fw"></i> ¿Aprobar proyecto?</a>
             {% else %}
-                <a href="{% url 'project:pending_userstories' project.id %}"><i class="fa fa-check-square fa-fw"></i> User Stories a Aprobar <span class="badge">{{ pending_us }}</span></a>
+                <a href="{% url 'project:pending_userstories' proyecto.id %}"><i class="fa fa-check-square fa-fw"></i> User Stories a Aprobar <span class="badge">{{ pending_us }}</span></a>
             {% endif %}
         {% endif %}
     </ul>
@@ -22,26 +28,27 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="well">
-                <p><strong>Estado:</strong> {{ project.get_estado_display }}</p>
+                <p><strong>Estado:</strong> {{ proyecto.get_estado_display }}</p>
 
-                <p><strong>Inicio:</strong> {{ project.inicio|date }}</p>
+                <p><strong>Inicio:</strong> {{ proyecto.inicio|date }}</p>
 
-                <p><strong>Fin:</strong> {{ project.fin|date }}</p>
+                <p><strong>Fin:</strong> {{ proyecto.fin|date }}</p>
 
-                <p><strong>Duracion de Sprints:</strong> {{ project.duracion_sprint }}</p>
+                <p><strong>Duracion de Sprints:</strong> {{ proyecto.duracion_sprint }}</p>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="well well-sm">
                 <h4>Descripcion</h4>
 
-                <p>{{ project.descripcion }}</p>
+                <p>{{ proyecto.descripcion }}</p>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="well">
                 <p><strong>User Stories del proyecto:</strong> {{ total_us }}</p>
                 <p><strong>User Stories en desarrollo:</strong> {{ active_us }}</p>
+                <p><strong>User Stories cancelados:</strong> {{ failed_us }}</p>
                 <p><strong>User Stories aprobados:</strong> {{ approved_us }}</p>
             </div>
         </div>
@@ -51,7 +58,7 @@
         <div class="col-lg-4">
             <h4 class="list-group-item-heading">
                 <a href="{% if perms.project.change_proyecto %}
-                {% url 'project:project_update' project.id %}#equipo
+                {% url 'project:project_update' proyecto.id %}#equipo
                 {% else %}#{% endif %}">Equipo</a>
             </h4>
             <div class="list-group">
@@ -68,7 +75,7 @@
         </div>
 
         <div class="col-lg-4">
-            <h4 class="list-group-item-heading"><a href="{% url 'project:sprint_list' project.id %}">Sprints</a></h4>
+            <h4 class="list-group-item-heading"><a href="{% url 'project:sprint_list' proyecto.id %}">Sprints</a></h4>
             <div class="list-group">
                 {% for s in sprints %}
                     <a href="{% url 'project:sprint_detail' s.id %}" class="list-group-item">{{ s.nombre }}
@@ -80,7 +87,7 @@
         </div>
 
         <div class="col-lg-4">
-            <h4 class="list-group-item-heading"><a href="{% url 'project:flujo_list' project.id %}">Flujos</a></h4>
+            <h4 class="list-group-item-heading"><a href="{% url 'project:flujo_list' proyecto.id %}">Flujos</a></h4>
 
             <div class="list-group">
                 {% for f in flows %}

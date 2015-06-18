@@ -1,6 +1,13 @@
 {% extends 'project/base.html' %}
 {% block title %}Eliminar Usuario{% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:user_list' %}">Usuarios</a></li>
+    <li><a href="{% url 'project:user_detail' object.id %}">{{ object.get_full_name }}</a></li>
+    <li class="active">Eliminar</li>
+{% endblock %}
+
 {% block header %}Eliminacion de Usuario{% endblock %}
 {% block content %}
 <form action="" method="post" role="form">

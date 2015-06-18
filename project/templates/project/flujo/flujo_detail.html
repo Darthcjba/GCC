@@ -1,6 +1,15 @@
 {% extends 'project/base_table.html' %}
 {% load guardian_tags %}
 {% block title %}{{ flujo }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ flujo.proyecto.get_absolute_url }}">{{ flujo.proyecto }}</a></li>
+    <li><a href="{% url 'project:flujo_list' flujo.proyecto_id %}">Flujos</a></li>
+    <li class="active">{{ flujo }}</li>
+{% endblock %}
+
 {% block header %}{{ flujo.nombre | title }} {% endblock %}
 {% block before_table %}
     <ul class="list-inline">
@@ -19,8 +28,8 @@
         {% endfor %}
     </ul>
     <p><strong>Proyecto Asociado:</strong> {{ flujo.proyecto }}</p>
-    <p><strong>Tiempo Registrado:</strong>{{ registrado|default_if_none:"0" }} horas</p>
-    <p><strong>Tiempo Estimado: </strong>{{ estimado|default_if_none:"0" }} horas</p>
+    <p><strong>Tiempo Registrado:</strong> {{ registrado|default_if_none:"0" }} horas</p>
+    <p><strong>Tiempo Estimado:</strong> {{ estimado|default_if_none:"0" }} horas</p>
 
 {% endblock %}
 

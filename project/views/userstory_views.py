@@ -51,6 +51,7 @@ class UserStoriesList(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 class ApprovalPendingUserStories(UserStoriesList):
     permission_required = 'project.aprobar_userstory'
     template_name = 'project/userstory/userstory_pending.html'
+
     def get_queryset(self):
         manager = UserStory.objects
         if not self.project:
@@ -80,8 +81,15 @@ class AddUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPer
     template_name = 'project/userstory/userstory_form.html'
     permission_required = 'project.create_userstory'
 
+    def get_context_data(self, **kwargs):
+        context = super(AddUserStory, self).get_context_data(**kwargs)
+
+        context['current_action'] = 'Crear'
+        return context
+
     def get_proyecto(self):
-        return get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        self.proyecto = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
+        return self.proyecto
 
     def get_form_class(self):
         project = get_object_or_404(Proyecto, id=self.kwargs['project_pk'])
@@ -160,7 +168,7 @@ class UpdateUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.Up
         :return: contexto
         """
         context = super(UpdateUserStory, self).get_context_data(**kwargs)
-        context['current_action'] = "Actualizar"
+        context['current_action'] = "Editar"
         return context
 
     def get_success_url(self):
@@ -403,7 +411,8 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
     context_object_name = 'userstory'
 
     def get_proyecto(self):
-        return self.get_object().proyecto
+        self.proyecto = self.get_object().proyecto
+        return self.proyecto
 
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -425,7 +434,7 @@ class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPer
         action = "aprobado"
         # comprobamos si quedan User Stories en el proyecto para marcarlo como completado
         p = us.proyecto
-        us_count = p.userstory_set.all().count()
+        us_count = p.userstory_set.exclude(estado=4).count()
         approved_us_count = p.userstory_set.filter(estado=3).count()
         approved_us_count += 1  # sumamos el actual que todavia no se ha guardado
         if us_count == approved_us_count:

@@ -1,7 +1,14 @@
 {% extends 'project/base.html' %}
-{% block title %}Eliminar Flujo{% endblock %}
+{% block title %}Eliminar Plantilla{% endblock %}
 
-{% block header %}{{ object.name }} {% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:plantilla_list' %}">Plantillas</a></li>
+    <li><a href="{% url 'project:plantilla_detail' object.id %}">{{ object }}</a></li>
+    <li class="active">Eliminar</li>
+{% endblock %}
+
+{% block header %}{{ object }} {% endblock %}
 {% block content %}
 <form action="" method="post" role="form">
     {% csrf_token %}

@@ -33,7 +33,7 @@ class AddRolView(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.
         :return: contexto
         """
         context = super(AddRolView, self).get_context_data(**kwargs)
-        context['current_action'] = "Add"
+        context['current_action'] = "Agregar"
         return context
 
     def get_success_url(self):
@@ -75,7 +75,7 @@ class UpdateRolView(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.U
         :return: contexto
         """
         context = super(UpdateRolView, self).get_context_data(**kwargs)
-        context['current_action'] = "Update"
+        context['current_action'] = "Editar"
         return context
 
     def get_success_url(self):

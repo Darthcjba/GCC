@@ -1,5 +1,12 @@
 {% extends 'project/base.html' %}
 {% block title %}{{ plantilla }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:plantilla_list' %}">Plantillas</a></li>
+    <li class="active">{{ plantilla }}</li>
+{% endblock %}
+
 {% block header %}{{ plantilla.nombre | title}} {% endblock %}
 {% block content %}
     <ul class="list-inline">

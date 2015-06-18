@@ -50,10 +50,9 @@ class ProjectDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, DetailVie
     Vista de Detalles de Proyecto
     """
     model = Proyecto
-    context_object_name = 'project'
+    context_object_name = 'proyecto'
     permission_required = 'project.view_project'
     template_name = 'project/proyecto/project_detail.html'
-
 
     def get_context_data(self, **kwargs):
         context = super(ProjectDetail, self).get_context_data(**kwargs)
@@ -64,6 +63,7 @@ class ProjectDetail(LoginRequiredMixin, GlobalPermissionRequiredMixin, DetailVie
         context['approved_us'] = self.object.userstory_set.filter(estado=3).count()
         context['active_us'] = self.object.userstory_set.filter(estado=1).count()
         context['pending_us'] = self.object.userstory_set.filter(estado=2).count()
+        context['failed_us'] = self.object.userstory_set.filter(estado=4).count()
         return context
 
 
@@ -85,6 +85,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
 
     def get_context_data(self, **kwargs):
         context = super(ProjectCreate, self).get_context_data(**kwargs)
+        context['action'] = 'Crear'
         context['formset'] = self.TeamMemberInlineFormSet(self.request.POST if self.request.method == 'POST' else None)
         return context
 
@@ -159,6 +160,7 @@ class ProjectUpdate(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermis
         :param kwargs: Diccionario con parametros con nombres clave
         '''
         context = super(ProjectUpdate, self).get_context_data(**kwargs)
+        context['action'] = 'Editar'
         context['formset'] = self.TeamMemberInlineFormSet(self.request.POST if self.request.method == 'POST' else None, instance=self.object)
         return context
 

@@ -1,6 +1,15 @@
 {% extends 'project/base.html' %}
 {% load guardian_tags %}
 {% block title %}{{ sprint }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ sprint.proyecto.get_absolute_url }}">{{ sprint.proyecto }}</a></li>
+    <li><a href="{% url 'project:sprint_list' sprint.proyecto_id %}">Sprints</a></li>
+    <li class="active">{{ sprint }}</li>
+{% endblock %}
+
 {% block header %}{{ sprint.nombre | title }} {% endblock %}
 {% block content %}
     <ul class="list-inline">

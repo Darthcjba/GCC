@@ -62,6 +62,11 @@ class AddUser(LoginRequiredMixin, CreateViewPermissionRequiredMixin, generic.Cre
     template_name = 'project/user/user_form.html'
     permission_required = 'auth.add_user'
 
+    def get_context_data(self, **kwargs):
+        context = super(AddUser, self).get_context_data(**kwargs)
+        context['current_action'] = 'Agregar'
+        return context
+
     def get_success_url(self):
         """
         Retorna una los usuarios excluyendo el AnonymousUser
@@ -107,6 +112,11 @@ class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upda
     permission_required = 'auth.change_user'
     form_class = modelform_factory(User, form=UserEditForm,
                                    fields=['first_name', 'last_name', 'email', 'username'], )
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateUser, self).get_context_data(**kwargs)
+        context['current_action'] = 'Editar'
+        return context
 
     def get_success_url(self):
         """

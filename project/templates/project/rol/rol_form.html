@@ -1,6 +1,16 @@
 {% extends "project/base.html" %}
 {% load bootstrap3 %}
 {% block title %}Formulario Rol{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:rol_list' %}">Roles</a></li>
+    {% if current_action == 'Editar' %}
+        <li><a href="{% url 'project:rol_detail' object.id %}">{{ object }}</a></li>
+    {% endif %}
+    <li class="active">{{ current_action }}</li>
+{% endblock %}
+
 {% block header %}Rol{% endblock %}
 {% block content %}
 

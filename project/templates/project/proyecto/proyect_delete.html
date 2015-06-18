@@ -1,6 +1,13 @@
 {% extends 'project/base.html' %}
 {% block title %}Eliminar Proyecto{% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{% url 'project:project_detail' proyecto.id %}">{{ proyecto.nombre_corto }}</a></li>
+    <li class="active">Cancelar</li>
+{% endblock %}
+
 {% block header %}{{ proyecto }}{% endblock %}
 {% block content %}
 <form action="" method="post" role="form">

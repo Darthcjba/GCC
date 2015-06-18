@@ -99,7 +99,9 @@ class AddFlujo(ActiveProjectRequiredMixin, LoginRequiredMixin, CreateViewPermiss
     permission_required = 'project.create_flujo'
 
     def get_proyecto(self):
-        return get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        if not self.proyecto:
+            self.proyecto = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return self.proyecto
 
     def get_permission_object(self):
         '''
@@ -172,7 +174,7 @@ class UpdateFlujo(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissi
         :return: contexto
         """
         context = super(UpdateFlujo, self).get_context_data(**kwargs)
-        context['current_action'] = "Agregar"
+        context['current_action'] = "Editar"
         context['actividad_form'] = ActividadFormSet(self.request.POST if self.request.method == 'POST' else None, instance=self.object)
 
         return context
@@ -231,7 +233,9 @@ class CreateFromPlantilla(ActiveProjectRequiredMixin, LoginRequiredMixin, Create
     permission_required = 'project.create_flujo'
 
     def get_proyecto(self):
-        return get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        if not self.proyecto:
+            self.proyecto = get_object_or_404(Proyecto, pk=self.kwargs['project_pk'])
+        return self.proyecto
 
     def get_permission_object(self):
         return self.get_proyecto()

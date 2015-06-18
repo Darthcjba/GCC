@@ -3,6 +3,11 @@
 {% block title %}Proyectos{% endblock %}
 {% block header %}Proyectos{% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li class="active">Proyectos</li>
+{% endblock %}
+
 {% block before_table %}
     <ul class="list-inline">
         {% if perms.project.add_proyecto %}<li><a href="{% url 'project:project_create' %}"><i class="fa fa-plus-circle"></i> Agregar</a></li>{% endif %}

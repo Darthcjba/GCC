@@ -1,6 +1,21 @@
 {% extends "project/base.html" %}
 {% load static %}
 {% block title %}Formulario Flujo{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    {% if current_action == 'Editar' %}
+        <li><a href="{{ flujo.proyecto.get_absolute_url }}">{{ flujo.proyecto }}</a></li>
+        <li><a href="{% url 'project:flujo_list' flujo.proyecto_id %}">Flujos</a></li>
+        <li><a href="{{ flujo.get_absolute_url }}">{{ flujo }}</a></li>
+    {% elif current_action == 'Agregar' %}
+        <li><a href="{{ view.proyecto.get_absolute_url }}">{{ view.proyecto }}</a></li>
+        <li><a href="{% url 'project:flujo_list' view.proyecto.id %}">Flujos</a></li>
+    {% endif %}
+    <li class="active">{{ current_action }}</li>
+{% endblock %}
+
 {% block extrahead %}
     <script src="{% static 'js/jquery.formset.js' %}"></script>
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>

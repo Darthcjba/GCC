@@ -1,10 +1,20 @@
 {% extends 'project/base_table_js.html' %}
 
 {% block title %}{{ userstory.nombre|title }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'project:home' %}">Home</a></li>
+    <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
+    <li><a href="{{ userstory.proyecto.get_absolute_url }}">{{ userstory.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' userstory.proyecto_id %}">User Stories</a></li>
+    <li><a href="{{ userstory.get_absolute_url }}">{{ userstory }}</a></li>
+    <li class="Active">Historial de Avances</li>
+{% endblock %}
+
 {% block header %}{{ userstory.nombre|title }}{% endblock %}
 
 {% block before_table %}
-    <h3>Historial de Tareas</h3>
+    <h3>Historial de Avances</h3>
 {% endblock %}
 {% block thead %}
     <tr>
