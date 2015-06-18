@@ -215,8 +215,6 @@ class CancelUserStory(LoginRequiredMixin, ActiveProjectRequiredMixin, generic.Up
     template_name= 'project/userstory/userstory_cancel.html'
     NoteFormset = modelformset_factory(Nota, fields=('mensaje',), extra=1)
 
-
-
     def get_proyecto(self):
         return self.get_object().proyecto
 
@@ -224,6 +222,7 @@ class CancelUserStory(LoginRequiredMixin, ActiveProjectRequiredMixin, generic.Up
         context = super(CancelUserStory, self).get_context_data(**kwargs)
         context['formset']= self.NoteFormset(queryset=Nota.objects.none())
         return context
+
     def get_success_url(self):
         return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
 
