@@ -1,0 +1,109 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        @page { size: A4; margin: 1cm }
+    </style>
+</head>
+<body>
+    <h1>User Stories asignados a {{ usuario | title}}</h1>
+    <hr />
+    <p>En este reporte se presentan los User Stories que han sido asignados al usuario <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong> </p>
+    <h2>User Stories Pendientes</h2>
+    <p>Los User Stories que actualmente estan en espera</p>
+    <div class="row">
+    {% for us in pendientes %}
+       <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
+                        </div>
+                        <div class="panel-body">
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            <strong>Desarrollador: </strong>
+                            {% if us.desarrollador %}
+                                {{ us.desarrollador }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                            </br>
+                            {% if us.actividad %}
+                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
+                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
+                        </div>
+                    </div>
+            </div>
+    {% endfor %}
+    </div>
+    <div class="row">
+    <h2>User Stories En curso</h2>
+    <p>Los User Stories que están en desarrollo actualmente</p>
+    {% for us in en_curso %}
+           <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
+                        </div>
+                        <div class="panel-body">
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            <strong>Desarrollador: </strong>
+                            {% if us.desarrollador %}
+                                {{ us.desarrollador }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                            </br>
+                            {% if us.actividad %}
+                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
+                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
+                        </div>
+                    </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+    <h2>User Stories Finalizados</h2>
+    <p>Para completar el proyecto se ya han sido completados y aprobados</p>
+    {% for us in finalizados %}
+           <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
+                        </div>
+                        <div class="panel-body">
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            <strong>Desarrollador: </strong>
+                            {% if us.desarrollador %}
+                                {{ us.desarrollador }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                            </br>
+                            {% if us.actividad %}
+                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
+                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
+                        </div>
+                    </div>
+            </div>
+    {% endfor %}
+    </div>
+</body>
+</html>

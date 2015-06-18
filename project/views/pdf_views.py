@@ -1,0 +1,104 @@
+# -*- coding: utf-8 -*-
+import os
+from django import http
+from django.contrib.auth.models import User
+from django.db.models import Sum
+from django.http import HttpResponse
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template.loader import get_template
+from django.template import Context, RequestContext
+from project.models import Proyecto, Sprint
+from projectium import settings
+import weasyprint
+
+
+
+def url_fetcher(url):
+    if url.startswith('assets://'):
+        url = url[len('assets://'):]
+        url = "file://" + safe_join(settings.ASSETS_ROOT, url)
+    return weasyprint.default_url_fetcher(url)
+
+
+'''
+def trabajos_encurso_equipo(request, proyecto_id):
+    return render_to_pdf('reportes/us_curso_proyecto.html', { 'pagesize':'A4',
+        'title':'Cantidad de trabajos en curso por equipo',
+        'proyecto':get_object_or_404(Proyecto, id=proyecto_id)})
+'''
+
+def reporte_backlog_producto(request, proyecto_id):
+    project = get_object_or_404(Proyecto, id=proyecto_id)
+    us_set_cancelados = project.userstory_set.filter(estado=4).order_by('sprint__inicio', '-prioridad')
+    us_set_inactivos = project.userstory_set.filter(estado=0).order_by('sprint__inicio', '-prioridad', 'tiempo_estimado')
+    inactivos_sum = us_set_inactivos.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    us_set_curso = project.userstory_set.filter(estado=1).order_by('sprint__inicio', '-prioridad')
+    encurso_sum = us_set_curso.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    us_set_pendientes = project.userstory_set.filter(estado=2).order_by('sprint__inicio', '-prioridad', 'tiempo_estimado')
+    us_set_aprobados = project.userstory_set.filter(estado=3).order_by('sprint__inicio', '-prioridad')
+    contexto = {'pagesize': 'A4', 'title': 'Backlog del proyecto', 'proyecto': project, 'cancelados': us_set_cancelados,
+                'inactivos': us_set_inactivos, 'en_curso': us_set_curso, 'pendientes': us_set_pendientes,
+                'aprobados': us_set_aprobados, 'sum_inactivos': inactivos_sum,
+                'sum_en_curso': encurso_sum}
+    template = get_template('reportes/backlog_producto.html')
+    html = template.render(RequestContext(request, contexto))
+    response = HttpResponse(content_type="application/pdf")
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
+    return response
+
+def html_reporte_backlog_producto(request, proyecto_id):
+    project = get_object_or_404(Proyecto, id=proyecto_id)
+    us_set_cancelados = project.userstory_set.filter(estado=4).order_by('sprint__inicio', '-prioridad')
+    us_set_inactivos = project.userstory_set.filter(estado=0).order_by('sprint__inicio', '-prioridad')
+    us_set_curso = project.userstory_set.filter(estado=1).order_by('sprint__inicio', '-prioridad')
+    us_set_pendientes = project.userstory_set.filter(estado=2).order_by('sprint__inicio', '-prioridad')
+    us_set_aprobados = project.userstory_set.filter(estado=3).order_by('sprint__inicio', '-prioridad')
+    contexto = {'pagesize': 'A4', 'title': 'Backlog del proyecto', 'proyecto': project, 'cancelados': us_set_cancelados,
+                'inactivos': us_set_inactivos, 'en_curso': us_set_curso, 'pendientes': us_set_pendientes,
+                'aprobados': us_set_aprobados}
+    template = get_template('reportes/backlog_producto.html')
+    html = template.render(RequestContext(request, contexto))
+    response = HttpResponse(content_type="application/pdf")
+    weasyprint.HTML(string=html, url_fetcher=url_fetcher).write_pdf(response)
+    return render_to_response('reportes/backlog_producto.html', contexto)
+
+
+
+def reporte_backlog_sprint(request, sprint_id):
+    sprint = get_object_or_404(Sprint, id=sprint_id)
+    us_set = sprint.userstory_set.all()
+    contexto = {'pagesize': 'A4', 'title': 'Backlog del sprint', 'sprint': sprint, 'user_stories': us_set}
+    template = get_template('reportes/backlog_sprint.html')
+    html = template.render(RequestContext(request, contexto))
+    response = HttpResponse(content_type="application/pdf")
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
+    return response
+
+
+
+def reporte_userstories_user(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    us_pendientes = usuario.userstory_set.filter(estado=0)
+    us_encurso = usuario.userstory_set.filter(estado=1)
+    us_finalizados = usuario.userstory_set.filter(estado=3)
+    contexto = {'pagesize': 'A4', 'title': 'User Stories del desarrollador', 'usuario': usuario, 'pendientes': us_pendientes,
+                'en_curso': us_encurso, 'finalizados':us_finalizados}
+    template = get_template('reportes/userstories_user.html')
+    html = template.render(RequestContext(request, contexto))
+    response = HttpResponse(content_type="application/pdf")
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
+    return response
+
+def reporte_lista_priorizada(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, id=proyecto_id)
+    us_bajo = proyecto.userstory_set.filter(prioridad=0).order_by('sprint__inicio')
+    us_medio = proyecto.userstory_set.filter(prioridad=1).order_by('sprint__inicio')
+    us_alto = proyecto.userstory_set.filter(prioridad=2).order_by('sprint__inicio')
+    contexto = {'pagesize': 'A4', 'title': 'User Stories del desarrollador', 'proyecto': proyecto, 'bajos': us_bajo,
+                'medios': us_medio, 'altos':us_alto}
+    template = get_template('reportes/userstories_priorizados.html')
+    html = template.render(RequestContext(request, contexto))
+    response = HttpResponse(content_type="application/pdf")
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
+    return response
+

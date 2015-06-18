@@ -10,3 +10,4 @@ from nota_views import *
 from sprints_views import *
 from adjunto_views import *
 from burndown_views import *
+from pdf_views import *

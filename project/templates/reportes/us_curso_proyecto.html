@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        @page { size: A4; margin: 1cm }
+    </style>
+</head>
+<body>
+    <h1 class="badge">Trabajo pendiente por equipo</h1>
+    <hr />
+    <h2>Equipo:</h2>
+    <ul>
+        {% for e in proyecto.equipo.all %}
+            <li>{{ e.first_name }} {{ e.last_name }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Proyecto: {{ proyecto }}</h2>
+</body>
+</html>

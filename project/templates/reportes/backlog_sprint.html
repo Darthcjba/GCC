@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+        <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+        <style>
+            @page { size: A4; margin: 1cm }
+        </style>
+</head>
+<body>
+<div class="content">
+    <h1>Backlog del Sprint</h1>
+    <hr />
+    <p>En este reporte se presentan los User Stories que integran el sprint  <strong>{{ sprint }}</strong> del proyecto <strong>{{ sprint.proyecto }}</strong></p>
+    <div class="row">
+    {% for us in user_stories %}
+       <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
+                        </div>
+                        <div class="panel-body">
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            <strong>Desarrollador: </strong>
+                            {% if us.desarrollador %}
+                                {{ us.desarrollador }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                            </br>
+                            {% if us.actividad %}
+                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
+                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
+                        </div>
+                    </div>
+            </div>
+    {% endfor %}
+    </div>
+</div>
+</body>
+</html>
