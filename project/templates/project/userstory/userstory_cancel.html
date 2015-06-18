@@ -5,9 +5,9 @@
 {% block breadcrumbs %}
     <li><a href="{% url 'project:home' %}">Home</a></li>
     <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
-    <li><a href="{{ object.proyecto.get_absolute_url }}">{{ object.proyecto }}</a></li>
-    <li><a href="{% url 'project:product_backlog' object.proyecto_id %}">User Stories</a></li>
-    <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
+    <li><a href="{{ userstory.proyecto.get_absolute_url }}">{{ userstory.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' userstory.proyecto_id %}">User Stories</a></li>
+    <li><a href="{{ object.get_absolute_url }}">{{ userstory }}</a></li>
     <li class="active">Cancelar</li>
 {% endblock %}
 
@@ -20,19 +20,15 @@
     <form action="" method="post">
         {% csrf_token %}
         <div class="row">
-            {{ formset.non_form_errors }}
-            <div class="col-lg-12">
-                {% for f in formset.forms %}{% bootstrap_form f %}{% endfor %}
+            <div class="col-lg-4">
+                {% bootstrap_form form layout="inline" %}
             </div>
-            {{ formset.management_form }}
         </div>
-        <div class="row">
         {% buttons submit='Si' reset="Reset" %}
             <a href="javascript:history.back()">
                 <button type="button" class="btn btn-danger">No</button>
             </a>
         {% endbuttons %}
-        </div>
     </form>
-
+    </div>
 {% endblock %}

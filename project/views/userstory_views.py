@@ -207,24 +207,29 @@ class UpdateUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.Up
 
 
 
-class CancelUserStory(LoginRequiredMixin, ActiveProjectRequiredMixin, generic.UpdateView):
+class CancelUserStory(LoginRequiredMixin, ActiveProjectRequiredMixin, generic.FormView):
     """
     Vista cancelacion de User Stories
     """
-    model = UserStory
-    template_name= 'project/userstory/userstory_cancel.html'
-    NoteFormset = modelformset_factory(Nota, fields=('mensaje',), extra=1)
+    form_class = modelform_factory(Nota, fields=['mensaje'])
+    template_name = 'project/userstory/userstory_cancel.html'
+    user_story = None
+
+    def get_user_story(self):
+        if not self.user_story:
+            self.user_story = get_object_or_404(UserStory, pk=self.kwargs['pk'])
+        return self.user_story
 
     def get_proyecto(self):
-        return self.get_object().proyecto
+        return self.get_user_story().proyecto
 
     def get_context_data(self, **kwargs):
         context = super(CancelUserStory, self).get_context_data(**kwargs)
-        context['formset']= self.NoteFormset(queryset=Nota.objects.none())
+        context['userstory'] = self.get_user_story()
         return context
 
     def get_success_url(self):
-        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_proyecto().id})
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -236,37 +241,12 @@ class CancelUserStory(LoginRequiredMixin, ActiveProjectRequiredMixin, generic.Up
         """
         return super(CancelUserStory, self).dispatch(request, *args, **kwargs)
 
-
-
-
     def form_valid(self, form):
-
-        self.object = form.save(commit=False)
-        self.object.tiempo_registrado = self.object.tiempo_registrado
-        nota_form = self.NoteFormset(self.request.POST)
-        self.object.estado = 4
-        self.object.save()
-        if nota_form.is_valid():
-            for f in nota_form.forms:
-                n = f.save(commit=False)
-                n.fecha= timezone.now()
-                n.horas_a_registrar = 0
-                n.tiempo_registrado = self.object.tiempo_registrado
-                n.desarrollador = self.request.user
-                n.sprint = self.object.sprint
-                n.actividad = self.object.actividad
-                n.estado = 4
-                n.estado_actividad = self.object.estado_actividad
-                n.user_story = self.object
-                n.save()
+        nota = form.save(commit=False)
+        self.get_user_story().estado = 4
+        self.user_story.save()
+        crearNota(self.user_story, self.request.user, "Cancelado: {}".format(nota.mensaje))
         return HttpResponseRedirect(self.get_success_url())
-
-
-
-
-
-
-
 
 
 class RegistrarActividadUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.UpdateView):
