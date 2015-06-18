@@ -1,14 +1,27 @@
-{% extends 'project/base.html' %}
-{% block title %}{{ action | title }} User Story{% endblock %}
-
-{% block header %}{{ userstory.nombre }} {% endblock %}
+{% extends "project/base.html" %}
+{% load bootstrap3 %}
+{% load guardian_tags %}
+{% block title %}Cancelar User Story{% endblock %}
+{% block header %}Cancelar User Story{% endblock %}
 {% block content %}
-<form action="" method="post" role="form">
-    {% csrf_token %}
-    <div class="form-group">
-        <p>Seguro de que desea <strong>{{ action }}</strong> el User Story <strong>{{ object }}</strong>?</p>
-    </div>
 
-    <input type="submit" value="{{ action | title }}" class="btn btn-default"/>
-</form>
+    <p><strong>Desea Cancelar el User Story: {{ userstory.nombre }} ? </strong></p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            {{ formset.non_form_errors }}
+            <div class="col-lg-12">
+                {% for f in formset.forms %}{% bootstrap_form f %}{% endfor %}
+            </div>
+            {{ formset.management_form }}
+        </div>
+        <div class="row">
+        {% buttons submit='Si' reset="Reset" %}
+            <a href="javascript:history.back()">
+                <button type="button" class="btn btn-danger">No</button>
+            </a>
+        {% endbuttons %}
+        </div>
+    </form>
+
 {% endblock %}

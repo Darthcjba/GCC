@@ -198,6 +198,70 @@ class UpdateUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.Up
         #send_mail(subject, message, 'projectium15@gamil.com', ['jayala1993@outlook.com'], html_message=message)
 
 
+
+class CancelUserStory(LoginRequiredMixin, ActiveProjectRequiredMixin, generic.UpdateView):
+    """
+    Vista cancelacion de User Stories
+    """
+    model = UserStory
+    template_name= 'project/userstory/userstory_cancel.html'
+    NoteFormset = modelformset_factory(Nota, fields=('mensaje',), extra=1)
+
+
+
+    def get_proyecto(self):
+        return self.get_object().proyecto
+
+    def get_context_data(self, **kwargs):
+        context = super(CancelUserStory, self).get_context_data(**kwargs)
+        context['formset']= self.NoteFormset(queryset=Nota.objects.none())
+        return context
+    def get_success_url(self):
+        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Comprobacion de permisos hecha antes de la llamada al dispatch que inicia el proceso de respuesta al request de la url
+        :param request: request hecho por el cliente
+        :param args: argumentos adicionales posicionales
+        :param kwargs: argumentos adicionales en forma de diccionario
+        :return: PermissionDenied si el usuario no cuenta con permisos
+        """
+        return super(CancelUserStory, self).dispatch(request, *args, **kwargs)
+
+
+
+
+    def form_valid(self, form):
+
+        self.object = form.save(commit=False)
+        self.object.tiempo_registrado = self.object.tiempo_registrado
+        nota_form = self.NoteFormset(self.request.POST)
+        self.object.estado = 4
+        self.object.save()
+        if nota_form.is_valid():
+            for f in nota_form.forms:
+                n = f.save(commit=False)
+                n.fecha= timezone.now()
+                n.horas_a_registrar = 0
+                n.tiempo_registrado = self.object.tiempo_registrado
+                n.desarrollador = self.request.user
+                n.sprint = self.object.sprint
+                n.actividad = self.object.actividad
+                n.estado = 4
+                n.estado_actividad = self.object.estado_actividad
+                n.user_story = self.object
+                n.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+
+
+
+
+
+
+
 class RegistrarActividadUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, generic.UpdateView):
     """
     View que permite registrar los cambios aplicados a un user story
@@ -327,37 +391,6 @@ class DeleteUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPerm
 
 
 
-class CancelUserStory(LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
-    """
-    Vista cancelacion de User Stories
-    """
-    model = UserStory
-    template_name = 'project/userstory/userstory_cancel.html'
-    context_object_name = 'userstory'
-    permission_required = 'project.cancelar_userstory'
-    action = ''
-
-    def get_context_data(self, **kwargs):
-        context = super(CancelUserStory, self).get_context_data(**kwargs)
-        context['action'] = self.action
-        return context
-
-    def get_permission_object(self):
-        return self.get_object().proyecto
-
-    def get_success_url(self):
-        return reverse_lazy('project:product_backlog', kwargs={'project_pk': self.get_object().proyecto.id})
-
-    def dispatch(self, request, *args, **kwargs):
-        return super(CancelUserStory, self).dispatch(request,*args, **kwargs)
-
-    def post(self,request,*args, **kwargs):
-        us= self.get_object()
-        if self.action == 'cancelar':
-            us.estado = 4
-
-        us.save()
-        return HttpResponseRedirect(self.get_success_url())
 
 
 class ApproveUserStory(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermissionRequiredMixin, SingleObjectTemplateResponseMixin, detail.BaseDetailView):
