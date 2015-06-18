@@ -15,6 +15,7 @@
 {% block header %}Cancelar User Story{% endblock %}
 {% block content %}
 
+
     <p><strong>Desea Cancelar el User Story: {{ userstory.nombre }} ? </strong></p>
     <form action="" method="post">
         {% csrf_token %}
