@@ -102,6 +102,17 @@ class DeleteUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Dele
     success_url = reverse_lazy('project:user_list')
     permission_required = 'auth.delete_user'
 
+    def delete(self, request, *args, **kwargs):
+        """
+        Calls the delete() method on the fetched object and then
+        redirects to the success URL.
+        """
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
 
 class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.UpdateView):
     """
@@ -111,7 +122,7 @@ class UpdateUser(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.Upda
     template_name = 'project/user/user_form.html'
     permission_required = 'auth.change_user'
     form_class = modelform_factory(User, form=UserEditForm,
-                                   fields=['first_name', 'last_name', 'email', 'username'], )
+                                   fields=['first_name', 'last_name', 'email', 'username', 'is_active'], )
 
     def get_context_data(self, **kwargs):
         context = super(UpdateUser, self).get_context_data(**kwargs)
