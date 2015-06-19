@@ -53,6 +53,7 @@ def get_graficos(project):
         r = requests.post(export_url, data=pdata, headers={'Content-Type': 'application/json'})
         graficos.append(r.content)
 
+
     return graficos
 
 
@@ -115,9 +116,14 @@ def html_reporte_backlog_producto(request, proyecto_id):
     weasyprint.HTML(string=html, url_fetcher=url_fetcher).write_pdf(response)
     return render_to_response('reportes/backlog_producto.html', contexto)
 
+@login_required
+@permission_required('project.view_project', (Proyecto, 'id', 'proyecto_id'))
 def reporte_burndown(request, proyecto_id):
     project = get_object_or_404(Proyecto, id=proyecto_id)
-    graficos = get_graficos(project)
+    try:
+        graficos = get_graficos(project)
+    except requests.ConnectionError:
+        return render(request, 'reportes/export_error.html', {})
     contexto = {'proyecto': project, 'graph':graficos}
     template = get_template('reportes/burndown.html')
     html = template.render(RequestContext(request, contexto))
