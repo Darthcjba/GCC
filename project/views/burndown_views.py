@@ -1,6 +1,7 @@
 from datetime import timedelta
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views import generic
@@ -8,6 +9,18 @@ from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint
 from random import randint
 from project.views import GlobalPermissionRequiredMixin
+
+import requests
+import json
+
+def pdf(request):
+    url = 'http://127.0.0.1:3003'
+    data = "{\"infile\":\"{series:[{data:[29.9,71.5,106.4]}]}\"}"
+    headers = {'Content-Type': 'application/json'}
+
+    r = requests.post(url, data=data, headers=headers)
+
+    return render(request, 'project/report.html', {'graph': r.content})
 
 
 class SprintBurndown(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
