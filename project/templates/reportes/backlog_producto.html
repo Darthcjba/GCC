@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <style>
-        @page { size: A4; margin: 1cm }
+        @page {
+            size: A4; margin: 1cm;
+            @bottom-left { content: "Reporte de Backlog del Proyecto {{ proyecto }}"}
+            @bottom-right {  content: "Página " counter(page) " de " counter(pages) }
+        }
     </style>
 </head>
 <body>
@@ -14,6 +18,7 @@
     <hr />
     <p>En este reporte se presentan los User Stories que integran el proyecto <strong>{{ proyecto }}</strong> por el
     orden en que idealmente se deberían desarrollar para completar a tiempo el desarrollo del proyecto.</p>
+    <p><strong>Estado actual del proyecto: </strong>{{ proyecto.get_estado_display }}</p>
     {% if en_curso %}
         <h2>User Stories En Curso</h2>
         <p>Los User Stories que actualmente se encuentran en curso son los primeros que deben atenderse</p>
@@ -48,6 +53,7 @@
         {% endfor %}
         </div>
         <p><strong>Tiempo total ideal para finalizar los User Stories en curso: </strong>{{ sum_en_curso }} horas ({% widthratio sum_en_curso 8 1 as tiempo_dias %}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }}) </p>
+        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if inactivos %}
         <h2>User Stories Inactivos</h2>
@@ -82,6 +88,7 @@
             {% endfor %}
         </div>
         <p><strong>Tiempo total ideal para finalizar los User Stories inactivos: </strong>{{ sum_inactivos }} horas ({% widthratio sum_inactivos 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
+        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if pendientes %}
         <h2>User Stories Pendientes de Aprobación</h2>
@@ -115,6 +122,7 @@
             </div>
         {% endfor %}
         </div>
+        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if aprobados %}
         <h2>User Stories Aprobados</h2>
@@ -148,6 +156,7 @@
             </div>
             {% endfor %}
         </div>
+        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if cancelados %}
         <h2>User Stories Cancelados</h2>

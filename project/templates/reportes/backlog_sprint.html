@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
         <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
         <style>
-            @page { size: A4; margin: 1cm }
+            @page {
+                size: A4; margin: 1cm;
+                @bottom-left { content: "Reporte de Backlog del Sprint {{ sprint }}"}
+                @bottom-right {  content: "Página " counter(page) " de " counter(pages) }
+            }
         </style>
 </head>
 <body>

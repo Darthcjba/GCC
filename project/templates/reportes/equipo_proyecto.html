@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        @page {
+            size: A4; margin: 1cm;
+            @bottom-left { content: "User Stories del equipo del proyecto {{ proyecto }}"}
+            @bottom-right {  content: "Página " counter(page) " de " counter(pages) }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>User Stories en curso del equipo de {{ proyecto }}</h1>
+    <hr />
+    <p>En este reporte se presentan los User Stories que integran el proyecto <strong>{{ proyecto }}</strong> de acuerdo
+    al trabajo que está realizando en curso el equipo asignado a este proyecto por miembro de equipo</p>
+    <h2>Miembros del equipo de trabajo</h2>
+    <div class="row">
+        {% for e in equipo %}
+            <div class="col-xs-4" style="height: 200px">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title"><strong>{{ e.usuario.get_full_name }} ({{ e.usuario }})</strong></div>
+                    </div>
+                        <div class="panel-body">
+
+
+                        {% for m in e.roles.all %}
+                            <p>{{ m }}</p>
+                        {% endfor %}
+
+                        </div>
+                    </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% for set in sets %}
+        {% if set %}
+            <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
+        <h2>{{ set.first.desarrollador | title }}</h2>
+
+            <div class="row">
+        {% for us in set %}
+           <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
+                        </div>
+                        <div class="panel-body">
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            {% if us.actividad %}
+                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
+                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                        </div>
+                    </div>
+            </div>
+
+        {% endfor %}
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    </div>
+</body>
+</html>

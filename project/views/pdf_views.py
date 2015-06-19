@@ -36,7 +36,7 @@ def reporte_backlog_producto(request, proyecto_id):
     encurso_sum = us_set_curso.aggregate(sum=Sum('tiempo_estimado'))['sum']
     us_set_pendientes = project.userstory_set.filter(estado=2).order_by('sprint__inicio', '-prioridad', 'tiempo_estimado')
     us_set_aprobados = project.userstory_set.filter(estado=3).order_by('sprint__inicio', '-prioridad')
-    contexto = {'pagesize': 'A4', 'title': 'Backlog del proyecto', 'proyecto': project, 'cancelados': us_set_cancelados,
+    contexto = {'proyecto': project, 'cancelados': us_set_cancelados,
                 'inactivos': us_set_inactivos, 'en_curso': us_set_curso, 'pendientes': us_set_pendientes,
                 'aprobados': us_set_aprobados, 'sum_inactivos': inactivos_sum,
                 'sum_en_curso': encurso_sum}
@@ -46,6 +46,24 @@ def reporte_backlog_producto(request, proyecto_id):
     weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
     return response
 
+def reporte_equipo_proyecto(request, proyecto_id):
+    project = get_object_or_404(Proyecto, id=proyecto_id)
+    equipo = project.miembroequipo_set.all()
+
+    us_sets = []
+    for miembro in [e.usuario for e in equipo]:
+        us_set = miembro.userstory_set.filter(proyecto=project, estado__in=[0,1]).order_by('sprint__inicio', '-prioridad')
+        if us_set:
+            us_sets.append(us_set)
+
+    contexto = {'proyecto': project, 'equipo': equipo, 'sets': us_sets}
+    template = get_template('reportes/equipo_proyecto.html')
+    html = template.render(RequestContext(request, contexto))
+    response = HttpResponse(content_type="application/pdf")
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
+    return response
+
+
 def html_reporte_backlog_producto(request, proyecto_id):
     project = get_object_or_404(Proyecto, id=proyecto_id)
     us_set_cancelados = project.userstory_set.filter(estado=4).order_by('sprint__inicio', '-prioridad')
@@ -53,7 +71,7 @@ def html_reporte_backlog_producto(request, proyecto_id):
     us_set_curso = project.userstory_set.filter(estado=1).order_by('sprint__inicio', '-prioridad')
     us_set_pendientes = project.userstory_set.filter(estado=2).order_by('sprint__inicio', '-prioridad')
     us_set_aprobados = project.userstory_set.filter(estado=3).order_by('sprint__inicio', '-prioridad')
-    contexto = {'pagesize': 'A4', 'title': 'Backlog del proyecto', 'proyecto': project, 'cancelados': us_set_cancelados,
+    contexto = {'proyecto': project, 'cancelados': us_set_cancelados,
                 'inactivos': us_set_inactivos, 'en_curso': us_set_curso, 'pendientes': us_set_pendientes,
                 'aprobados': us_set_aprobados}
     template = get_template('reportes/backlog_producto.html')
@@ -67,7 +85,7 @@ def html_reporte_backlog_producto(request, proyecto_id):
 def reporte_backlog_sprint(request, sprint_id):
     sprint = get_object_or_404(Sprint, id=sprint_id)
     us_set = sprint.userstory_set.all()
-    contexto = {'pagesize': 'A4', 'title': 'Backlog del sprint', 'sprint': sprint, 'user_stories': us_set}
+    contexto = {'sprint': sprint, 'user_stories': us_set}
     template = get_template('reportes/backlog_sprint.html')
     html = template.render(RequestContext(request, contexto))
     response = HttpResponse(content_type="application/pdf")
@@ -81,7 +99,7 @@ def reporte_userstories_user(request, user_id):
     us_pendientes = usuario.userstory_set.filter(estado=0)
     us_encurso = usuario.userstory_set.filter(estado=1)
     us_finalizados = usuario.userstory_set.filter(estado=3)
-    contexto = {'pagesize': 'A4', 'title': 'User Stories del desarrollador', 'usuario': usuario, 'pendientes': us_pendientes,
+    contexto = {'usuario': usuario, 'pendientes': us_pendientes,
                 'en_curso': us_encurso, 'finalizados':us_finalizados}
     template = get_template('reportes/userstories_user.html')
     html = template.render(RequestContext(request, contexto))
@@ -94,7 +112,7 @@ def reporte_lista_priorizada(request, proyecto_id):
     us_bajo = proyecto.userstory_set.filter(prioridad=0).order_by('sprint__inicio')
     us_medio = proyecto.userstory_set.filter(prioridad=1).order_by('sprint__inicio')
     us_alto = proyecto.userstory_set.filter(prioridad=2).order_by('sprint__inicio')
-    contexto = {'pagesize': 'A4', 'title': 'User Stories del desarrollador', 'proyecto': proyecto, 'bajos': us_bajo,
+    contexto = {'proyecto': proyecto, 'bajos': us_bajo,
                 'medios': us_medio, 'altos':us_alto}
     template = get_template('reportes/userstories_priorizados.html')
     html = template.render(RequestContext(request, contexto))

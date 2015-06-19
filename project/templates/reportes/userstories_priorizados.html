@@ -5,144 +5,120 @@
     <meta charset="UTF-8">
     <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <style>
-        @page { size: A4; margin: 1cm }
+        @page {
+            size: A4; margin: 1cm;
+            @bottom-left { content: "Reporte de User Stories clasificados por prioridad por completar de {{ proyecto }}"}
+            @bottom-right {  content: "Página " counter(page) " de " counter(pages) }
+        }
     </style>
 </head>
 <body>
 <div class="content">
-    <h1>Backlog del proyecto</h1>
+    <h1>Lista priorizada de User Stories restantes - {{ proyecto }}</h1>
     <hr />
-    <p>En este reporte se presentan los User Stories que integran el proyecto <strong>{{ proyecto }}</strong> por el
-    orden en que idealmente se deberían desarrollar para completar a tiempo el desarrollo del proyecto.</p>
-    {% if en_curso %}
-        <h2>User Stories En Curso</h2>
-        <p>Los User Stories que actualmente se encuentran en curso son los primeros que deben atenderse</p>
+    <p>En este reporte se presentan de forma clasificada según su prioridad los User Stories restantes que se faltan para
+    completar el proyecto <strong>{{ proyecto }}</strong></p>
+    <h2>Prioridad Alta</h2>
+    <hr>
         <div class="row">
-        {% for us in en_curso %}
+        {% for us in altos %}
            <div class="col-xs-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
                             </div>
                             <div class="panel-body">
-                                <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
-                                <strong>Desarrollador: </strong>
-                                {% if us.desarrollador %}
-                                    {{ us.desarrollador }}
-                                {% else %}
-                                    Ninguno
-                                {% endif %}
-                                </br>
-                                {% if us.actividad %}
-                                    <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
-                                    <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
-                                {% endif %}
-                                    <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
-                                <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                                <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
-                            </div>
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            <strong>Desarrollador: </strong>
+                            {% if us.desarrollador %}
+                                {{ us.desarrollador }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                            </br>
+                            {% if us.actividad %}
+                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
+                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                        </div>
                         </div>
                 </div>
+            {% empty %}
+            <p><strong>No quedan por desarrollar User Stories de prioridad alta.</strong></p>
         {% endfor %}
         </div>
-    {% endif %}
-    {% if inactivos %}
-        <h2>User Stories Inactivos</h2>
-        <p>Los User Stories inactivos todavía no han comenzado su desarrollo</p>
+        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
+        <h2>Prioridad Media</h2>
+        <hr>
         <div class="row">
-        {% for us in inactivos %}
-               <div class="col-lg-3">
-                        <div class="panel panel-{% if us.prioridad == 0 %}green{% elif us.prioridad == 1 %}yellow{% else %}red{% endif %}">
-                            <div class="panel-heading">
-                                <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
-                            </div>
+        {% for us in medios %}
+               <div class="col-xs-6">
+                        <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
+                        </div>
                             <div class="panel-body">
-                                <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
-                                <strong>Desarrollador: </strong>{{ us.desarrollador }}</br>
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            <strong>Desarrollador: </strong>
+                            {% if us.desarrollador %}
+                                {{ us.desarrollador }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                            </br>
+                            {% if us.actividad %}
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
-                                <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
-                            </div>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                        </div>
                         </div>
                 </div>
+            {% empty %}
+            <p><strong>No quedan por desarrollar User Stories de prioridad media.</strong></p>
             {% endfor %}
         </div>
-        {% endif %}
-    {% if pendientes %}
-        <h2>User Stories Pendientes de Aprobación</h2>
-        <p>Para completar el proyecto se deben aprobar los siguientes User Stories</p>
+        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
+        <h2>Prioridad Baja</h2>
+        <hr>
         <div class="row">
-        {% for us in pendientes %}
-               <div class="col-lg-3">
-                        <div class="panel panel-{% if us.prioridad == 0 %}green{% elif us.prioridad == 1 %}yellow{% else %}red{% endif %}">
-                            <div class="panel-heading">
-                                <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
-                            </div>
+        {% for us in bajos %}
+               <div class="col-xs-6">
+                       <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
+                        </div>
                             <div class="panel-body">
-                                <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
-                                <strong>Desarrollador: </strong>{{ us.desarrollador }}</br>
+                            <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
+                            <strong>Desarrollador: </strong>
+                            {% if us.desarrollador %}
+                                {{ us.desarrollador }}
+                            {% else %}
+                                Ninguno
+                            {% endif %}
+                            </br>
+                            {% if us.actividad %}
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
-                                <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
-                            </div>
+                            {% endif %}
+                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
+                            <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
+                            <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
+                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                        </div>
                         </div>
                 </div>
+            {% empty %}
+            <p><strong>No quedan por desarrollar User Stories de prioridad baja.</strong></p>
         {% endfor %}
         </div>
-    {% endif %}
-    {% if aprobados %}
-        <h2>User Stories Aprobados</h2>
-        <p>Los siguientes User Stories ya han sido aprobados</p>
-        <div class="row">
-        {% for us in aprobados %}
-               <div class="col-lg-3">
-                        <div class="panel panel-{% if us.prioridad == 0 %}green{% elif us.prioridad == 1 %}yellow{% else %}red{% endif %}">
-                            <div class="panel-heading">
-                                <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
-                            </div>
-                            <div class="panel-body">
-                                <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
-                                <strong>Desarrollador: </strong>{{ us.desarrollador }}</br>
-                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
-                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
-                                <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
-                            </div>
-                        </div>
-                </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-    {% if cancelados %}
-        <h2>User Stories Cancelados</h2>
-        <p>Los siguientes User Stories han sido cancelados</p>
-        <div class="row">
-        {% for us in cancelados %}
-               <div class="col-lg-3">
-                        <div class="panel panel-{% if us.prioridad == 0 %}green{% elif us.prioridad == 1 %}yellow{% else %}red{% endif %}">
-                            <div class="panel-heading">
-                                <div class="panel-title"> <strong>{{ us.nombre }}</strong></div>
-                            </div>
-                            <div class="panel-body">
-                                <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
-                                <strong>Desarrollador: </strong>{{ us.desarrollador }}</br>
-                                <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
-                                <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
-                                <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}</br>
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas <br />
-                            </div>
-                        </div>
-                </div>
-            {% endfor %}
-        </div>
-        {% endif %}
 </div>
 </body>
 </html>
