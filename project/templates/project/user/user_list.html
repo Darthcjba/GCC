@@ -16,6 +16,7 @@
         <th>Username</th>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Estado</th>
         <th>Ultimo Login</th>
         <th>Ver</th>
         {% if perms.auth.change_user %}<th>Editar</th>{% endif %}
@@ -28,6 +29,7 @@
         <td>{{ u.username }}</td>
         <td>{{ u.first_name }}</td>
         <td>{{ u.last_name }}</td>
+        <td>{% if u.is_active %}Activo{% else %}Desactivado{% endif %}</td>
         <td>{{ u.last_login }}</td>
         <td ><a href="{% url 'project:user_detail' u.id %}"><i class="fa fa-eye fa-fw"></i></a> </td>
         {% if perms.auth.change_user %}<td><a href="{% url 'project:user_update' u.id %}"><i class="fa fa-pencil fa-fw"></i></a></td>{% endif %}
