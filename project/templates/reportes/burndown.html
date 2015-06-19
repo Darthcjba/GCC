@@ -19,6 +19,9 @@
 <hr />
 
 {% for g in graph %}
+    {% if forloop.counter != 1 %}
+        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
+    {% endif %}
     <h3>Sprint {{ forloop.counter }}</h3>
     <img alt="Embedded Image" src="data:image/png;base64,{{ g }}">
     <br>
