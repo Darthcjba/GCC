@@ -1,23 +1,34 @@
-{% extends 'project/base.html' %}
-{% block title %}{{ action | title }} User Story{% endblock %}
+{% extends "project/base.html" %}
+{% load bootstrap3 %}
+{% load guardian_tags %}
 
 {% block breadcrumbs %}
     <li><a href="{% url 'project:home' %}">Home</a></li>
     <li><a href="{% url 'project:project_list' %}">Proyectos</a></li>
-    <li><a href="{{ object.proyecto.get_absolute_url }}">{{ object.proyecto }}</a></li>
-    <li><a href="{% url 'project:product_backlog' object.proyecto_id %}">User Stories</a></li>
-    <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
+    <li><a href="{{ userstory.proyecto.get_absolute_url }}">{{ userstory.proyecto }}</a></li>
+    <li><a href="{% url 'project:product_backlog' userstory.proyecto_id %}">User Stories</a></li>
+    <li><a href="{{ object.get_absolute_url }}">{{ userstory }}</a></li>
     <li class="active">Cancelar</li>
 {% endblock %}
 
-{% block header %}{{ userstory.nombre }} {% endblock %}
+{% block title %}Cancelar User Story{% endblock %}
+{% block header %}Cancelar User Story{% endblock %}
 {% block content %}
-<form action="" method="post" role="form">
-    {% csrf_token %}
-    <div class="form-group">
-        <p>Seguro de que desea <strong>{{ action }}</strong> el User Story <strong>{{ object }}</strong>?</p>
-    </div>
 
-    <input type="submit" value="{{ action | title }}" class="btn btn-default"/>
-</form>
+
+    <p><strong>Desea Cancelar el User Story: {{ userstory.nombre }} ? </strong></p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-4">
+                {% bootstrap_form form layout="inline" %}
+            </div>
+        </div>
+        {% buttons submit='Si' reset="Reset" %}
+            <a href="javascript:history.back()">
+                <button type="button" class="btn btn-danger">No</button>
+            </a>
+        {% endbuttons %}
+    </form>
+    </div>
 {% endblock %}
