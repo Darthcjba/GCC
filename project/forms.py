@@ -8,7 +8,7 @@ from django.utils import timezone
 from guardian.shortcuts import get_perms_for_model
 from project.models import Proyecto, Flujo, Sprint, Actividad, MiembroEquipo, Adjunto
 from project.models import UserStory
-from django.forms.models import inlineformset_factory
+from django.forms.models import inlineformset_factory, BaseInlineFormSet
 import datetime
 
 def __general_perms_list__():
@@ -168,6 +168,16 @@ class AddToSprintFormset(BaseFormSet):
 
                 userstories.append(us)
 
+class MiembrosEquipoFormset(BaseInlineFormSet):
+    def clean(self):
+        super(MiembrosEquipoFormset, self).clean()
+        print("En chequeo")
+        for form in self.forms:
+            if form in self.deleted_forms:
+                usuario = form.cleaned_data['usuario']
+                proyecto = form.cleaned_data['proyecto']
+                if usuario.userstory_set.filter(proyecto=proyecto).count() != 0:
+                    raise forms.ValidationError("El usuario {0} tiene User Stories asignados en el proyecto.".format(usuario))
 
 class FileUploadForm(forms.ModelForm):
     """

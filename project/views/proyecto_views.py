@@ -18,6 +18,7 @@ from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from guardian.mixins import LoginRequiredMixin
 from guardian.shortcuts import remove_perm
 from guardian.shortcuts import get_perms
+from project.forms import MiembrosEquipoFormset
 from project.models import Proyecto
 from project.models import MiembroEquipo
 from project.views import GlobalPermissionRequiredMixin, ActiveProjectRequiredMixin
@@ -78,7 +79,7 @@ class ProjectCreate(LoginRequiredMixin, CreateViewPermissionRequiredMixin, gener
                                    fields=('nombre_corto', 'nombre_largo', 'inicio', 'fin', 'duracion_sprint',
                                            'descripcion'),)
     template_name = 'project/proyecto/project_form.html'
-    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, formset=MiembrosEquipoFormset, can_delete=True,
                                                     fields=['usuario', 'roles'],
                                                     extra=1,
                                                     widgets={'roles': CheckboxSelectMultiple})
@@ -113,7 +114,7 @@ class ProjectUpdate(ActiveProjectRequiredMixin, LoginRequiredMixin, GlobalPermis
     model = Proyecto
     permission_required = 'project.change_proyecto'
     template_name = 'project/proyecto/project_form.html'
-    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, can_delete=True,
+    TeamMemberInlineFormSet = inlineformset_factory(Proyecto, MiembroEquipo, formset=MiembrosEquipoFormset, can_delete=True,
                                                     fields=['usuario', 'roles'],
                                                     extra=1,
                                                     widgets={'roles': CheckboxSelectMultiple})
