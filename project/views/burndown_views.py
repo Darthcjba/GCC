@@ -15,10 +15,19 @@ import json
 
 def pdf(request):
     url = 'http://127.0.0.1:3003'
-    data = "{\"infile\":\"{series:[{data:[29.9,71.5,106.4]}]}\"}"
-    headers = {'Content-Type': 'application/json'}
+    project = get_object_or_404(Proyecto, pk=7)
+    sprint = get_object_or_404(Sprint, pk=1)
+    burndown = get_sprint_burndown(sprint)
+    xAxis = "xAxis: {labels: {format: 'Dia {value}'}}"
+    yAxis = "yAxis: { title: {text: 'Esfuerzo Restante'}, min: 0, labels: {format: '{value} hs'}}"
+    title = "title: {text:'Burndown Chart'}"
+    series = "series:[{name: 'Ideal', data: %s}, {name: 'Real', data: %s}]" % (burndown['ideal'], burndown['real'], )
+    infile = "{ %s }" % ",".join([title, xAxis, yAxis, series])
+    d = {'infile': infile}
+    pdata = json.dumps(d)
+    #print pdata
 
-    r = requests.post(url, data=data, headers=headers)
+    r = requests.post(url, data=pdata, headers={'Content-Type': 'application/json'})
 
     return render(request, 'project/report.html', {'graph': r.content})
 
