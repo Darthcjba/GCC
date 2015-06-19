@@ -41,9 +41,7 @@
 
     {% for set in sets %}
         {% if set %}
-            {% if forloop.counter != 1 %}
                 <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
-            {% endif %}
         <h2>{{ set.first.desarrollador | title }}</h2>
 
             <div class="row">
