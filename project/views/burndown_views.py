@@ -10,35 +10,6 @@ from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sp
 from random import randint
 from project.views import GlobalPermissionRequiredMixin
 
-import requests
-import json
-
-export_url = 'http://192.168.43.214:3003'
-
-def pdf(request):
-    project = get_object_or_404(Proyecto, pk=7)
-    graficos = get_graficos(project)
-
-    return render(request, 'project/report.html', {'graph': graficos})
-
-def get_graficos(project):
-    sprints = project.sprint_set.all()
-    graficos = []
-    xAxis = "xAxis: {labels: {format: 'Dia {value}'}}"
-    yAxis = "yAxis: { title: {text: 'Esfuerzo Restante'}, min: 0, labels: {format: '{value} hs'}}"
-
-    for sprint in sprints:
-        burndown = get_sprint_burndown(sprint)
-        title = "credits: false, title: {text:'Burndown Chart'}, subtitle: {text: '%s'}" % sprint.nombre
-        series = "series:[{name: 'Ideal', data: %s}, {name: 'Real', data: %s}]" % (burndown['ideal'], burndown['real'], )
-        infile = "{ %s }" % ",".join([title, xAxis, yAxis, series])
-        d = {'infile': infile}
-        pdata = json.dumps(d)
-        #print pdata
-        r = requests.post(export_url, data=pdata, headers={'Content-Type': 'application/json'})
-        graficos.append(r.content)
-
-    return graficos
 
 class SprintBurndown(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """

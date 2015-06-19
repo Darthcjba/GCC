@@ -8,12 +8,12 @@ from guardian.decorators import permission_required
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 from django.template.loader import get_template
 from django.template import Context, RequestContext
 from guardian.shortcuts import get_perms
 from project.models import Proyecto, Sprint
-from project.views import get_graficos
+from project.views import get_sprint_burndown
 from projectium import settings
 import weasyprint
 
@@ -24,6 +24,37 @@ def url_fetcher(url):
         url = url[len('assets://'):]
         url = "file://" + safe_join(settings.ASSETS_ROOT, url)
     return weasyprint.default_url_fetcher(url)
+
+import requests
+import json
+
+export_url = 'http://192.168.43.115:3003'
+
+def pdf(request):
+    project = get_object_or_404(Proyecto, pk=7)
+    graficos = get_graficos(project)
+
+    return render(request, 'project/report.html', {'graph': graficos})
+
+def get_graficos(project):
+    sprints = project.sprint_set.all()
+    graficos = []
+    xAxis = "xAxis: {labels: {format: 'Dia {value}'}}"
+    yAxis = "yAxis: { title: {text: 'Esfuerzo Restante'}, min: 0, labels: {format: '{value} hs'}}"
+
+    for sprint in sprints:
+        burndown = get_sprint_burndown(sprint)
+        title = "credits: false, title: {text:'Burndown Chart'}, subtitle: {text: '%s'}" % sprint.nombre
+        series = "series:[{name: 'Ideal', data: %s}, {name: 'Real', data: %s}]" % (burndown['ideal'], burndown['real'], )
+        infile = "{ %s }" % ",".join([title, xAxis, yAxis, series])
+        d = {'infile': infile}
+        pdata = json.dumps(d)
+        #print pdata
+        r = requests.post(export_url, data=pdata, headers={'Content-Type': 'application/json'})
+        graficos.append(r.content)
+
+    return graficos
+
 
 
 @login_required
@@ -84,8 +115,8 @@ def html_reporte_backlog_producto(request, proyecto_id):
     weasyprint.HTML(string=html, url_fetcher=url_fetcher).write_pdf(response)
     return render_to_response('reportes/backlog_producto.html', contexto)
 
-def report_charts(request, project_id):
-    project = get_object_or_404(Proyecto, id=project_id)
+def reporte_burndown(request, proyecto_id):
+    project = get_object_or_404(Proyecto, id=proyecto_id)
     graficos = get_graficos(project)
     contexto = {'proyecto': project, 'graph':graficos}
     template = get_template('reportes/burndown.html')

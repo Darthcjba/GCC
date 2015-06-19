@@ -22,6 +22,7 @@ urlpatterns = patterns('',
                        url(r'^projects/(?P<proyecto_id>\d+)/reporte/backlog/$',views.reporte_backlog_producto, name='reporte_backlog_producto'),
                        url(r'^projects/(?P<proyecto_id>\d+)/reporte/lista_priorizada/$',views.reporte_lista_priorizada, name='reporte_lista_priorizada'),
                        url(r'^projects/(?P<proyecto_id>\d+)/reporte/equipo/$',views.reporte_equipo_proyecto, name='reporte_equipo_proyecto'),
+                        url(r'^projects/(?P<proyecto_id>\d+)/reporte/burndown/$', views.reporte_burndown, name='reporte_burndown'),
                        url(r'^flujo/(?P<pk>\d+)/$', views.FlujoDetail.as_view(), name='flujo_detail'),
                        url(r'^flujo/(?P<pk>\d+)/sprint/(?P<sprint_pk>\d+)/$', views.FlujoDetailSprint.as_view(), name='flujo_detail_sprint'),
                        url(r'^projects/(?P<project_pk>\d+)/flujo/add/$', views.AddFlujo.as_view(), name="flujo_add"),
@@ -64,7 +65,6 @@ urlpatterns = patterns('',
 
                        url(r'^sprint/(?P<pk>\d+)/burndown/$', views.SprintBurndown.as_view(), name='sprint_burndown'),
                        url(r'^morris/(?P<sprint_pk>\d+)/generate/$', views.generarNotas, name='generate'),
-                       url(r'^pdf/(\d+)$', views.report_charts, name='pdf'),
                        url(r'^sprint/(\d+)/reporte/backlog/$',views.reporte_backlog_sprint, name='reporte_backlog_sprint'),
                        )
 
