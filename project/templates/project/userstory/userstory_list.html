@@ -36,13 +36,13 @@
                     <div class="panel-body">
                         <strong>Estado actual: </strong>{{ us.get_estado_display }}<br/>
                         <strong>Desarrollador: </strong>
-                        {% if u.desarrollador %}
+                        {% if us.desarrollador %}
                             <a href="{% url 'project:user_detail' us.desarrollador_id %}">{{ us.desarrollador }}</a>
                         {% else %}
                             Ninguno
                         {% endif %}
                         </br>
-                        {% if u.actividad %}
+                        {% if us.actividad %}
                             <strong>Flujo: </strong><a href="{% url 'project:flujo_detail' us.actividad.flujo_id %}">{{ us.actividad.flujo }}</a><br/>
                             <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                         {% endif %}
