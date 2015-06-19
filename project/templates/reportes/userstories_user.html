@@ -48,10 +48,11 @@
                 </div>
         {% endfor %}
         </div>
-        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if en_curso %}
-
+        {% if pendientes %}
+            <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
+        {% endif %}
         <h2>User Stories En curso</h2>
         <p>Los User Stories que están en desarrollo actualmente</p>
         <div class="row">
@@ -83,9 +84,11 @@
                 </div>
             {% endfor %}
         </div>
-        <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if finalizados %}
+        {% if en_curso %}
+            <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
+        {% endif %}
         <h2>User Stories Finalizados</h2>
         <p>Para completar el proyecto se ya han sido completados y aprobados</p>
         <div class="row">
