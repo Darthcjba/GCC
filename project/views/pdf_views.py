@@ -88,7 +88,7 @@ def report_charts(request, project_id):
     project = get_object_or_404(Proyecto, id=project_id)
     graficos = get_graficos(project)
     contexto = {'proyecto': project, 'graph':graficos}
-    template = get_template('project/report.html')
+    template = get_template('reportes/burndown.html')
     html = template.render(RequestContext(request, contexto))
     response = HttpResponse(content_type="application/pdf")
     weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
