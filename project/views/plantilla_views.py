@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.template import RequestContext
 from django.views import generic
 from guardian.mixins import LoginRequiredMixin
@@ -120,7 +121,7 @@ class UpdatePlantilla(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic
 
             return HttpResponseRedirect(self.get_success_url())
 
-        return self.render(self.request, self.get_template_names(), {'form': form,
+        return render(self.request, self.get_template_names(), {'form': form,
                                                                      'actividad_form': actividad_form},
                            context_instance=RequestContext(self.request))
 
