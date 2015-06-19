@@ -13,7 +13,7 @@ from project.views import GlobalPermissionRequiredMixin
 import requests
 import json
 
-export_url = 'http://127.0.0.1:3003'
+export_url = 'http://192.168.43.214:3003'
 
 def pdf(request):
     project = get_object_or_404(Proyecto, pk=7)

@@ -64,7 +64,7 @@ urlpatterns = patterns('',
 
                        url(r'^sprint/(?P<pk>\d+)/burndown/$', views.SprintBurndown.as_view(), name='sprint_burndown'),
                        url(r'^morris/(?P<sprint_pk>\d+)/generate/$', views.generarNotas, name='generate'),
-                       url(r'^pdf/$', views.pdf, name='pdf'),
+                       url(r'^pdf/(\d+)$', views.report_charts, name='pdf'),
                        url(r'^sprint/(\d+)/reporte/backlog/$',views.reporte_backlog_sprint, name='reporte_backlog_sprint'),
                        )
 

@@ -13,6 +13,7 @@ from django.template.loader import get_template
 from django.template import Context, RequestContext
 from guardian.shortcuts import get_perms
 from project.models import Proyecto, Sprint
+from project.views import get_graficos
 from projectium import settings
 import weasyprint
 
@@ -83,6 +84,15 @@ def html_reporte_backlog_producto(request, proyecto_id):
     weasyprint.HTML(string=html, url_fetcher=url_fetcher).write_pdf(response)
     return render_to_response('reportes/backlog_producto.html', contexto)
 
+def report_charts(request, project_id):
+    project = get_object_or_404(Proyecto, id=project_id)
+    graficos = get_graficos(project)
+    contexto = {'proyecto': project, 'graph':graficos}
+    template = get_template('project/report.html')
+    html = template.render(RequestContext(request, contexto))
+    response = HttpResponse(content_type="application/pdf")
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
+    return response
 
 @login_required
 def reporte_backlog_sprint(request, sprint_id):
