@@ -16,20 +16,24 @@ import json
 def pdf(request):
     url = 'http://127.0.0.1:3003'
     project = get_object_or_404(Proyecto, pk=7)
-    sprint = get_object_or_404(Sprint, pk=1)
-    burndown = get_sprint_burndown(sprint)
+    sprints = project.sprint_set.all()
+
+    graficos = []
     xAxis = "xAxis: {labels: {format: 'Dia {value}'}}"
     yAxis = "yAxis: { title: {text: 'Esfuerzo Restante'}, min: 0, labels: {format: '{value} hs'}}"
-    title = "title: {text:'Burndown Chart'}"
-    series = "series:[{name: 'Ideal', data: %s}, {name: 'Real', data: %s}]" % (burndown['ideal'], burndown['real'], )
-    infile = "{ %s }" % ",".join([title, xAxis, yAxis, series])
-    d = {'infile': infile}
-    pdata = json.dumps(d)
-    #print pdata
 
-    r = requests.post(url, data=pdata, headers={'Content-Type': 'application/json'})
+    for sprint in sprints:
+        burndown = get_sprint_burndown(sprint)
+        title = "credits: false, title: {text:'Burndown Chart'}, subtitle: {text: '%s'}" % sprint.nombre
+        series = "series:[{name: 'Ideal', data: %s}, {name: 'Real', data: %s}]" % (burndown['ideal'], burndown['real'], )
+        infile = "{ %s }" % ",".join([title, xAxis, yAxis, series])
+        d = {'infile': infile}
+        pdata = json.dumps(d)
+        #print pdata
+        r = requests.post(url, data=pdata, headers={'Content-Type': 'application/json'})
+        graficos.append(r.content)
 
-    return render(request, 'project/report.html', {'graph': r.content})
+    return render(request, 'project/report.html', {'graph': graficos})
 
 
 class SprintBurndown(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):

@@ -1,3 +1,7 @@
 <h1>Report</h1>
 
-<img alt="Embedded Image" src="data:image/png;base64,{{ graph }}">
+{% for g in graph %}
+    <h3>Sprint {{ forloop.counter }}</h3>
+    <img alt="Embedded Image" src="data:image/png;base64,{{ g }}">
+    <br>
+{% endfor %}
