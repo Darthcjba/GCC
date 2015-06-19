@@ -13,11 +13,16 @@ from project.views import GlobalPermissionRequiredMixin
 import requests
 import json
 
-def pdf(request):
-    url = 'http://127.0.0.1:3003'
-    project = get_object_or_404(Proyecto, pk=7)
-    sprints = project.sprint_set.all()
+export_url = 'http://127.0.0.1:3003'
 
+def pdf(request):
+    project = get_object_or_404(Proyecto, pk=7)
+    graficos = get_graficos(project)
+
+    return render(request, 'project/report.html', {'graph': graficos})
+
+def get_graficos(project):
+    sprints = project.sprint_set.all()
     graficos = []
     xAxis = "xAxis: {labels: {format: 'Dia {value}'}}"
     yAxis = "yAxis: { title: {text: 'Esfuerzo Restante'}, min: 0, labels: {format: '{value} hs'}}"
@@ -30,11 +35,10 @@ def pdf(request):
         d = {'infile': infile}
         pdata = json.dumps(d)
         #print pdata
-        r = requests.post(url, data=pdata, headers={'Content-Type': 'application/json'})
+        r = requests.post(export_url, data=pdata, headers={'Content-Type': 'application/json'})
         graficos.append(r.content)
 
-    return render(request, 'project/report.html', {'graph': graficos})
-
+    return graficos
 
 class SprintBurndown(LoginRequiredMixin, GlobalPermissionRequiredMixin, generic.DetailView):
     """
