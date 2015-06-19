@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 import os
 from django import http
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from django.utils._os import safe_join
+from guardian.decorators import permission_required
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import get_template
 from django.template import Context, RequestContext
+from guardian.shortcuts import get_perms
 from project.models import Proyecto, Sprint
 from projectium import settings
 import weasyprint
@@ -20,13 +25,8 @@ def url_fetcher(url):
     return weasyprint.default_url_fetcher(url)
 
 
-'''
-def trabajos_encurso_equipo(request, proyecto_id):
-    return render_to_pdf('reportes/us_curso_proyecto.html', { 'pagesize':'A4',
-        'title':'Cantidad de trabajos en curso por equipo',
-        'proyecto':get_object_or_404(Proyecto, id=proyecto_id)})
-'''
-
+@login_required
+@permission_required('project.view_project', (Proyecto, 'id', 'proyecto_id'))
 def reporte_backlog_producto(request, proyecto_id):
     project = get_object_or_404(Proyecto, id=proyecto_id)
     us_set_cancelados = project.userstory_set.filter(estado=4).order_by('sprint__inicio', '-prioridad')
@@ -46,6 +46,8 @@ def reporte_backlog_producto(request, proyecto_id):
     weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
     return response
 
+@login_required
+@permission_required('project.view_project', (Proyecto, 'id', 'proyecto_id'))
 def reporte_equipo_proyecto(request, proyecto_id):
     project = get_object_or_404(Proyecto, id=proyecto_id)
     equipo = project.miembroequipo_set.all()
@@ -63,7 +65,8 @@ def reporte_equipo_proyecto(request, proyecto_id):
     weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
     return response
 
-
+@login_required
+@permission_required('project.view_project', (Proyecto, 'id', 'proyecto_id'))
 def html_reporte_backlog_producto(request, proyecto_id):
     project = get_object_or_404(Proyecto, id=proyecto_id)
     us_set_cancelados = project.userstory_set.filter(estado=4).order_by('sprint__inicio', '-prioridad')
@@ -81,19 +84,23 @@ def html_reporte_backlog_producto(request, proyecto_id):
     return render_to_response('reportes/backlog_producto.html', contexto)
 
 
-
+@login_required
 def reporte_backlog_sprint(request, sprint_id):
+
     sprint = get_object_or_404(Sprint, id=sprint_id)
-    us_set = sprint.userstory_set.all()
-    contexto = {'sprint': sprint, 'user_stories': us_set}
-    template = get_template('reportes/backlog_sprint.html')
-    html = template.render(RequestContext(request, contexto))
-    response = HttpResponse(content_type="application/pdf")
-    weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
-    return response
+    #Comprobamos el permiso manualmente
+    if 'view_project' in get_perms(request.user, sprint.proyecto):
+        us_set = sprint.userstory_set.all()
+        contexto = {'sprint': sprint, 'user_stories': us_set}
+        template = get_template('reportes/backlog_sprint.html')
+        html = template.render(RequestContext(request, contexto))
+        response = HttpResponse(content_type="application/pdf")
+        weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
+        return response
+    else:
+        raise PermissionDenied()
 
-
-
+@login_required
 def reporte_userstories_user(request, user_id):
     usuario = get_object_or_404(User, id=user_id)
     us_pendientes = usuario.userstory_set.filter(estado=0)
@@ -107,6 +114,8 @@ def reporte_userstories_user(request, user_id):
     weasyprint.HTML(string=html, base_url=request.build_absolute_uri(), url_fetcher=url_fetcher).write_pdf(response)
     return response
 
+@login_required
+@permission_required('project.view_project', (Proyecto, 'id', 'proyecto_id'))
 def reporte_lista_priorizada(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, id=proyecto_id)
     us_bajo = proyecto.userstory_set.filter(prioridad=0).order_by('sprint__inicio')

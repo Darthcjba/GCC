@@ -23,6 +23,40 @@
                 <a href="{% url 'project:pending_userstories' proyecto.id %}"><i class="fa fa-check-square fa-fw"></i> User Stories a Aprobar <span class="badge">{{ pending_us }}</span></a>
             {% endif %}
         {% endif %}
+        <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <p><span class="fa fa-file-pdf-o" /> Reportes <i class="fa fa-caret-down"></i></p>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="{% url 'project:reporte_backlog_producto' proyecto.id %}">
+                                <div>
+                                    <strong>Reporte de Backlog del Proyecto </strong>
+                                     <span class="fa fa-download" />
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                             <a href="{% url 'project:reporte_equipo_proyecto' proyecto.id %}">
+                                <div>
+                                    <strong>Reporte de trabajo en curso del Equipo </strong>
+                                     <span class="fa fa-download" />
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                             <a href="{% url 'project:reporte_lista_priorizada' proyecto.id %}">
+                                <div>
+                                    <strong>Reporte de User Stories pendientes por orden de prioridad </strong>
+                                     <span class="fa fa-download" />
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
     </ul>
 
     <div class="row">

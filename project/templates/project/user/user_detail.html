@@ -12,6 +12,7 @@
     <ul class="list-inline">
         {% if perms.auth.change_user %}<li><a href="{% url 'project:user_update' usuario.id %}" class="fa fa-pencil"> Edit</a></li>{% endif %}
         {% if perms.auth.delete_user %}<li><a href="{% url 'project:user_delete' usuario.id %}" class="fa fa-eraser"> Delete</a></li>{% endif %}
+        <li><a href="{% url 'project:reporte_userstories_user' usuario.id %}" class="fa fa-file-pdf-o"> Reporte de User Stories En Curso</a> </li>
     </ul>
 <p><strong>Nombre:</strong> {{ usuario.first_name }}</p>
 <p><strong>Apellido:</strong> {{ usuario.last_name }}</p>

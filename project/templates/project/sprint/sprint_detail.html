@@ -18,6 +18,7 @@
             <li><a href="{% url 'project:sprint_update'  sprint.id %}" class="fa fa-pencil"> Edit</a></li>
         {% endif %}
         <li><a href="{% url 'project:sprint_burndown'  sprint.id %}" class="fa fa-line-chart"> Ver Burndown</a></li>
+    <li><a href="{% url 'project:reporte_backlog_sprint' sprint.id %}" class="fa fa-file-pdf-o"> Ver Reporte de Backlog de Sprint</a> </li>
     </ul>
     <p><strong>Nombre:</strong> {{ sprint.nombre }}</p>
     <p><strong>Fecha Inicio:</strong>{{ sprint.inicio }}</p>
