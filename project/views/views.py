@@ -12,7 +12,7 @@ from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 from guardian.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from guardian.admin import *;
-from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint
+from project.models import MiembroEquipo, Proyecto, UserStory, Adjunto, Nota, Sprint, Flujo
 from random import randint
 
 
@@ -47,14 +47,16 @@ class ActiveProjectRequiredMixin(object):
         raise PermissionDenied()
 
 @login_required()
+
 def home(request):
     """
     Vista para la pantalla principal.
     """
     context = {}
-    context['users'] = User.objects.all()
+    context['users_count'] = User.objects.count()
     context['proyects'] = Proyecto.objects.all()
-    context['team_members'] = MiembroEquipo.objects.all()
+    context['plantillas_count'] = Flujo.objects.filter(proyecto=None).count()
+    context['us_count'] = request.user.userstory_set.count()
 
     return render(request, 'project/home.html', context)
 
