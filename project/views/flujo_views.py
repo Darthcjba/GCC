@@ -9,7 +9,7 @@ from django.views import generic
 from guardian.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from guardian.shortcuts import get_perms
 from project.forms import ActividadFormSet, FlujosCreateForm, CreateFromPlantillaForm
-from project.models import Flujo, Proyecto, UserStory
+from project.models import Flujo, Proyecto, UserStory, Sprint
 from project.views import CreateViewPermissionRequiredMixin, GlobalPermissionRequiredMixin, ActiveProjectRequiredMixin
 
 
@@ -78,7 +78,7 @@ class FlujoDetailSprint(FlujoDetail):
         :param kwargs: diccionario de argumentos claves
         :return: contexto
         """
-        self.sprint = get_object_or_404(UserStory, pk=self.kwargs['sprint_pk'])
+        self.sprint = get_object_or_404(Sprint, pk=self.kwargs['sprint_pk'])
         context = super(generic.DetailView, self).get_context_data(**kwargs)
         context['actividades'] = [[a, a.userstory_set.filter(sprint=self.sprint).count()] for a in self.object.actividad_set.all()]
         context['sprint'] = self.sprint
