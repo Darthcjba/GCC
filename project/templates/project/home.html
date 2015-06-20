@@ -1,6 +1,6 @@
 {% extends 'project/base.html' %}
 {% block title %}Home{% endblock %}
-{% block header %}Projectium{% endblock %}
+{% block header %}Bienvenido {{ user.username|title }}{% endblock %}
 {% block content %}
     <div class="row">
         <div class="col-lg-3 col-md-6">
@@ -31,15 +31,15 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-bar-chart-o fa-5x"></i>
+                            <i class="fa fa-user fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">12</div>
-                            <div>Sprints</div>
+                            <div class="huge">{{ users_count }}</div>
+                            <div>Usuarios</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{% url 'project:user_list' %}">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -57,12 +57,12 @@
                             <i class="fa fa-table fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">12</div>
-                            <div>Sprints</div>
+                            <div class="huge">{{ plantillas_count }}</div>
+                            <div>Plantillas</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{% url 'project:plantilla_list' %}">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -80,12 +80,12 @@
                             <i class="fa fa-file fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">13</div>
+                            <div class="huge">{{ us_count }}</div>
                             <div>User Stories</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{% url 'project:user_detail' user.id %}#user_stories">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -96,21 +96,5 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="jumbotron">
-                <h1>More than just a Project Manager</h1>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices
-                    accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum dolor
-                    sit
-                    amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam
-                    ornare
-                    lacus adipiscing.</p>
-
-                <p><a class="btn btn-primary btn-lg" role="button">Empezar con Projectium</a></p>
-            </div>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
 {% endblock %}
