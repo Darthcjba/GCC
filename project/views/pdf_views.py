@@ -50,13 +50,10 @@ def get_graficos(project):
         d = {'infile': infile}
         pdata = json.dumps(d)
         #print pdata
-        r = requests.post(export_url, data=pdata, headers={'Content-Type': 'application/json'})
+        r = requests.post(export_url, data=pdata, headers={'Content-Type': 'application/json'}, timeout=5)
         graficos.append(r.content)
 
-
     return graficos
-
-
 
 @login_required
 @permission_required('project.view_project', (Proyecto, 'id', 'proyecto_id'))
