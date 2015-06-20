@@ -40,7 +40,6 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
                             <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
@@ -74,7 +73,6 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
                             <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
@@ -108,7 +106,6 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
                             <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />

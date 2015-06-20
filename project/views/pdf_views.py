@@ -60,16 +60,26 @@ def get_graficos(project):
 def reporte_backlog_producto(request, proyecto_id):
     project = get_object_or_404(Proyecto, id=proyecto_id)
     us_set_cancelados = project.userstory_set.filter(estado=4).order_by('sprint__inicio', '-prioridad')
+    cancelados_sum = us_set_cancelados.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    cancelados_real_sum = us_set_cancelados.aggregate(sum=Sum('tiempo_registrado'))['sum']
     us_set_inactivos = project.userstory_set.filter(estado=0).order_by('sprint__inicio', '-prioridad', 'tiempo_estimado')
     inactivos_sum = us_set_inactivos.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    inactivos_real_sum = us_set_inactivos.aggregate(sum=Sum('tiempo_registrado'))['sum']
     us_set_curso = project.userstory_set.filter(estado=1).order_by('sprint__inicio', '-prioridad')
     encurso_sum = us_set_curso.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    encurso__real_sum = us_set_curso.aggregate(sum=Sum('tiempo_registrado'))['sum']
     us_set_pendientes = project.userstory_set.filter(estado=2).order_by('sprint__inicio', '-prioridad', 'tiempo_estimado')
+    pendientes_sum = us_set_pendientes.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    pendientes_real_sum = us_set_pendientes.aggregate(sum=Sum('tiempo_registrado'))['sum']
     us_set_aprobados = project.userstory_set.filter(estado=3).order_by('sprint__inicio', '-prioridad')
+    aprobados_sum = us_set_aprobados.aggregate(sum=Sum('tiempo_estimado'))['sum']
+    aprobados_real_sum = us_set_aprobados.aggregate(sum=Sum('tiempo_registrado'))['sum']
     contexto = {'proyecto': project, 'cancelados': us_set_cancelados,
                 'inactivos': us_set_inactivos, 'en_curso': us_set_curso, 'pendientes': us_set_pendientes,
-                'aprobados': us_set_aprobados, 'sum_inactivos': inactivos_sum,
-                'sum_en_curso': encurso_sum}
+                'aprobados': us_set_aprobados, 'sum_inactivos': inactivos_sum, 'sum_inactivos_real': inactivos_real_sum,
+                'sum_en_curso': encurso_sum, 'sum_en_curso_real': encurso__real_sum, 'sum_cancelados': cancelados_sum,
+                'sum_cancelados_real': cancelados_real_sum, 'sum_aprobados': aprobados_sum, 'sum_aprobados_real': aprobados_real_sum,
+                'sum_pendientes': pendientes_sum, 'sum_pendientes_real': pendientes_real_sum}
     template = get_template('reportes/backlog_producto.html')
     html = template.render(RequestContext(request, contexto))
     response = HttpResponse(content_type="application/pdf")

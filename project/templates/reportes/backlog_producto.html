@@ -43,16 +43,17 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración estimada: </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración real: </strong> {{ us.tiempo_registrado }} horas ({% widthratio us.tiempo_registrado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
                         </div>
                     </div>
             </div>
         {% endfor %}
         </div>
         <p><strong>Tiempo total ideal para finalizar los User Stories en curso: </strong>{{ sum_en_curso }} horas ({% widthratio sum_en_curso 8 1 as tiempo_dias %}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }}) </p>
+        <p><strong>Tiempo total acumulado para finalizar los User Stories en curso: </strong>{{ sum_en_curso_real }} horas ({% widthratio sum_en_curso_real 8 1 as tiempo_dias %}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }}) </p>
         <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if inactivos %}
@@ -78,16 +79,17 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración estimada: </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración real: </strong> {{ us.tiempo_registrado }} horas ({% widthratio us.tiempo_registrado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
                         </div>
                     </div>
             </div>
             {% endfor %}
         </div>
         <p><strong>Tiempo total ideal para finalizar los User Stories inactivos: </strong>{{ sum_inactivos }} horas ({% widthratio sum_inactivos 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
+        <p><strong>Tiempo total acumulado para finalizar los User Stories inactivos: </strong>{{ sum_inactivos_real }} horas ({% widthratio sum_inactivos_real 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
         <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if pendientes %}
@@ -113,15 +115,17 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración estimada: </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración real: </strong> {{ us.tiempo_registrado }} horas ({% widthratio us.tiempo_registrado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
                         </div>
                     </div>
             </div>
         {% endfor %}
         </div>
+        <p><strong>Tiempo total estimado para User Stories pendientes de aprobación: </strong>{{ sum_pendientes }} horas ({% widthratio sum_pendientes 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
+        <p><strong>Tiempo total registrado para User Stories pendientes de aprobación: </strong>{{ sum_pendientes_real }} horas ({% widthratio sum_pendientes_real 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
         <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if aprobados %}
@@ -147,15 +151,17 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración estimada: </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración real: </strong> {{ us.tiempo_registrado }} horas ({% widthratio us.tiempo_registrado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
                         </div>
                     </div>
             </div>
             {% endfor %}
         </div>
+        <p><strong>Tiempo total estimado para los User Stories aprobados: </strong>{{ sum_aprobados }} horas ({% widthratio sum_aprobados 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
+        <p><strong>Tiempo total registrado para los User Stories aprobados: </strong>{{ sum_aprobados_real }} horas ({% widthratio sum_aprobados_real 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
         <p style="page-break-before: always" ></p> <!-- Salto de página para weasyprint -->
     {% endif %}
     {% if cancelados %}
@@ -181,15 +187,17 @@
                                 <strong>Flujo: </strong>{{ us.actividad.flujo }}<br/>
                                 <strong>Actividad: </strong>{{ us.actividad }} - {{ us.get_estado_actividad_display }}<br/>
                             {% endif %}
-                                <strong>Prioriodad: </strong>{{ us.get_prioridad_display }}<br />
                             <strong>Sprint: </strong>{{ us.sprint }} - <strong>Fecha de inicio: </strong>{{ us.sprint.inicio | date }}<br />
                             <strong>Prioriodad: </strong>{{ us.get_prioridad_display }} <br />
-                            <strong>Duración : </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración estimada: </strong> {{ us.tiempo_estimado }} horas ({% widthratio us.tiempo_estimado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
+                            <strong>Duración real: </strong> {{ us.tiempo_registrado }} horas ({% widthratio us.tiempo_registrado 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{tiempo_dias | pluralize}}) <br />
                         </div>
                     </div>
             </div>
             {% endfor %}
         </div>
+        <p><strong>Tiempo total invertido estimado en User Stories cancelados: </strong>{{ sum_cancelados }} horas ({% widthratio sum_cancelados 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
+        <p><strong>Tiempo total gastado en User Stories cancelados: </strong>{{ sum_cancelados_real }} horas ({% widthratio sum_cancelados_real 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
     {% endif %}
     </div>
 </body>
