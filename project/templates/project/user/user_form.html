@@ -25,7 +25,9 @@
                     {% bootstrap_field form.password1 %}
                     {% bootstrap_field form.password2 %}
                 {% endif %}
-                {% bootstrap_field form.is_active %}
+                {% if current_action == 'Editar' and not object.is_active %}
+                    {% bootstrap_field form.is_active layout='inline'%}
+                {% endif %}
             </div>
             <div class="col-lg-6">
                 {% bootstrap_field form.general_perms %}
