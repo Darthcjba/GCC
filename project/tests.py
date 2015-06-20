@@ -253,9 +253,12 @@ class UserTest(TestCase):
         #eliminamos el user
         response = c.post('/users/2/delete/', {'Confirmar':True}, follow=True)
         self.assertRedirects(response, '/users/')
-        #ahora ya no deberia existir el registro
+        #ahora ya no deberia estar activo el usuario
         response = c.get('/users/2/')
-        self.assertEquals(response.status_code, 404)
+        self.assertEquals(response.status_code, 200)
+        u = User.objects.get(pk=2)
+        self.assertIsNotNone(u)
+        self.assertFalse(u.is_active)
 
 class ProjectTest(TestCase):
 
