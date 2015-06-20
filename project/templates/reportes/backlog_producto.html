@@ -199,6 +199,9 @@
         <p><strong>Tiempo total invertido estimado en User Stories cancelados: </strong>{{ sum_cancelados }} horas ({% widthratio sum_cancelados 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
         <p><strong>Tiempo total gastado en User Stories cancelados: </strong>{{ sum_cancelados_real }} horas ({% widthratio sum_cancelados_real 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
     {% endif %}
+    <hr>
+    <p><strong>Tiempo total estimado para el proyecto {{ proyecto }}: </strong>{{ sum_proyecto }} horas ({% widthratio sum_proyecto 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
+        <p><strong>Tiempo total registrado para el proyecto {{ proyecto }}: </strong>{{ sum_proyecto_real }} horas ({% widthratio sum_proyecto_real 8 1 as tiempo_dias%}{{ tiempo_dias }} día{{ tiempo_dias | pluralize }})</p>
     </div>
 </body>
 </html>
