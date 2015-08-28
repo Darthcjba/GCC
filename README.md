@@ -1,6 +1,5 @@
 Projectium
 ==========
----
 
 ## Django Project Manager
 Projectium uses state-of-the-art technology to make sure your Project is done right.
