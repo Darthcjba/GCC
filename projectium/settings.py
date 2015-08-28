@@ -113,8 +113,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'projectium15@gmail.com'
-EMAIL_HOST_PASSWORD = 'projectium123'
+EMAIL_HOST_USER = 'user@domain.com'
+EMAIL_HOST_PASSWORD = 'password'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 TEMPLATE_CONTEXT_PROCESSORS = (
