@@ -39,6 +39,7 @@ Puede entrar a la demo siguiendo el link: [http://projectium.herokuapp.com/](htt
 # Quickstart
 
 ## Instalacion
+
 ```sh
 $ git clone https://github.com/BreakingBugs/Projectium.git
 $ cd Projectium
@@ -47,8 +48,10 @@ $ ./poblar_bd.sh
 $ python manage runserver
 ```
 
+
 ## Configuracion
 Cambiar de acuerdo a la configuracion de tu base de datos
+
 ```python
 DATABASES = {
     'default': {
