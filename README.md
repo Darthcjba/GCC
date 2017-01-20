@@ -46,7 +46,7 @@ DATABASES = {
     }
 }
 ```
-# Desarrolladores
+### Desarrolladores
 - Jordan Ayala
 - Santiago Ortiz
 - Guillermo Peralta
