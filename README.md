@@ -16,14 +16,22 @@ Projectium te permite gestionar tus proyectos usando metodologias agiles de desa
 
 ![Screenshot](http://i.imgur.com/snbIflS.png)
 
-### Dependencies
+## Desarrolladores
+- Jordan Ayala
+- Santiago Ortiz
+- Guillermo Peralta
+
+
+## Dependencias
 - Python 2.7.x
 - Django 1.7.x
 - [Psycopg 2](http://initd.org/psycopg/docs/install.html "Psycopg Installation")
 - [PostgreSQL 9.4.x](http://www.postgresql.org "PostgreSQL")
 - [PhantomJS](http://phantomjs.org) - _Requirement to Export Reports as PDF_
 
-### Instalation
+# Quickstart
+
+## Instalacion
 ```sh
 $ git clone https://github.com/UnPolloInc/Projectium.git
 $ cd Projectium
@@ -32,8 +40,8 @@ $ ./poblar_bd.sh
 $ python manage runserver
 ```
 
-### Configuration
-Change according to your own database settings
+## Configuracion
+Cambiar de acuerdo a la configuracion de tu base de datos
 ```python
 DATABASES = {
     'default': {
@@ -46,7 +54,3 @@ DATABASES = {
     }
 }
 ```
-### Desarrolladores
-- Jordan Ayala
-- Santiago Ortiz
-- Guillermo Peralta
