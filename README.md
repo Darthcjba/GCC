@@ -16,6 +16,11 @@ Projectium te permite gestionar tus proyectos usando metodologias agiles de desa
 
 ![Screenshot](http://i.imgur.com/snbIflS.png)
 
+## Demo
+Puede entrar a la demo siguiendo el link: [http://projectium.herokuapp.com/](http://projectium.herokuapp.com/)
+- Username: `demo`
+- Password: `demo`
+
 ## Equipo
 
 [![Jordan Ayala](https://avatars2.githubusercontent.com/u/6710350?v=3&s=144)](https://github.com/jmayalag) | [![Santiago Ortiz](https://avatars0.githubusercontent.com/u/11400041?v=3&s=144)](https://github.com/santiortizpy) | [![Guillermo Peralta](https://avatars1.githubusercontent.com/u/10501948?v=3&s=144)](https://github.com/voluntadpear)
