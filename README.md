@@ -33,7 +33,7 @@ Projectium te permite gestionar tus proyectos usando metodologias agiles de desa
 
 ## Instalacion
 ```sh
-$ git clone https://github.com/UnPolloInc/Projectium.git
+$ git clone https://github.com/BreakingBugs/Projectium.git
 $ cd Projectium
 $ pip install -r requirements.txt
 $ ./poblar_bd.sh
