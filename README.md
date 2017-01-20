@@ -1,8 +1,20 @@
-Projectium
-==========
+# Projectium
+Projectium te permite gestionar tus proyectos usando metodologias agiles de desarrollo.
 
-### Django Project Manager
-Projectium uses state-of-the-art technology to make sure your Project is done right.
+## Features
+- Uso de Metodologia Scrum (Sprints y User Stories)
+- Gestion de Proyectos
+- Gestion de Usuarios, Roles y Permisos
+- Gestion de User Stories
+    - Versiones
+    - Adjuntos
+    - Responsables
+    - Tiempos
+- Control de Progreso mediante Burndown Chart
+- Tablero de Progreso (Flujos Kanban)
+- Interfaz de Aministracion
+
+![Screenshot](http://i.imgur.com/snbIflS.png)
 
 ### Dependencies
 - Python 2.7.x
@@ -34,8 +46,7 @@ DATABASES = {
     }
 }
 ```
-___
-#### Credits
+# Desarrolladores
 - Jordan Ayala
 - Santiago Ortiz
 - Guillermo Peralta
