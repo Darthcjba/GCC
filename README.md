@@ -16,11 +16,12 @@ Projectium te permite gestionar tus proyectos usando metodologias agiles de desa
 
 ![Screenshot](http://i.imgur.com/snbIflS.png)
 
-## Desarrolladores
-- Jordan Ayala
-- Santiago Ortiz
-- Guillermo Peralta
+## Equipo
 
+[![Jordan Ayala](https://avatars2.githubusercontent.com/u/6710350?v=3&s=144)](https://github.com/jmayalag) | [![Santiago Ortiz](https://avatars0.githubusercontent.com/u/11400041?v=3&s=144)](https://github.com/santiortizpy) | [![Guillermo Peralta](https://avatars1.githubusercontent.com/u/10501948?v=3&s=144)](https://github.com/voluntadpear)
+---|---|---
+[Jordan Ayala](https://github.com/jmayalag) | [Santiago Ortiz](https://github.com/santiortizpy) | [Guillermo Peralta](https://github.com/voluntadpear)
+[jmayala@protonmail.com](mailto://jmayala@protonmail.com) | [santiortizpy@gmail.com](mailto://santiortizpy@gmail.com) | [gperaltascura@gmail.com](mailto://gperaltascura@gmail.com)
 
 ## Dependencias
 - Python 2.7.x
