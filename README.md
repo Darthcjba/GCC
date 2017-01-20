@@ -17,7 +17,7 @@ Projectium te permite gestionar tus proyectos usando metodologias agiles de desa
 ![Screenshot](http://i.imgur.com/snbIflS.png)
 
 ## Demo
-Puede entrar a la demo siguiendo el link: [http://projectium.herokuapp.com/](http://projectium.herokuapp.com/)
+Puede entrar a la demo siguiendo el link: [http://projectium.herokuapp.com/](http://projectium.herokuapp.com/)  
 - Username: `demo`
 - Password: `demo`
 
